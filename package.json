@@ -19,5 +19,8 @@
   "devDependencies": {
     "electron": "^2.0.0",
     "electron-toolkit": "^1.0.24"
+  },
+  "dependencies": {
+    "bootstrap": "^4.1.1"
   }
 }
