@@ -1,19 +1,12 @@
 .flow{
     /* forces the div to the left */
     position: absolute;
-    height: 200px;
-    width: 50%;
 }
 
 .left-element {
     /* forces the div to the left */
-    position: relative;
-    float: left;
-}
-.right-element {
-    /* forces the div to the left */
-    position: relative;
-    float: right;
+    position: relative; 
+    float: left; 
 }
 
 .bold-borders{
