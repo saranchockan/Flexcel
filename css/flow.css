@@ -5,10 +5,11 @@
 
 .left-element {
     /* forces the div to the left */
-    position: relative; 
-    float: left; 
+    position: relative;
+    float: left;
 }
 
+/* Debugging Utilities */
 .bold-borders{
     border-top: 1px solid black;
     border-bottom: 1px solid black;
