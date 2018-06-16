@@ -1,76 +1,98 @@
 <!doctype html>
 <html lang="en">
 
-  <head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
-      crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
-      crossorigin="anonymous"></script>
-    <script src="bootstrap/js/bootstrap.min.js"></script>
-    <script src="bootstrap/js/tabcordion.js"></script>
 
-    <script src="materialize/js/materialize.js"></script>
+  <!-- js/jQuery Electron Configuration-->
+  <script>if (typeof module === 'object') { window.module = module; module = undefined; }</script>
 
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
-    <link rel="stylesheet" href="materialize/css/materialize.css">
-    <link rel="stylesheet" href="css/flow.css">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
-      crossorigin="anonymous">
+  <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+    crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+    crossorigin="anonymous"></script>
+  <script src="bootstrap/js/bootstrap.min.js"></script>
 
-    <!-- Materialize CSS -->
+  <!-- Materialize js -->
+  <script src="materialize/js/materialize.js"></script>
 
-    <link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">
-    <!-- JavaScript Links-->
+  <!-- Electron configuration -->
+  <script>if (window.module) module = window.module;</script>
 
-    <title>DebateFlow</title>
 
-  </head>
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
+  <link rel="stylesheet" href="materialize/css/materialize.css">
+  <link rel="stylesheet" href="css/flow.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+    crossorigin="anonymous">
 
-  <body>
-    <div class="container flow ">
-      <div class="left-element w-100 p-3">
-        <ul class="nav nav-pills nav-fill">
-          <li class="nav-item">
-            <a class="nav-link active" id="1AC Framing" href="#">1AC Framing</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" id="Inherency" href="#">Inherency</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" id="Adv 1" href="#">Adv 1</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" id="Adv 2" href="#">Adv 2</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">Adv 3</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">1NC Framing</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">Off 1</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">Off 2</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">Off 3</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">Off 4</a>
-          </li>
-        </ul>
+  <!-- Materialize CSS -->
+  <link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">
+  <!-- JavaScript Links-->
 
-        
+  <title>DebateFlow</title>
+
+</head>
+
+<body>
+  <div class="container flow bold-borders">
+    <div class="left-element w-100 p-3">
+      <ul class="nav nav-pills mb-3" role="tablist">
+        <li class="nav-item">
+          <a class="nav-link active" id="1AC Framing" data-toggle="pill" href="#1AC-Framing-tab" role="tab" aria-controls="1AC-Framing-tab" aria-selected="true">1AC Framing</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" id="Inherency" data-toggle="pill" href="#Inherency-tab" role="tab" aria-controls="Inherency-tab" aria-selected="false">Inherency</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" id="Adv 1" data-toggle="pill" href="#Adv 1-tab">Adv 1</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" id="Adv 2" data-toggle="pill" href="#">Adv 2</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" id="Adv 3" data-toggle="pill" href="#">Adv 3</a>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link" id="Adv 4" data-toggle="pill" href="#">Adv 4</a>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link" id="Adv 4" data-toggle="pill" href="#">Adv 5</a>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link" id="Solvency" data-toggle="pill" href="#">Solvency</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" data-toggle="pill" href="#">1NC Framing</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" data-toggle="pill" href="#">Off 1</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" data-toggle="pill" href="#">Off 2</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" data-toggle="pill" href="#">Off 3</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" data-toggle="pill" href="#">Off 4</a>
+        </li>
+      </ul>
+      <div class="tab-content" id="pills-tabContent">
+        <div class="tab-pane fade show active" id="1AC-Framing-tab" role="tabpanel" aria-labelledby="1AC Framing">1AC Framing</div>
+        <div class="tab-pane fade" id="Inherency-tab" role="tabpanel" aria-labelledby="Inherency">Inherency</div>
+        <div class="tab-pane fade" id="Adv 1-tab" role="tabpanel" aria-labelledby="Adv 1">Adv 1</div>
       </div>
     </div>
-  </body>
+  </div>
+</body>
 
 </html>

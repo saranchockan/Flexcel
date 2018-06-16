@@ -13,7 +13,7 @@ function createWindow () {
   mainWindow.loadFile('flow.html')
 
   // Open the DevTools.
-  mainWindow.webContents.openDevTools()
+  // mainWindow.webContents.openDevTools()
 
   // Maximize window
   mainWindow.maximize();
