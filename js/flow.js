@@ -1,52 +1,72 @@
 var Mousetrap = require('mousetrap');
-
-//-- Switching Tabs
 const tabs = document.getElementById('flow-navbar').getElementsByClassName('nav-link');
 
 
 var index = 0;
 
 //-- Mousetrap Script: Keybindings for Tab customziation
-Mousetrap.bind('command+left', function() { 
+Mousetrap.bind('command+left', function () {
 
-    if(index>0){
-        tabs[index].className = "nav-link";
-        tabs[index-1].className = "nav-link active";
+    if (index > 0) {
+        
+        var id = tabs[index-1].id;
+        var reference = '#' + id;
+        $(document).ready(function () {
+            $(reference).click();
+        },'keyup');
+
         index = index - 1;
+
+        console.log('previous tab');
+
+
     }
-    else{
-        tabs[index].className = "nav-link";
-        tabs[tabs.length-1].className = "nav-link active";
-        index = tabs.length-1;
+    else {
+
+        var id = tabs[tabs.length - 1].id;
+        var reference = '#' + id;
+        $(document).ready(function () {
+            $(reference).click();
+        },'keyup');
+        index = tabs.length - 1;
+
+        console.log('previous tab');
+
+
     }
-    
+
 });
 
-Mousetrap.bind('command+right', function() { 
+Mousetrap.bind('command+right', function () {
 
-    if(index<tabs.length-1){
-        tabs[index].className = "nav-link";
-        tabs[index+1].className = "nav-link active";
+    if (index < tabs.length - 1) {
+
+        var id = tabs[index+1].id;
+        var reference = '#' + id;
+        $(document).ready(function () {
+            $(reference).click();
+        },'keyup');
+
         index = index + 1;
+
+        console.log('next tab');
     }
-    
-    else{
-        tabs[index].className = "nav-link";
-        tabs[0].className = "nav-link active";
+
+    else {
+
+        var id = tabs[0].id;
+        var reference = '#' + id;
+        $(document).ready(function () {
+            $(reference).click();
+        },'keyup');
+
         index = 0;
+
+        console.log('next tab');
+
     }
-    
+
 });
 
-// Mouse Click Test Case
-/*
-document.getElementById('test').addEventListener("click",()=>{
-    console.log('test');
-
-    for(i = 0;i<tabs.length;i++){
-        console.log(i + " " + tabs[i].className);
-    }
-});
-*/
 
 
