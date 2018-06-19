@@ -31,7 +31,10 @@
 
   <!-- Materialize CSS -->
   <link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">
-  <!-- JavaScript Links-->
+
+  <!-- Handstonable js & CSS -->
+  <script src="/dist/handsontable.full.js"></script>
+  <link rel="stylesheet" media="screen" href="/dist/handsontable.full.css">
 
   <title>DebateFlow</title>
 </head>
@@ -66,7 +69,7 @@
         <li class="nav-item">
           <a class="nav-link" id="Adv5" data-toggle="pill" href="#Adv-5-tab" role="tab" aria-controls="Adv-5-tab" aria-selected="false">Adv 5</a>
         </li>
-        <li id = "test" class="nav-item">
+        <li class="nav-item">
           <a class="nav-link" id="Solvency" data-toggle="pill" href="#Solvency-tab" role="tab" aria-controls="Solvency-tab" aria-selected="false">Solvency</a>
         </li>
         <li class="nav-item">
@@ -90,19 +93,19 @@
 
       <div class="tab-content" id="pills-tabContent">
 
-        <div class="tab-pane fade show active" id="1AC-Framing-tab" role="tabpanel" aria-labelledby="1ACFraming">1AC Framing</div>
-        <div class="tab-pane fade" id="Inherency-tab" role="tabpanel" aria-labelledby="Inherency">Inherency</div>
-        <div class="tab-pane fade" id="Adv-1-tab" role="tabpanel" aria-labelledby="Adv1">Adv 1</div>
-        <div class="tab-pane fade" id="Adv-2-tab" role="tabpanel" aria-labelledby="Adv2">Adv 2</div>
-        <div class="tab-pane fade" id="Adv-3-tab" role="tabpanel" aria-labelledby="Adv3">Adv 3</div>
-        <div class="tab-pane fade" id="Adv-4-tab" role="tabpanel" aria-labelledby="Adv4">Adv 4</div>
-        <div class="tab-pane fade" id="Adv-5-tab" role="tabpanel" aria-labelledby="Adv5">Adv 5</div>
-        <div class="tab-pane fade" id="Solvency-tab" role="tabpanel" aria-labelledby="Solvency">Solvency</div>
-        <div class="tab-pane fade" id="1NC-Framing-tab" role="tabpanel" aria-labelledby="1NCFraming">1NC Framing</div>
-        <div class="tab-pane fade" id="Off-1-Tab" role="tabpanel" aria-labelledby="Off1">Off 1</div>
-        <div class="tab-pane fade" id="Off-2-Tab" role="tabpanel" aria-labelledby="Off2">Off 2</div>
-        <div class="tab-pane fade" id="Off-3-Tab" role="tabpanel" aria-labelledby="Off3">Off 3</div>
-        <div class="tab-pane fade" id="Off-4-Tab" role="tabpanel" aria-labelledby="Off4">Off 4</div>
+        <div class="1AC tab-pane fade show active" id="1AC-Framing-tab" role="tabpanel" aria-labelledby="1ACFraming">1AC Framing</div>
+        <div class="1AC tab-pane fade" id="Inherency-tab" role="tabpanel" aria-labelledby="Inherency">Inherency</div>
+        <div class="1AC tab-pane fade" id="Adv-1-tab" role="tabpanel" aria-labelledby="Adv1">Adv 1</div>
+        <div class="1AC tab-pane fade" id="Adv-2-tab" role="tabpanel" aria-labelledby="Adv2">Adv 2</div>
+        <div class="1AC tab-pane fade" id="Adv-3-tab" role="tabpanel" aria-labelledby="Adv3">Adv 3</div>
+        <div class="1AC tab-pane fade" id="Adv-4-tab" role="tabpanel" aria-labelledby="Adv4">Adv 4</div>
+        <div class="1AC tab-pane fade" id="Adv-5-tab" role="tabpanel" aria-labelledby="Adv5">Adv 5</div>
+        <div class="1AC tab-pane fade" id="Solvency-tab" role="tabpanel" aria-labelledby="Solvency">Solvency</div>
+        <div class="1NC tab-pane fade" id="1NC-Framing-tab" role="tabpanel" aria-labelledby="1NCFraming">1NC Framing</div>
+        <div class="1NC tab-pane fade" id="Off-1-Tab" role="tabpanel" aria-labelledby="Off1">Off 1</div>
+        <div class="1NC tab-pane fade" id="Off-2-Tab" role="tabpanel" aria-labelledby="Off2">Off 2</div>
+        <div class="1NC tab-pane fade" id="Off-3-Tab" role="tabpanel" aria-labelledby="Off3">Off 3</div>
+        <div class="1NC tab-pane fade" id="Off-4-Tab" role="tabpanel" aria-labelledby="Off4">Off 4</div>
         
       </div>
     </div>
@@ -110,6 +113,8 @@
 
     <!-- Main js-->
     <script src="js/ld/plan/plan-flow.js"></script>
+    <script src="js/flow-template/1AC -flow.js"></script>
+    <script src="js/flow-template/1NC -flow.js"></script>
 </body>
 
 </html>
