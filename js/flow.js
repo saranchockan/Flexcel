@@ -1,10 +1,11 @@
+
+//-- Mousetrap Script: Keybindings for Tab customziation
+
 var Mousetrap = require('mousetrap');
 const tabs = document.getElementById('flow-navbar').getElementsByClassName('nav-link');
 
-
 var index = 0;
 
-//-- Mousetrap Script: Keybindings for Tab customziation
 Mousetrap.bind('command+left', function () {
 
     if (index > 0) {
@@ -17,9 +18,6 @@ Mousetrap.bind('command+left', function () {
 
         index = index - 1;
 
-        console.log('previous tab');
-
-
     }
     else {
 
@@ -29,9 +27,6 @@ Mousetrap.bind('command+left', function () {
             $(reference).click();
         },'keyup');
         index = tabs.length - 1;
-
-        console.log('previous tab');
-
 
     }
 
@@ -48,8 +43,6 @@ Mousetrap.bind('command+right', function () {
         },'keyup');
 
         index = index + 1;
-
-        console.log('next tab');
     }
 
     else {
@@ -61,9 +54,6 @@ Mousetrap.bind('command+right', function () {
         },'keyup');
 
         index = 0;
-
-        console.log('next tab');
-
     }
 
 });
