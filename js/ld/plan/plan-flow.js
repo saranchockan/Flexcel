@@ -3,11 +3,12 @@
 
 var Mousetrap = require('mousetrap');
 const tabs = document.getElementById('flow-navbar').getElementsByClassName('nav-link');
-const flows = document.getElementsByClassName('tab-pane ');
+const flows = document.getElementsByClassName('tab-pane');
+
 
 var index = 0;
 
-Mousetrap.bind('command+o', function () {
+Mousetrap.bind('-', function () {
 
     console.log(getClassNames());
 
@@ -29,15 +30,17 @@ Mousetrap.bind('command+o', function () {
         $(document).ready(function () {
             $(reference).click();
         });
+
         index = tabs.length - 1;
+
 
     }
 
     switchFlow();
 
-});
+},'keyup');
 
-Mousetrap.bind('command+p', function () {
+Mousetrap.bind('=', function () {
 
     console.log(getClassNames());
 
@@ -48,8 +51,6 @@ Mousetrap.bind('command+p', function () {
         $(document).ready(function () {
             $(reference).click();
         });
-
-        
 
         index = index + 1;
     }
@@ -67,7 +68,7 @@ Mousetrap.bind('command+p', function () {
 
     switchFlow();
 
-});
+},'keyup');
 
 function getClassNames(){
 
@@ -77,6 +78,7 @@ function getClassNames(){
 
         var name_list = flows[i].classList
 
+        classnames = classnames + flows[i].id + " ";
         for(k = 0;k<name_list.length;k++){
             classnames = classnames + name_list[k] + " ";
         }

@@ -1,7 +1,6 @@
 .flow{
     /* forces the div to the left */
     position: absolute;
-    width: 1080px;
 }
 
 .left-element {
