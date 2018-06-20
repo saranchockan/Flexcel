@@ -1,22 +1,57 @@
-var flow_tabs = document.getElementsByClassName('1AC');
-var flow;
-
-for(i = 0;i<tabs.length;i++){
-    flow = new Handsontable(flow_tabs[i], {
-        height: 456,
-        colWidths: 105,
-        minCols: 5,
-        minRows: 500,
-        rowHeaders: true,
-        colHeaders: [
-            '1AC',
-            '1NR',
-            '1AR',
-            '2NR',
-            '2AR',
-        ],
-    });
-}
 
 
+$('#1AC-Framing-tab').jexcel({
+    colHeaders: ['AC', '1NR', '1AR', '2NR', '2AR' ],
+    colWidths: [ 100, 100, 100,100, 100, 100 ]
+    
+});
 
+$('#Inherency-tab').jexcel({
+    colHeaders: ['AC', '1NR', '1AR', '2NR', '2AR' ],
+    colWidths: [ 100, 100, 100,100, 100, 100 ]
+    
+});
+
+
+$('#Adv-1-tab').jexcel({
+    colHeaders: ['AC', '1NR', '1AR', '2NR', '2AR' ],
+    colWidths: [ 100, 100, 100,100, 100, 100 ]
+    
+});
+
+
+$('#Adv-2-tab').jexcel({
+    colHeaders: ['AC', '1NR', '1AR', '2NR', '2AR' ],
+    colWidths: [ 100, 100, 100,100, 100, 100 ]
+    
+});
+
+
+$('#Adv-3-tab').jexcel({
+    colHeaders: ['AC', '1NR', '1AR', '2NR', '2AR' ],
+    colWidths: [ 100, 100, 100,100, 100, 100 ]
+    
+});
+
+$('#Adv-4-tab').jexcel({
+    colHeaders: ['AC', '1NR', '1AR', '2NR', '2AR' ],
+    colWidths: [ 100, 100, 100,100, 100, 100 ]
+    
+});
+
+$('#Adv-5-tab').jexcel({
+    colHeaders: ['AC', '1NR', '1AR', '2NR', '2AR' ],
+    colWidths: [ 100, 100, 100,100, 100, 100 ]
+    
+});
+
+$('#Solvency-tab').jexcel({
+    colHeaders: ['AC', '1NR', '1AR', '2NR', '2AR' ],
+    colWidths: [ 100, 100, 100,100, 100, 100 ]
+    
+});
+
+
+
+
+ 
