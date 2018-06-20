@@ -35,25 +35,19 @@
   <!-- Handstonable js & CSS -->
   <script src="handstonable/handsontable.full.js"></script>
   <link rel="stylesheet" media="screen" href="handstonable/handsontable.full.min.css">
-
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-
-  <!-- jExcel js & CSS -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jexcel/1.3.4/js/jquery.jexcel.js"></script>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jexcel/1.3.4/css/jquery.jexcel.css" type="text/css" />
-
+  
   <title>DebateFlow</title>
 </head>
 
 <body>
   <!-- Flow: tab pane and spreadsheet placed in a div that is floated to the left-->
-  <div class="flow bold-borders">
-    <div id="flow-navbar" class="left-element w-100 p-3">
+  <div class="container flow bold-borders w-75 p-3">
+    <div id = "flow-navbar" class="left-element w-100 p-3">
 
       <!-- Bootstrap Nav-->
 
       <ul id="flow-tabs" class="nav nav-pills mb-3" role="tablist">
-        <li class="nav-item">
+        <li  class="nav-item">
           <a class="nav-link active" id="1ACFraming" data-toggle="pill" href="#1AC-Framing-tab" role="tab" aria-controls="1AC-Framing-tab"
             aria-selected="true">1AC Framing</a>
         </li>
@@ -79,8 +73,7 @@
           <a class="nav-link" id="Solvency" data-toggle="pill" href="#Solvency-tab" role="tab" aria-controls="Solvency-tab" aria-selected="false">Solvency</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" id="1NCFraming" data-toggle="pill" href="#1NC-Framing-tab" role="tab" aria-controls="1NC-Framing-tab"
-            aria-selected="false">1NC Framing</a>
+          <a class="nav-link" id="1NCFraming" data-toggle="pill" href="#1NC-Framing-tab" role="tab" aria-controls="1NC-Framing-tab" aria-selected="false">1NC Framing</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" id="Off1" data-toggle="pill" href="#Off-1-Tab" role="tab" aria-controls="Off-1-Tab" aria-selected="false">Off 1</a>
@@ -100,28 +93,28 @@
 
       <div class="tab-content" id="pills-tabContent">
 
-        <div class="flow-tab 1AC tab-pane fade show active" id="1AC-Framing-tab" role="tabpanel" aria-labelledby="1ACFraming"></div>
-        <div class="flow-tab 1AC tab-pane fade" id="Inherency-tab" role="tabpanel" aria-labelledby="Inherency"></div>
-        <div class="flow-tab 1AC tab-pane fade" id="Adv-1-tab" role="tabpanel" aria-labelledby="Adv1"></div>
-        <div class="flow-tab 1AC tab-pane fade" id="Adv-2-tab" role="tabpanel" aria-labelledby="Adv2"></div>
-        <div class="flow-tab 1AC tab-pane fade" id="Adv-3-tab" role="tabpanel" aria-labelledby="Adv3"></div>
-        <div class="flow-tab 1AC tab-pane fade" id="Adv-4-tab" role="tabpanel" aria-labelledby="Adv4"></div>
-        <div class="flow-tab 1AC tab-pane fade" id="Adv-5-tab" role="tabpanel" aria-labelledby="Adv5"></div>
-        <div class="flow-tab 1AC tab-pane fade" id="Solvency-tab" role="tabpanel" aria-labelledby="Solvency"></div>
-        <div class="flow-tab 1NC tab-pane fade" id="1NC-Framing-tab" role="tabpanel" aria-labelledby="1NCFraming"></div>
-        <div class="flow-tab 1NC tab-pane fade" id="Off-1-Tab" role="tabpanel" aria-labelledby="Off1"></div>
-        <div class="flow-tab 1NC tab-pane fade" id="Off-2-Tab" role="tabpanel" aria-labelledby="Off2"></div>
-        <div class="flow-tab 1NC tab-pane fade" id="Off-3-Tab" role="tabpanel" aria-labelledby="Off3"></div>
-        <div class="flow-tab 1NC tab-pane fade" id="Off-4-Tab" role="tabpanel" aria-labelledby="Off4"></div>
-
+        <div class="1AC tab-pane fade show active" id="1AC-Framing-tab" role="tabpanel" aria-labelledby="1ACFraming">1AC Framing</div>
+        <div class="1AC tab-pane fade" id="Inherency-tab" role="tabpanel" aria-labelledby="Inherency">Inherency</div>
+        <div class="1AC tab-pane fade" id="Adv-1-tab" role="tabpanel" aria-labelledby="Adv1">Adv 1</div>
+        <div class="1AC tab-pane fade" id="Adv-2-tab" role="tabpanel" aria-labelledby="Adv2">Adv 2</div>
+        <div class="1AC tab-pane fade" id="Adv-3-tab" role="tabpanel" aria-labelledby="Adv3">Adv 3</div>
+        <div class="1AC tab-pane fade" id="Adv-4-tab" role="tabpanel" aria-labelledby="Adv4">Adv 4</div>
+        <div class="1AC tab-pane fade" id="Adv-5-tab" role="tabpanel" aria-labelledby="Adv5">Adv 5</div>
+        <div class="1AC tab-pane fade" id="Solvency-tab" role="tabpanel" aria-labelledby="Solvency">Solvency</div>
+        <div class="1NC tab-pane fade" id="1NC-Framing-tab" role="tabpanel" aria-labelledby="1NCFraming">1NC Framing</div>
+        <div class="1NC tab-pane fade" id="Off-1-Tab" role="tabpanel" aria-labelledby="Off1">Off 1</div>
+        <div class="1NC tab-pane fade" id="Off-2-Tab" role="tabpanel" aria-labelledby="Off2">Off 2</div>
+        <div class="1NC tab-pane fade" id="Off-3-Tab" role="tabpanel" aria-labelledby="Off3">Off 3</div>
+        <div class="1NC tab-pane fade" id="Off-4-Tab" role="tabpanel" aria-labelledby="Off4">Off 4</div>
+        
       </div>
     </div>
   </div>
 
-  <!-- Main js-->
-  <script src="js/ld/plan/plan-flow.js"></script>
-  <script src="js/flow-template/1AC -flow.js"></script>
-  <script src="js/flow-template/1NC -flow.js"></script>
+    <!-- Main js-->
+    <script src="js/ld/plan/plan-flow.js"></script>
+    <script src="js/flow-template/1AC -flow.js"></script>
+    <script src="js/flow-template/1NC -flow.js"></script>
 </body>
 
 </html>
