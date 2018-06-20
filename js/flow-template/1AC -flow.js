@@ -1,4 +1,3 @@
-
 var flow_tabs = document.getElementsByClassName('1AC');
 var flow;
 
@@ -16,17 +15,8 @@ for(i = 0;i<tabs.length;i++){
             '2NR',
             '2AR',
         ],
-        columnSorting: true,
-        filters: true,
-        dropdownMenu: true,
-        contextMenu: true,
-        autoRowSize: true,
-        manualColumnMove: true,
-        manualRowMove: true,
-        fillHandle: {
-            autoInsertRow: false,
-        }
     });
 }
+
 
 

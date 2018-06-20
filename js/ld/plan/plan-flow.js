@@ -6,7 +6,7 @@ const tabs = document.getElementById('flow-navbar').getElementsByClassName('nav-
 
 var index = 0;
 
-Mousetrap.bind('command+left', function () {
+Mousetrap.bind('command+o', function () {
 
     if (index > 0) {
         
@@ -32,7 +32,7 @@ Mousetrap.bind('command+left', function () {
 
 });
 
-Mousetrap.bind('command+right', function () {
+Mousetrap.bind('command+p', function () {
 
     if (index < tabs.length - 1) {
 
