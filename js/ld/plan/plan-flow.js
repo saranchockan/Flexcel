@@ -1,4 +1,7 @@
 
+ $('#flow-navbar').unbind('click');
+
+
 //-- Mousetrap Script: Keybindings for Tab customziation
 
 var Mousetrap = require('mousetrap');
@@ -33,10 +36,10 @@ Mousetrap.bind('-', function () {
 
         index = tabs.length - 1;
 
-
     }
+        switchFlow();
+        console.log(getClassNames());
 
-    switchFlow();
 
 },'keyup');
 
@@ -66,9 +69,12 @@ Mousetrap.bind('=', function () {
         index = 0;
     }
 
-    switchFlow();
+        switchFlow();
+        console.log(getClassNames());
+
 
 },'keyup');
+
 
 function getClassNames(){
 
@@ -93,12 +99,21 @@ function switchFlow(){
 
     for(i = 0;i<flows.length;i++){
         if(index == i){
+            // console.log(index);
             flows[i].classList.add('active');
             flows[i].classList.add('show');
+            
+            var id = '#' + tabs[i].id;
+            $(id).attr('aria-selected','true');
+
         }
         else{
+            // console.log(i);
             flows[i].classList.remove('show');
             flows[i].classList.remove('active');
+
+            var id = '#' + tabs[i].id;
+            $(id).attr('aria-selected','false');
             
         }
     }
