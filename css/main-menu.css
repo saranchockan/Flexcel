@@ -1,0 +1,16 @@
+.spash-screen{
+    position: absolute;
+}
+
+.logo-screen{
+    position: relative;
+    float: left;
+}
+
+/* Debugging Utilities */
+.bold-borders{
+    border-top: 1px solid black;
+    border-bottom: 1px solid black;
+    border-left: 1px solid black;
+    border-right: 1px solid black;
+}
