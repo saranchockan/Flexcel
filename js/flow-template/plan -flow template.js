@@ -1,6 +1,6 @@
 
 var AC_data = $.fn.jexcel('helper', { action:'createEmptyData', cols:5, rows:150 });
-var NC_data = $.fn.jexcel('helper', { action:'createEmptyData', cols:5, rows:150 });
+var NC_data = $.fn.jexcel('helper', { action:'createEmptyData', cols:4, rows:150 });
 
 
 $('#1AC-Framing-tab').jexcel({

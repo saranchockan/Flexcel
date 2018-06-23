@@ -1,5 +1,5 @@
 
- $('#flow-navbar').unbind('click');
+$('#flow-navbar').unbind('click');
 
 
 //-- Mousetrap Script: Keybindings for Tab customziation
@@ -16,8 +16,8 @@ Mousetrap.bind('-', function () {
     console.log(getClassNames());
 
     if (index > 0) {
-        
-        var id = tabs[index-1].id;
+
+        var id = tabs[index - 1].id;
         var reference = '#' + id;
         $(document).ready(function () {
             $(reference).click();
@@ -37,11 +37,11 @@ Mousetrap.bind('-', function () {
         index = tabs.length - 1;
 
     }
-        switchFlow();
-        console.log(getClassNames());
+    switchFlow();
+    console.log(getClassNames());
 
 
-},'keyup');
+}, 'keyup');
 
 Mousetrap.bind('=', function () {
 
@@ -49,7 +49,7 @@ Mousetrap.bind('=', function () {
 
     if (index < tabs.length - 1) {
 
-        var id = tabs[index+1].id;
+        var id = tabs[index + 1].id;
         var reference = '#' + id;
         $(document).ready(function () {
             $(reference).click();
@@ -69,23 +69,33 @@ Mousetrap.bind('=', function () {
         index = 0;
     }
 
-        switchFlow();
-        console.log(getClassNames());
+    switchFlow();
+    console.log(getClassNames());
 
 
-},'keyup');
+}, 'keyup');
+
+Mousetrap.bind(']', function () {
+    o = $('#1AC-Framing-tab').find('#0-0');
+    o
+    /*
+    d = $('#1AC-Framing-tab').find('#0-1');
+    $('#1AC-Framing-tab').jexcel('updateSelection', o, d);
+    */
 
 
-function getClassNames(){
+});
+
+function getClassNames() {
 
     var classnames;
-    
-    for(i = 0;i<flows.length;i++){
+
+    for (i = 0; i < flows.length; i++) {
 
         var name_list = flows[i].classList
 
         classnames = classnames + flows[i].id + " ";
-        for(k = 0;k<name_list.length;k++){
+        for (k = 0; k < name_list.length; k++) {
             classnames = classnames + name_list[k] + " ";
         }
 
@@ -95,26 +105,26 @@ function getClassNames(){
     return classnames;
 }
 
-function switchFlow(){
+function switchFlow() {
 
-    for(i = 0;i<flows.length;i++){
-        if(index == i){
+    for (i = 0; i < flows.length; i++) {
+        if (index == i) {
             // console.log(index);
             flows[i].classList.add('active');
             flows[i].classList.add('show');
-            
+
             var id = '#' + tabs[i].id;
-            $(id).attr('aria-selected','true');
+            $(id).attr('aria-selected', 'true');
 
         }
-        else{
+        else {
             // console.log(i);
             flows[i].classList.remove('show');
             flows[i].classList.remove('active');
 
             var id = '#' + tabs[i].id;
-            $(id).attr('aria-selected','false');
-            
+            $(id).attr('aria-selected', 'false');
+
         }
     }
 
