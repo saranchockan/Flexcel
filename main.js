@@ -10,12 +10,13 @@ function createWindow () {
   mainWindow = new BrowserWindow({width: 800, height: 600})
 
   // and load the index.html of the app.
-  mainWindow.loadFile('plan-flow.html')
+  mainWindow.loadFile('main-menu.html')
   // Open the DevTools.
-  // mainWindow.webContents.openDevTools()
+  mainWindow.webContents.openDevTools({detach: true})
 
   // Maximize window
   // mainWindow.maximize();
+  
 
   // Window's heigh and width are fixed
   mainWindow.setResizable(false);
