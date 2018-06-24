@@ -74,6 +74,7 @@ $('#flow-navbar a').on('shown.bs.tab', function (e) {
     console.log('click');   
     console.log(getClassNames());
     console.log(this.classList[0]); 
+
     switchFlow();
     index = parseInt(this.classList[0]);
     
@@ -127,9 +128,3 @@ function getClassNames() {
 
     return classnames;
 }
-
-
-
-
-
-
