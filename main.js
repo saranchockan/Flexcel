@@ -7,19 +7,19 @@ let mainWindow
 
 function createWindow () {
   // Create the browser window.
-  mainWindow = new BrowserWindow({width: 800, height: 600})
+  mainWindow = new BrowserWindow({width: 700, height: 450})
 
   // and load the index.html of the app.
   mainWindow.loadFile('main-menu.html')
   // Open the DevTools.
-  mainWindow.webContents.openDevTools({detach: true})
+  // mainWindow.webContents.openDevTools({detach: true})
 
   // Maximize window
   // mainWindow.maximize();
   
 
   // Window's heigh and width are fixed
-  mainWindow.setResizable(false);
+  mainWindow.setResizable(true);
 
   // Emitted when the window is closed.
   mainWindow.on('closed', function () {
