@@ -1,7 +1,4 @@
 
-$('#flow-navbar').unbind('click');
-
-
 //-- Mousetrap Script: Keybindings for Tab customziation
 
 var Mousetrap = require('mousetrap');
@@ -11,80 +8,106 @@ const flows = document.getElementsByClassName('tab-pane');
 
 var index = 0;
 
-Mousetrap.bind('-', function () {
+//-- Switches to the previous tab
 
-    console.log(getClassNames());
+Mousetrap.bind(['command+o','ctrl+o'], function () {
 
     if (index > 0) {
 
-        var id = tabs[index - 1].id;
+        index = index - 1;
+
+        var id = tabs[index].id;
         var reference = '#' + id;
+        
         $(document).ready(function () {
             $(reference).click();
         });
-
-        index = index - 1;
+        
 
     }
     else {
-
-        var id = tabs[tabs.length - 1].id;
+        index = tabs.length - 1;
+        var id = tabs[index].id;
         var reference = '#' + id;
         $(document).ready(function () {
             $(reference).click();
         });
 
-        index = tabs.length - 1;
 
     }
-    switchFlow();
-    console.log(getClassNames());
-
 
 }, 'keyup');
 
-Mousetrap.bind('=', function () {
+//-- Switches to the next tab
+
+Mousetrap.bind(['command+p','ctrl+p'], function () {
 
     console.log(getClassNames());
 
     if (index < tabs.length - 1) {
 
-        var id = tabs[index + 1].id;
+        index = index + 1;
+        var id = tabs[index].id;
         var reference = '#' + id;
+        
         $(document).ready(function () {
             $(reference).click();
         });
-
-        index = index + 1;
+        
     }
 
     else {
-
-        var id = tabs[0].id;
+        index = 0;
+        var id = tabs[index].id;
         var reference = '#' + id;
         $(document).ready(function () {
             $(reference).click();
         });
 
-        index = 0;
     }
-
-    switchFlow();
-    console.log(getClassNames());
-
 
 }, 'keyup');
 
-Mousetrap.bind(']', function () {
-    o = $('#1AC-Framing-tab').find('#0-0');
-    o
-    /*
-    d = $('#1AC-Framing-tab').find('#0-1');
-    $('#1AC-Framing-tab').jexcel('updateSelection', o, d);
-    */
+// Event fired after user selects tab: the flow is switched, index is updated
+
+$('#flow-navbar a').on('shown.bs.tab', function (e) {
+    console.log('click');   
+    console.log(getClassNames());
+    console.log(this.classList[0]); 
+    switchFlow();
+    index = parseInt(this.classList[0]);
+    
+})
 
 
-});
+//-- Adds visibility to the selected flow, and removes the visibilty from the previous tab
+
+function switchFlow() {
+
+    for (i = 0; i < flows.length; i++) {
+        if (index == i) {
+            
+            flows[i].classList.add('active');
+            flows[i].classList.add('show');
+
+            var id = '#' + tabs[i].id;
+            $(id).attr('aria-selected', 'true');
+
+        }
+        else {
+           
+            flows[i].classList.remove('show');
+            flows[i].classList.remove('active');
+
+            var id = '#' + tabs[i].id;
+            $(id).attr('aria-selected', 'false');
+
+        }
+    }
+
+}
+
+//-- Debuggin Utility: Prints out the class list of every flow div
 
 function getClassNames() {
 
@@ -103,31 +126,6 @@ function getClassNames() {
     }
 
     return classnames;
-}
-
-function switchFlow() {
-
-    for (i = 0; i < flows.length; i++) {
-        if (index == i) {
-            // console.log(index);
-            flows[i].classList.add('active');
-            flows[i].classList.add('show');
-
-            var id = '#' + tabs[i].id;
-            $(id).attr('aria-selected', 'true');
-
-        }
-        else {
-            // console.log(i);
-            flows[i].classList.remove('show');
-            flows[i].classList.remove('active');
-
-            var id = '#' + tabs[i].id;
-            $(id).attr('aria-selected', 'false');
-
-        }
-    }
-
 }
 
 
