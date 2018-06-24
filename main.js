@@ -19,7 +19,7 @@ function createWindow () {
   
 
   // Window's heigh and width are fixed
-  mainWindow.setResizable(true);
+  mainWindow.setResizable(false);
 
   // Emitted when the window is closed.
   mainWindow.on('closed', function () {
