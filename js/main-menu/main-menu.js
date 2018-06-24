@@ -8,15 +8,6 @@ const BrowserWindow = electron.remote.BrowserWindow;
 var LD_Button = document.getElementById('ld');
 
 LD_Button.addEventListener("click", () => {
-    /*
-    remote.getCurrentWindow().loadURL(url.format({
-        pathname: path.join(__dirname, 'plan-flow.html'),
-        protocol: 'file:',
-        slashes: true,
-      }));
-
-    remote.getCurrentWindow().maximize();
-    */
     
     let win = new BrowserWindow({ width: 400, height: 200 })
     win.on('close', function () { win = null })
@@ -25,7 +16,5 @@ LD_Button.addEventListener("click", () => {
     win.show()
 
     remote.getCurrentWindow().close();
-
-
 
 });
