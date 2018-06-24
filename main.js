@@ -7,12 +7,12 @@ let mainWindow
 
 function createWindow () {
   // Create the browser window.
-  mainWindow = new BrowserWindow({width: 700, height: 450})
+  mainWindow = new BrowserWindow({width: 700, height: 450, show: false})
 
   // and load the index.html of the app.
   mainWindow.loadFile('main-menu.html')
   // Open the DevTools.
-  // mainWindow.webContents.openDevTools({detach: true})
+  mainWindow.webContents.openDevTools({detach: true})
 
   // Maximize window
   // mainWindow.maximize();
@@ -27,6 +27,10 @@ function createWindow () {
     // in an array if your app supports multi windows, this is the time
     // when you should delete the corresponding element.
     mainWindow = null
+  })
+
+  mainWindow.once('ready-to-show', () => {
+    mainWindow.show()
   })
 }
 
