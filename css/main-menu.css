@@ -27,6 +27,22 @@ p {
     font-size: 30px;
 }
 
+.elementToFadeInAndOut {
+    opacity: 1;
+    animation: fade 2s linear;
+}
+
+@keyframes fade {
+  0% { 
+    opacity: 0; 
+    transform: translateX(-20px);
+    }
+  100% { 
+      opacity: 1; 
+      transform: translateX(0);
+    }
+}
+
 /* Debugging Utilities */
 .bold-borders{
     border-top: 1px solid black;
