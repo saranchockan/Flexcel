@@ -12,6 +12,7 @@ $('#1AC-Framing-tab').jexcel({
     allowInsertColumn: false
 });
 
+
 $('#Inherency-tab').jexcel({
     data: AC_data,
     colHeaders: ['AC', '1NR', '1AR', '2NR', '2AR' ],
