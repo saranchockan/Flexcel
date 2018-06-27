@@ -5,7 +5,7 @@ var data = [
   container,
   hot;
 
-function firstRowRenderer(instance, td, row, col, prop, value, cellProperties) {
+function flowLabels(instance, td, row, col, prop, value, cellProperties) {
   Handsontable.renderers.TextRenderer.apply(this, arguments);
   td.style.fontWeight = 'bold';
   if (col % 2 == 1) { 
@@ -37,7 +37,7 @@ hot = new Handsontable(container, {
   data: data,
   minCols: 5,
   minRows: 20,
-  colWidths: 150,
+  colWidths: 190,
   afterSelection: function (row, col, row2, col2) {
     var meta = this.getCellMeta(row2, col2);
 
@@ -56,7 +56,7 @@ hot = new Handsontable(container, {
       cellProperties.readOnly = true;
     }
     if (row === 0) {
-      cellProperties.renderer = firstRowRenderer; // uses function directly
+      cellProperties.renderer = flowLabels; // uses function directly
     }
 
     else{
