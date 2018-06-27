@@ -31,26 +31,22 @@
   <!-- Materialize CSS -->
   <link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">
 
-  <!-- Handstonable js & CSS -->
-  <script src="handstonable/handsontable.full.js"></script>
-  <link rel="stylesheet" media="screen" href="handstonable/handsontable.full.min.css">
+  <!-- jExcel js & CSS -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jexcel/1.3.4/js/jquery.jexcel.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jexcel/1.3.4/css/jquery.jexcel.css" type="text/css" />
 
-    <!-- jExcel js & CSS -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jexcel/1.3.4/js/jquery.jexcel.js"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jexcel/1.3.4/css/jquery.jexcel.css" type="text/css" />
-  
   <title>DebateFlow</title>
 </head>
 
 <body>
   <!-- Flow: tab pane and spreadsheet placed in a div that is floated to the left-->
-  <div class="container flow bold-borders w-75 p-3">
-    <div id = "flow-navbar" class="left-element w-100 p-3">
+  <div class="container flow kw-75 p-3">
+    <div id="flow-navbar" class="left-element w-100 p-3">
 
       <!-- Bootstrap Nav-->
 
       <ul id="flow-tabs" class="nav nav-pills mb-3" role="tablist">
-        <li  class="nav-item">
+        <li class="nav-item">
           <a class="0 nav-link active" id="1ACFraming" data-toggle="pill" href="#1AC-Framing-tab" role="tab" aria-controls="1AC-Framing-tab"
             aria-selected="true">1AC Framing</a>
         </li>
@@ -76,7 +72,8 @@
           <a class="7 nav-link" id="Solvency" data-toggle="pill" href="#Solvency-tab" role="tab" aria-controls="Solvency-tab" aria-selected="false">Solvency</a>
         </li>
         <li class="nav-item">
-          <a class="8 nav-link" id="1NCFraming" data-toggle="pill" href="#1NC-Framing-tab" role="tab" aria-controls="1NC-Framing-tab" aria-selected="false">1NC Framing</a>
+          <a class="8 nav-link" id="1NCFraming" data-toggle="pill" href="#1NC-Framing-tab" role="tab" aria-controls="1NC-Framing-tab"
+            aria-selected="false">1NC Framing</a>
         </li>
         <li class="nav-item">
           <a class="9 nav-link" id="Off1" data-toggle="pill" href="#Off-1-Tab" role="tab" aria-controls="Off-1-Tab" aria-selected="false">Off 1</a>
@@ -94,7 +91,7 @@
 
       <!-- js plugin for collapsing-->
 
-      <div class="tab-content" id="pills-tabContent">
+      <div id="flows" class="tab-content" id="pills-tabContent">
 
         <div class="1AC tab-pane fade show active" id="1AC-Framing-tab" role="tabpanel" aria-labelledby="1ACFraming"></div>
         <div class="1AC tab-pane fade" id="Inherency-tab" role="tabpanel" aria-labelledby="Inherency"></div>
@@ -109,14 +106,14 @@
         <div class="1NC tab-pane fade" id="Off-2-Tab" role="tabpanel" aria-labelledby="Off2"></div>
         <div class="1NC tab-pane fade" id="Off-3-Tab" role="tabpanel" aria-labelledby="Off3"></div>
         <div class="1NC tab-pane fade" id="Off-4-Tab" role="tabpanel" aria-labelledby="Off4"></div>
-        
+
       </div>
     </div>
   </div>
 
-    <!-- Main js-->
-    <script src="js/ld/plan/plan-flow.js"></script>
-    <script src="js/flow-template/plan -flow template.js"></script>
+  <!-- Main js-->
+  <script src="js/ld/plan/plan-flow.js"></script>
+  <script src="js/flow-template/plan -flow template.js"></script>
 </body>
 
 </html>

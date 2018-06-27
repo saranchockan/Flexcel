@@ -3,6 +3,8 @@ var AC_data = $.fn.jexcel('helper', { action:'createEmptyData', cols:5, rows:150
 var NC_data = $.fn.jexcel('helper', { action:'createEmptyData', cols:4, rows:150 });
 
 
+
+
 $('#1AC-Framing-tab').jexcel({
     data: AC_data,
     colHeaders: ['AC', '1NR', '1AR', '2NR', '2AR' ],
@@ -67,6 +69,7 @@ $('#Solvency-tab').jexcel({
     allowInsertColumn: false
     
 });
+
 
 $('#1NC-Framing-tab').jexcel({
     data: NC_data,
