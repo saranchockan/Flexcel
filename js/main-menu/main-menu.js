@@ -17,7 +17,7 @@ LD_Flow_Button.addEventListener("click", () => {
     win.loadFile('plan-flow.html')
     win.maximize()
     win.setResizable(false)
-    // win.webContents.openDevTools({})
+    win.webContents.openDevTools({})
     win.show()
     
 
