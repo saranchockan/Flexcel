@@ -7,11 +7,15 @@ const flows = document.getElementsByClassName('tab-pane');
 
 
 var index = 0;
+var mouseClicked = true;
 
 
 //-- Switches to the previous tab
 
 Mousetrap.bind(['command+o', 'ctrl+o'], function () {
+
+    mouseClicked = false;
+    console.log(getClassNames());
 
     if (index > 0) {
 
@@ -43,6 +47,7 @@ Mousetrap.bind(['command+o', 'ctrl+o'], function () {
 
 Mousetrap.bind(['command+p', 'ctrl+p'], function () {
 
+    mouseClicked = false;
     console.log(getClassNames());
 
     if (index < tabs.length - 1) {
@@ -76,15 +81,20 @@ $('#flow-navbar a').on('shown.bs.tab', function (e) {
     console.log(getClassNames());
     console.log(this.classList[0]);
 
-    switchFlow();
+    //-- will only Switch flows if tab was clicked through KeyBindings
+    if(!mouseClicked){
+        switchFlow();
+    }
+    mouseClicked = true;
     index = parseInt(this.classList[0]);
-
     
     var index = getSelectedCellIndex();
     if(index != -1){
 
+        /*
         handstonable_flows[index].selectCell(1,0);
         handstonable_flows[index].deselectCell();
+        */
     }
     
 
@@ -96,7 +106,7 @@ Mousetrap.bind(['command+i', 'ctrl+i'], function () {
     var index = getSelectedCellIndex();
     if(index != -1){
 
-        handstonable_flows[index].selectCell(1,0);
+        // handstonable_flows[index].selectCell(1,0);
     }
 })
 
