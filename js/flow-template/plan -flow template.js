@@ -8,6 +8,7 @@ var NC_tabs = document.getElementsByClassName('NC');
 var selectCell_rc = [
   [1,0],[1,0],[1,0],[1,0],[1,0],[1,0],[1,0],[1,0],[1,0],[1,0],[1,0],[1,0],[1,0],
 ]
+var window_width = window.innerWidth;
 
 
 function flowLabels(instance, td, row, col, prop, value, cellProperties) {
@@ -49,7 +50,11 @@ for(i = 0;i<AC_tabs.length;i++){
       ],
       minCols: 5,
       minRows: 20,
-      colWidths: 190,
+      colWidths: window_width*0.43378995433,
+      fillHandle:{
+        autoInsertRow: true
+      },
+      minSpareRows:true,
       cells: function (row, col) {
         var cellProperties = {};
         var data = this.instance.getData();
@@ -82,7 +87,11 @@ for(i = 0;i<NC_tabs.length;i++){
     ],
     minCols: 4,
     minRows: 20,
-    colWidths: 190,
+    colWidths: window_width*0.43378995433,
+    fillHandle:{
+      autoInsertRow: true
+    },
+    minSpareRows:true,
     cells: function (row, col) {
       var cellProperties = {};
       var data = this.instance.getData();
