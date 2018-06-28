@@ -87,25 +87,23 @@ $('#flow-navbar a').on('shown.bs.tab', function (e) {
     }
     mouseClicked = true;
     index = parseInt(this.classList[0]);
-    /*
-    var index = getSelectedCellIndex();
-    if(index != -1){
-
-        handstonable_flows[index].selectCell(1,0);
-        handstonable_flows[index].deselectCell();
-        
+    
+    var i = getSelectedCellIndex();
+    if(i != -1){
+        handstonable_flows[i].selectCell(1,0);
+        handstonable_flows[i].deselectCell();
     }
-    */
+    
 
 })
 
 Mousetrap.bind(['command+i', 'ctrl+i'], function () {
     console.log('Select Cell')
 
-    var index = getSelectedCellIndex();
-    if(index != -1){
+    var i = getSelectedCellIndex();
+    if(i != -1){
 
-        // handstonable_flows[index].selectCell(1,0);
+        handstonable_flows[i].selectCell(1,0);
     }
 })
 
