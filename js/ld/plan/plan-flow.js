@@ -13,6 +13,8 @@ var mouseClicked = true;
 //-- Switches to the previous tab
 
 Mousetrap.bind(['command+o', 'ctrl+o'], function () {
+    
+    reset_rc()
 
     mouseClicked = false;
     console.log(getClassNames());
@@ -47,6 +49,7 @@ Mousetrap.bind(['command+o', 'ctrl+o'], function () {
 
 Mousetrap.bind(['command+p', 'ctrl+p'], function () {
 
+    reset_rc()
     mouseClicked = false;
     console.log(getClassNames());
 
@@ -82,18 +85,22 @@ $('#flow-navbar a').on('shown.bs.tab', function (e) {
     console.log(this.classList[0]);
 
     //-- will only Switch flows if tab was clicked through KeyBindings
-    if(!mouseClicked){
+    if (!mouseClicked) {
         switchFlow();
     }
     mouseClicked = true;
     index = parseInt(this.classList[0]);
-    
+
     var i = getSelectedCellIndex();
-    if(i != -1){
-        handstonable_flows[i].selectCell(1,0);
-        handstonable_flows[i].deselectCell();
+    if (i != -1) {
+
+        var rc = selectCell_rc[i];
+        var r = rc[0]
+        var c = rc[1]
+
+        handstonable_flows[i].selectCell(r, c);
+
     }
-    
 
 })
 
@@ -101,9 +108,10 @@ Mousetrap.bind(['command+i', 'ctrl+i'], function () {
     console.log('Select Cell')
 
     var i = getSelectedCellIndex();
-    if(i != -1){
+    if (i != -1) {
 
-        handstonable_flows[i].selectCell(1,0);
+        handstonable_flows[i].selectCell(1, 0);
+
     }
 })
 
@@ -161,11 +169,22 @@ function getSelectedCellIndex() {
 
         var name_list = flows[i].classList
 
-        if(name_list.contains('active')){
+        if (name_list.contains('active')) {
             return i;
         }
     }
 
     return -1;
+}
+
+//-- Finds the previosuly selected cell and stores it into selectCell_rc
+
+function reset_rc(tab_switch) {
+
+    console.log(handstonable_flows[index].getSelected())
+
+    var newRC = handstonable_flows[index].getSelected()
+    selectCell_rc[index] = [newRC[0], newRC[1]];
+
 }
 

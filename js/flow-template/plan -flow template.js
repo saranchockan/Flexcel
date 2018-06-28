@@ -5,6 +5,10 @@ const flow_tabs = document.getElementsByClassName('tab-pane');
 var AC_tabs = document.getElementsByClassName('AC');
 var NC_tabs = document.getElementsByClassName('NC');
 
+var selectCell_rc = [
+  [1,0],[1,0],[1,0],[1,0],[1,0],[1,0],[1,0],[1,0],[1,0],[1,0],[1,0],[1,0],[1,0],
+]
+
 
 function flowLabels(instance, td, row, col, prop, value, cellProperties) {
   Handsontable.renderers.TextRenderer.apply(this, arguments);
@@ -109,5 +113,4 @@ $(allLiceneses).remove();
 //-- Renders the first flow: to make sure all cells are displayed
 
 handstonable_flows[0].selectCell(1,0);
-handstonable_flows[0].deselectCell();
 
