@@ -13,7 +13,7 @@ var mouseClicked = true;
 //-- Switches to the previous tab
 
 Mousetrap.bind(['command+o', 'ctrl+o'], function () {
-    
+
     reset_rc()
 
     mouseClicked = false;
@@ -104,16 +104,7 @@ $('#flow-navbar a').on('shown.bs.tab', function (e) {
 
 })
 
-Mousetrap.bind(['command+i', 'ctrl+i'], function () {
-    console.log('Select Cell')
 
-    var i = getSelectedCellIndex();
-    if (i != -1) {
-
-        handstonable_flows[i].selectCell(1, 0);
-
-    }
-})
 
 
 //-- Adds visibility to the selected flow, and removes the visibilty from the previous tab
