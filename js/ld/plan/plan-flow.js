@@ -8,9 +8,10 @@ const flows = document.getElementsByClassName('tab-pane');
 
 var index = 0;
 
+
 //-- Switches to the previous tab
 
-Mousetrap.bind(['command+o','ctrl+o'], function () {
+Mousetrap.bind(['command+o', 'ctrl+o'], function () {
 
     if (index > 0) {
 
@@ -18,11 +19,11 @@ Mousetrap.bind(['command+o','ctrl+o'], function () {
 
         var id = tabs[index].id;
         var reference = '#' + id;
-        
+
         $(document).ready(function () {
             $(reference).click();
         });
-        
+
 
     }
     else {
@@ -40,7 +41,7 @@ Mousetrap.bind(['command+o','ctrl+o'], function () {
 
 //-- Switches to the next tab
 
-Mousetrap.bind(['command+p','ctrl+p'], function () {
+Mousetrap.bind(['command+p', 'ctrl+p'], function () {
 
     console.log(getClassNames());
 
@@ -49,11 +50,11 @@ Mousetrap.bind(['command+p','ctrl+p'], function () {
         index = index + 1;
         var id = tabs[index].id;
         var reference = '#' + id;
-        
+
         $(document).ready(function () {
             $(reference).click();
         });
-        
+
     }
 
     else {
@@ -71,15 +72,38 @@ Mousetrap.bind(['command+p','ctrl+p'], function () {
 // Event fired after user selects tab: the flow is switched, index is updated
 
 $('#flow-navbar a').on('shown.bs.tab', function (e) {
-    console.log('click');   
+    console.log('click');
     console.log(getClassNames());
-    console.log(this.classList[0]); 
+    console.log(this.classList[0]);
 
     switchFlow();
     index = parseInt(this.classList[0]);
-    
+
+    var index = getSelectedCellIndex();
+    if(index != -1){
+
+        handstonable_flows[index].selectCell(1,0);
+        handstonable_flows[index].deselectCell();
+    }
+
 })
 
+Mousetrap.bind(['command+i', 'ctrl+i'], function () {
+    console.log('Select Cell')
+
+    var index = getSelectedCellIndex();
+    if(index != -1){
+
+        handstonable_flows[index].selectCell(1,0);
+    }
+})
+
+
+/* /-- Renders the first flow: to make sure all cells are displayed
+
+handstonable_flows[0].selectCell(1,0);
+handstonable_flows[0].deselectCell();
+*/
 
 //-- Adds visibility to the selected flow, and removes the visibilty from the previous tab
 
@@ -87,7 +111,7 @@ function switchFlow() {
 
     for (i = 0; i < flows.length; i++) {
         if (index == i) {
-            
+
             flows[i].classList.add('active');
             flows[i].classList.add('show');
 
@@ -96,7 +120,7 @@ function switchFlow() {
 
         }
         else {
-           
+
             flows[i].classList.remove('show');
             flows[i].classList.remove('active');
 
@@ -128,3 +152,17 @@ function getClassNames() {
 
     return classnames;
 }
+
+function getSelectedCellIndex() {
+    for (i = 0; i < flows.length; i++) {
+
+        var name_list = flows[i].classList
+
+        if(name_list.contains('active')){
+            return i;
+        }
+    }
+
+    return -1;
+}
+

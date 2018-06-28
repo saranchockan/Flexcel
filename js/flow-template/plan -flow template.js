@@ -127,3 +127,9 @@ for(i = 0;i<NC_tabs.length;i++){
 
 var allLiceneses = document.querySelectorAll("#hot-display-license-info");
 $(allLiceneses).remove();
+
+
+//-- Renders the first flow: to make sure all cells are displayed
+
+handstonable_flows[0].selectCell(1,0);
+handstonable_flows[0].deselectCell();
