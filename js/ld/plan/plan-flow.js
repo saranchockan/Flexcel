@@ -79,12 +79,14 @@ $('#flow-navbar a').on('shown.bs.tab', function (e) {
     switchFlow();
     index = parseInt(this.classList[0]);
 
+    
     var index = getSelectedCellIndex();
     if(index != -1){
 
         handstonable_flows[index].selectCell(1,0);
         handstonable_flows[index].deselectCell();
     }
+    
 
 })
 
@@ -98,12 +100,6 @@ Mousetrap.bind(['command+i', 'ctrl+i'], function () {
     }
 })
 
-
-/* /-- Renders the first flow: to make sure all cells are displayed
-
-handstonable_flows[0].selectCell(1,0);
-handstonable_flows[0].deselectCell();
-*/
 
 //-- Adds visibility to the selected flow, and removes the visibilty from the previous tab
 
