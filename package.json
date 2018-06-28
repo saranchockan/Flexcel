@@ -1,18 +1,18 @@
 {
-  "name": "electron-quick-start",
+  "name": "DebateFlow",
   "version": "1.0.0",
-  "description": "A minimal Electron application",
+  "description": "Debate Flow is an app for flowing high school LD and PF Debate rounds.",
   "main": "main.js",
   "scripts": {
     "start": "electron ."
   },
-  "repository": "https://github.com/electron/electron-quick-start",
+  "repository": "https://github.com/saranchockan/DebateFlow-Electron",
   "keywords": [
-    "Electron",
-    "quick",
-    "start",
-    "tutorial",
-    "demo"
+    "Debate",
+    "Flow",
+    "LD",
+    "PF",
+    "Papperlessn"
   ],
   "author": "GitHub",
   "license": "CC0-1.0",
