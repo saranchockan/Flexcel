@@ -77,10 +77,24 @@ Mousetrap.bind(['command+p', 'ctrl+p'], function () {
 
 }, 'keyup');
 
+$('#flow-navbar a').on('click', function (e) {
+    console.log('click');
+    var i = getSelectedCellIndex();
+    if (i != -1) {
+
+        var rc = selectCell_rc[i];
+        var r = rc[0]
+        var c = rc[1]
+
+        handstonable_flows[i].selectCell(r, c);
+
+    }
+})
+
 // Event fired after user selects tab: the flow is switched, index is updated
 
 $('#flow-navbar a').on('shown.bs.tab', function (e) {
-    console.log('click');
+    // console.log('click');
     console.log(getClassNames());
     console.log(this.classList[0]);
 
@@ -90,6 +104,8 @@ $('#flow-navbar a').on('shown.bs.tab', function (e) {
     }
     mouseClicked = true;
     index = parseInt(this.classList[0]);
+
+    console.log(index)
 
     var i = getSelectedCellIndex();
     if (i != -1) {
@@ -104,6 +120,10 @@ $('#flow-navbar a').on('shown.bs.tab', function (e) {
 
 })
 
+//-- Gives the user the choice to rename tabs
+Mousetrap.bind(['command+r', 'ctrl+r'],function(){
+
+})
 
 
 
@@ -133,6 +153,33 @@ function switchFlow() {
     }
 
 }
+
+$('.t').on('keydown blur dblclick','input',function(e){
+    if(e.type=="keydown")
+    {
+        if(e.which==13)
+        {
+           $(this).toggle();
+           $(this).siblings('a').toggle().html($(this).val());
+        }
+        if(e.which==38 || e.which==40 || e.which==37 || e.which==39)
+        {
+           e.stopPropagation();
+        }
+    }
+    else if(e.type=="focusout")
+    {
+        if($(this).css('display')=="inline-block")
+        {
+            $(this).toggle();
+            $(this).siblings('a').toggle().html($(this).val());
+        }
+    }
+    else
+    {
+        e.stopPropagation();
+    }
+});
 
 //-- Debuggin Utility: Prints out the class list of every flow div
 
