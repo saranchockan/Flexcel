@@ -9,12 +9,6 @@
     float: left;
 }
 
-input[type=text]
-{
-    display:none;
-    width:120px;
-}
-
 /* Debugging Utilities */
 .bold-borders{
     border-top: 1px solid black;

@@ -156,33 +156,6 @@ function switchFlow() {
 
 }
 
-$('.t').on('keydown blur dblclick','input',function(e){
-    if(e.type=="keydown")
-    {
-        if(e.which==13)
-        {
-           $(this).toggle();
-           $(this).siblings('a').toggle().html($(this).val());
-        }
-        if(e.which==38 || e.which==40 || e.which==37 || e.which==39)
-        {
-           e.stopPropagation();
-        }
-    }
-    else if(e.type=="focusout")
-    {
-        if($(this).css('display')=="inline-block")
-        {
-            $(this).toggle();
-            $(this).siblings('a').toggle().html($(this).val());
-        }
-    }
-    else
-    {
-        e.stopPropagation();
-    }
-});
-
 //-- Debuggin Utility: Prints out the class list of every flow div
 
 function getClassNames() {
