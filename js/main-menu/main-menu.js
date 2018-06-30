@@ -36,7 +36,7 @@ LD_Traditional_Flow_Button .addEventListener("click", () => {
     win.on('close', function () { win = null })
     win.loadFile('traditional-flow.html')
     win.maximize()
-    win.webContents.openDevTools();
+    // win.webContents.openDevTools();
     win.setResizable(false)
     win.show()
     
