@@ -77,6 +77,8 @@ Mousetrap.bind(['command+p', 'ctrl+p'], function () {
 
 }, 'keyup');
 
+// Makes sure cell is focused even if same tab is clicked multiple times
+
 $('#flow-navbar a').on('click', function (e) {
     console.log('click');
     var i = getSelectedCellIndex();
