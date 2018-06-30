@@ -59,6 +59,12 @@ p {
       transform: translateX(0px);
     }
 }
+
+/* Disables scrollbar */
+body {
+    overflow-y: hidden;
+  }
+
 /* Debugging Utilities */
 .bold-borders{
     border-top: 1px solid black;
