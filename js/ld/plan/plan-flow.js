@@ -123,7 +123,7 @@ $('#flow-navbar a').on('shown.bs.tab', function (e) {
 })
 
 //-- Gives the user the choice to rename tabs
-Mousetrap.bind(['command+r', 'ctrl+r'],function(){
+Mousetrap.bind(['command+i', 'ctrl+i'],function(){
 
 })
 
@@ -139,8 +139,10 @@ function switchFlow() {
             flows[i].classList.add('active');
             flows[i].classList.add('show');
 
+            /*
             var id = '#' + tabs[i].id;
             $(id).attr('aria-selected', 'true');
+            */
 
         }
         else {
@@ -148,13 +150,16 @@ function switchFlow() {
             flows[i].classList.remove('show');
             flows[i].classList.remove('active');
 
+            /*
             var id = '#' + tabs[i].id;
             $(id).attr('aria-selected', 'false');
+            */
 
         }
     }
 
 }
+
 
 //-- Debuggin Utility: Prints out the class list of every flow div
 

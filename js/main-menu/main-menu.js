@@ -5,11 +5,10 @@ const path = require('path');
 
 const electron = require('electron');
 const BrowserWindow = electron.remote.BrowserWindow;
-var LD_Flow_Button = document.getElementById('Plan-Flow-1AC');
 
 
-
-LD_Flow_Button.addEventListener("click", () => {
+var LD_Plan_Flow_Button = document.getElementById('Plan-Flow-1AC');
+LD_Plan_Flow_Button.addEventListener("click", () => {
 
     //-- Creates New Window for LD-Flow-Plan
     let win = new BrowserWindow({ width: 400, height: 200, show: false})
@@ -27,3 +26,25 @@ LD_Flow_Button.addEventListener("click", () => {
     remote.getCurrentWindow().close();
 
 });
+
+var LD_Traditional_Flow_Button = document.getElementById('Traditional-Flow-1AC');
+
+LD_Traditional_Flow_Button .addEventListener("click", () => {
+
+    //-- Creates New Window for LD-Flow-Plan
+    let win = new BrowserWindow({ width: 400, height: 200, show: false})
+    win.on('close', function () { win = null })
+    win.loadFile('traditional-flow.html')
+    win.maximize()
+    win.webContents.openDevTools();
+    win.setResizable(false)
+    win.show()
+    
+
+
+    //-- Closes Main Menu
+
+    remote.getCurrentWindow().close();
+
+});
+
