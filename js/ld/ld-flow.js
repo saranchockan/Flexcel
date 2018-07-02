@@ -88,41 +88,14 @@ Mousetrap.bind(['command+i', 'ctrl+i'], function () {
 
     if (index != 0) {
 
-        if ((ac_delete_limit>=2 && index == ac_delete_limit) || (nc_delete_limit>=9 && index == nc_delete_limit)) {
+        if ((ac_delete_limit>=2 && index == ac_delete_limit)){
 
-            var deleteTab_index = index
-            nextTab()
-
-            //-- Removes the nav-pill
-            var id = '#' + tabs[deleteTab_index].id
-            $(id).remove()
-
-            //-- Removes the nav-item
-            id = '#' + tabs_li[deleteTab_index].id
-            $(id).remove()
-
-            //-- Removes the div
-            id = '#' + flows[deleteTab_index].id
-            $(id).remove()
-
-            console.log('Initial Length: ' + handstonable_flows.length)
-
-            //-- Removes handstonable flow
-            handstonable_flows.splice(deleteTab_index, 1)
-
-            console.log('Remove Length: ' + handstonable_flows.length)
-
-
-            //-- removes cell row and column element
-            selectCell_rc.splice(deleteTab_index, 1)
-
-            tabs = document.getElementById('flow-navbar').getElementsByClassName('nav-link');
-            flows = document.getElementsByClassName('tab-pane');
-
-            previousTab()
-            console.log('test')
-            console.log(nav_classNames());
+            deleteTab()
             ac_delete_limit = ac_delete_limit - 1
+        }
+
+        else if(nc_delete_limit>=9 && index == nc_delete_limit){
+            deleteTab()
             nc_delete_limit = nc_delete_limit - 1
         }
 
@@ -197,6 +170,41 @@ function previousTab() {
 
 
     }
+}
+
+function deleteTab(){
+    var deleteTab_index = index
+    nextTab()
+
+    //-- Removes the nav-pill
+    var id = '#' + tabs[deleteTab_index].id
+    $(id).remove()
+
+    //-- Removes the nav-item
+    id = '#' + tabs_li[deleteTab_index].id
+    $(id).remove()
+
+    //-- Removes the div
+    id = '#' + flows[deleteTab_index].id
+    $(id).remove()
+
+    console.log('Initial Length: ' + handstonable_flows.length)
+
+    //-- Removes handstonable flow
+    handstonable_flows.splice(deleteTab_index, 1)
+
+    console.log('Remove Length: ' + handstonable_flows.length)
+
+
+    //-- removes cell row and column element
+    selectCell_rc.splice(deleteTab_index, 1)
+
+    tabs = document.getElementById('flow-navbar').getElementsByClassName('nav-link');
+    flows = document.getElementsByClassName('tab-pane');
+
+    previousTab()
+    console.log('test')
+    console.log(nav_classNames());
 }
 
 //-- Adds visibility to the selected flow, and removes the visibilty from the previous tab
