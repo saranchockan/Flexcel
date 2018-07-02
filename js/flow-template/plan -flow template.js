@@ -6,10 +6,12 @@ var AC_tabs = document.getElementsByClassName('AC');
 var NC_tabs = document.getElementsByClassName('NC');
 
 var selectCell_rc = [
-  [1,0],[1,0],[1,0],[1,0],[1,0],[1,0],[1,0],[1,0],[1,0],[1,0],[1,0],[1,0],[1,0],
+  [1,0],[1,0],[1,0],[1,0],[1,0],[1,0],[1,0],[1,0],[1,0],[1,0],[1,0],[1,0],[1,0],[1,0]
 ]
 var window_width = window.innerWidth;
 
+
+//-- sets red color font to 1ac and blue color font to 1nc
 
 function ac_flowLabels(instance, td, row, col, prop, value, cellProperties) {
   Handsontable.renderers.TextRenderer.apply(this, arguments);
@@ -22,18 +24,8 @@ function ac_flowLabels(instance, td, row, col, prop, value, cellProperties) {
   }
 }
 
-function nc_flowLabels(instance, td, row, col, prop, value, cellProperties) {
-  Handsontable.renderers.TextRenderer.apply(this, arguments);
-  td.style.fontWeight = 'bold';
-  if (col % 2 == 1) { 
-    td.style.color = 'red'; 
-  }
-  else { 
-    td.style.color = '#076BFF'; 
-  }
-}
 
-function flowRenderer(instance, td, row, col, prop, value, cellProperties) {
+function ac_flowRenderer(instance, td, row, col, prop, value, cellProperties) {
   Handsontable.renderers.TextRenderer.apply(this, arguments);
 
   if (col % 2 == 1) { 
@@ -46,8 +38,32 @@ function flowRenderer(instance, td, row, col, prop, value, cellProperties) {
   }
   
 }
+function nc_flowLabels(instance, td, row, col, prop, value, cellProperties) {
+  Handsontable.renderers.TextRenderer.apply(this, arguments);
+  td.style.fontWeight = 'bold';
+  if (col % 2 == 1) { 
+    td.style.color = 'red'; 
+  }
+  else { 
+    td.style.color = '#076BFF'; 
+  }
+}
+function nc_flowRenderer(instance, td, row, col, prop, value, cellProperties) {
+  Handsontable.renderers.TextRenderer.apply(this, arguments);
 
-Handsontable.renderers.registerRenderer('flowRenderer', flowRenderer);
+  if (col % 2 == 1) { 
+
+    td.style.fontWeight = 'bold';
+    td.style.color = 'red'; 
+  }
+  else { 
+    td.style.fontWeight = 'bold';
+    td.style.color = '#076BFF'; 
+  }
+  
+}
+
+Handsontable.renderers.registerRenderer('ac_flowRenderer', ac_flowRenderer);
 
 // -- Adds AC Flows
 
@@ -78,7 +94,7 @@ for(i = 0;i<AC_tabs.length;i++){
         }
     
         else{
-          cellProperties.renderer = 'flowRenderer'; // uses lookup map
+          cellProperties.renderer = 'ac_flowRenderer'; // uses lookup map
     
         }
     
@@ -86,6 +102,9 @@ for(i = 0;i<AC_tabs.length;i++){
       }
     }))
 }
+
+
+Handsontable.renderers.registerRenderer('nc_flowRenderer', nc_flowRenderer);
 
 // -- Adds NC Flows
 
@@ -115,7 +134,7 @@ for(i = 0;i<NC_tabs.length;i++){
       }
   
       else{
-        cellProperties.renderer = 'flowRenderer'; // uses lookup map
+        cellProperties.renderer = 'nc_flowRenderer'; // uses lookup map
   
       }
       return cellProperties;
