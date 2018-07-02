@@ -31,6 +31,7 @@ Mousetrap.bind(['command+p', 'ctrl+p'], function () {
 
 $('#flow-navbar a').on('click', function (e) {
     console.log('click');
+
     var i = getSelectedCellIndex();
     if (i != -1) {
 
@@ -41,12 +42,13 @@ $('#flow-navbar a').on('click', function (e) {
         handstonable_flows[i].selectCell(r, c);
 
     }
+    
 })
 
 // Event fired after user selects tab: the flow is switched, index is updated
 
 $('#flow-navbar li').on('shown.bs.tab', function (e) {
-    
+
     // console.log('click');
     console.log(getClassNames());
     console.log(this.classList[0]);
@@ -61,6 +63,7 @@ $('#flow-navbar li').on('shown.bs.tab', function (e) {
     console.log('li index' + $(this).index())
 
 
+    
     var i = getSelectedCellIndex();
     if (i != -1) {
 
@@ -71,6 +74,7 @@ $('#flow-navbar li').on('shown.bs.tab', function (e) {
         handstonable_flows[i].selectCell(r, c);
 
     }
+    
 
 
 })
@@ -82,54 +86,58 @@ Mousetrap.bind(['command+i', 'ctrl+i'], function () {
 
     //-- Can't delete Framing tab
 
-    if(index!=0){
+    if (index != 0) {
 
-        if(index == ac_delete_limit ||index==nc_delete_limit){
+        if (index == ac_delete_limit || index == nc_delete_limit) {
+
             var deleteTab_index = index
             nextTab()
-        
+
             //-- Removes the nav-pill
             var id = '#' + tabs[deleteTab_index].id
             $(id).remove()
-        
+
             //-- Removes the nav-item
             id = '#' + tabs_li[deleteTab_index].id
             $(id).remove()
-            
+
             //-- Removes the div
             id = '#' + flows[deleteTab_index].id
             $(id).remove()
-        
+
             console.log('Initial Length: ' + handstonable_flows.length)
-        
+
             //-- Removes handstonable flow
-            handstonable_flows.splice(deleteTab_index,1)
-        
+            handstonable_flows.splice(deleteTab_index, 1)
+
             console.log('Remove Length: ' + handstonable_flows.length)
-        
-        
+
+
             //-- removes cell row and column element
-            selectCell_rc.splice(deleteTab_index,1)
-            
+            selectCell_rc.splice(deleteTab_index, 1)
+
             tabs = document.getElementById('flow-navbar').getElementsByClassName('nav-link');
             flows = document.getElementsByClassName('tab-pane');
-        
-            $('#1ACFraming').click()
-            console.log(nav_classNames());
 
-            ac_delete_limit = ac_delete_limit -1
-            nc_delete_limit = nc_delete_limit -1
+            previousTab()
+            console.log('test')
+            console.log(nav_classNames());
+            ac_delete_limit = ac_delete_limit - 1
+            nc_delete_limit = nc_delete_limit - 1
         }
 
+
+
+
     }
-    
+
 })
 
 
 
 //-- Switches to the next tab
 
-function nextTab(){
+function nextTab() {
 
     console.log('Initial Index' + index)
     reset_rc()
@@ -163,7 +171,7 @@ function nextTab(){
 
 //-- Switches to the previous tab
 
-function previousTab(){
+function previousTab() {
 
     reset_rc()
     mouseClicked = false;
