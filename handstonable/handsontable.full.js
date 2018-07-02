@@ -12989,6 +12989,7 @@ var onBeforeKeyDown = function onBeforeKeyDown(event) {
       var isMultipleSelection = !(selected[0] === selected[2] && selected[1] === selected[3]);
       if (ctrlDown && !isMultipleSelection || event.altKey) {
         // if ctrl+enter or alt+enter, add new line
+        console.log('enter')
         if (that.isOpened()) {
           var caretPosition = (0, _element.getCaretPosition)(that.TEXTAREA),
               value = that.getValue();

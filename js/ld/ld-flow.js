@@ -10,7 +10,7 @@ var index = 0;
 var mouseClicked = true;
 
 
-//-- Switches to the previous tab
+//-- Adds Keybinding to switch to the previous tab
 
 Mousetrap.bind(['command+o', 'ctrl+o'], function () {
 
@@ -18,62 +18,18 @@ Mousetrap.bind(['command+o', 'ctrl+o'], function () {
 
     mouseClicked = false;
     console.log(getClassNames());
-
-    if (index > 0) {
-
-        index = index - 1;
-
-        var id = tabs[index].id;
-        var reference = '#' + id;
-
-        $(document).ready(function () {
-            $(reference).click();
-        });
-
-
-    }
-    else {
-        index = tabs.length - 1;
-        var id = tabs[index].id;
-        var reference = '#' + id;
-        $(document).ready(function () {
-            $(reference).click();
-        });
-
-
-    }
+    previousTab()
 
 }, 'keyup');
 
-//-- Switches to the next tab
+//-- Adds Keybinding to switch to the next tab
 
 Mousetrap.bind(['command+p', 'ctrl+p'], function () {
 
     reset_rc()
     mouseClicked = false;
     console.log(getClassNames());
-
-    if (index < tabs.length - 1) {
-
-        index = index + 1;
-        var id = tabs[index].id;
-        var reference = '#' + id;
-
-        $(document).ready(function () {
-            $(reference).click();
-        });
-
-    }
-
-    else {
-        index = 0;
-        var id = tabs[index].id;
-        var reference = '#' + id;
-        $(document).ready(function () {
-            $(reference).click();
-        });
-
-    }
+    nextTab()
 
 }, 'keyup');
 
@@ -122,12 +78,65 @@ $('#flow-navbar a').on('shown.bs.tab', function (e) {
 
 })
 
-//-- Gives the user the choice to rename tabs
-Mousetrap.bind(['command+i', 'ctrl+i'],function(){
+Mousetrap.bind(['command+i', 'ctrl+i'], function () {
 
 })
 
 
+
+//-- Switches to the next tab
+
+function nextTab(){
+    if (index < tabs.length - 1) {
+
+        index = index + 1;
+        var id = tabs[index].id;
+        var reference = '#' + id;
+
+        $(document).ready(function () {
+            $(reference).click();
+        });
+
+    }
+
+    else {
+        index = 0;
+        var id = tabs[index].id;
+        var reference = '#' + id;
+        $(document).ready(function () {
+            $(reference).click();
+        });
+
+    }
+}
+
+//-- Switches to the previous tab
+
+function previousTab(){
+    if (index > 0) {
+
+        index = index - 1;
+
+        var id = tabs[index].id;
+        var reference = '#' + id;
+
+        $(document).ready(function () {
+            $(reference).click();
+        });
+
+
+    }
+    else {
+        index = tabs.length - 1;
+        var id = tabs[index].id;
+        var reference = '#' + id;
+        $(document).ready(function () {
+            $(reference).click();
+        });
+
+
+    }
+}
 
 //-- Adds visibility to the selected flow, and removes the visibilty from the previous tab
 
@@ -139,10 +148,7 @@ function switchFlow() {
             flows[i].classList.add('active');
             flows[i].classList.add('show');
 
-            /*
-            var id = '#' + tabs[i].id;
-            $(id).attr('aria-selected', 'true');
-            */
+
 
         }
         else {
@@ -150,36 +156,11 @@ function switchFlow() {
             flows[i].classList.remove('show');
             flows[i].classList.remove('active');
 
-            /*
-            var id = '#' + tabs[i].id;
-            $(id).attr('aria-selected', 'false');
-            */
+
 
         }
     }
 
-}
-
-
-//-- Debuggin Utility: Prints out the class list of every flow div
-
-function getClassNames() {
-
-    var classnames;
-
-    for (i = 0; i < flows.length; i++) {
-
-        var name_list = flows[i].classList
-
-        classnames = classnames + flows[i].id + " ";
-        for (k = 0; k < name_list.length; k++) {
-            classnames = classnames + name_list[k] + " ";
-        }
-
-        classnames = classnames + "\n";
-    }
-
-    return classnames;
 }
 
 function getSelectedCellIndex() {
@@ -205,4 +186,27 @@ function reset_rc(tab_switch) {
     selectCell_rc[index] = [newRC[0], newRC[1]];
 
 }
+
+//-- Debuggin Utility: Prints out the class list of every flow div
+
+function getClassNames() {
+
+    var classnames;
+
+    for (i = 0; i < flows.length; i++) {
+
+        var name_list = flows[i].classList
+
+        classnames = classnames + flows[i].id + " ";
+        for (k = 0; k < name_list.length; k++) {
+            classnames = classnames + name_list[k] + " ";
+        }
+
+        classnames = classnames + "\n";
+    }
+
+    return classnames;
+}
+
+
 

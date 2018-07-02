@@ -107,11 +107,11 @@ for(i = 0;i<NC_tabs.length;i++){
         cellProperties.renderer = 'flowRenderer'; // uses lookup map
   
       }
-  
       return cellProperties;
     }
   }))
 }
+
 
 // Removes All of Handsontable's licenses
 
