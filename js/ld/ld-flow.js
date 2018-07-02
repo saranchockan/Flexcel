@@ -1,4 +1,3 @@
-
 //-- Mousetrap Script: Keybindings for Tab customziation
 
 var Mousetrap = require('mousetrap');
@@ -77,38 +76,41 @@ $('#flow-navbar li').on('shown.bs.tab', function (e) {
 
 Mousetrap.bind(['command+i', 'ctrl+i'], function () {
 
-    var deleteTab_index = index
-    nextTab()
+    //-- Can't delete Framing tab
 
-    //-- Removes the nav-pill
-    var id = '#' + tabs[deleteTab_index].id
-    $(id).remove()
-
-    //-- Removes the nav-item
-    id = '#' + tabs_li[deleteTab_index].id
-    $(id).remove()
+    if(index!=0){
+        var deleteTab_index = index
+        nextTab()
     
-    //-- Removes the div
-    id = '#' + flows[deleteTab_index].id
-    $(id).remove()
-
-    console.log('Initial Length: ' + handstonable_flows.length)
-
-    //-- Removes handstonable flow
-    handstonable_flows.splice(deleteTab_index,1)
-
-    console.log('Remove Length: ' + handstonable_flows.length)
-
-
-    //-- removes cell row and column element
-    selectCell_rc.splice(deleteTab_index,1)
+        //-- Removes the nav-pill
+        var id = '#' + tabs[deleteTab_index].id
+        $(id).remove()
     
-    tabs = document.getElementById('flow-navbar').getElementsByClassName('nav-link');
-    flows = document.getElementsByClassName('tab-pane');
-
+        //-- Removes the nav-item
+        id = '#' + tabs_li[deleteTab_index].id
+        $(id).remove()
+        
+        //-- Removes the div
+        id = '#' + flows[deleteTab_index].id
+        $(id).remove()
     
-    console.log(nav_classNames());
-
+        console.log('Initial Length: ' + handstonable_flows.length)
+    
+        //-- Removes handstonable flow
+        handstonable_flows.splice(deleteTab_index,1)
+    
+        console.log('Remove Length: ' + handstonable_flows.length)
+    
+    
+        //-- removes cell row and column element
+        selectCell_rc.splice(deleteTab_index,1)
+        
+        tabs = document.getElementById('flow-navbar').getElementsByClassName('nav-link');
+        flows = document.getElementsByClassName('tab-pane');
+    
+        $('#1ACFraming').click()
+        console.log(nav_classNames());
+    }
     
 })
 
@@ -267,6 +269,3 @@ function nav_classNames() {
 
     return classnames;
 }
-
-
-
