@@ -88,7 +88,7 @@ Mousetrap.bind(['command+i', 'ctrl+i'], function () {
 
     if (index != 0) {
 
-        if (index == ac_delete_limit || index == nc_delete_limit) {
+        if ((ac_delete_limit>=2 && index == ac_delete_limit) || (nc_delete_limit>=9 && index == nc_delete_limit)) {
 
             var deleteTab_index = index
             nextTab()
