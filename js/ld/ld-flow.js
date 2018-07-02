@@ -62,8 +62,6 @@ $('#flow-navbar li').on('shown.bs.tab', function (e) {
     index = $(this).index();
     console.log('li index' + $(this).index())
 
-
-    
     var i = getSelectedCellIndex();
     if (i != -1) {
 
@@ -75,8 +73,6 @@ $('#flow-navbar li').on('shown.bs.tab', function (e) {
 
     }
     
-
-
 })
 
 
@@ -89,7 +85,6 @@ Mousetrap.bind(['command+i', 'ctrl+i'], function () {
     if (index != 0) {
 
         if ((ac_delete_limit>=2 && index == ac_delete_limit)){
-
             deleteTab()
             ac_delete_limit = ac_delete_limit - 1
         }
@@ -98,15 +93,9 @@ Mousetrap.bind(['command+i', 'ctrl+i'], function () {
             deleteTab()
             nc_delete_limit = nc_delete_limit - 1
         }
-
-
-
-
     }
 
 })
-
-
 
 //-- Switches to the next tab
 
@@ -240,7 +229,7 @@ function getSelectedCellIndex() {
 
 //-- Finds the previosuly selected cell and stores it into selectCell_rc
 
-function reset_rc(tab_switch) {
+function reset_rc() {
 
     console.log(handstonable_flows[index].getSelected())
 

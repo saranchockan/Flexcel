@@ -11,7 +11,7 @@ var selectCell_rc = [
 var window_width = window.innerWidth;
 
 
-function flowLabels(instance, td, row, col, prop, value, cellProperties) {
+function ac_flowLabels(instance, td, row, col, prop, value, cellProperties) {
   Handsontable.renderers.TextRenderer.apply(this, arguments);
   td.style.fontWeight = 'bold';
   if (col % 2 == 1) { 
@@ -19,6 +19,17 @@ function flowLabels(instance, td, row, col, prop, value, cellProperties) {
   }
   else { 
     td.style.color = 'red'; 
+  }
+}
+
+function nc_flowLabels(instance, td, row, col, prop, value, cellProperties) {
+  Handsontable.renderers.TextRenderer.apply(this, arguments);
+  td.style.fontWeight = 'bold';
+  if (col % 2 == 1) { 
+    td.style.color = 'red'; 
+  }
+  else { 
+    td.style.color = '#076BFF'; 
   }
 }
 
@@ -63,7 +74,7 @@ for(i = 0;i<AC_tabs.length;i++){
           cellProperties.readOnly = true;
         }
         if (row === 0) {
-          cellProperties.renderer = flowLabels; // uses function directly
+          cellProperties.renderer = ac_flowLabels; // uses function directly
         }
     
         else{
@@ -100,7 +111,7 @@ for(i = 0;i<NC_tabs.length;i++){
         cellProperties.readOnly = true;
       }
       if (row === 0) {
-        cellProperties.renderer = flowLabels; // uses function directly
+        cellProperties.renderer = nc_flowLabels; // uses function directly
       }
   
       else{
