@@ -11,7 +11,7 @@ var index = 0;
 var mouseClicked = true;
 
 var ac_delete_limit = 6
-var nc_delete_limit = 12
+var nc_delete_limit = 13
 
 
 
