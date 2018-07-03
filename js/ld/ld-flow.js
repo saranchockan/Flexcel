@@ -9,10 +9,14 @@ var flows = document.getElementsByClassName('tab-pane');
 
 var index = 0;
 var mouseClicked = true;
+var tabDeleted = false;
 
 var ac_delete_limit = 6
 var nc_delete_limit = 13
+var nc_limit = 9
 
+// -- Selects all the first cells of the flow: fixes bug when handstonable returns undefined when accessed before any cell gets selected
+selectAllCells()
 
 
 //-- Adds Keybinding to switch to the previous tab
@@ -85,14 +89,19 @@ Mousetrap.bind(['command+i', 'ctrl+i'], function () {
     if (index != 0) {
 
         if ((ac_delete_limit>=2 && index == ac_delete_limit)){
-            deleteTab()
+            console.log('ac_delete should be 5')
             ac_delete_limit = ac_delete_limit - 1
+            nc_delete_limit = nc_delete_limit - 1
+            nc_limit = nc_limit - 1
+            deleteTab()
         }
 
-        else if(nc_delete_limit>=9 && index == nc_delete_limit){
-            deleteTab()
+        else if(nc_delete_limit>=nc_limit && index == nc_delete_limit){
             nc_delete_limit = nc_delete_limit - 1
+            nc_limit = nc_limit - 1
+            deleteTab()
         }
+        
     }
 
 })
@@ -102,7 +111,11 @@ Mousetrap.bind(['command+i', 'ctrl+i'], function () {
 function nextTab() {
 
     console.log('Initial Index' + index)
-    reset_rc()
+
+    if(!tabDeleted){
+        reset_rc()
+    }
+
     mouseClicked = false;
     console.log(getClassNames());
 
@@ -135,7 +148,10 @@ function nextTab() {
 
 function previousTab() {
 
-    reset_rc()
+    if(!tabDeleted){
+        reset_rc()
+    }
+    tabDeleted = false
     mouseClicked = false;
     console.log(getClassNames());
 
@@ -162,6 +178,8 @@ function previousTab() {
 }
 
 function deleteTab(){
+
+    tabDeleted = true
     var deleteTab_index = index
     nextTab()
 
@@ -212,6 +230,16 @@ function switchFlow() {
         }
     }
 
+}
+
+function selectAllCells(){
+    for(i = 0;i<handstonable_flows.length;i++){
+        var rc = selectCell_rc[i];
+        var r = rc[0]
+        var c = rc[1]
+
+        handstonable_flows[i].selectCell(r, c);
+    }
 }
 
 function getSelectedCellIndex() {
