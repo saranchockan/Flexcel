@@ -18,6 +18,7 @@ var nc_limit = 9
 selectAllCells()
 
 
+
 //-- Adds Keybinding to switch to the previous tab
 
 Mousetrap.bind(['command+o', 'ctrl+o'], function () {
@@ -309,3 +310,9 @@ function nav_classNames() {
 
     return classnames;
 }
+
+//-- Renders the first flow: to make sure all cells are displayed: Fires after page is loaded
+$(function(){
+    nextTab()
+    previousTab()
+ });

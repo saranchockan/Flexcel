@@ -2,6 +2,13 @@
 .flow{
     /* forces the div to the left */
     position: absolute;
+    overflow: scroll; 
+    /*
+    padding: 5px;
+    padding-top: 15px;
+    */
+    width: 90%;
+    height: 100%;
 }
 
 .left-element {

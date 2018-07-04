@@ -11,6 +11,7 @@ var selectCell_rc = [
 var window_width = window.innerWidth;
 
 
+
 //-- sets red color font to 1ac and blue color font to 1nc
 
 function ac_flowLabels(instance, td, row, col, prop, value, cellProperties) {
@@ -76,7 +77,9 @@ for(i = 0;i<AC_tabs.length;i++){
         ['AC', '1NR', '1AR', '2NR', '2AR']
       ],
       minCols: 5,
-      minRows: 20,
+      minRows: 35,
+      viewportRowRenderingOffsetequal: 35,
+      viewportColumnRenderingOffset:5,
       colWidths: window_width*0.43378995433,
       fillHandle:{
         autoInsertRow: true
@@ -116,7 +119,9 @@ for(i = 0;i<NC_tabs.length;i++){
       ['1NC', '1AR', '2NR','2AR']
     ],
     minCols: 4,
-    minRows: 20,
+    minRows: 35,
+    viewportRowRenderingOffsetequal: 35,
+    viewportColumnRenderingOffset:4,
     colWidths: window_width*0.43378995433,
     fillHandle:{
       autoInsertRow: true
@@ -142,6 +147,11 @@ for(i = 0;i<NC_tabs.length;i++){
   }))
 }
 
+// Renders the flow
+for(i = 0;i<handstonable_flows.length;i++){
+  handstonable_flows[i].updateSettings({viewportRowRenderingOffset: 'auto'});
+  handstonable_flows[i].updateSettings({viewportColumnRenderingOffset: 'auto'});
+}
 
 // Removes All of Handsontable's licenses
 
@@ -149,7 +159,5 @@ var allLiceneses = document.querySelectorAll("#hot-display-license-info");
 $(allLiceneses).remove();
 
 
-//-- Renders the first flow: to make sure all cells are displayed
 
-handstonable_flows[0].selectCell(1,0);
 
