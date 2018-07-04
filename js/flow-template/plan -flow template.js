@@ -76,7 +76,6 @@ for(i = 0;i<AC_tabs.length;i++){
       colHeaders: ['AC', '1NR', '1AR', '2NR', '2AR'],
       minCols: 5,
       minRows: 35,
-      maxRows: 200,
       width: 1100,
       height: 820,
       viewportRowRenderingOffsetequal: 35,

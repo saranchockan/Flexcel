@@ -46,11 +46,14 @@ for(i = 0;i<AC_tabs.length;i++){
 
     console.log(AC_tabs[i].id);
     handstonable_flows.push(new Handsontable(container,{
-      data: [
-        ['AC', '1NR', '1AR', '2NR', '2AR']
-      ],
+      colHeaders: ['AC', '1NR', '1AR', '2NR', '2AR'],
       minCols: 5,
-      minRows: 20,
+      minRows: 40,
+      maxRows: 200,
+      width: 1100,
+      height: 700, 
+      viewportRowRenderingOffsetequal: 30,
+      viewportColumnRenderingOffset:5,
       colWidths: window_width*0.43378995433,
       fillHandle:{
         autoInsertRow: true
@@ -83,11 +86,14 @@ for(i = 0;i<NC_tabs.length;i++){
   container = document.getElementById(NC_tabs[i].id);
 
   handstonable_flows.push(new Handsontable(container,{
-    data: [
-      ['1NC', '1AR', '2NR','2AR']
-    ],
+    colHeaders: ['1NC', '1AR', '2NR','2AR'],
     minCols: 4,
-    minRows: 20,
+    minRows: 40,
+    maxRows: 200,
+    width: 1100,
+    height: 700, 
+    viewportRowRenderingOffsetequal: 30,
+    viewportColumnRenderingOffset:4,
     colWidths: window_width*0.43378995433,
     fillHandle:{
       autoInsertRow: true
