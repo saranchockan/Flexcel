@@ -119,6 +119,7 @@ for(i = 0;i<NC_tabs.length;i++){
 
     colHeaders: ['1NC', '1AR', '2NR','2AR'],
     minCols: 4,
+    maxCols:4,
     minRows: 35,
     maxRows: 200,
     width: 1100,
