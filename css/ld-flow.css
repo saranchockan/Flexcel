@@ -1,21 +1,26 @@
 
+/* Disables scrollbar */
+body {
+    overflow-y: hidden;
+}
+
 .flow{
     /* forces the div to the left */
     position: absolute;
-    overflow: scroll; 
-    /*
-    padding: 5px;
-    padding-top: 15px;
-    */
-    width: 90%;
-    height: 100%;
 }
+
+.tab_pane{
+    overflow-y: hidden;
+
+}
+
 
 .left-element {
     /* forces the div to the left */
     position: relative;
     float: left;
 }
+
 
 /* Debugging Utilities */
 .bold-borders{

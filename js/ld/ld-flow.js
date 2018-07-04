@@ -88,7 +88,6 @@ Mousetrap.bind(['command+i', 'ctrl+i'], function () {
     if (index != 0) {
 
         if ((ac_delete_limit>=2 && index == ac_delete_limit)){
-            console.log('ac_delete should be 5')
             ac_delete_limit = ac_delete_limit - 1
             nc_delete_limit = nc_delete_limit - 1
             nc_limit = nc_limit - 1

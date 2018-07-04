@@ -63,7 +63,7 @@ p {
 /* Disables scrollbar */
 body {
     overflow-y: hidden;
-  }
+}
 
 /* Debugging Utilities */
 .bold-borders{
