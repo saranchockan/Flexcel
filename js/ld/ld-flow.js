@@ -6,7 +6,6 @@ var tabs_li = document.getElementById('flow-navbar').getElementsByClassName('nav
 var tabs = document.getElementById('flow-navbar').getElementsByClassName('nav-link');
 var flows = document.getElementsByClassName('tab-pane');
 
-
 var index = 0;
 var mouseClicked = true;
 var tabDeleted = false;
@@ -53,7 +52,6 @@ $('#flow-navbar a').on('click', function (e) {
 
 $('#flow-navbar li').on('shown.bs.tab', function (e) {
 
-    // console.log('click');
     console.log(getClassNames());
     console.log(this.classList[0]);
 
