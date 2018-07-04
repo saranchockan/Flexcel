@@ -231,7 +231,7 @@ function switchFlow() {
 }
 
 function selectAllCells(){
-    for(i = 0;i<handstonable_flows.length;i++){
+    for(i = handstonable_flows.length-1;i>=0;i--){
         var rc = selectCell_rc[i];
         var r = rc[0]
         var c = rc[1]
