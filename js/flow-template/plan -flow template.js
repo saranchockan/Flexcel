@@ -73,9 +73,7 @@ for(i = 0;i<AC_tabs.length;i++){
 
     console.log(AC_tabs[i].id);
     handstonable_flows.push(new Handsontable(container,{
-      data: [
-        ['AC', '1NR', '1AR', '2NR', '2AR']
-      ],
+      colHeaders: ['AC', '1NR', '1AR', '2NR', '2AR'],
       minCols: 5,
       minRows: 35,
       maxRows: 200,
@@ -118,9 +116,8 @@ for(i = 0;i<NC_tabs.length;i++){
   container = document.getElementById(NC_tabs[i].id);
 
   handstonable_flows.push(new Handsontable(container,{
-    data: [
-      ['1NC', '1AR', '2NR','2AR']
-    ],
+
+    colHeaders: ['1NC', '1AR', '2NR','2AR'],
     minCols: 4,
     minRows: 35,
     maxRows: 200,
