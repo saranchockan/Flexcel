@@ -7,7 +7,7 @@ var NC_tabs = document.getElementsByClassName('NC');
 
 
 var selectCell_rc = [
-  [1,0],[1,0]
+  [0,0],[0,0]
 ]
 var window_width = window.innerWidth;
 
@@ -62,10 +62,6 @@ for(i = 0;i<AC_tabs.length;i++){
       cells: function (row, col) {
         var cellProperties = {};
         var data = this.instance.getData();
-    
-        if (row === 0) {
-          cellProperties.readOnly = true;
-        }
         if (row === 0) {
           cellProperties.renderer = flowLabels; // uses function directly
         }
@@ -88,6 +84,7 @@ for(i = 0;i<NC_tabs.length;i++){
   handstonable_flows.push(new Handsontable(container,{
     colHeaders: ['1NC', '1AR', '2NR','2AR'],
     minCols: 4,
+    maxCols: 4,
     minRows: 40,
     maxRows: 200,
     width: 1100,
@@ -103,9 +100,6 @@ for(i = 0;i<NC_tabs.length;i++){
       var cellProperties = {};
       var data = this.instance.getData();
   
-      if (row === 0) {
-        cellProperties.readOnly = true;
-      }
       if (row === 0) {
         cellProperties.renderer = flowLabels; // uses function directly
       }

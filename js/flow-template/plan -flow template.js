@@ -6,7 +6,7 @@ var AC_tabs = document.getElementsByClassName('AC');
 var NC_tabs = document.getElementsByClassName('NC');
 
 var selectCell_rc = [
-  [1,0],[1,0],[1,0],[1,0],[1,0],[1,0],[1,0],[1,0],[1,0],[1,0],[1,0],[1,0],[1,0],[1,0]
+  [0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0]
 ]
 var window_width = window.innerWidth;
 
@@ -90,9 +90,6 @@ for(i = 0;i<AC_tabs.length;i++){
         var data = this.instance.getData();
     
         if (row === 0) {
-          cellProperties.readOnly = true;
-        }
-        if (row === 0) {
           cellProperties.renderer = ac_flowLabels; // uses function directly
         }
     
@@ -134,9 +131,6 @@ for(i = 0;i<NC_tabs.length;i++){
       var cellProperties = {};
       var data = this.instance.getData();
   
-      if (row === 0) {
-        cellProperties.readOnly = true;
-      }
       if (row === 0) {
         cellProperties.renderer = nc_flowLabels; // uses function directly
       }
