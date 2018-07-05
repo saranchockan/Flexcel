@@ -35,7 +35,7 @@
   <link rel="stylesheet" href="materialize/css/materialize.css">
   <link rel="stylesheet" href="css/ld-flow.css">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
-  crossorigin="anonymous">
+    crossorigin="anonymous">
 
 
   <!-- Materialize CSS -->
@@ -46,35 +46,51 @@
 </head>
 
 <body style="background-color: #202225">
-  <!-- Flow: tab pane and spreadsheet placed in a div that is floated to the left-->
-  <div class="flow bold-borders" style="background-color: #2F3136">
-    <div id="flow-navbar" class="left-element w-100 p-3" style="background-color: #2F3136">
 
-      <!-- Bootstrap Nav-->
+  <div id = 'df' class="df-container elementToFadeInAndOutLeft">
+    <!-- Flow: tab pane and spreadsheet placed in a div that is floated to the left-->
+    <div class="trad-flow bold-borders" style="background-color: #2F3136">
+      <div id="flow-navbar" class="left-element w-100 p-3" style="background-color: #2F3136">
 
-      <ul id="flow-tabs" class="nav nav-pills nav-fill mb-3" style="background-color: #202225" role="tablist">
-        <li class="nav-item">
-          <a class="0 nav-link active text-white" id="1ACFraming" data-toggle="pill" href="#1AC-Framing-tab" role="tab" aria-controls="1AC-Framing-tab"
-            aria-selected="true">1AC</a>
-        <li class="nav-item">
-          <a class="1 nav-link text-white" id="Off4" data-toggle="pill" href="#Off-4-Tab" role="tab" aria-controls="Off-4-Tab" aria-selected="false">1NC</a>
-        </li>
-      </ul>
+        <!-- Bootstrap Nav-->
 
-      <!-- js plugin for collapsing-->
+        <ul id="flow-tabs" class="nav nav-pills nav-fill mb-3" style="background-color: #202225" role="tablist">
+          <li class="nav-item">
+            <a class="0 nav-link active text-white" id="1ACFraming" data-toggle="pill" href="#1AC-Framing-tab" role="tab" aria-controls="1AC-Framing-tab"
+              aria-selected="true">1AC</a>
+            <li class="nav-item">
+              <a class="1 nav-link text-white" id="Off4" data-toggle="pill" href="#Off-4-Tab" role="tab" aria-controls="Off-4-Tab" aria-selected="false">1NC</a>
+            </li>
+        </ul>
 
-      <div id="flows" class="tab-content" id="pills-tabContent">
-        <div class="AC tab-pane fade show active" id="1AC-Framing-tab" role="tabpanel" aria-labelledby="1ACFraming">1AC</div>
-        <div class="NC tab-pane fade" id="Off-4-Tab" role="tabpanel" aria-labelledby="Off4">1NC</div>
+        <!-- js plugin for collapsing-->
+
+        <div id="flows" class="tab-content" id="pills-tabContent">
+          <div class="AC tab-pane fade show active" id="1AC-Framing-tab" role="tabpanel" aria-labelledby="1ACFraming">1AC</div>
+          <div class="NC tab-pane fade" id="Off-4-Tab" role="tabpanel" aria-labelledby="Off4">1NC</div>
+        </div>
       </div>
-     </div>
     </div>
   </div>
+  <div class="elementToFadeInAndOutRight">
+      <div id="summernote" class="speech-doc"></div>
+    </div>
+  </div>
+
 
 
   <!-- Main js-->
   <script src="js/flow-template/traditional-flow template.js"></script>
   <script src="js/ld/ld-flow.js"></script>
+  <script>
+      $('#summernote').summernote({
+        placeholder: 'Speech-Doc',
+        height:819.5
+      });
+
+      $('.note-toolbar').remove()
+      $('.note-resizebar').remove()
+    </script>
 </body>
 
 </html>

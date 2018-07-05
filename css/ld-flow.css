@@ -1,8 +1,9 @@
 
-/* Disables scrollbar */
+/* Disables scrollbar 
 body {
     overflow-y: hidden;
 }
+*/
 
 
 
@@ -10,12 +11,21 @@ body {
     position: absolute;
 }
 
-.flow{
+.plan-flow{
     /* forces the div to the left */
     position: relative;
     float: left;
     width: 1085px;
 }
+
+.trad-flow{
+    /* forces the div to the left */
+    position: relative;
+    float: left;
+    height: 100%;
+    width: 950px;
+}
+
 
 .speech-doc{
     position: relative;
