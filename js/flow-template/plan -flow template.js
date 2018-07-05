@@ -53,7 +53,6 @@ function nc_flowRenderer(instance, td, row, col, prop, value, cellProperties) {
   Handsontable.renderers.TextRenderer.apply(this, arguments);
 
   if (col % 2 == 1) { 
-
     td.style.fontWeight = 'bold';
     td.style.color = 'red'; 
   }
@@ -76,7 +75,7 @@ for(i = 0;i<AC_tabs.length;i++){
       colHeaders: ['AC', '1NR', '1AR', '2NR', '2AR'],
       minCols: 5,
       minRows: 35,
-      width: 1100,
+      width: 975,
       height: 820,
       viewportRowRenderingOffsetequal: 35,
       viewportColumnRenderingOffset:5,
@@ -118,7 +117,7 @@ for(i = 0;i<NC_tabs.length;i++){
     maxCols:4,
     minRows: 35,
     maxRows: 200,
-    width: 1100,
+    width: 800,
     height: 820, 
     viewportRowRenderingOffsetequal: 35,
     viewportColumnRenderingOffset:4,

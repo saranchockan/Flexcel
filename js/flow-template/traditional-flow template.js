@@ -5,7 +5,6 @@ const flow_tabs = document.getElementsByClassName('tab-pane');
 var AC_tabs = document.getElementsByClassName('AC');
 var NC_tabs = document.getElementsByClassName('NC');
 
-
 var selectCell_rc = [
   [0,0],[0,0]
 ]
@@ -50,7 +49,7 @@ for(i = 0;i<AC_tabs.length;i++){
       minCols: 5,
       minRows: 40,
       maxRows: 200,
-      width: 1100,
+      width: 975,
       height: 700, 
       viewportRowRenderingOffsetequal: 30,
       viewportColumnRenderingOffset:5,
@@ -87,7 +86,7 @@ for(i = 0;i<NC_tabs.length;i++){
     maxCols: 4,
     minRows: 40,
     maxRows: 200,
-    width: 1100,
+    width: 975,
     height: 700, 
     viewportRowRenderingOffsetequal: 30,
     viewportColumnRenderingOffset:4,

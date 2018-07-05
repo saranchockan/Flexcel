@@ -17,8 +17,6 @@ var nc_limit = 9
 // -- Selects all the first cells of the flow: fixes bug when handstonable returns undefined when accessed before any cell gets selected
 selectAllCells()
 
-
-
 //-- Adds Keybinding to switch to the previous tab
 
 Mousetrap.bind(['command+o', 'ctrl+o'], function () {
