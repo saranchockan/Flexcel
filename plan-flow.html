@@ -34,8 +34,9 @@
   <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
   <link rel="stylesheet" href="materialize/css/materialize.css">
   <link rel="stylesheet" href="css/ld-flow.css">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
     crossorigin="anonymous">
+  
 
 
   <!-- Materialize CSS -->
@@ -47,7 +48,7 @@
 
 <body style="background-color: #202225">
 
-  <div class="df-container ">
+  <div class="df-container elementToFadeInAndOutLeft">
     <!-- Flow: tab pane and spreadsheet placed in a div that is floated to the left-->
     <div id = 'df' class="flow bold-borders" style="background-color: #2F3136">
 
@@ -128,11 +129,10 @@
     </div>
   </div>
 
-  <div id="summernote" class="speech-doc" style="height: 200px;"></div>
+  <div class="elementToFadeInAndOutRight">
+    <div id="summernote" class="speech-doc"></div>
+  </div>
 </div>
-
-
-
 
   <!-- Main js-->
   <script src="js/flow-template/plan -flow template.js"></script>

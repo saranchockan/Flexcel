@@ -48,6 +48,38 @@ body {
     float: left;
 }
 
+.elementToFadeInAndOutLeft {
+    opacity: 1;
+    animation: fade-left 2s linear;
+}
+
+@keyframes fade-left {
+  0% { 
+    opacity: 0; 
+    transform: translateX(-5px);
+    }
+  100% { 
+      opacity: 1; 
+      transform: translateX(0px);
+    }
+}
+
+
+.elementToFadeInAndOutRight{
+    opacity: 1;
+    animation: fade-right 2s linear;
+}
+
+@keyframes fade-right {
+  0% { 
+    opacity: 0; 
+    transform: translateX(5px);
+    }
+  100% { 
+      opacity: 1; 
+      transform: translateX(0px);
+    }
+}
 
 /* Debugging Utilities */
 .bold-borders{
