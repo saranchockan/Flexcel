@@ -208,6 +208,7 @@ function deleteTab(){
     previousTab()
     console.log('test')
     console.log(nav_classNames());
+
 }
 
 //-- Adds visibility to the selected flow, and removes the visibilty from the previous tab
