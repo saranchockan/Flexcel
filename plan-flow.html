@@ -1,4 +1,4 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -23,6 +23,10 @@
   <script src="handstonable/handsontable.full.js"></script>
   <link rel="stylesheet" media="screen" href="handstonable/handsontable.full.min.css">
 
+  <!-- summernote css/js -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.9/summernote-lite.css" rel="stylesheet">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.9/summernote-lite.js"></script>
+
   <!-- Electron configuration -->
   <script>if (window.module) module = window.module;</script>
 
@@ -31,7 +35,7 @@
   <link rel="stylesheet" href="materialize/css/materialize.css">
   <link rel="stylesheet" href="css/ld-flow.css">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
-  crossorigin="anonymous">
+    crossorigin="anonymous">
 
 
   <!-- Materialize CSS -->
@@ -42,87 +46,106 @@
 </head>
 
 <body style="background-color: #202225">
-  <!-- Flow: tab pane and spreadsheet placed in a div that is floated to the left-->
-  <div class="flow bold-borders"  style="background-color: #2F3136">
-      
-    <div id="flow-navbar" class="left-element w-100 p-3" style="background-color: #2F3136" >
-      
-      <!-- Bootstrap Nav-->
 
-      <ul id="flow-tabs" class="nav nav-pills mb-3" style="background-color: #202225" role="tablist">
-        <li class="nav-item" id="1ACFraming-li">
+  <div class="df-container ">
+    <!-- Flow: tab pane and spreadsheet placed in a div that is floated to the left-->
+    <div class="flow bold-borders" style="background-color: #2F3136">
+
+      <div id="flow-navbar" class="left-element w-100 p-3" style="background-color: #2F3136">
+
+        <!-- Bootstrap Nav-->
+
+        <ul id="flow-tabs" class="nav nav-pills mb-3" style="background-color: #202225" role="tablist">
+          <li class="nav-item" id="1ACFraming-li">
             <a class="nav-link active text-white" id="1ACFraming" data-toggle="pill" href="#1AC-Framing-tab" role="tab" aria-controls="1AC-Framing-tab"
-            aria-selected="true">1AC Framing</a>
-        </li>
-        <li class="nav-item" id="Inherency-li">
-          <a class="nav-link text-white" id="Inherency" data-toggle="pill" href="#Inherency-tab" role="tab" aria-controls="Inherency-tab" aria-selected="false">Inherency</a>
-        </li>
-        <li class="nav-item" id="Adv1-li">
-          <a class="nav-link text-white" id="Adv1" data-toggle="pill" href="#Adv-1-tab" role="tab" aria-controls="Adv-1-tab" aria-selected="false">Adv 1</a>
-        </li>
-        <li class="nav-item" id="Adv2-li">
-          <a class="nav-link text-white" id="Adv2" data-toggle="pill" href="#Adv-2-tab" role="tab" aria-controls="Adv-2-tab" aria-selected="false">Adv 2</a>
-        </li>
-        <li class="nav-item" id="Adv3-li">
-          <a class="nav-link text-white" id="Adv3" data-toggle="pill" href="#Adv-3-tab" role="tab" aria-controls="Adv-3-tab" aria-selected="false">Adv 3</a>
-        </li>
-        <li class="nav-item" id="Adv4-li">
-          <a class="nav-link text-white" id="Adv4" data-toggle="pill" href="#Adv-4-tab" role="tab" aria-controls="Adv-4-tab" aria-selected="false">Adv 4</a>
-        </li>
-        <li class="nav-item" id="Adv5-li">
-          <a class="nav-link text-white" id="Adv5" data-toggle="pill" href="#Adv-5-tab" role="tab" aria-controls="Adv-5-tab" aria-selected="false">Adv 5</a>
-        </li>
-        <li class="nav-item" id="Solvency-li">
-          <a class="nav-link text-white" id="Solvency" data-toggle="pill" href="#Solvency-tab" role="tab" aria-controls="Solvency-tab" aria-selected="false">Solvency</a>
-        </li>
-        <li class="nav-item" id="1NCFraming-li">
-          <a class="nav-link text-white" id="1NCFraming" data-toggle="pill" href="#1NC-Framing-tab" role="tab" aria-controls="1NC-Framing-tab"
-            aria-selected="false">1NC Framing</a>
-        </li>
-        <li class="nav-item" id="Off1-li">
-          <a class="nav-link text-white" id="Off1" data-toggle="pill" href="#Off-1-Tab" role="tab" aria-controls="Off-1-Tab" aria-selected="false">Off 1</a>
-        </li>
-        <li class="nav-item" id="Off2-li">
-          <a class="nav-link text-white" id="Off2" data-toggle="pill" href="#Off-2-Tab" role="tab" aria-controls="Off-2-Tab" aria-selected="false">Off 2</a>
-        </li>
-        <li class="nav-item" id="Off3-li">
-          <a class="nav-link text-white" id="Off3" data-toggle="pill" href="#Off-3-Tab" role="tab" aria-controls="Off-3-Tab" aria-selected="false">Off 3</a>
-        </li>
-        <li class="nav-item" id="Off4-li">
-          <a class="nav-link text-white" id="Off4" data-toggle="pill" href="#Off-4-Tab" role="tab" aria-controls="Off-4-Tab" aria-selected="false">Off 4</a>
-        </li>
-        <li class="nav-item" id="Off5-li">
-          <a class="nav-link text-white" id="Off5" data-toggle="pill" href="#Off-5-Tab" role="tab" aria-controls="Off-5-Tab" aria-selected="false">Off 5</a>
-        </li>
-      </ul>
+              aria-selected="true">1AC Framing</a>
+          </li>
+          <li class="nav-item" id="Inherency-li">
+            <a class="nav-link text-white" id="Inherency" data-toggle="pill" href="#Inherency-tab" role="tab" aria-controls="Inherency-tab"
+              aria-selected="false">Inherency</a>
+          </li>
+          <li class="nav-item" id="Adv1-li">
+            <a class="nav-link text-white" id="Adv1" data-toggle="pill" href="#Adv-1-tab" role="tab" aria-controls="Adv-1-tab" aria-selected="false">Adv 1</a>
+          </li>
+          <li class="nav-item" id="Adv2-li">
+            <a class="nav-link text-white" id="Adv2" data-toggle="pill" href="#Adv-2-tab" role="tab" aria-controls="Adv-2-tab" aria-selected="false">Adv 2</a>
+          </li>
+          <li class="nav-item" id="Adv3-li">
+            <a class="nav-link text-white" id="Adv3" data-toggle="pill" href="#Adv-3-tab" role="tab" aria-controls="Adv-3-tab" aria-selected="false">Adv 3</a>
+          </li>
+          <li class="nav-item" id="Adv4-li">
+            <a class="nav-link text-white" id="Adv4" data-toggle="pill" href="#Adv-4-tab" role="tab" aria-controls="Adv-4-tab" aria-selected="false">Adv 4</a>
+          </li>
+          <li class="nav-item" id="Adv5-li">
+            <a class="nav-link text-white" id="Adv5" data-toggle="pill" href="#Adv-5-tab" role="tab" aria-controls="Adv-5-tab" aria-selected="false">Adv 5</a>
+          </li>
+          <li class="nav-item" id="Solvency-li">
+            <a class="nav-link text-white" id="Solvency" data-toggle="pill" href="#Solvency-tab" role="tab" aria-controls="Solvency-tab"
+              aria-selected="false">Solvency</a>
+          </li>
+          <li class="nav-item" id="1NCFraming-li">
+            <a class="nav-link text-white" id="1NCFraming" data-toggle="pill" href="#1NC-Framing-tab" role="tab" aria-controls="1NC-Framing-tab"
+              aria-selected="false">1NC Framing</a>
+          </li>
+          <li class="nav-item" id="Off1-li">
+            <a class="nav-link text-white" id="Off1" data-toggle="pill" href="#Off-1-Tab" role="tab" aria-controls="Off-1-Tab" aria-selected="false">Off 1</a>
+          </li>
+          <li class="nav-item" id="Off2-li">
+            <a class="nav-link text-white" id="Off2" data-toggle="pill" href="#Off-2-Tab" role="tab" aria-controls="Off-2-Tab" aria-selected="false">Off 2</a>
+          </li>
+          <li class="nav-item" id="Off3-li">
+            <a class="nav-link text-white" id="Off3" data-toggle="pill" href="#Off-3-Tab" role="tab" aria-controls="Off-3-Tab" aria-selected="false">Off 3</a>
+          </li>
+          <li class="nav-item" id="Off4-li">
+            <a class="nav-link text-white" id="Off4" data-toggle="pill" href="#Off-4-Tab" role="tab" aria-controls="Off-4-Tab" aria-selected="false">Off 4</a>
+          </li>
+          <li class="nav-item" id="Off5-li">
+            <a class="nav-link text-white" id="Off5" data-toggle="pill" href="#Off-5-Tab" role="tab" aria-controls="Off-5-Tab" aria-selected="false">Off 5</a>
+          </li>
+        </ul>
 
-      <!-- js plugin for collapsing-->
+        <!-- js plugin for collapsing-->
 
-      <div id="flows" class="tab-content" id="pills-tabContent">
+        <div id="flows" class="tab-content" id="pills-tabContent">
 
-        <div class="AC tab-pane fade show active" id="1AC-Framing-tab" role="tabpanel" aria-labelledby="1ACFraming">1ACFraming</div>
-        <div class="AC tab-pane fade" id="Inherency-tab" role="tabpanel" aria-labelledby="Inherency">Inherency</div>
-        <div class="AC tab-pane fade" id="Adv-1-tab" role="tabpanel" aria-labelledby="Adv1">Adv1</div>
-        <div class="AC tab-pane fade" id="Adv-2-tab" role="tabpanel" aria-labelledby="Adv2">Adv2</div>
-        <div class="AC tab-pane fade" id="Adv-3-tab" role="tabpanel" aria-labelledby="Adv3">Adv3</div>
-        <div class="AC tab-pane fade" id="Adv-4-tab" role="tabpanel" aria-labelledby="Adv4">Adv4</div>
-        <div class="AC tab-pane fade" id="Adv-5-tab" role="tabpanel" aria-labelledby="Adv5">Adv5</div>
-        <div class="AC tab-pane fade" id="Solvency-tab" role="tabpanel" aria-labelledby="Solvency">Solvency</div>
-        <div class="NC tab-pane fade" id="1NC-Framing-tab" role="tabpanel" aria-labelledby="1NCFraming">1NCFraming</div>
-        <div class="NC tab-pane fade" id="Off-1-Tab" role="tabpanel" aria-labelledby="Off1">Off1</div>
-        <div class="NC tab-pane fade" id="Off-2-Tab" role="tabpanel" aria-labelledby="Off2">Off2</div>
-        <div class="NC tab-pane fade" id="Off-3-Tab" role="tabpanel" aria-labelledby="Off3">Off3</div>
-        <div class="NC tab-pane fade" id="Off-4-Tab" role="tabpanel" aria-labelledby="Off4">Off4</div>
-        <div class="NC tab-pane fade" id="Off-5-Tab" role="tabpanel" aria-labelledby="Off5">Off5</div>
+          <div class="AC tab-pane fade show active" id="1AC-Framing-tab" role="tabpanel" aria-labelledby="1ACFraming">1ACFraming</div>
+          <div class="AC tab-pane fade" id="Inherency-tab" role="tabpanel" aria-labelledby="Inherency">Inherency</div>
+          <div class="AC tab-pane fade" id="Adv-1-tab" role="tabpanel" aria-labelledby="Adv1">Adv1</div>
+          <div class="AC tab-pane fade" id="Adv-2-tab" role="tabpanel" aria-labelledby="Adv2">Adv2</div>
+          <div class="AC tab-pane fade" id="Adv-3-tab" role="tabpanel" aria-labelledby="Adv3">Adv3</div>
+          <div class="AC tab-pane fade" id="Adv-4-tab" role="tabpanel" aria-labelledby="Adv4">Adv4</div>
+          <div class="AC tab-pane fade" id="Adv-5-tab" role="tabpanel" aria-labelledby="Adv5">Adv5</div>
+          <div class="AC tab-pane fade" id="Solvency-tab" role="tabpanel" aria-labelledby="Solvency">Solvency</div>
+          <div class="NC tab-pane fade" id="1NC-Framing-tab" role="tabpanel" aria-labelledby="1NCFraming">1NCFraming</div>
+          <div class="NC tab-pane fade" id="Off-1-Tab" role="tabpanel" aria-labelledby="Off1">Off1</div>
+          <div class="NC tab-pane fade" id="Off-2-Tab" role="tabpanel" aria-labelledby="Off2">Off2</div>
+          <div class="NC tab-pane fade" id="Off-3-Tab" role="tabpanel" aria-labelledby="Off3">Off3</div>
+          <div class="NC tab-pane fade" id="Off-4-Tab" role="tabpanel" aria-labelledby="Off4">Off4</div>
+          <div class="NC tab-pane fade" id="Off-5-Tab" role="tabpanel" aria-labelledby="Off5">Off5</div>
 
+        </div>
       </div>
-     </div>
     </div>
   </div>
+
+  <div id="summernote" class="speech-doc" style="height: 200px;"></div>
+</div>
+
+
+
 
   <!-- Main js-->
   <script src="js/flow-template/plan -flow template.js"></script>
   <script src="js/ld/ld-flow.js"></script>
+  <script>
+      $('#summernote').summernote({
+        placeholder: 'Hello stand alone ui',
+        height:890
+      });
+
+      $('.note-toolbar').remove()
+      $('.note-resizebar').remove()
+    </script>
 </body>
 
 </html>

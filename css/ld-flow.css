@@ -4,14 +4,40 @@ body {
     overflow-y: hidden;
 }
 
+
+
+.db-container{
+    position: absolute;
+}
+
 .flow{
     /* forces the div to the left */
-    position: absolute;
+    position: relative;
+    float: left;
+}
+
+.speech-doc{
+    position: relative;
+    float: right;
+    background-color: white;
+    height: 410px;
+    width: 490px;
+}
+
+
+.note-editor {
+    position: relative;
+    float: right;
+    width: 490px;
+}
+.note-frame{
+    position: relative;
+    float: right;
+    width: 490px;
 }
 
 .tab_pane{
     overflow-y: hidden;
-
 }
 
 
