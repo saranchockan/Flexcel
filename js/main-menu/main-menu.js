@@ -37,7 +37,7 @@ LD_Traditional_Flow_Button .addEventListener("click", () => {
     flow.loadFile('traditional-flow.html')
     flow.maximize()
     flow.setMenu(null)
-    // flow.webContents.openDevTools({detach: true});
+    flow.webContents.openDevTools({detach: true});
     flow.setResizable(false)
     flow.show()
     
