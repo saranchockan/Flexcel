@@ -10,10 +10,7 @@ var selectCell_rc = [
 ]
 var window_width = window.innerWidth;
 
-
-
 //-- sets red color font to 1ac and blue color font to 1nc
-
 function ac_flowLabels(instance, td, row, col, prop, value, cellProperties) {
   Handsontable.renderers.TextRenderer.apply(this, arguments);
   td.style.fontWeight = 'bold';
@@ -79,7 +76,8 @@ for(i = 0;i<AC_tabs.length;i++){
       height: 820,
       viewportRowRenderingOffsetequal: 35,
       viewportColumnRenderingOffset:5,
-      colWidths: window_width*0.43378995433,
+      //colWidths: window_width*0.43378995433,
+      colWidths: 190,
       fillHandle:{
         autoInsertRow: true
       },
@@ -121,7 +119,8 @@ for(i = 0;i<NC_tabs.length;i++){
     height: 820, 
     viewportRowRenderingOffsetequal: 35,
     viewportColumnRenderingOffset:4,
-    colWidths: window_width*0.43378995433,
+    //colWidths: window_width*0.43378995433,
+    colWidths: 190,
     fillHandle:{
       autoInsertRow: true
     },

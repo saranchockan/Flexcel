@@ -14,6 +14,7 @@ var ac_delete_limit = 6
 var nc_delete_limit = 13
 var nc_limit = 9
 
+
 // -- Selects all the first cells of the flow: fixes bug when handstonable returns undefined when accessed before any cell gets selected
 selectAllCells()
 
@@ -311,6 +312,10 @@ function nav_classNames() {
 
 //-- Renders the first flow: to make sure all cells are displayed: Fires after page is loaded
 $(function(){
+
     nextTab()
     previousTab()
+    console.log('df width' + document.getElementById('df').offsetWidth)
+
+
  });

@@ -53,7 +53,8 @@ for(i = 0;i<AC_tabs.length;i++){
       height: 750, 
       viewportRowRenderingOffsetequal: 30,
       viewportColumnRenderingOffset:5,
-      colWidths: window_width*0.43378995433,
+      // colWidths: window_width*0.43378995433,
+      colWidths: 174,
       fillHandle:{
         autoInsertRow: true
       },

@@ -33,7 +33,7 @@
   <!-- Bootstrap CSS -->
   <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
   <link rel="stylesheet" href="materialize/css/materialize.css">
-  <link rel="stylesheet" href="css/ld-flow.css">
+  <link rel="stylesheet" href="css/plan-ld-flow.css">
    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
     crossorigin="anonymous">
   
@@ -48,11 +48,11 @@
 
 <body style="background-color: #202225">
 
-  <div class="df-container elementToFadeInAndOutLeft">
+  <div id = 'df' class="plan-container elementToFadeInAndOutLeft bold-borders">
     <!-- Flow: tab pane and spreadsheet placed in a div that is floated to the left-->
-    <div id = 'df' class="plan-flow bold-borders" style="background-color: #2F3136">
+    <div  class="plan-flow " style="background-color: #2F3136">
 
-      <div id="flow-navbar" class="left-element w-100 p-3" style="background-color: #2F3136">
+      <div id="flow-navbar" class="w-100 p-3" style="background-color: #2F3136">
 
         <!-- Bootstrap Nav-->
 
@@ -130,7 +130,7 @@
   </div>
 
   <div class="elementToFadeInAndOutRight">
-    <div id="summernote" class="speech-doc"></div>
+    <div id="summernote"></div>
   </div>
 </div>
 
@@ -138,14 +138,15 @@
   <script src="js/flow-template/plan -flow template.js"></script>
   <script src="js/ld/ld-flow.js"></script>
   <script>
-      $('#summernote').summernote({
-        placeholder: 'Speech-Doc',
-        height:889.1
-      });
 
+    $('#summernote').summernote({
+        placeholder: 'Speech-Doc',
+        height: screen.height + 10
+    });
       $('.note-toolbar').remove()
       $('.note-resizebar').remove()
-    </script>
+
+  </script>
 </body>
 
 </html>
