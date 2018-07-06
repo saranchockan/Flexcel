@@ -315,7 +315,7 @@ function nav_classNames() {
 $(function(){
     // Sets zoom factor 
     const {webFrame} = require('electron')  
-    webFrame.setZoomFactor(0.9128709291752769)
+    webFrame.setZoomFactor(0.9)
     nextTab()
     previousTab()
 
