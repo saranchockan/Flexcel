@@ -318,7 +318,5 @@ $(function(){
     webFrame.setZoomFactor(0.9128709291752769)
     nextTab()
     previousTab()
-    console.log('df width' + document.getElementById('df').offsetWidth)
-
 
  });
