@@ -73,7 +73,7 @@ for(i = 0;i<AC_tabs.length;i++){
       minCols: 5,
       minRows: 35,
       width: 975,
-      height: screen.height-100,
+      height: 700,
       viewportRowRenderingOffsetequal: 35,
       viewportColumnRenderingOffset:5,
       //colWidths: window_width*0.43378995433,
@@ -116,7 +116,7 @@ for(i = 0;i<NC_tabs.length;i++){
     minRows: 35,
     maxRows: 200,
     width: 800,
-    height: screen.height-100, 
+    height: 700, 
     viewportRowRenderingOffsetequal: 35,
     viewportColumnRenderingOffset:4,
     //colWidths: window_width*0.43378995433,
@@ -142,11 +142,6 @@ for(i = 0;i<NC_tabs.length;i++){
   }))
 }
 
-// Renders the flow
-for(i = 0;i<handstonable_flows.length;i++){
-  handstonable_flows[i].updateSettings({viewportRowRenderingOffset: 'auto'});
-  handstonable_flows[i].updateSettings({viewportColumnRenderingOffset: 'auto'});
-}
 
 // Removes All of Handsontable's licenses
 

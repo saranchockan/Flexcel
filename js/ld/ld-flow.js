@@ -313,10 +313,6 @@ function nav_classNames() {
 
 //-- Renders the first flow: to make sure all cells are displayed: Fires after page is loaded
 $(function(){
-    // Sets zoom factor 
-    const {webFrame} = require('electron')  
-    webFrame.setZoomFactor(0.9)
     nextTab()
     previousTab()
-
- });
+});

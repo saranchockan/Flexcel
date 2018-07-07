@@ -4,16 +4,6 @@ body {
     overflow-y: hidden;
 }
 
-.plan-container{
-    position: absolute;
-    height: 100%;
-    width: 68.80152187698161vw;
-    /* 
-        width: 1085px; 
-        1085/1577 = 68.8% of window's innerWidth: responsive   
-        width: 68.80152187698161%;
-    */
-}
 
 .trad-container{
     position: absolute;
@@ -24,14 +14,6 @@ body {
         width: 65.97222222222222%; 
     */
     width: 65.97222222222222vw;
-}
-
-.plan-flow{
-    /* forces the div to the left */
-    position: relative;
-    float: left;
-    height: 100%;
-    width: 100%;
 }
 
 .trad-flow{
@@ -46,17 +28,19 @@ body {
 .note-editor {
     position: relative;
     float: right;
-    width: 490px;
     width: 33.5vw;
-    height: 100%;
+    height: 100vh;
 
 }
 .note-frame{
     position: relative;
     float: right;
-    width: 490px;
     width: 33.5vw;
-    height: 100%;
+    height: 100vh;
+}
+
+.note-editable{
+    height: 100vh;
 }
 
 .tab_pane{
