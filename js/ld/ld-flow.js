@@ -329,6 +329,6 @@ $(function(){
                 width: document.getElementById('df').offsetWidth - 16
              });
          }
-    }, 1000);
+    }, 100);
 
 });
