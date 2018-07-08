@@ -18,6 +18,8 @@ function createWindow () {
   // Maximize window
   // mainWindow.maximize();
   
+  // Removes Main Menu from windows
+  mainWindow.setMenu(null)
 
   // Window's heigh and width are fixed
   mainWindow.setResizable(false);

@@ -315,4 +315,17 @@ function nav_classNames() {
 $(function(){
     nextTab()
     previousTab()
+    console.log('Flow Width' + document.getElementById('df').offsetWidth)
+    console.log('Flow Height' + document.getElementById('df').offsetHeight)
+
+    // Width  df.width - 16
+    // Height df.height - 131
+
+     for(i = 0;i<handstonable_flows.length;i++){
+        handstonable_flows[i].updateSettings({
+            height: document.getElementById('df').offsetHeight - 131,
+            width: document.getElementById('df').offsetWidth - 16
+         });
+     }
+
 });

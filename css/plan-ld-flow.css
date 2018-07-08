@@ -3,19 +3,13 @@
 body {
     overflow-y: hidden;
 }
+ 
 
 .plan-container{
     position: absolute;
     height: 100vh;
     width: 68.80152187698161vw;
-    /* 
-        width: 1085px; 
-        1085/1577 = 68.8% of window's innerWidth: responsive   
-        width: 68.80152187698161%;
-    */
 }
-
-
 
 .plan-flow{
     /* forces the div to the left */
@@ -44,7 +38,10 @@ body {
     height: 100vh;
 }
 
+
 .tab_pane{
+    height: 100%;
+    width: 100%;
     overflow-y: hidden;
 }
 
