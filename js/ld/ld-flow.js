@@ -321,11 +321,14 @@ $(function(){
     // Width  df.width - 16
     // Height df.height - 131
 
-     for(i = 0;i<handstonable_flows.length;i++){
-        handstonable_flows[i].updateSettings({
-            height: document.getElementById('df').offsetHeight - 131,
-            width: document.getElementById('df').offsetWidth - 16
-         });
-     }
+    // Set a timeout for 1 second to make sure the whole page is loaded
+    setTimeout(() => {
+        for(i = 0;i<handstonable_flows.length;i++){
+            handstonable_flows[i].updateSettings({
+                height: document.getElementById('df').offsetHeight - 131,
+                width: document.getElementById('df').offsetWidth - 16
+             });
+         }
+    }, 1000);
 
 });
