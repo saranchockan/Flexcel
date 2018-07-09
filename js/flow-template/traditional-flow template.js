@@ -11,6 +11,10 @@ var selectCell_rc = [
 var window_width = window.innerWidth;
 
 
+document.getElementById('flow-navbar').style.visibility = 'hidden'
+document.getElementById('flows').style.visibility = 'hidden'
+document.getElementById('speech-doc').style.visibility = 'hidden'
+
 function flowLabels(instance, td, row, col, prop, value, cellProperties) {
   Handsontable.renderers.TextRenderer.apply(this, arguments);
   td.style.fontWeight = 'bold';

@@ -46,7 +46,7 @@ $('#flow-navbar a').on('click', function (e) {
         handstonable_flows[i].selectCell(r, c);
 
     }
-    
+
 })
 
 // Event fired after user selects tab: the flow is switched, index is updated
@@ -75,7 +75,7 @@ $('#flow-navbar li').on('shown.bs.tab', function (e) {
         handstonable_flows[i].selectCell(r, c);
 
     }
-    
+
 })
 
 
@@ -87,19 +87,19 @@ Mousetrap.bind(['command+i', 'ctrl+i'], function () {
 
     if (index != 0) {
 
-        if ((ac_delete_limit>=2 && index == ac_delete_limit)){
+        if ((ac_delete_limit >= 2 && index == ac_delete_limit)) {
             ac_delete_limit = ac_delete_limit - 1
             nc_delete_limit = nc_delete_limit - 1
             nc_limit = nc_limit - 1
             deleteTab()
         }
 
-        else if(nc_delete_limit>=nc_limit && index == nc_delete_limit){
+        else if (nc_delete_limit >= nc_limit && index == nc_delete_limit) {
             nc_delete_limit = nc_delete_limit - 1
             nc_limit = nc_limit - 1
             deleteTab()
         }
-        
+
     }
 
 })
@@ -110,7 +110,7 @@ function nextTab() {
 
     console.log('Initial Index' + index)
 
-    if(!tabDeleted){
+    if (!tabDeleted) {
         reset_rc()
     }
 
@@ -146,7 +146,7 @@ function nextTab() {
 
 function previousTab() {
 
-    if(!tabDeleted){
+    if (!tabDeleted) {
         reset_rc()
     }
     tabDeleted = false
@@ -175,7 +175,7 @@ function previousTab() {
     }
 }
 
-function deleteTab(){
+function deleteTab() {
 
     tabDeleted = true
     var deleteTab_index = index
@@ -231,8 +231,8 @@ function switchFlow() {
 
 }
 
-function selectAllCells(){
-    for(i = handstonable_flows.length-1;i>=0;i--){
+function selectAllCells() {
+    for (i = handstonable_flows.length - 1; i >= 0; i--) {
         var rc = selectCell_rc[i];
         var r = rc[0]
         var c = rc[1]
@@ -312,7 +312,7 @@ function nav_classNames() {
 }
 
 //-- Renders the first flow: to make sure all cells are displayed: Fires after page is loaded
-$(function(){
+$(function () {
     nextTab()
     previousTab()
     console.log('Flow Width' + document.getElementById('df').offsetWidth)
@@ -323,12 +323,20 @@ $(function(){
 
     // Set a timeout for 1 second to make sure the whole page is loaded
     setTimeout(() => {
-        for(i = 0;i<handstonable_flows.length;i++){
+        for (i = 0; i < handstonable_flows.length; i++) {
             handstonable_flows[i].updateSettings({
                 height: document.getElementById('df').offsetHeight - 131,
                 width: document.getElementById('df').offsetWidth - 16
-             });
-         }
-    }, 100);
+            });
+        }
+
+        $('.loader').remove()
+
+        document.getElementById('df').classList.add('elementToFadeInAndOutLeft')
+        document.getElementById('speech-doc').classList.add('elementToFadeInAndOutRight')
+        document.getElementById('flow-navbar').style.visibility = 'visible'
+        document.getElementById('flows').style.visibility = 'visible'
+        document.getElementById('speech-doc').style.visibility = 'visible'
+    }, 1000);
 
 });
