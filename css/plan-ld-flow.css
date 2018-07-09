@@ -45,12 +45,6 @@ body {
     overflow-y: hidden;
 }
 
-/* center the div */
-.center-div
-{
-    margin: 0 auto;
-    width: 100px; 
-}
 
 /* stacks inner div on top of each other */
 .inner {
@@ -59,16 +53,17 @@ body {
 
 /* Pre-Loader */
 .loader {
-    position: absolute;
+    width: 200px;
+    height: 200px;
     top: 45%;
     left: 50%;
+    margin: 0 auto;
     margin-top: -50px;
     margin-left: -50px;
+    position: absolute;
     border: 32px solid #202225; /* Light grey */
     border-top: 32px solid #007bff; /* Blue */
     border-radius: 50%;
-    width: 200px;
-    height: 200px;
     animation: spin 2s linear infinite;
 }
 
