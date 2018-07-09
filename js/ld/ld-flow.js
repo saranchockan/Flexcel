@@ -1,6 +1,8 @@
 //-- Mousetrap Script: Keybindings for Tab customziation
 
 var Mousetrap = require('mousetrap');
+const {dialog} = require('electron')
+
 
 var tabs_li = document.getElementById('flow-navbar').getElementsByClassName('nav-item');
 var tabs = document.getElementById('flow-navbar').getElementsByClassName('nav-link');
@@ -103,6 +105,8 @@ Mousetrap.bind(['command+i', 'ctrl+i'], function () {
     }
 
 })
+
+
 
 //-- Switches to the next tab
 
