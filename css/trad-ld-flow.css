@@ -76,6 +76,7 @@ body {
     100% { transform: rotate(360deg); }
 }
 
+
 .elementToFadeInAndOutLeft {
     opacity: 1;
     animation: fade-left 2s linear;

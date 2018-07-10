@@ -29,6 +29,12 @@
   <link href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.9/summernote-lite.css" rel="stylesheet">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.9/summernote-lite.js"></script>
 
+  <!-- vex css/js -->
+  <script src="node_modules/vex-js/dist/vex.combined.min.js"></script>
+  <script>vex.defaultOptions.className = 'vex-theme-os'</script>
+  <link rel="stylesheet" href="node_modules/vex-js/css/vex.css" />
+  <link rel="stylesheet" href="node_modules/vex-js/css/vex-theme-os.css" />
+
   <!-- Electron configuration -->
   <script>if (window.module) module = window.module;</script>
 
@@ -58,8 +64,7 @@
 
         <ul id="flow-tabs" class="nav nav-pills nav-fill mb-3" style="background-color: #202225" role="tablist">
           <li class="nav-item">
-            <a class="nav-link active text-white" id="1AC" data-toggle="pill" href="#1AC-tab" role="tab" aria-controls="1AC-tab"
-              aria-selected="true">1AC</a>
+            <a class="nav-link active text-white" id="1AC" data-toggle="pill" href="#1AC-tab" role="tab" aria-controls="1AC-tab" aria-selected="true">1AC</a>
             <li class="nav-item">
               <a class="nav-link text-white" id="NC" data-toggle="pill" href="#NC-Tab" role="tab" aria-controls="NC-Tab" aria-selected="false">1NC</a>
             </li>
@@ -80,19 +85,19 @@
 
   </div>
 
-<div class="loader" id="pre-loader" style="visibility: hidden;"></div>
+  <div class="loader" id="pre-loader" style="visibility: hidden;"></div>
 
 
 
 
   <!-- Main js-->
 
-   <script>
+  <script>
 
-      setTimeout(() => {
-        document.getElementById('pre-loader').style.visibility = 'visible'
-      }, 1000);
-    </script>
+    setTimeout(() => {
+      document.getElementById('pre-loader').style.visibility = 'visible'
+    }, 1000);
+  </script>
 
 
   <script>

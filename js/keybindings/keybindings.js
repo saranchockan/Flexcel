@@ -14,7 +14,12 @@ var ac_delete_limit = 6
 var nc_delete_limit = 13
 var nc_limit = 9
 
+var vex = require('vex-js')
+vex.registerPlugin(require('vex-dialog'))
+vex.defaultOptions.className = 'vex-theme-os'
 
+var fileName = ""
+var fileNamed = false
 
 /* 
     Selects all the first cells of the flow: This is to make sure that handstonable 
@@ -108,6 +113,30 @@ Mousetrap.bind(['command+i', 'ctrl+i'], function () {
 
     }
 
+})
+
+Mousetrap.bind(['commands + s','ctrl+s'],function(){
+
+    if(!fileNamed || fileName == ''){
+        handstonable_flows[index].deselectCell()
+        vex.dialog.prompt({
+            message: 'Save As',
+            placeholder: 'e.g. 1AC vs SJ Round 5',
+            width:100,
+            callback: function (value) {
+                fileName = value
+                fileNamed = true
+                console.log(value)
+                selectAllCells()
+            }
+        })
+        document.getElementsByClassName('vex-dialog-prompt-input')[0].style.width = '95%'
+    }
+
+
+
+
+    
 })
 
 
@@ -336,6 +365,7 @@ $(function () {
         document.getElementById('flow-navbar').style.visibility = 'visible'
         document.getElementById('flows').style.visibility = 'visible'
         document.getElementById('speech-doc').style.visibility = 'visible'
+
     }, 1000);
 
 });
