@@ -53,14 +53,14 @@ body {
 
 /* Pre-Loader */
 .loader {
-    width: 200px;
-    height: 200px;
-    top: 45%;
-    left: 50%;
+    position: absolute;
     margin: 0 auto;
     margin-top: -50px;
     margin-left: -50px;
-    position: absolute;
+    top: 45%;
+    left: 50%;
+    width: 200px;
+    height: 200px;
     border: 32px solid #202225; /* Light grey */
     border-top: 32px solid #007bff; /* Blue */
     border-radius: 50%;

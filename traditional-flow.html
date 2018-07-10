@@ -77,13 +77,25 @@
   <div id='speech-doc' class="">
     <div id="summernote"></div>
   </div>
-  <div class="loader center-div" id="pre-loader"></div>
 
   </div>
+
+<div class="loader" id="pre-loader" style="visibility: hidden;"></div>
+
 
 
 
   <!-- Main js-->
+   <!-- Main js-->
+
+   <script>
+
+      setTimeout(() => {
+        document.getElementById('pre-loader').style.visibility = 'visible'
+      }, 1000);
+    </script>
+
+
   <script>
 
     $('#summernote').summernote({

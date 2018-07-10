@@ -131,16 +131,23 @@
     </div>
   </div>
 
-  <div id = 'speech-doc'class="">
+  <div id='speech-doc' class="">
     <div id="summernote"></div>
   </div>
 
-  <div class="loader" id = "pre-loader"></div>
-
-
   </div>
+  <div class="loader" id="pre-loader" style="visibility: hidden;"></div>
 
   <!-- Main js-->
+
+  <script>
+
+    setTimeout(() => {
+      document.getElementById('pre-loader').style.visibility = 'visible'
+    }, 1500);
+  </script>
+
+
 
   <script>
 
