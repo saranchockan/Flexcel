@@ -1,8 +1,6 @@
-//-- Mousetrap Script: Keybindings for Tab customziation
 
 var Mousetrap = require('mousetrap');
 const {dialog} = require('electron')
-
 
 var tabs_li = document.getElementById('flow-navbar').getElementsByClassName('nav-item');
 var tabs = document.getElementById('flow-navbar').getElementsByClassName('nav-link');
@@ -18,70 +16,76 @@ var nc_limit = 9
 
 
 
-// -- Selects all the first cells of the flow: fixes bug when handstonable returns undefined when accessed before any cell gets selected
+/* 
+    Selects all the first cells of the flow: This is to make sure that handstonable 
+    doesn't return undefined when getSelected() is called.
+*/
 selectAllCells()
 
-//-- Adds Keybinding to switch to the previous tab
+
+/* Mousetrap js: adds keybindings for keyboard shortcuts to navigate the flow */
+
+
+/* Adds keybindg to switch to the previous tab */
 
 Mousetrap.bind(['command+o', 'ctrl+o'], function () {
     previousTab()
 }, 'keyup');
 
-//-- Adds Keybinding to switch to the next tab
+/* Adds keybindg to switch to the next tab */
 
 Mousetrap.bind(['command+p', 'ctrl+p'], function () {
     nextTab()
 }, 'keyup');
 
-// Makes sure cell is focused even if same tab is clicked multiple times
+/* Puts focus on the cell when the tab is selected/clicked */
 
 $('#flow-navbar a').on('click', function (e) {
-    console.log('click');
 
     var i = getSelectedCellIndex();
     if (i != -1) {
-
         var rc = selectCell_rc[i];
         var r = rc[0]
         var c = rc[1]
-
         handstonable_flows[i].selectCell(r, c);
-
     }
 
 })
 
-// Event fired after user selects tab: the flow is switched, index is updated
+
+/* 
+    The flow is switched and the index is updated AFTER the user has selected/clicked the tab.
+    This prevents the overlapping of flows when the user quickly switches tab and forces the 
+    code to be executed synchronously.
+*/
 
 $('#flow-navbar li').on('shown.bs.tab', function (e) {
 
-    console.log(getClassNames());
-    console.log(this.classList[0]);
-
-    //-- will only Switch flows if tab was clicked through KeyBindings
+    /* 
+        The manual switching of flows will only be called if the user switches tabs through
+        the keyboard shortcut. B/c if clicked by mouse, bootstrap will automatically take 
+        care of that.
+    */
     if (!mouseClicked) {
         switchFlow();
     }
-
     mouseClicked = true;
     index = $(this).index();
-    console.log('li index' + $(this).index())
 
     var i = getSelectedCellIndex();
     if (i != -1) {
-
         var rc = selectCell_rc[i];
         var r = rc[0]
         var c = rc[1]
-
         handstonable_flows[i].selectCell(r, c);
-
     }
-
 })
 
 
-//-- Deletes a tab: deletes the nav-item, nav-link, flow div, and resets selectetedCell, handstonable flows, tabs, flows array
+/* 
+    Deletes the current tab. A tab can only be deleted in order of the flow tabs i.e you can only
+    deleted the ADV's in order starting from 5; this also applies to the Off's.
+*/
 
 Mousetrap.bind(['command+i', 'ctrl+i'], function () {
 
@@ -108,31 +112,31 @@ Mousetrap.bind(['command+i', 'ctrl+i'], function () {
 
 
 
-//-- Switches to the next tab
+/* 
+    Switches to the next tab. This is done in accordance an index variable 
+    which is increased everytime you go right and decreased when you go left.
+    The index is then used to access the tab element's ID, which is then clicked
+    through jQuery. Before switching, the row and column of the previous cell 
+    is updated
+*/
 
 function nextTab() {
 
-    console.log('Initial Index' + index)
 
     if (!tabDeleted) {
         reset_rc()
     }
 
     mouseClicked = false;
-    console.log(getClassNames());
 
     if (index < tabs.length - 1) {
 
         index = index + 1;
-        console.log('Index' + index)
-
         var id = tabs[index].id;
         var reference = '#' + id;
-
         $(document).ready(function () {
             $(reference).click();
         });
-
     }
 
     else {
@@ -146,8 +150,13 @@ function nextTab() {
     }
 }
 
-//-- Switches to the previous tab
-
+/* 
+    Switches to the previous tab. This is done in accordance an index variable 
+    which is increased everytime you go right and decreased when you go left.
+    The index is then used to access the tab element's ID, which is then clicked
+    through jQuery. Before switching, the row and column of the previous cell 
+    is updated
+*/
 function previousTab() {
 
     if (!tabDeleted) {
@@ -155,14 +164,12 @@ function previousTab() {
     }
     tabDeleted = false
     mouseClicked = false;
-    console.log(getClassNames());
 
     if (index > 0) {
 
         index = index - 1;
         var id = tabs[index].id;
         var reference = '#' + id;
-
         $(document).ready(function () {
             $(reference).click();
         });
@@ -178,6 +185,12 @@ function previousTab() {
 
     }
 }
+
+
+/* 
+    Deletes the current tab in accordance to the current index. More specifically, it deletes the current
+    nav-item, nav-link, flow-div and resets the selectedCell, handstonable flows, and tabs array.
+*/
 
 function deleteTab() {
 
@@ -197,13 +210,8 @@ function deleteTab() {
     id = '#' + flows[deleteTab_index].id
     $(id).remove()
 
-    console.log('Initial Length: ' + handstonable_flows.length)
-
     //-- Removes handstonable flow
     handstonable_flows.splice(deleteTab_index, 1)
-
-    console.log('Remove Length: ' + handstonable_flows.length)
-
 
     //-- removes cell row and column element
     selectCell_rc.splice(deleteTab_index, 1)
@@ -212,18 +220,15 @@ function deleteTab() {
     flows = document.getElementsByClassName('tab-pane');
 
     previousTab()
-    console.log('test')
-    console.log(nav_classNames());
 
 }
 
-//-- Adds visibility to the selected flow, and removes the visibilty from the previous tab
+/* When the user switches tab through keybindings, it manually adds visibility to the selected flow */
 
 function switchFlow() {
 
     for (i = 0; i < flows.length; i++) {
         if (index == i) {
-
             flows[i].classList.add('active');
             flows[i].classList.add('show');
         }
@@ -240,7 +245,6 @@ function selectAllCells() {
         var rc = selectCell_rc[i];
         var r = rc[0]
         var c = rc[1]
-
         handstonable_flows[i].selectCell(r, c);
     }
 }
@@ -249,7 +253,6 @@ function getSelectedCellIndex() {
     for (i = 0; i < flows.length; i++) {
 
         var name_list = flows[i].classList
-
         if (name_list.contains('active')) {
             return i;
         }
@@ -258,23 +261,15 @@ function getSelectedCellIndex() {
     return -1;
 }
 
-//-- Finds the previosuly selected cell and stores it into selectCell_rc
+
+/* updates the selectedCells array everytime the user switches tabs */
 
 function reset_rc() {
-
-    console.log(handstonable_flows[index].getSelected())
-
     var newRC = handstonable_flows[index].getSelected()
-
-    console.log('[newRC[0]' + newRC[0])
-    console.log('newRC[1]]' + newRC[1])
-
     selectCell_rc[index] = [newRC[0], newRC[1]];
-
 }
 
-
-//-- Debuggin Utility: Prints out the class list of every flow div
+/* Debuggin utilities: prints out the class list of every flow and tab div */
 
 function getClassNames() {
 
@@ -315,17 +310,19 @@ function nav_classNames() {
     return classnames;
 }
 
-//-- Renders the first flow: to make sure all cells are displayed: Fires after page is loaded
+
+/* 
+    Function executed after the page is loaded to make sure all cells are displayed. It also makes sure
+    that the height and width of the flow is in accordance to the user's screen resolution.
+    After loading, the pre-loader is removed.
+*/
+
 $(function () {
     nextTab()
     previousTab()
-    console.log('Flow Width' + document.getElementById('df').offsetWidth)
-    console.log('Flow Height' + document.getElementById('df').offsetHeight)
 
-    // Width  df.width - 16
-    // Height df.height - 131
-
-    // Set a timeout for 1 second to make sure the whole page is loaded
+    /* Sets a timeout for 1 second to make sure the whole page is loaded */
+    
     setTimeout(() => {
         for (i = 0; i < handstonable_flows.length; i++) {
             handstonable_flows[i].updateSettings({
@@ -333,9 +330,7 @@ $(function () {
                 width: document.getElementById('df').offsetWidth - 16
             });
         }
-
         $('.loader').remove()
-
         document.getElementById('df').classList.add('elementToFadeInAndOutLeft')
         document.getElementById('speech-doc').classList.add('elementToFadeInAndOutRight')
         document.getElementById('flow-navbar').style.visibility = 'visible'

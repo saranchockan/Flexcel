@@ -8,14 +8,19 @@ var NC_tabs = document.getElementsByClassName('NC');
 var selectCell_rc = [
   [0,0],[0,0]
 ]
-var window_width = window.innerWidth;
 
+
+/* Hides the flow and speech-doc until the screen is wholly rendered */
 
 document.getElementById('flow-navbar').style.visibility = 'hidden'
 document.getElementById('flows').style.visibility = 'hidden'
 document.getElementById('speech-doc').style.visibility = 'hidden'
 
-function flowLabels(instance, td, row, col, prop, value, cellProperties) {
+/* Sets red color font to 1ac and blue color font to 1nc */
+
+/* Sets red color font to 1ac and blue color font to 1nc */
+
+function ac_flowLabels(instance, td, row, col, prop, value, cellProperties) {
   Handsontable.renderers.TextRenderer.apply(this, arguments);
   td.style.fontWeight = 'bold';
   if (col % 2 == 1) { 
@@ -26,7 +31,7 @@ function flowLabels(instance, td, row, col, prop, value, cellProperties) {
   }
 }
 
-function flowRenderer(instance, td, row, col, prop, value, cellProperties) {
+function ac_flowRenderer(instance, td, row, col, prop, value, cellProperties) {
   Handsontable.renderers.TextRenderer.apply(this, arguments);
 
   if (col % 2 == 1) { 
@@ -39,15 +44,36 @@ function flowRenderer(instance, td, row, col, prop, value, cellProperties) {
   }
   
 }
+function nc_flowLabels(instance, td, row, col, prop, value, cellProperties) {
+  Handsontable.renderers.TextRenderer.apply(this, arguments);
+  td.style.fontWeight = 'bold';
+  if (col % 2 == 1) { 
+    td.style.color = 'red'; 
+  }
+  else { 
+    td.style.color = '#076BFF'; 
+  }
+}
+function nc_flowRenderer(instance, td, row, col, prop, value, cellProperties) {
+  Handsontable.renderers.TextRenderer.apply(this, arguments);
 
-Handsontable.renderers.registerRenderer('flowRenderer', flowRenderer);
+  if (col % 2 == 1) { 
+    td.style.fontWeight = 'bold';
+    td.style.color = 'red'; 
+  }
+  else { 
+    td.style.fontWeight = 'bold';
+    td.style.color = '#076BFF'; 
+  }
+  
+}
+Handsontable.renderers.registerRenderer('ac_flowRenderer', ac_flowRenderer);
 
 // -- Adds AC Flows
 
 for(i = 0;i<AC_tabs.length;i++){
     container = document.getElementById(AC_tabs[i].id);
 
-    console.log(AC_tabs[i].id);
     handstonable_flows.push(new Handsontable(container,{
       colHeaders: ['AC', '1NR', '1AR', '2NR', '2AR'],
       minCols: 5,
@@ -57,7 +83,6 @@ for(i = 0;i<AC_tabs.length;i++){
       height: 500, 
       viewportRowRenderingOffsetequal: 30,
       viewportColumnRenderingOffset:5,
-      // colWidths: window_width*0.43378995433,
       colWidths: 174,
       fillHandle:{
         autoInsertRow: true
@@ -67,18 +92,20 @@ for(i = 0;i<AC_tabs.length;i++){
         var cellProperties = {};
         var data = this.instance.getData();
         if (row === 0) {
-          cellProperties.renderer = flowLabels; // uses function directly
+          cellProperties.renderer = ac_flowLabels; 
         }
     
         else{
-          cellProperties.renderer = 'flowRenderer'; // uses lookup map
-    
+          cellProperties.renderer = 'ac_flowRenderer';
         }
     
         return cellProperties;
       }
     }))
 }
+
+Handsontable.renderers.registerRenderer('nc_flowRenderer', nc_flowRenderer);
+
 
 // -- Adds NC Flows
 
@@ -95,7 +122,7 @@ for(i = 0;i<NC_tabs.length;i++){
     height: 500, 
     viewportRowRenderingOffsetequal: 30,
     viewportColumnRenderingOffset:4,
-    colWidths: window_width*0.43378995433,
+    colWidths: 174,
     fillHandle:{
       autoInsertRow: true
     },
@@ -105,11 +132,11 @@ for(i = 0;i<NC_tabs.length;i++){
       var data = this.instance.getData();
   
       if (row === 0) {
-        cellProperties.renderer = flowLabels; // uses function directly
+        cellProperties.renderer = nc_flowLabels; 
       }
   
       else{
-        cellProperties.renderer = 'flowRenderer'; // uses lookup map
+        cellProperties.renderer = 'nc_flowRenderer'; 
   
       }
   
@@ -118,13 +145,11 @@ for(i = 0;i<NC_tabs.length;i++){
   }))
 }
 
-// Removes All of Handsontable's licenses
+/* Removes all of Handsontable's licenses */
 
 var allLiceneses = document.querySelectorAll("#hot-display-license-info");
 $(allLiceneses).remove();
 
 
-//-- Renders the first flow: to make sure all cells are displayed
 
-handstonable_flows[0].selectCell(1,0);
 

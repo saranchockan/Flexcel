@@ -8,8 +8,9 @@ var NC_tabs = document.getElementsByClassName('NC');
 var selectCell_rc = [
   [0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0]
 ]
-var window_width = window.innerWidth;
 
+
+/* Hides the flow and speech-doc until the screen is wholly rendered */
 
 document.getElementById('flow-navbar').style.visibility = 'hidden'
 document.getElementById('flows').style.visibility = 'hidden'
@@ -17,7 +18,8 @@ document.getElementById('speech-doc').style.visibility = 'hidden'
 
 
 
-//-- sets red color font to 1ac and blue color font to 1nc
+/* Sets red color font to 1ac and blue color font to 1nc */
+
 function ac_flowLabels(instance, td, row, col, prop, value, cellProperties) {
   Handsontable.renderers.TextRenderer.apply(this, arguments);
   td.style.fontWeight = 'bold';
@@ -28,7 +30,6 @@ function ac_flowLabels(instance, td, row, col, prop, value, cellProperties) {
     td.style.color = 'red'; 
   }
 }
-
 
 function ac_flowRenderer(instance, td, row, col, prop, value, cellProperties) {
   Handsontable.renderers.TextRenderer.apply(this, arguments);
@@ -69,12 +70,11 @@ function nc_flowRenderer(instance, td, row, col, prop, value, cellProperties) {
 
 Handsontable.renderers.registerRenderer('ac_flowRenderer', ac_flowRenderer);
 
-// -- Adds AC Flows
+/*  Adds AC flows */
 
 for(i = 0;i<AC_tabs.length;i++){
     container = document.getElementById(AC_tabs[i].id);
 
-    console.log(AC_tabs[i].id);
     handstonable_flows.push(new Handsontable(container,{
       colHeaders: ['AC', '1NR', '1AR', '2NR', '2AR'],
       minCols: 5,
@@ -83,7 +83,6 @@ for(i = 0;i<AC_tabs.length;i++){
       height: 500,
       viewportRowRenderingOffsetequal: 35,
       viewportColumnRenderingOffset:5,
-      //colWidths: window_width*0.43378995433,
       colWidths: 190,
       fillHandle:{
         autoInsertRow: true
@@ -96,12 +95,10 @@ for(i = 0;i<AC_tabs.length;i++){
         if (row === 0) {
           cellProperties.renderer = ac_flowLabels; // uses function directly
         }
-    
+
         else{
           cellProperties.renderer = 'ac_flowRenderer'; // uses lookup map
-    
         }
-    
         return cellProperties;
       }
     }))
@@ -110,7 +107,7 @@ for(i = 0;i<AC_tabs.length;i++){
 
 Handsontable.renderers.registerRenderer('nc_flowRenderer', nc_flowRenderer);
 
-// -- Adds NC Flows
+/* Adds NC flows */
 
 for(i = 0;i<NC_tabs.length;i++){
   container = document.getElementById(NC_tabs[i].id);
@@ -126,7 +123,6 @@ for(i = 0;i<NC_tabs.length;i++){
     height: 500, 
     viewportRowRenderingOffsetequal: 35,
     viewportColumnRenderingOffset:4,
-    //colWidths: window_width*0.43378995433,
     colWidths: 190,
     fillHandle:{
       autoInsertRow: true
@@ -137,12 +133,11 @@ for(i = 0;i<NC_tabs.length;i++){
       var data = this.instance.getData();
   
       if (row === 0) {
-        cellProperties.renderer = nc_flowLabels; // uses function directly
+        cellProperties.renderer = nc_flowLabels; 
       }
   
       else{
-        cellProperties.renderer = 'nc_flowRenderer'; // uses lookup map
-  
+        cellProperties.renderer = 'nc_flowRenderer'; 
       }
       return cellProperties;
     }
@@ -150,7 +145,7 @@ for(i = 0;i<NC_tabs.length;i++){
 }
 
 
-// Removes All of Handsontable's licenses
+/* Removes all of Handsontable's licenses */
 
 var allLiceneses = document.querySelectorAll("#hot-display-license-info");
 $(allLiceneses).remove();
