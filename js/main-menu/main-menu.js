@@ -46,3 +46,23 @@ LD_Traditional_Flow_Button .addEventListener("click", () => {
 
 });
 
+var PF_Flow_Button = document.getElementById('pf');
+
+PF_Flow_Button.addEventListener("click", () => {
+
+    //-- Creates New Window for LD-Flow-Plan
+    flow = new BrowserWindow({ width: 400, height: 200, show: false})
+    flow.on('close', function () { win = null })
+    flow.loadFile('pf-flow.html')
+    flow.maximize()
+    flow.setMenu(null)
+    flow.setResizable(false)
+    flow.show()
+    
+    //-- Closes Main Menu
+    remote.getCurrentWindow().close();
+
+
+
+});
+

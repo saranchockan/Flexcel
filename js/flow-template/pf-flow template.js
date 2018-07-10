@@ -2,8 +2,8 @@
 var handstonable_flows = [];
 
 const flow_tabs = document.getElementsByClassName('tab-pane');
-var AC_tabs = document.getElementsByClassName('AC');
-var NC_tabs = document.getElementsByClassName('NC');
+var pro_tabs = document.getElementsByClassName('PRO');
+var con_tabs = document.getElementsByClassName('CON');
 
 var selectCell_rc = [
   [0,0],[0,0]
@@ -19,7 +19,7 @@ document.getElementById('speech-doc').style.visibility = 'hidden'
 /* Sets red color font to 1ac and blue color font to 1nc */
 
 
-function ac_flowLabels(instance, td, row, col, prop, value, cellProperties) {
+function pro_flowLabels(instance, td, row, col, prop, value, cellProperties) {
   Handsontable.renderers.TextRenderer.apply(this, arguments);
   td.style.fontWeight = 'bold';
   if (col % 2 == 1) { 
@@ -30,7 +30,7 @@ function ac_flowLabels(instance, td, row, col, prop, value, cellProperties) {
   }
 }
 
-function ac_flowRenderer(instance, td, row, col, prop, value, cellProperties) {
+function pro_flowRenderer(instance, td, row, col, prop, value, cellProperties) {
   Handsontable.renderers.TextRenderer.apply(this, arguments);
 
   if (col % 2 == 1) { 
@@ -43,7 +43,7 @@ function ac_flowRenderer(instance, td, row, col, prop, value, cellProperties) {
   }
   
 }
-function nc_flowLabels(instance, td, row, col, prop, value, cellProperties) {
+function con_flowLabels(instance, td, row, col, prop, value, cellProperties) {
   Handsontable.renderers.TextRenderer.apply(this, arguments);
   td.style.fontWeight = 'bold';
   if (col % 2 == 1) { 
@@ -53,7 +53,7 @@ function nc_flowLabels(instance, td, row, col, prop, value, cellProperties) {
     td.style.color = '#076BFF'; 
   }
 }
-function nc_flowRenderer(instance, td, row, col, prop, value, cellProperties) {
+function con_flowRenderer(instance, td, row, col, prop, value, cellProperties) {
   Handsontable.renderers.TextRenderer.apply(this, arguments);
 
   if (col % 2 == 1) { 
@@ -66,23 +66,24 @@ function nc_flowRenderer(instance, td, row, col, prop, value, cellProperties) {
   }
   
 }
-Handsontable.renderers.registerRenderer('ac_flowRenderer', ac_flowRenderer);
+Handsontable.renderers.registerRenderer('pro_flowRenderer', pro_flowRenderer);
 
 // -- Adds AC Flows
 
-for(i = 0;i<AC_tabs.length;i++){
-    container = document.getElementById(AC_tabs[i].id);
+for(i = 0;i<pro_tabs.length;i++){
+    container = document.getElementById(pro_tabs[i].id);
 
     handstonable_flows.push(new Handsontable(container,{
-      colHeaders: ['AC', '1NR', '1AR', '2NR', '2AR'],
-      minCols: 5,
+      colHeaders: ['Pro Constructive', 'Con Rebuttal', 'Pro Summary', 'Pro Final Focus'],
+      minCols: 4,
+      maxCols:4,
       minRows: 40,
       maxRows: 200,
       width: 500,
       height: 500, 
       viewportRowRenderingOffsetequal: 30,
       viewportColumnRenderingOffset:5,
-      colWidths: 174,
+      colWidths: 190,
       fillHandle:{
         autoInsertRow: true
       },
@@ -91,11 +92,11 @@ for(i = 0;i<AC_tabs.length;i++){
         var cellProperties = {};
         var data = this.instance.getData();
         if (row === 0) {
-          cellProperties.renderer = ac_flowLabels; 
+          cellProperties.renderer = pro_flowLabels; 
         }
     
         else{
-          cellProperties.renderer = 'ac_flowRenderer';
+          cellProperties.renderer = 'pro_flowRenderer';
         }
     
         return cellProperties;
@@ -103,16 +104,16 @@ for(i = 0;i<AC_tabs.length;i++){
     }))
 }
 
-Handsontable.renderers.registerRenderer('nc_flowRenderer', nc_flowRenderer);
+Handsontable.renderers.registerRenderer('con_flowRenderer', con_flowRenderer);
 
 
 // -- Adds NC Flows
 
-for(i = 0;i<NC_tabs.length;i++){
-  container = document.getElementById(NC_tabs[i].id);
+for(i = 0;i<con_tabs.length;i++){
+  container = document.getElementById(con_tabs[i].id);
 
   handstonable_flows.push(new Handsontable(container,{
-    colHeaders: ['1NC', '1AR', '2NR','2AR'],
+    colHeaders: ['Con Constructive', 'Pro Rebuttal', 'Con Summary', 'Con Final Focus'],
     minCols: 4,
     maxCols: 4,
     minRows: 40,
@@ -121,7 +122,7 @@ for(i = 0;i<NC_tabs.length;i++){
     height: 500, 
     viewportRowRenderingOffsetequal: 30,
     viewportColumnRenderingOffset:4,
-    colWidths: 174,
+    colWidths: 190,
     fillHandle:{
       autoInsertRow: true
     },
@@ -131,11 +132,11 @@ for(i = 0;i<NC_tabs.length;i++){
       var data = this.instance.getData();
   
       if (row === 0) {
-        cellProperties.renderer = nc_flowLabels; 
+        cellProperties.renderer = con_flowLabels; 
       }
   
       else{
-        cellProperties.renderer = 'nc_flowRenderer'; 
+        cellProperties.renderer = 'con_flowRenderer'; 
   
       }
   
