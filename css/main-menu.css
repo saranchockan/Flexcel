@@ -23,7 +23,7 @@
     width: 100px;
 }
 
-p {
+#app-name {
     font-family: "Times New Roman", Times, serif;
     font-weight: 900;
     font-size: 30px;
