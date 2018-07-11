@@ -5,6 +5,8 @@
 .case-list{
     position: relative;
     float: left;
+    height: 100vh;
+    background-color: #202225
 }
 
 .options{

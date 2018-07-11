@@ -21,6 +21,9 @@ vex.defaultOptions.className = 'vex-theme-os'
 var fileName = ""
 var fileNamed = false
 
+const Store = require('electron-store');
+const store = new Store();
+
 /* 
     Selects all the first cells of the flow: This is to make sure that handstonable 
     doesn't return undefined when getSelected() is called.
@@ -128,16 +131,15 @@ Mousetrap.bind(['commands + s','ctrl+s'],function(){
                 fileNamed = true
                 console.log(value)
                 selectAllCells()
+                if(fileName!=''){
+                    document.title = fileName
+                }
             }
         })
         document.getElementsByClassName('vex-dialog-prompt-input')[0].style.width = '95%'
     }
-
-
-
-
-    
 })
+
 
 
 
@@ -356,7 +358,11 @@ $(function () {
         for (i = 0; i < handstonable_flows.length; i++) {
             handstonable_flows[i].updateSettings({
                 height: document.getElementById('df').offsetHeight - 131,
-                width: document.getElementById('df').offsetWidth - 16
+                width: document.getElementById('df').offsetWidth - 16,
+                colWidths: (document.getElementById('df').offsetWidth - 16) * 0.19487179487179487,
+                afterChange(changes){
+                    data[1][index] = handstonable_flows[index].getData()
+                }
             });
         }
         $('.loader').remove()
@@ -365,7 +371,5 @@ $(function () {
         document.getElementById('flow-navbar').style.visibility = 'visible'
         document.getElementById('flows').style.visibility = 'visible'
         document.getElementById('speech-doc').style.visibility = 'visible'
-
     }, 1000);
-
 });

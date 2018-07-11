@@ -9,6 +9,8 @@ var selectCell_rc = [
   [0,0],[0,0]
 ]
 
+var data = ['trad-ld-Flow',[]]
+
 
 /* Hides the flow and speech-doc until the screen is wholly rendered */
 
@@ -143,6 +145,13 @@ for(i = 0;i<NC_tabs.length;i++){
     }
   }))
 }
+
+/* Initializes data to be saved */
+
+for(i = 0;i<handstonable_flows.length;i++){
+  data[1].push(handstonable_flows[i].getData())
+}
+
 
 /* Removes all of Handsontable's licenses */
 
