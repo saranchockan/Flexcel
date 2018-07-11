@@ -1,6 +1,6 @@
 
 var Mousetrap = require('mousetrap');
-const {dialog} = require('electron')
+const { dialog } = require('electron')
 
 var tabs_li = document.getElementById('flow-navbar').getElementsByClassName('nav-item');
 var tabs = document.getElementById('flow-navbar').getElementsByClassName('nav-link');
@@ -23,6 +23,10 @@ var fileNamed = false
 
 const Store = require('electron-store');
 const store = new Store();
+
+var autocomplete = {
+    'c1': 'contention 1', 'c2': 'contention 2', 'c3': 'contention 3', 'c4': 'contention 4', 'c5': 'contention 5'
+}
 
 /* 
     Selects all the first cells of the flow: This is to make sure that handstonable 
@@ -118,20 +122,20 @@ Mousetrap.bind(['command+i', 'ctrl+i'], function () {
 
 })
 
-Mousetrap.bind(['commands + s','ctrl+s'],function(){
+Mousetrap.bind(['commands + s', 'ctrl+s'], function () {
 
-    if(!fileNamed || fileName == ''){
+    if (!fileNamed || fileName == '') {
         handstonable_flows[index].deselectCell()
         vex.dialog.prompt({
             message: 'Save As',
             placeholder: 'e.g. 1AC vs SJ Round 5',
-            width:100,
+            width: 100,
             callback: function (value) {
                 fileName = value
                 fileNamed = true
                 console.log(value)
                 selectAllCells()
-                if(fileName!=''){
+                if (fileName != '') {
                     document.title = fileName
                 }
             }
@@ -353,16 +357,27 @@ $(function () {
     previousTab()
 
     /* Sets a timeout for 1 second to make sure the whole page is loaded */
-    
+
     setTimeout(() => {
         for (i = 0; i < handstonable_flows.length; i++) {
             handstonable_flows[i].updateSettings({
                 height: document.getElementById('df').offsetHeight - 131,
                 width: document.getElementById('df').offsetWidth - 16,
                 colWidths: (document.getElementById('df').offsetWidth - 16) * 0.19487179487179487,
-                afterChange(changes){
+                afterChange(changes) {
                     data[1][index] = handstonable_flows[index].getData()
+
+                    /* Autocomplete Feature */
+                    changes.forEach(([row, prop, oldValue, newValue]) => {
+
+                        if (typeof autocomplete[newValue] != 'undefined') {
+                            var nV = autocomplete[newValue]
+                            handstonable_flows[index].setDataAtCell(row, prop, nV)
+                        }
+                    });
                 }
+
+
             });
         }
         $('.loader').remove()
