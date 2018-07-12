@@ -64,6 +64,7 @@ var autocomplete = {
     'goo':'Goodin 95',
     'k83':'Korsgaard 83',
     'k93':'Korsgaard 93',
+    'b02':'Bostrom 02:',
     'win':'Winter and Leighton 99',
     'int':'Interp -',
     'vio':'Violation -',
