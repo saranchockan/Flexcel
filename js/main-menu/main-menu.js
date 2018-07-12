@@ -79,7 +79,5 @@ Policy_Flow_Button.addEventListener("click", () => {
     //-- Closes Main Menu
     remote.getCurrentWindow().close();
 
-
-
 });
 

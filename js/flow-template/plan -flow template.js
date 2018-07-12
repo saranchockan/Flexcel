@@ -9,10 +9,11 @@ var selectCell_rc = [
   [0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0]
 ]
 
-var data = ['Plan-Flow',[]]
+var data = ['Plan-Flow',[],{'AC':0,'NC':0}]
 
 /* Hides the flow and speech-doc until the screen is wholly rendered */
 
+// document.getElementById('df').style.visibility = 'hidden'
 document.getElementById('flow-navbar').style.visibility = 'hidden'
 document.getElementById('flows').style.visibility = 'hidden'
 document.getElementById('speech-doc').style.visibility = 'hidden'
@@ -124,7 +125,7 @@ for(i = 0;i<NC_tabs.length;i++){
     height: 500, 
     viewportRowRenderingOffsetequal: 35,
     viewportColumnRenderingOffset:4,
-    colWidths: 190,
+    colWidths: 240,
     fillHandle:{
       autoInsertRow: true
     },

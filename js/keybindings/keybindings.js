@@ -25,7 +25,53 @@ const Store = require('electron-store');
 const store = new Store();
 
 var autocomplete = {
-    'c1': 'contention 1', 'c2': 'contention 2', 'c3': 'contention 3', 'c4': 'contention 4', 'c5': 'contention 5'
+    'c1': 'contention 1', 
+    'c2': 'contention 2', 
+    'c3': 'contention 3', 
+    'c4': 'contention 4', 
+    'c5': 'contention 5',
+    'c6': 'contention 6', 
+    'c7': 'contention 7', 
+    'c8': 'contention 8', 
+    'c9': 'contention 9', 
+    'c10': 'contention 10',
+    'o1': 'Off 1', 
+    'o2': 'Off 2', 
+    'o3': 'Off 3', 
+    'o4': 'Off 4', 
+    'o5': 'Off 5',
+    'o6': 'Off 6', 
+    'o7': 'Off 7', 
+    'o8': 'Off 8', 
+    'o9': 'Off 9', 
+    'obs':'Observations',
+    'Adv1': 'Advantage 1', 
+    'Adv2': 'Advantage 2', 
+    'Adv3': 'Advantage 3', 
+    'Adv4': 'Advantage 4', 
+    'Adv5': 'Advantage 5',
+    'Adv6': 'Advantage 6', 
+    'o10': 'Off 10',
+    'fw':'framework',
+    'def':'definitions',
+    'im':'Impact',
+    'v m': 'value: morality',
+    'st sv': 'standard is mitigating structural violence',
+    'st msw':'standard is maximizing societal welfare',
+    'st ut':'maximizing utility',
+    'st comm':'standard is consistency with communal obligations',
+    'st rl':'standard is respecting liberty',
+    'goo':'Goodin 95',
+    'k83':'Korsgaard 83',
+    'k93':'Korsgaard 93',
+    'win':'Winter and Leighton 99',
+    'int':'Interp -',
+    'vio':'Violation -',
+    'sta':'Standards',
+    'vot':'Voters',
+    'ecd':'Econ Da',
+    'cpk':'Cap K',
+    'ak':'Afropess K'
 }
 
 /* 
@@ -109,12 +155,16 @@ Mousetrap.bind(['command+i', 'ctrl+i'], function () {
             ac_delete_limit = ac_delete_limit - 1
             nc_delete_limit = nc_delete_limit - 1
             nc_limit = nc_limit - 1
+            var dD =  data[2]['AC'] + 1
+            data[2]['AC'] = dD
             deleteTab()
         }
 
         else if (nc_delete_limit >= nc_limit && index == nc_delete_limit) {
             nc_delete_limit = nc_delete_limit - 1
             nc_limit = nc_limit - 1
+            var dD =  data[2]['NC'] + 1
+            data[2]['NC'] = dD
             deleteTab()
         }
 
@@ -248,6 +298,9 @@ function deleteTab() {
     //-- Removes handstonable flow
     handstonable_flows.splice(deleteTab_index, 1)
 
+    // Removes data index
+    data[1].splice(deleteTab_index,1)
+
     //-- removes cell row and column element
     selectCell_rc.splice(deleteTab_index, 1)
 
@@ -358,12 +411,20 @@ $(function () {
 
     /* Sets a timeout for 1 second to make sure the whole page is loaded */
 
+    var widthoffSet;
+
     setTimeout(() => {
         for (i = 0; i < handstonable_flows.length; i++) {
+            if(handstonable_flows[i].countCols() == 4){
+                widthoffSet = 0.24615384615384617
+            }
+            else{
+                widthoffSet = 0.19487179487179487
+            }
             handstonable_flows[i].updateSettings({
                 height: document.getElementById('df').offsetHeight - 131,
                 width: document.getElementById('df').offsetWidth - 16,
-                colWidths: (document.getElementById('df').offsetWidth - 16) * 0.19487179487179487,
+                colWidths: (document.getElementById('df').offsetWidth - 16) * widthoffSet,
                 afterChange(changes) {
                     data[1][index] = handstonable_flows[index].getData()
 
