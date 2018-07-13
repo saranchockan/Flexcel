@@ -175,6 +175,7 @@ Mousetrap.bind(['command+i', 'ctrl+i'], function () {
 
 })
 
+/*
 Mousetrap.bind(['commands + s', 'ctrl+s'], function () {
 
     if (!fileNamed || fileName == '') {
@@ -196,6 +197,7 @@ Mousetrap.bind(['commands + s', 'ctrl+s'], function () {
         document.getElementsByClassName('vex-dialog-prompt-input')[0].style.width = '95%'
     }
 })
+*/
 
 
 
