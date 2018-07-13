@@ -177,7 +177,6 @@ Mousetrap.bind(['command+i', 'ctrl+i'], function () {
 
 /*
 Mousetrap.bind(['commands + s', 'ctrl+s'], function () {
-
     if (!fileNamed || fileName == '') {
         handstonable_flows[index].deselectCell()
         vex.dialog.prompt({
@@ -198,8 +197,6 @@ Mousetrap.bind(['commands + s', 'ctrl+s'], function () {
     }
 })
 */
-
-
 
 
 /* 

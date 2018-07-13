@@ -1,12 +1,12 @@
 {
-  "name": "DebateFlow",
+  "name": "Flexcel",
   "version": "1.0.0",
-  "description": "Debate Flow is an app for flowing high school LD and PF Debate rounds.",
+  "description": "Flexcel is an app for flowing high school LD and PF Debate rounds.",
   "main": "main.js",
   "scripts": {
     "start": "electron ."
   },
-  "repository": "https://github.com/saranchockan/DebateFlow-Electron",
+  "repository": "https://github.com/saranchockan/Flexcel",
   "keywords": [
     "Debate",
     "Flow",
