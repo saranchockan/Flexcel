@@ -58,7 +58,7 @@ var autocomplete = {
     'v m': 'value: morality',
     'st sv': 'standard is mitigating structural violence',
     'st msw':'standard is maximizing societal welfare',
-    'st mxw':'standard is maximizing expected wellbeing',
+    'st mew':'standard is maximizing expected wellbeing',
     'st ut':'maximizing utility',
     'st comm':'standard is consistency with communal obligations',
     'st rl':'standard is respecting liberty',
