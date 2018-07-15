@@ -25,16 +25,16 @@ const Store = require('electron-store');
 const store = new Store();
 
 var autocomplete = {
-    'c1': 'contention 1', 
-    'c2': 'contention 2', 
-    'c3': 'contention 3', 
-    'c4': 'contention 4', 
-    'c5': 'contention 5',
-    'c6': 'contention 6', 
-    'c7': 'contention 7', 
-    'c8': 'contention 8', 
-    'c9': 'contention 9', 
-    'c10': 'contention 10',
+    'c1': 'Contention 1', 
+    'c2': 'Contention 2', 
+    'c3': 'Contention 3', 
+    'c4': 'Contention 4', 
+    'c5': 'Contention 5',
+    'c6': 'Contention 6', 
+    'c7': 'Contention 7', 
+    'c8': 'Contention 8', 
+    'c9': 'Contention 9', 
+    'c10':'Contention 10',
     'o1': 'Off 1', 
     'o2': 'Off 2', 
     'o3': 'Off 3', 
@@ -52,8 +52,8 @@ var autocomplete = {
     'Adv5': 'Advantage 5',
     'Adv6': 'Advantage 6', 
     'o10': 'Off 10',
-    'fw':'framework',
-    'def':'definitions',
+    'fw':'Framework',
+    'def':'Definitions',
     'im':'Impact',
     'v m': 'value: morality',
     'st sv': 'standard is mitigating structural violence',
@@ -76,6 +76,17 @@ var autocomplete = {
     'cpk':'Cap K',
     'ak':'Afropess K'
 }
+
+
+if(store.has('autocomplete') == false){
+    store.set('autocomplete',autocomplete)
+}
+else{
+    autocomplete = store.get('autocomplete')
+}
+
+
+
 
 /* 
     Selects all the first cells of the flow: This is to make sure that handstonable 
@@ -197,6 +208,36 @@ Mousetrap.bind(['commands + s', 'ctrl+s'], function () {
     }
 })
 */
+
+
+Mousetrap.bind(['commands + t', 'ctrl+t'], function () {
+
+    handstonable_flows[index].deselectCell()
+    vex.dialog.prompt({
+        message: 'Add autocomplete key and value in the format: key,value',
+        placeholder: 'v m, value:morality',
+        width: 100,
+        callback: function (value) {
+            var v = value.split(',')
+            console.log('Key ' + v[0])
+            console.log('Value ' + v[1])
+
+            if(typeof v[0]!='undefined'){
+                if(typeof v[1]!='undefined'){
+                    autocomplete[v[0]] = v[1]
+                    store.set('autocomplete',autocomplete)
+                }
+            }
+            else{
+                vex.dialog.alert('Wrong Format! The format is -> key,value: v m, value:morality')
+            }
+
+            selectAllCells()
+        }
+    })
+    document.getElementsByClassName('vex-dialog-prompt-input')[0].style.width = '95%'
+})
+
 
 
 /* 
