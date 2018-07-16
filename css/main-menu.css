@@ -12,10 +12,11 @@
 .options{
     position: relative;
     float: right;
-
     height: 410px;
-    width: 250px;
+    width: 200px;
 }
+
+
 
 .space{
     position: relative;
