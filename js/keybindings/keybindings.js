@@ -457,6 +457,20 @@ $(function () {
     var widthoffSet;
 
     setTimeout(() => {
+        if(document.getElementById('flow-tabs').offsetHeight>40){
+            for(i = 0;i<handstonable_flows.length;i++){
+                handstonable_flows[i].updateSettings({
+                    height: document.getElementById('df').offsetHeight - 131,
+                })
+            }
+        }
+        else{
+            for(i = 0;i<handstonable_flows.length;i++){
+                handstonable_flows[i].updateSettings({
+                    height: document.getElementById('df').offsetHeight - 94,
+                })
+            }
+        }
         for (i = 0; i < handstonable_flows.length; i++) {
             if(handstonable_flows[i].countCols() == 4){
                 widthoffSet = 0.24615384615384617
@@ -465,7 +479,6 @@ $(function () {
                 widthoffSet = 0.19487179487179487
             }
             handstonable_flows[i].updateSettings({
-                height: document.getElementById('df').offsetHeight - 131,
                 width: document.getElementById('df').offsetWidth - 16,
                 colWidths: (document.getElementById('df').offsetWidth - 16) * widthoffSet,
                 afterChange(changes) {
@@ -473,15 +486,12 @@ $(function () {
 
                     /* Autocomplete Feature */
                     changes.forEach(([row, prop, oldValue, newValue]) => {
-
                         if (typeof autocomplete[newValue] != 'undefined') {
                             var nV = autocomplete[newValue]
                             handstonable_flows[index].setDataAtCell(row, prop, nV)
                         }
                     });
                 }
-
-
             });
         }
         $('.loader').remove()
