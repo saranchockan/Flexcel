@@ -41,8 +41,6 @@ LD_Traditional_Flow_Button .addEventListener("click", () => {
     //-- Closes Main Menu
     remote.getCurrentWindow().close();
 
-
-
 });
 
 var PF_Flow_Button = document.getElementById('pf');
@@ -70,7 +68,7 @@ Policy_Flow_Button.addEventListener("click", () => {
 
     flow = new BrowserWindow({ width: 400, height: 200, show: false})
     flow.on('close', function () { win = null })
-    flow.loadFile('policy-flow.html')
+    flow.loadFile('policy-flow-dynamic.html')
     flow.maximize()
     flow.setMenu(null)
     flow.setResizable(false)
