@@ -58,6 +58,9 @@ app.on('activate', function () {
   if (mainWindow === null) {
     createWindow()
   }
+
+  app.disableHardwareAcceleration(); 
+
 })
 
 // In this file you can include the rest of your app's specific main process

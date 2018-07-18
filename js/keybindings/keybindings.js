@@ -172,7 +172,17 @@ Mousetrap.bind(['command+i', 'ctrl+i'], function () {
             var dD =  data[2]['AC'] + 1
             data[2]['AC'] = dD
             deleteTab()
-            resizeFlowHeight()
+            /*resizeFlowHeight()
+
+            if(document.getElementById('flow-tabs').offsetHeight<=40){
+                for(i = 0;i<handstonable_flows.length;i++){
+                    handstonable_flows[i].updateSettings({
+                        height: document.getElementById('df').offsetHeight - 94,
+                    })
+                }
+            }
+            */
+
         }
 
         else if (nc_delete_limit >= nc_limit && index == nc_delete_limit) {
@@ -181,7 +191,16 @@ Mousetrap.bind(['command+i', 'ctrl+i'], function () {
             var dD =  data[2]['NC'] + 1
             data[2]['NC'] = dD
             deleteTab()
-            resizeFlowHeight()
+            /*resizeFlowHeight()
+            if(document.getElementById('flow-tabs').offsetHeight<=40){
+                for(i = 0;i<handstonable_flows.length;i++){
+                    handstonable_flows[i].updateSettings({
+                        height: document.getElementById('df').offsetHeight - 94,
+                    })
+                }
+            }
+            */
+
         }
 
     }
