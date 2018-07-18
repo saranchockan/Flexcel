@@ -172,6 +172,7 @@ Mousetrap.bind(['command+i', 'ctrl+i'], function () {
             var dD =  data[2]['AC'] + 1
             data[2]['AC'] = dD
             deleteTab()
+            resizeFlowHeight()
         }
 
         else if (nc_delete_limit >= nc_limit && index == nc_delete_limit) {
@@ -180,6 +181,7 @@ Mousetrap.bind(['command+i', 'ctrl+i'], function () {
             var dD =  data[2]['NC'] + 1
             data[2]['NC'] = dD
             deleteTab()
+            resizeFlowHeight()
         }
 
     }
@@ -371,6 +373,24 @@ function switchFlow() {
 
 }
 
+function resizeFlowHeight(){
+    if(document.getElementById('flow-tabs').offsetHeight>40){
+        for(i = 0;i<handstonable_flows.length;i++){
+            handstonable_flows[i].updateSettings({
+                height: document.getElementById('df').offsetHeight - 131,
+            })
+        }
+    }
+    else{
+        for(i = 0;i<handstonable_flows.length;i++){
+            handstonable_flows[i].updateSettings({
+                height: document.getElementById('df').offsetHeight - 94,
+            })
+        }
+    }
+}
+
+
 function selectAllCells() {
     for (i = handstonable_flows.length - 1; i >= 0; i--) {
         var rc = selectCell_rc[i];
@@ -457,20 +477,7 @@ $(function () {
     var widthoffSet;
 
     setTimeout(() => {
-        if(document.getElementById('flow-tabs').offsetHeight>40){
-            for(i = 0;i<handstonable_flows.length;i++){
-                handstonable_flows[i].updateSettings({
-                    height: document.getElementById('df').offsetHeight - 131,
-                })
-            }
-        }
-        else{
-            for(i = 0;i<handstonable_flows.length;i++){
-                handstonable_flows[i].updateSettings({
-                    height: document.getElementById('df').offsetHeight - 94,
-                })
-            }
-        }
+        resizeFlowHeight()
         for (i = 0; i < handstonable_flows.length; i++) {
             if(handstonable_flows[i].countCols() == 4){
                 widthoffSet = 0.24615384615384617
