@@ -1,6 +1,8 @@
 
 var Mousetrap = require('mousetrap');
-const { dialog } = require('electron')
+const {dialog} = require('electron')
+const {app} = require('electron')
+const{fs} = require('electron')
 
 var tabs_li = document.getElementById('flow-navbar').getElementsByClassName('nav-item');
 var tabs = document.getElementById('flow-navbar').getElementsByClassName('nav-link');
@@ -186,28 +188,29 @@ Mousetrap.bind(['command+i', 'ctrl+i'], function () {
 
 })
 
-/*
+
 Mousetrap.bind(['commands + s', 'ctrl+s'], function () {
-    if (!fileNamed || fileName == '') {
-        handstonable_flows[index].deselectCell()
-        vex.dialog.prompt({
-            message: 'Save As',
-            placeholder: 'e.g. 1AC vs SJ Round 5',
-            width: 100,
-            callback: function (value) {
-                fileName = value
-                fileNamed = true
-                console.log(value)
-                selectAllCells()
-                if (fileName != '') {
-                    document.title = fileName
-                }
-            }
-        })
-        document.getElementsByClassName('vex-dialog-prompt-input')[0].style.width = '95%'
-    }
+    let filepath;
+    let bookmark;
+    dialog.showOpenDialog(null, { securityScopedBookmarks: true }, (filepaths, bookmarks) => {
+      // We can access the file since the user chose it with the native panel.
+      filepath = filepaths[0];
+      bookmark = bookmarks[0];
+      fs.readFileSync(filepath); // Works 🎉
+    });
+    
+    // ... restart app ...
+    
+    // User can use the bookmark data given to re-open the file outside the sandbox.
+    const stopAccessingSecurityScopedResource = app.startAccessingSecurityScopedResource(bookmark);
+    fs.readFileSync(filepath); // Works 🎉
+    stopAccessingSecurityScopedResource();
 })
-*/
+
+Mousetrap.bind(['command+l','ctrl+l'],function(){
+    require('remote').getCurrentWindow().toggleDevTools();
+})
+
 
 
 Mousetrap.bind(['commands + t', 'ctrl+t'], function () {

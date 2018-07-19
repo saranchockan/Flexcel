@@ -26,6 +26,7 @@
   "dependencies": {
     "bootstrap": "^4.1.1",
     "bower": "^1.8.4",
+    "electron-default-menu": "^1.0.1",
     "electron-store": "^2.0.0",
     "eslint": "^4.19.1",
     "handsontable": "^4.0.0",

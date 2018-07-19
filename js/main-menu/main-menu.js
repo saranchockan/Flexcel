@@ -16,7 +16,7 @@ LD_Plan_Flow_Button.addEventListener("click", () => {
     flow.on('close', function () { win = null })
     flow.loadFile('plan-flow.html')
     flow.maximize()
-    flow.setMenu(null)
+    //flow.setMenu(null)
     flow.setResizable(false)
     flow.show()
     
@@ -34,7 +34,7 @@ LD_Traditional_Flow_Button .addEventListener("click", () => {
     flow.on('close', function () { win = null })
     flow.loadFile('traditional-flow.html')
     flow.maximize()
-    flow.setMenu(null)
+    //flow.setMenu(null)
     flow.setResizable(false)
     flow.show()
     
@@ -51,7 +51,7 @@ PF_Flow_Button.addEventListener("click", () => {
     flow.on('close', function () { win = null })
     flow.loadFile('pf-flow.html')
     flow.maximize()
-    flow.setMenu(null)
+    //flow.setMenu(null)
     flow.setResizable(false)
     flow.show()
     
@@ -70,7 +70,7 @@ Policy_Flow_Button.addEventListener("click", () => {
     flow.on('close', function () { win = null })
     flow.loadFile('policy-flow-dynamic.html')
     flow.maximize()
-    flow.setMenu(null)
+    //flow.setMenu(null)
     flow.setResizable(false)
     flow.show()
     
