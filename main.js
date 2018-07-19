@@ -59,7 +59,6 @@ app.on('activate', function () {
     createWindow()
   }
 
-  app.disableHardwareAcceleration(); 
 
 })
 
