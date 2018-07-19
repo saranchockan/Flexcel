@@ -11,50 +11,36 @@ let flow;
 var LD_Plan_Flow_Button = document.getElementById('Plan-Flow-1AC');
 LD_Plan_Flow_Button.addEventListener("click", () => {
 
-    //-- Creates New Window for LD-Flow-Plan
-    flow = new BrowserWindow({ width: 400, height: 200, show: false})
-    flow.on('close', function () { win = null })
-    flow.loadFile('plan-flow.html')
-    flow.maximize()
-    flow.setResizable(false)
-    flow.show()
-    
+    remote.getCurrentWindow().setResizable(true);
+    remote.getCurrentWindow().isMaximizable(true);
+    remote.getCurrentWindow().maximize()
+    remote.getCurrentWindow().setResizable(false);
+    remote.getCurrentWindow().loadFile('plan-flow.html')
 
-    //-- Closes Main Menu
-    remote.getCurrentWindow().close();
 
 });
 
 var LD_Traditional_Flow_Button = document.getElementById('Traditional-Flow-1AC');
 
-LD_Traditional_Flow_Button .addEventListener("click", () => {
+LD_Traditional_Flow_Button.addEventListener("click", () => {
 
-    flow = new BrowserWindow({ width: 400, height: 200, show: false})
-    flow.on('close', function () { win = null })
-    flow.loadFile('traditional-flow.html')
-    flow.maximize()
-    flow.setResizable(false)
-    flow.show()
-    
-    //-- Closes Main Menu
-    remote.getCurrentWindow().close();
+    remote.getCurrentWindow().setResizable(true);
+    remote.getCurrentWindow().isMaximizable(true);
+    remote.getCurrentWindow().maximize()
+    remote.getCurrentWindow().setResizable(false);
+    remote.getCurrentWindow().loadFile('traditional-flow.html')
 
 });
 
 var PF_Flow_Button = document.getElementById('pf');
 
 PF_Flow_Button.addEventListener("click", () => {
-
-    flow = new BrowserWindow({ width: 400, height: 200, show: false})
-    flow.on('close', function () { win = null })
-    flow.loadFile('pf-flow.html')
-    flow.maximize()
-    flow.setResizable(false)
-    flow.show()
     
-    //-- Closes Main Menu
-    remote.getCurrentWindow().close();
-
+    remote.getCurrentWindow().setResizable(true);
+    remote.getCurrentWindow().isMaximizable(true);
+    remote.getCurrentWindow().maximize()
+    remote.getCurrentWindow().setResizable(false);
+    remote.getCurrentWindow().loadFile('pf-flow.html')
 
 
 });
@@ -63,16 +49,11 @@ var Policy_Flow_Button = document.getElementById('policy');
 
 Policy_Flow_Button.addEventListener("click", () => {
 
-    flow = new BrowserWindow({ width: 400, height: 200, show: false})
-    flow.on('close', function () { win = null })
-    flow.loadFile('policy-flow-dynamic.html')
-    flow.maximize()
-    //flow.setMenu(null)
-    flow.setResizable(false)
-    flow.show()
-    
-    //-- Closes Main Menu
-    remote.getCurrentWindow().close();
+    remote.getCurrentWindow().setResizable(true);
+    remote.getCurrentWindow().isMaximizable(true);
+    remote.getCurrentWindow().maximize()
+    remote.getCurrentWindow().setResizable(false);
+    remote.getCurrentWindow().loadFile('policy-flow-dynamic.html')
 
 });
 
