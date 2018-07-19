@@ -1,5 +1,7 @@
 var Mousetrap = require('mousetrap');
 const fs = require('fs')
+const dialog = require('electron').remote.dialog
+
 
 var tabs_li = document.getElementById('flow-navbar').getElementsByClassName('nav-item');
 var tabs = document.getElementById('flow-navbar').getElementsByClassName('nav-link');
