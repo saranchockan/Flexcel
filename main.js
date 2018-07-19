@@ -1,14 +1,17 @@
 // Modules to control application life and create native browser window
-const {app, BrowserWindow} = require('electron')
-
+const { electron } = require('electron')
+const { app, BrowserWindow } = require('electron')
+const defaultMenu = require('electron-default-menu');
+const { Menu, shell } = require('electron');
+const dialog = require('electron').remote;
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
 let mainWindow
 
-function createWindow () {
+function createWindow() {
   // Create the browser window.
-  mainWindow = new BrowserWindow({width: 700, height: 450, show: false})
+  mainWindow = new BrowserWindow({ width: 700, height: 450, show: false })
 
   // and load the index.html of the app.
   mainWindow.loadFile('main-menu.html')
@@ -17,13 +20,30 @@ function createWindow () {
 
   // Maximize window
   // mainWindow.maximize();
-  
+
   // Removes Main Menu from windows
   mainWindow.setMenu(null)
 
   // Window's heigh and width are fixed
   mainWindow.setResizable(false);
   mainWindow.setMaximizable(false);
+
+
+
+
+  mainWindow.on('close', function (e) {
+    var choice = require('electron').dialog.showMessageBox(this,
+      {
+        type: 'question',
+        buttons: ['Yes', 'No'],
+        title: 'Confirm',
+        message: 'Are you sure you want to quit?'
+      });
+    if (choice == 1) {
+      e.preventDefault();
+    }
+  });
+
 
   // Emitted when the window is closed.
   mainWindow.on('closed', function () {
@@ -36,12 +56,20 @@ function createWindow () {
   mainWindow.once('ready-to-show', () => {
     mainWindow.show()
   })
+
 }
 
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.
 // Some APIs can only be used after this event occurs.
-app.on('ready', createWindow)
+app.on('ready', () => {
+  // Get template for default menu
+  const menu = defaultMenu(app, shell);
+
+  // Set top-level application menu, using modified template
+  Menu.setApplicationMenu(Menu.buildFromTemplate(menu));
+  createWindow()
+})
 
 // Quit when all windows are closed.
 app.on('window-all-closed', function () {
@@ -59,7 +87,6 @@ app.on('activate', function () {
     createWindow()
   }
 
-  app.disableHardwareAcceleration(); 
 
 })
 

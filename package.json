@@ -4,7 +4,9 @@
   "description": "Flexcel is an app for flowing high school LD and PF Debate rounds.",
   "main": "main.js",
   "scripts": {
-    "start": "electron ."
+    "start": "electron .",
+    "dist": "node_modules/.bin/build",
+    "release": "bash scripts/publish_flexcel.sh"
   },
   "repository": "https://github.com/saranchockan/Flexcel",
   "keywords": [
@@ -18,11 +20,15 @@
   "license": "CC0-1.0",
   "devDependencies": {
     "electron": "^2.0.0",
+    "electron-builder": "^20.22.0",
     "electron-toolkit": "^1.0.24"
   },
   "dependencies": {
+    "app": "^0.1.0",
     "bootstrap": "^4.1.1",
     "bower": "^1.8.4",
+    "browser-window": "^0.4.0",
+    "electron-default-menu": "^1.0.1",
     "electron-store": "^2.0.0",
     "eslint": "^4.19.1",
     "handsontable": "^4.0.0",
@@ -33,5 +39,43 @@
     "vex": "0.0.4",
     "vex-dialog": "^1.1.0",
     "vex-js": "^3.1.1"
+  },
+  "build": {
+    "appId": "com.SAC.Flexcel",
+    "mac": {
+      "category": "public.app-category.utilities",
+      "target": [
+        "pkg",
+        "dmg",
+        "zip",
+        "mas"
+      ],
+      "entitlements": "build/entitlements.mac.plist",
+      "type": "distribution",
+      "icon": "build/apple-touch-icon-128x128.icns"
+    },
+    "mas": {
+      "entitlements": "build/entitlements.mas.plist",
+      "type": "distribution",
+      "category": "public.app-category.utilities"
+    },
+    "files": [
+      "main.js",
+      "node_modules/**/*",
+      "bootstrap/**/*",
+      "css/**/*",
+      "handstonable/**/*",
+      "img/**/*",
+      "js/**/*",
+      "materialize/**/*",
+      "app/**/*",
+      "package.json",
+      "embedded.provisionprofile",
+      "main-menu.html",
+      "traditional-flow.html",
+      "plan-flow.html",
+      "pf-flow.html",
+      "policy-flow-dynamic.html"
+    ]
   }
 }

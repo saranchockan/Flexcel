@@ -1,6 +1,5 @@
-
 var Mousetrap = require('mousetrap');
-const { dialog } = require('electron')
+const fs = require('fs')
 
 var tabs_li = document.getElementById('flow-navbar').getElementsByClassName('nav-item');
 var tabs = document.getElementById('flow-navbar').getElementsByClassName('nav-link');
@@ -25,63 +24,63 @@ const Store = require('electron-store');
 const store = new Store();
 
 var autocomplete = {
-    'c1': 'Contention 1', 
-    'c2': 'Contention 2', 
-    'c3': 'Contention 3', 
-    'c4': 'Contention 4', 
+    'c1': 'Contention 1',
+    'c2': 'Contention 2',
+    'c3': 'Contention 3',
+    'c4': 'Contention 4',
     'c5': 'Contention 5',
-    'c6': 'Contention 6', 
-    'c7': 'Contention 7', 
-    'c8': 'Contention 8', 
-    'c9': 'Contention 9', 
-    'c10':'Contention 10',
-    'o1': 'Off 1', 
-    'o2': 'Off 2', 
-    'o3': 'Off 3', 
-    'o4': 'Off 4', 
+    'c6': 'Contention 6',
+    'c7': 'Contention 7',
+    'c8': 'Contention 8',
+    'c9': 'Contention 9',
+    'c10': 'Contention 10',
+    'o1': 'Off 1',
+    'o2': 'Off 2',
+    'o3': 'Off 3',
+    'o4': 'Off 4',
     'o5': 'Off 5',
-    'o6': 'Off 6', 
-    'o7': 'Off 7', 
-    'o8': 'Off 8', 
-    'o9': 'Off 9', 
-    'obs':'Observations',
-    'Adv1': 'Advantage 1', 
-    'Adv2': 'Advantage 2', 
-    'Adv3': 'Advantage 3', 
-    'Adv4': 'Advantage 4', 
+    'o6': 'Off 6',
+    'o7': 'Off 7',
+    'o8': 'Off 8',
+    'o9': 'Off 9',
+    'obs': 'Observations',
+    'Adv1': 'Advantage 1',
+    'Adv2': 'Advantage 2',
+    'Adv3': 'Advantage 3',
+    'Adv4': 'Advantage 4',
     'Adv5': 'Advantage 5',
-    'Adv6': 'Advantage 6', 
+    'Adv6': 'Advantage 6',
     'o10': 'Off 10',
-    'fw':'Framework',
-    'def':'Definitions',
-    'im':'Impact',
+    'fw': 'Framework',
+    'def': 'Definitions',
+    'im': 'Impact',
     'v m': 'value: morality',
     'st sv': 'standard is mitigating structural violence',
-    'st msw':'standard is maximizing societal welfare',
-    'st mew':'standard is maximizing expected wellbeing',
-    'st ut':'maximizing utility',
-    'st comm':'standard is consistency with communal obligations',
-    'st rl':'standard is respecting liberty',
-    'goo':'Goodin 95',
-    'k83':'Korsgaard 83',
-    'k93':'Korsgaard 93',
-    'b02':'Bostrom 02:',
-    'b11':'Bostrom 11',
-    'win':'Winter and Leighton 99',
-    'int':'Interp -',
-    'vio':'Violation -',
-    'sta':'Standards',
-    'vot':'Voters',
-    'ecd':'Econ Da',
-    'cpk':'Cap K',
-    'ak':'Afropess K'
+    'st msw': 'standard is maximizing societal welfare',
+    'st mew': 'standard is maximizing expected wellbeing',
+    'st ut': 'maximizing utility',
+    'st comm': 'standard is consistency with communal obligations',
+    'st rl': 'standard is respecting liberty',
+    'goo': 'Goodin 95',
+    'k83': 'Korsgaard 83',
+    'k93': 'Korsgaard 93',
+    'b02': 'Bostrom 02:',
+    'b11': 'Bostrom 11',
+    'win': 'Winter and Leighton 99',
+    'int': 'Interp -',
+    'vio': 'Violation -',
+    'sta': 'Standards',
+    'vot': 'Voters',
+    'ecd': 'Econ Da',
+    'cpk': 'Cap K',
+    'ak': 'Afropess K'
 }
 
 
-if(store.has('autocomplete') == false){
-    store.set('autocomplete',autocomplete)
+if (store.has('autocomplete') == false) {
+    store.set('autocomplete', autocomplete)
 }
-else{
+else {
     autocomplete = store.get('autocomplete')
 }
 
@@ -169,7 +168,7 @@ Mousetrap.bind(['command+i', 'ctrl+i'], function () {
             ac_delete_limit = ac_delete_limit - 1
             nc_delete_limit = nc_delete_limit - 1
             nc_limit = nc_limit - 1
-            var dD =  data[2]['AC'] + 1
+            var dD = data[2]['AC'] + 1
             data[2]['AC'] = dD
             deleteTab()
         }
@@ -177,7 +176,7 @@ Mousetrap.bind(['command+i', 'ctrl+i'], function () {
         else if (nc_delete_limit >= nc_limit && index == nc_delete_limit) {
             nc_delete_limit = nc_delete_limit - 1
             nc_limit = nc_limit - 1
-            var dD =  data[2]['NC'] + 1
+            var dD = data[2]['NC'] + 1
             data[2]['NC'] = dD
             deleteTab()
         }
@@ -186,28 +185,68 @@ Mousetrap.bind(['command+i', 'ctrl+i'], function () {
 
 })
 
-/*
-Mousetrap.bind(['commands + s', 'ctrl+s'], function () {
-    if (!fileNamed || fileName == '') {
-        handstonable_flows[index].deselectCell()
-        vex.dialog.prompt({
-            message: 'Save As',
-            placeholder: 'e.g. 1AC vs SJ Round 5',
-            width: 100,
-            callback: function (value) {
-                fileName = value
-                fileNamed = true
-                console.log(value)
-                selectAllCells()
-                if (fileName != '') {
-                    document.title = fileName
-                }
+
+Mousetrap.bind(['commands + d', 'ctrl+d'], function () {
+
+    /*
+    var jsonObj = JSON.parse(JSON.stringify(data));
+    var jsonContent = JSON.stringify(jsonObj);
+    let content = "Some text to save into the file";
+
+    // You can obviously give a direct path without use the dialog (C:/Program Files/path/myfileexample.txt)
+    dialog.showSaveDialog((fileName) => {
+        if (fileName === undefined) {
+            console.log("You didn't save the file");
+            return;
+        }
+
+        // fileName is a string that contains the path and filename created in the save file dialog.  
+        fs.writeFile(fileName, content, (err) => {
+            if (err) {
+                alert("An error ocurred creating the file " + err.message)
             }
-        })
-        document.getElementsByClassName('vex-dialog-prompt-input')[0].style.width = '95%'
-    }
+
+            alert("The file has been succesfully saved");
+        });
+    });
+    */
+
+    let filepath;
+    let bookmark;
+    dialog.showOpenDialog(null, { securityScopedBookmarks: true }, (filepaths, bookmarks) => {
+        // We can access the file since the user chose it with the native panel.
+        filepath = filepaths[0];
+        bookmark = bookmarks[0];
+        fs.readFileSync(filepath); // Works 🎉
+    });
+
 })
-*/
+
+Mousetrap.bind(['commands + s', 'ctrl+s'], function () {
+
+    var jsonObj = JSON.parse(JSON.stringify(data));
+    var jsonContent = JSON.stringify(jsonObj);
+    let content = "Some text to save into the file";
+
+    // You can obviously give a direct path without use the dialog (C:/Program Files/path/myfileexample.txt)
+    dialog.showSaveDialog((fileName) => {
+        if (fileName === undefined) {
+            console.log("You didn't save the file");
+            return;
+        }
+
+        // fileName is a string that contains the path and filename created in the save file dialog.  
+        fs.writeFile(fileName, content, (err) => {
+            if (err) {
+                alert("An error ocurred creating the file " + err.message)
+            }
+
+            alert("The file has been succesfully saved");
+        });
+    });
+
+})
+
 
 
 Mousetrap.bind(['commands + t', 'ctrl+t'], function () {
@@ -222,13 +261,13 @@ Mousetrap.bind(['commands + t', 'ctrl+t'], function () {
             console.log('Key ' + v[0])
             console.log('Value ' + v[1])
 
-            if(typeof v[0]!='undefined'){
-                if(typeof v[1]!='undefined'){
+            if (typeof v[0] != 'undefined') {
+                if (typeof v[1] != 'undefined') {
                     autocomplete[v[0]] = v[1]
-                    store.set('autocomplete',autocomplete)
+                    store.set('autocomplete', autocomplete)
                 }
             }
-            else{
+            else {
                 vex.dialog.alert('Wrong Format! The format is -> key,value: v m, value:morality')
             }
 
@@ -342,7 +381,7 @@ function deleteTab() {
     handstonable_flows.splice(deleteTab_index, 1)
 
     // Removes data index
-    data[1].splice(deleteTab_index,1)
+    data[1].splice(deleteTab_index, 1)
 
     //-- removes cell row and column element
     selectCell_rc.splice(deleteTab_index, 1)
@@ -371,16 +410,16 @@ function switchFlow() {
 
 }
 
-function resizeFlowHeight(){
-    if(document.getElementById('flow-tabs').offsetHeight>40){
-        for(i = 0;i<handstonable_flows.length;i++){
+function resizeFlowHeight() {
+    if (document.getElementById('flow-tabs').offsetHeight > 40) {
+        for (i = 0; i < handstonable_flows.length; i++) {
             handstonable_flows[i].updateSettings({
                 height: document.getElementById('df').offsetHeight - 131,
             })
         }
     }
-    else{
-        for(i = 0;i<handstonable_flows.length;i++){
+    else {
+        for (i = 0; i < handstonable_flows.length; i++) {
             handstonable_flows[i].updateSettings({
                 height: document.getElementById('df').offsetHeight - 94,
             })
@@ -477,10 +516,10 @@ $(function () {
     setTimeout(() => {
         resizeFlowHeight()
         for (i = 0; i < handstonable_flows.length; i++) {
-            if(handstonable_flows[i].countCols() == 4){
+            if (handstonable_flows[i].countCols() == 4) {
                 widthoffSet = 0.24615384615384617
             }
-            else{
+            else {
                 widthoffSet = 0.19487179487179487
             }
             handstonable_flows[i].updateSettings({
