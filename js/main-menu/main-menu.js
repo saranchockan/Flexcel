@@ -35,7 +35,7 @@ LD_Traditional_Flow_Button.addEventListener("click", () => {
 var PF_Flow_Button = document.getElementById('pf');
 
 PF_Flow_Button.addEventListener("click", () => {
-    
+
     remote.getCurrentWindow().setResizable(true);
     remote.getCurrentWindow().isMaximizable(true);
     remote.getCurrentWindow().maximize()
