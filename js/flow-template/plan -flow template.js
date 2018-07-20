@@ -11,6 +11,16 @@ var selectCell_rc = [
 
 var data = ['Plan-Flow',[],{'AC':0,'NC':0}]
 
+var data = {
+  'flow_type':'Plan-Flow',
+  'flow-data':[],
+  'delete-tabs':[]
+}
+
+var flow_type = 'Plan-Flow'
+var dataLoaded = false;
+
+
 /* Hides the flow and speech-doc until the screen is wholly rendered */
 
 // document.getElementById('df').style.visibility = 'hidden'
@@ -149,7 +159,7 @@ for(i = 0;i<NC_tabs.length;i++){
 /* Initializes data to be saved */
 
 for(i = 0;i<handstonable_flows.length;i++){
-    data[1].push(handstonable_flows[i].getData())
+    data['flow-data'].push(handstonable_flows[i].getData())
 }
 
 /* Removes all of Handsontable's licenses */

@@ -21,6 +21,8 @@ vex.defaultOptions.className = 'vex-theme-os'
 
 var fileName = ""
 var fileNamed = false
+var loadedData;
+
 
 const Store = require('electron-store');
 const store = new Store();
@@ -170,16 +172,14 @@ Mousetrap.bind(['command+i', 'ctrl+i'], function () {
             ac_delete_limit = ac_delete_limit - 1
             nc_delete_limit = nc_delete_limit - 1
             nc_limit = nc_limit - 1
-            var dD = data[2]['AC'] + 1
-            data[2]['AC'] = dD
+            data['delete-tabs'].push(flows[index].id)
             deleteTab()
         }
 
         else if (nc_delete_limit >= nc_limit && index == nc_delete_limit) {
             nc_delete_limit = nc_delete_limit - 1
             nc_limit = nc_limit - 1
-            var dD = data[2]['NC'] + 1
-            data[2]['NC'] = dD
+            data['delete-tabs'].push(flows[index].id)
             deleteTab()
         }
 
@@ -189,46 +189,67 @@ Mousetrap.bind(['command+i', 'ctrl+i'], function () {
 
 
 Mousetrap.bind(['commands + d', 'ctrl+d'], function () {
-
-    /*
-    var jsonObj = JSON.parse(JSON.stringify(data));
-    var jsonContent = JSON.stringify(jsonObj);
-    let content = "Some text to save into the file";
-
-    // You can obviously give a direct path without use the dialog (C:/Program Files/path/myfileexample.txt)
-    dialog.showSaveDialog((fileName) => {
-        if (fileName === undefined) {
-            console.log("You didn't save the file");
+    dialog.showOpenDialog((fileNames) => {
+        // fileNames is an array that contains all the selected
+        if (fileNames === undefined) {
+            console.log("No file selected");
             return;
         }
+        var fileName = fileNames[0];
 
-        // fileName is a string that contains the path and filename created in the save file dialog.  
-        fs.writeFile(fileName, content, (err) => {
+        fs.readFile(fileName, 'utf-8', (err, data) => {
             if (err) {
-                alert("An error ocurred creating the file " + err.message)
+                alert("An error ocurred reading the file :" + err.message);
+                return;
             }
 
-            alert("The file has been succesfully saved");
+            // Change how to handle the file content
+            loadedData = JSON.parse(data);
+            dataLoaded = true
+
+            if (loadedData['flow_type'] == flow_type) {
+
+                if (flow_type == 'Plan-Flow' || flow_type == 'policy-Flow') {
+                    var x = 0;
+                    for (i = 0; i < handstonable_flows.length; i++) {
+                        if (loadedData['delete-tabs'].includes(flows[i].id)) {
+                        }
+                        else {
+                            dataLoaded = true
+                            handstonable_flows[i].updateSettings({
+                                data: loadedData['flow-data'][x]
+                            })
+                            x++;
+                        }
+                    }
+                }
+                else {
+                    for (i = 0; i < handstonable_flows.length; i++) {
+                        dataLoaded = true
+                        handstonable_flows[i].updateSettings({
+                            data: loadedData['flow-data'][i]
+                        })
+                    }
+                }
+            }
+            console.log("The file content is : " + loadedData);
         });
     });
-    */
 
-    let filepath;
-    let bookmark;
-    dialog.showOpenDialog(null, { securityScopedBookmarks: true }, (filepaths, bookmarks) => {
-        // We can access the file since the user chose it with the native panel.
-        filepath = filepaths[0];
-        bookmark = bookmarks[0];
-        fs.readFileSync(filepath); // Works 🎉
-    });
+
+
+
+
 
 })
 
 Mousetrap.bind(['commands + s', 'ctrl+s'], function () {
 
+    let content = "Some text to save into the file";
     var jsonObj = JSON.parse(JSON.stringify(data));
     var jsonContent = JSON.stringify(jsonObj);
-    let content = "Some text to save into the file";
+
+
 
     // You can obviously give a direct path without use the dialog (C:/Program Files/path/myfileexample.txt)
     dialog.showSaveDialog((fileName) => {
@@ -238,7 +259,7 @@ Mousetrap.bind(['commands + s', 'ctrl+s'], function () {
         }
 
         // fileName is a string that contains the path and filename created in the save file dialog.  
-        fs.writeFile(fileName, content, (err) => {
+        fs.writeFile(fileName + '.json', jsonContent, 'utf8', (err) => {
             if (err) {
                 alert("An error ocurred creating the file " + err.message)
             }
@@ -383,7 +404,7 @@ function deleteTab() {
     handstonable_flows.splice(deleteTab_index, 1)
 
     // Removes data index
-    data[1].splice(deleteTab_index, 1)
+    data['flow-data'].splice(deleteTab_index, 1)
 
     //-- removes cell row and column element
     selectCell_rc.splice(deleteTab_index, 1)
@@ -528,15 +549,22 @@ $(function () {
                 width: document.getElementById('df').offsetWidth - 16,
                 colWidths: (document.getElementById('df').offsetWidth - 16) * widthoffSet,
                 afterChange(changes) {
-                    data[1][index] = handstonable_flows[index].getData()
 
-                    /* Autocomplete Feature */
-                    changes.forEach(([row, prop, oldValue, newValue]) => {
-                        if (typeof autocomplete[newValue] != 'undefined') {
-                            var nV = autocomplete[newValue]
-                            handstonable_flows[index].setDataAtCell(row, prop, nV)
-                        }
-                    });
+                    if (!dataLoaded) {
+                        data['flow-data'][index] = handstonable_flows[index].getData()
+
+                        /* Autocomplete Feature */
+                        changes.forEach(([row, prop, oldValue, newValue]) => {
+                            if (typeof autocomplete[newValue] != 'undefined') {
+                                var nV = autocomplete[newValue]
+                                handstonable_flows[index].setDataAtCell(row, prop, nV)
+                            }
+                        });
+                    }
+                    else {
+                        dataLoaded = false
+                    }
+
                 }
             });
         }

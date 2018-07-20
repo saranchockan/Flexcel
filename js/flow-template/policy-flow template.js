@@ -8,8 +8,15 @@ var NC_tabs = document.getElementsByClassName('NC');
 var selectCell_rc = [
     [0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0]
 ]
-  
-var data = ['policy-Flow',[],{'AC':0,'NC':0}]
+
+var data = {
+  'flow_type':'policy-Flow',
+  'flow-data':[],
+  'delete-tabs':{'AC':[],'NC':[]}
+}
+
+var flow_type = 'policy-Flow'
+var dataLoaded = false;
 
 
 
@@ -128,7 +135,7 @@ for(i = 0;i<NC_tabs.length;i++){
 /* Initializes data to be saved */
 
 for(i = 0;i<handstonable_flows.length;i++){
-  data[1].push(handstonable_flows[i].getData())
+  data['flow-data'].push(handstonable_flows[i].getData())
 }
 
 
