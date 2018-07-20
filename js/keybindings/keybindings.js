@@ -22,6 +22,7 @@ vex.defaultOptions.className = 'vex-theme-os'
 var fileName = ""
 var fileNamed = false
 var loadedData;
+var dataSuccess = false;
 
 
 const Store = require('electron-store');
@@ -203,11 +204,16 @@ Mousetrap.bind(['commands + d', 'ctrl+d'], function () {
                 return;
             }
 
-            // Change how to handle the file content
-            loadedData = JSON.parse(data);
+            try{
+                loadedData = JSON.parse(data);
+                dataSuccess = true
+            }
+            catch(err){
+                vex.dialog.alert('Error: Only .json files can be loaded')
+            }
             dataLoaded = true
 
-            if (loadedData['flow_type'] == flow_type) {
+            if (dataSuccess && loadedData['flow_type'] == flow_type) {
 
                 if (flow_type == 'Plan-Flow' || flow_type == 'policy-Flow') {
                     var x = 0;
@@ -232,7 +238,13 @@ Mousetrap.bind(['commands + d', 'ctrl+d'], function () {
                     }
                 }
             }
+            else{
+                if(dataSuccess == true){
+                    vex.dialog.alert('Error: Only ' + flow_type + ' can be loaded')
+                }
+            }
             console.log("The file content is : " + loadedData);
+            dataSuccess = false
         });
     });
 
@@ -248,8 +260,6 @@ Mousetrap.bind(['commands + s', 'ctrl+s'], function () {
     let content = "Some text to save into the file";
     var jsonObj = JSON.parse(JSON.stringify(data));
     var jsonContent = JSON.stringify(jsonObj);
-
-
 
     // You can obviously give a direct path without use the dialog (C:/Program Files/path/myfileexample.txt)
     dialog.showSaveDialog((fileName) => {
