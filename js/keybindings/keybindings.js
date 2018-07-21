@@ -290,21 +290,26 @@ Mousetrap.bind(['commands + t', 'ctrl+t'], function () {
         placeholder: 'v m, value:morality',
         width: 100,
         callback: function (value) {
-            var v = value.split(',')
-            console.log('Key ' + v[0])
-            console.log('Value ' + v[1])
 
-            if (typeof v[0] != 'undefined') {
-                if (typeof v[1] != 'undefined') {
-                    autocomplete[v[0]] = v[1]
-                    store.set('autocomplete', autocomplete)
+            if(value!=false){
+                console.log(value)
+                var v = value.split(',')
+                console.log('Key ' + v[0])
+                console.log('Value ' + v[1])
+    
+                if (typeof v[0] != 'undefined') {
+                    if (typeof v[1] != 'undefined') {
+                        autocomplete[v[0]] = v[1]
+                        store.set('autocomplete', autocomplete)
+                    }
                 }
-            }
-            else {
-                vex.dialog.alert('Wrong Format! The format is -> key,value: v m, value:morality')
+                else {
+                    vex.dialog.alert('Wrong Format! The format is -> key,value: v m, value:morality')
+                }
+
+                selectAllCells()
             }
 
-            selectAllCells()
         }
     })
     document.getElementsByClassName('vex-dialog-prompt-input')[0].style.width = '95%'
