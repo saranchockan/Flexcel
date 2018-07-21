@@ -2,14 +2,19 @@ var Mousetrap = require('mousetrap');
 const fs = require('fs')
 const dialog = require('electron').remote.dialog
 
+// Variables used to access HTML elements for DOM manipulation
 
 var tabs_li = document.getElementById('flow-navbar').getElementsByClassName('nav-item');
 var tabs = document.getElementById('flow-navbar').getElementsByClassName('nav-link');
 var flows = document.getElementsByClassName('tab-pane');
 
+// Variables used for tab switching through hotkeys
+
 var index = 0;
 var mouseClicked = true;
 var tabDeleted = false;
+
+// Variables used to implement constraints on tab deletion
 
 var ac_delete_limit = 6
 var nc_delete_limit = 13
@@ -19,11 +24,16 @@ var vex = require('vex-js')
 vex.registerPlugin(require('vex-dialog'))
 vex.defaultOptions.className = 'vex-theme-os'
 
+
+// Variables for saving the flow
+
 var fileName = ""
 var fileNamed = false
 var loadedData;
 var dataSuccess = false;
 
+
+// Variables for storing auto-complete data
 
 const Store = require('electron-store');
 const store = new Store();
@@ -188,6 +198,10 @@ Mousetrap.bind(['command+i', 'ctrl+i'], function () {
 
 })
 
+/* 
+   User selects the file and it loaded into the flow if the 
+   flow-type and file type is correct.
+*/
 
 Mousetrap.bind(['commands + d', 'ctrl+d'], function () {
     dialog.showOpenDialog((fileNames) => {
@@ -248,12 +262,11 @@ Mousetrap.bind(['commands + d', 'ctrl+d'], function () {
         });
     });
 
-
-
-
-
-
 })
+
+/* 
+    Saves the flow (data json obj) to a json format.    
+*/
 
 Mousetrap.bind(['commands + s', 'ctrl+s'], function () {
 
@@ -281,7 +294,9 @@ Mousetrap.bind(['commands + s', 'ctrl+s'], function () {
 })
 
 
-
+/* 
+    Allows the user to add a custom key, value for autocomplete
+*/
 Mousetrap.bind(['commands + t', 'ctrl+t'], function () {
 
     handstonable_flows[index].deselectCell()

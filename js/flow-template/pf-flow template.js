@@ -9,8 +9,6 @@ var selectCell_rc = [
   [0,0],[0,0]
 ]
 
-// var data = ['pf-Flow',[]]
-
 var data = {
   'flow_type':'pf-flow',
   'flow-data':[]
