@@ -606,3 +606,39 @@ $(function () {
         document.getElementById('speech-doc').style.visibility = 'visible'
     }, 1000);
 });
+
+// function executed everytime window is reszied
+
+$(window).resize(function() {
+    resizeFlowHeight()
+    for (i = 0; i < handstonable_flows.length; i++) {
+        if (handstonable_flows[i].countCols() == 4) {
+            widthoffSet = 0.24615384615384617
+        }
+        else {
+            widthoffSet = 0.19487179487179487
+        }
+        handstonable_flows[i].updateSettings({
+            width: document.getElementById('df').offsetWidth - 16,
+            colWidths: (document.getElementById('df').offsetWidth - 16) * widthoffSet,
+            afterChange(changes) {
+
+                if (!dataLoaded) {
+                    data['flow-data'][index] = handstonable_flows[index].getData()
+
+                    /* Autocomplete Feature */
+                    changes.forEach(([row, prop, oldValue, newValue]) => {
+                        if (typeof autocomplete[newValue] != 'undefined') {
+                            var nV = autocomplete[newValue]
+                            handstonable_flows[index].setDataAtCell(row, prop, nV)
+                        }
+                    });
+                }
+                else {
+                    dataLoaded = false
+                }
+
+            }
+        });
+    }
+});

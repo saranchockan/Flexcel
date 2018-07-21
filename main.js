@@ -44,6 +44,10 @@ function createWindow() {
     }
   });
 
+  mainWindow.on('resize', ()=>{
+    console.log('resize')
+    
+  })
 
   // Emitted when the window is closed.
   mainWindow.on('closed', function () {

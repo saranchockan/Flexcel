@@ -11,11 +11,15 @@ let flow;
 var LD_Plan_Flow_Button = document.getElementById('Plan-Flow-1AC');
 LD_Plan_Flow_Button.addEventListener("click", () => {
 
+
     remote.getCurrentWindow().setResizable(true);
     remote.getCurrentWindow().isMaximizable(true);
     remote.getCurrentWindow().maximize()
-    remote.getCurrentWindow().setResizable(false);
+    remote.getCurrentWindow().setMaximizable(true)
+    remote.getCurrentWindow().setResizable(true);
     remote.getCurrentWindow().loadFile('plan-flow.html')
+
+
 
 
 });
@@ -27,8 +31,10 @@ LD_Traditional_Flow_Button.addEventListener("click", () => {
     remote.getCurrentWindow().setResizable(true);
     remote.getCurrentWindow().isMaximizable(true);
     remote.getCurrentWindow().maximize()
-    remote.getCurrentWindow().setResizable(false);
+    remote.getCurrentWindow().setMaximizable(true)
+    remote.getCurrentWindow().setResizable(true);
     remote.getCurrentWindow().loadFile('traditional-flow.html')
+
 
 });
 
@@ -39,7 +45,8 @@ PF_Flow_Button.addEventListener("click", () => {
     remote.getCurrentWindow().setResizable(true);
     remote.getCurrentWindow().isMaximizable(true);
     remote.getCurrentWindow().maximize()
-    remote.getCurrentWindow().setResizable(false);
+    remote.getCurrentWindow().setMaximizable(true)
+    remote.getCurrentWindow().setResizable(true);
     remote.getCurrentWindow().loadFile('pf-flow.html')
 
 
@@ -52,7 +59,8 @@ Policy_Flow_Button.addEventListener("click", () => {
     remote.getCurrentWindow().setResizable(true);
     remote.getCurrentWindow().isMaximizable(true);
     remote.getCurrentWindow().maximize()
-    remote.getCurrentWindow().setResizable(false);
+    remote.getCurrentWindow().setMaximizable(true)
+    remote.getCurrentWindow().setResizable(true);
     remote.getCurrentWindow().loadFile('policy-flow-dynamic.html')
 
 });
