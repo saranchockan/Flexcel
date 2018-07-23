@@ -16,7 +16,7 @@
     "PF",
     "Papperlessn"
   ],
-  "author": "GitHub",
+  "author": "Flexcel",
   "license": "CC0-1.0",
   "devDependencies": {
     "electron": "^2.0.0",
