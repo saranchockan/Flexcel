@@ -22,7 +22,7 @@ function createWindow() {
   // mainWindow.maximize();
 
   // Removes Main Menu from windows
-  mainWindow.setMenu(null)
+  // mainWindow.setMenu(null)
 
   // Window's heigh and width are fixed
   mainWindow.setResizable(false);
@@ -44,11 +44,7 @@ function createWindow() {
     }
   });
 
-  mainWindow.on('resize', ()=>{
-    console.log('resize')
-    
-  })
-
+ 
   // Emitted when the window is closed.
   mainWindow.on('closed', function () {
     // Dereference the window object, usually you would store windows

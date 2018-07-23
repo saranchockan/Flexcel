@@ -12,7 +12,7 @@ var selectCell_rc = [
 var data = {
   'flow_type':'policy-Flow',
   'flow-data':[],
-  'delete-tabs':{'AC':[],'NC':[]}
+  'delete-tabs':[]
 }
 
 var flow_type = 'policy-Flow'

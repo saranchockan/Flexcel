@@ -31,6 +31,8 @@ var fileName = ""
 var fileNamed = false
 var loadedData;
 var dataSuccess = false;
+var tD = false;
+
 
 
 // Variables for storing auto-complete data
@@ -185,6 +187,7 @@ Mousetrap.bind(['command+i', 'ctrl+i'], function () {
             nc_limit = nc_limit - 1
             data['delete-tabs'].push(flows[index].id)
             deleteTab()
+            tD = true
         }
 
         else if (nc_delete_limit >= nc_limit && index == nc_delete_limit) {
@@ -192,6 +195,7 @@ Mousetrap.bind(['command+i', 'ctrl+i'], function () {
             nc_limit = nc_limit - 1
             data['delete-tabs'].push(flows[index].id)
             deleteTab()
+            tD = true
         }
 
     }
@@ -204,63 +208,71 @@ Mousetrap.bind(['command+i', 'ctrl+i'], function () {
 */
 
 Mousetrap.bind(['commands + d', 'ctrl+d'], function () {
-    dialog.showOpenDialog((fileNames) => {
-        // fileNames is an array that contains all the selected
-        if (fileNames === undefined) {
-            console.log("No file selected");
-            return;
-        }
-        var fileName = fileNames[0];
 
-        fs.readFile(fileName, 'utf-8', (err, data) => {
-            if (err) {
-                alert("An error ocurred reading the file :" + err.message);
+    if(tD==false){
+        dialog.showOpenDialog((fileNames) => {
+            // fileNames is an array that contains all the selected
+            if (fileNames === undefined) {
+                console.log("No file selected");
                 return;
             }
-
-            try{
-                loadedData = JSON.parse(data);
-                dataSuccess = true
-            }
-            catch(err){
-                vex.dialog.alert('Error: Only .json files can be loaded')
-            }
-            dataLoaded = true
-
-            if (dataSuccess && loadedData['flow_type'] == flow_type) {
-
-                if (flow_type == 'Plan-Flow' || flow_type == 'policy-Flow') {
-                    var x = 0;
-                    for (i = 0; i < handstonable_flows.length; i++) {
-                        if (loadedData['delete-tabs'].includes(flows[i].id)) {
+            var fileName = fileNames[0];
+    
+            fs.readFile(fileName, 'utf-8', (err, data) => {
+                if (err) {
+                    alert("An error ocurred reading the file :" + err.message);
+                    return;
+                }
+    
+                try{
+                    loadedData = JSON.parse(data);
+                    dataSuccess = true
+                }
+                catch(err){
+                    vex.dialog.alert('Error: Only .json files can be loaded')
+                }
+                dataLoaded = true
+    
+                if (dataSuccess && loadedData['flow_type'] == flow_type) {
+    
+                    if (flow_type == 'Plan-Flow' || flow_type == 'policy-Flow') {
+                        var x = 0;
+                        for (i = 0; i < handstonable_flows.length; i++) {
+                            if (loadedData['delete-tabs'].includes(flows[i].id)) {
+                            }
+                            else {
+                                dataLoaded = true
+                                handstonable_flows[i].updateSettings({
+                                    data: loadedData['flow-data'][x]
+                                })
+                                x++;
+                            }
                         }
-                        else {
+                    }
+                    else {
+                        for (i = 0; i < handstonable_flows.length; i++) {
                             dataLoaded = true
                             handstonable_flows[i].updateSettings({
-                                data: loadedData['flow-data'][x]
+                                data: loadedData['flow-data'][i]
                             })
-                            x++;
                         }
                     }
                 }
-                else {
-                    for (i = 0; i < handstonable_flows.length; i++) {
-                        dataLoaded = true
-                        handstonable_flows[i].updateSettings({
-                            data: loadedData['flow-data'][i]
-                        })
+                else{
+                    if(dataSuccess == true){
+                        vex.dialog.alert('Error: Only ' + flow_type + ' can be loaded')
                     }
                 }
-            }
-            else{
-                if(dataSuccess == true){
-                    vex.dialog.alert('Error: Only ' + flow_type + ' can be loaded')
-                }
-            }
-            console.log("The file content is : " + loadedData);
-            dataSuccess = false
+                console.log("The file content is : " + loadedData);
+                dataSuccess = false
+            });
         });
-    });
+    }
+
+    else{
+        vex.dialog.alert('Error: Open a blank flow and load the file ')
+    }
+    
 
 })
 
