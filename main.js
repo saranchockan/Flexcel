@@ -1,6 +1,7 @@
 // Modules to control application life and create native browser window
 const { electron } = require('electron')
 const { app, BrowserWindow } = require('electron')
+const { webFrame } = require('electron')
 const defaultMenu = require('electron-default-menu');
 const { Menu, shell } = require('electron');
 const dialog = require('electron').remote;
@@ -28,7 +29,8 @@ function createWindow() {
   mainWindow.setResizable(false);
   mainWindow.setMaximizable(false);
 
-
+  // Disables dev tools
+  //mainWindow.webContents.on("devtools-opened", () => { mainWindow.webContents.closeDevTools(); });
 
 
   mainWindow.on('close', function (e) {
@@ -44,7 +46,7 @@ function createWindow() {
     }
   });
 
- 
+
   // Emitted when the window is closed.
   mainWindow.on('closed', function () {
     // Dereference the window object, usually you would store windows
@@ -64,10 +66,172 @@ function createWindow() {
 // Some APIs can only be used after this event occurs.
 app.on('ready', () => {
   // Get template for default menu
-  const menu = defaultMenu(app, shell);
+  //const menu = defaultMenu(app, shell);
 
   // Set top-level application menu, using modified template
-  Menu.setApplicationMenu(Menu.buildFromTemplate(menu));
+  // Menu.setApplicationMenu(Menu.buildFromTemplate(menu));
+  const template = [
+    {
+      label: 'Edit',
+      submenu: [
+        {
+          role: 'undo'
+        },
+        {
+          role: 'redo'
+        },
+        {
+          type: 'separator'
+        },
+        {
+          role: 'cut'
+        },
+        {
+          role: 'copy'
+        },
+        {
+          role: 'paste'
+        },
+        {
+          role: 'pasteandmatchstyle'
+        },
+        {
+          role: 'delete'
+        },
+        {
+          role: 'selectall'
+        }
+      ]
+    },
+    {
+      label: 'View',
+      submenu: [
+        {
+          label: 'Reload',
+          accelerator: 'CmdOrCtrl+R',
+          click(item, focusedWindow) {
+            if (focusedWindow) focusedWindow.reload()
+          }
+        },
+        {
+          type: 'separator'
+        },
+        {
+          role: 'resetzoom'
+        },
+        {
+          role: 'zoomin'
+        },
+        {
+          role: 'zoomout'
+        },
+        {
+          type: 'separator'
+        }
+      ]
+    },
+    {
+      role: 'window',
+      submenu: [
+        {
+          role: 'minimize'
+        },
+        {
+          role: 'close'
+        }
+      ]
+    },
+    {
+      role: 'help',
+      submenu: [
+        {
+          label: 'Learn More',
+          click() { require('electron').shell.openExternal('http://electron.atom.io') }
+        }
+      ]
+    }
+  ]
+
+  if (process.platform === 'darwin') {
+    const name = app.getName()
+    template.unshift({
+      label: name,
+      submenu: [
+        {
+          role: 'about'
+        },
+        {
+          type: 'separator'
+        },
+        {
+          role: 'services',
+          submenu: []
+        },
+        {
+          type: 'separator'
+        },
+        {
+          role: 'hide'
+        },
+        {
+          role: 'hideothers'
+        },
+        {
+          role: 'unhide'
+        },
+        {
+          type: 'separator'
+        },
+        {
+          role: 'quit'
+        }
+      ]
+    })
+    // Edit menu.
+    template[1].submenu.push(
+      {
+        type: 'separator'
+      },
+      {
+        label: 'Speech',
+        submenu: [
+          {
+            role: 'startspeaking'
+          },
+          {
+            role: 'stopspeaking'
+          }
+        ]
+      }
+    )
+    // Window menu.
+    template[3].submenu = [
+      {
+        label: 'Close',
+        accelerator: 'CmdOrCtrl+W',
+        role: 'close'
+      },
+      {
+        label: 'Minimize',
+        accelerator: 'CmdOrCtrl+M',
+        role: 'minimize'
+      },
+      {
+        label: 'Zoom',
+        role: 'zoom'
+      },
+      {
+        type: 'separator'
+      },
+      {
+        label: 'Bring All to Front',
+        role: 'front'
+      }
+    ]
+  }
+
+  const menu = Menu.buildFromTemplate(template)
+  Menu.setApplicationMenu(menu)
   createWindow()
 })
 
