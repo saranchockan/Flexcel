@@ -43,6 +43,8 @@ function createWindow() {
       });
     if (choice == 1) {
       e.preventDefault();
+      mainWindow.setResizable(false);
+      mainWindow.setMaximizable(false);
     }
   });
 
