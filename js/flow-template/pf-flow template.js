@@ -1,5 +1,5 @@
 
-var handstonable_flows = [];
+var handsontable_flows = [];
 
 const flow_tabs = document.getElementsByClassName('tab-pane');
 var pro_tabs = document.getElementsByClassName('PRO');
@@ -82,7 +82,7 @@ Handsontable.renderers.registerRenderer('pro_flowRenderer', pro_flowRenderer);
 for(i = 0;i<pro_tabs.length;i++){
     container = document.getElementById(pro_tabs[i].id);
 
-    handstonable_flows.push(new Handsontable(container,{
+    handsontable_flows.push(new Handsontable(container,{
       colHeaders: ['Pro Constructive', 'Con Rebuttal', 'Pro Summary', 'Pro Final Focus'],
       minCols: 4,
       maxCols:4,
@@ -121,7 +121,7 @@ Handsontable.renderers.registerRenderer('con_flowRenderer', con_flowRenderer);
 for(i = 0;i<con_tabs.length;i++){
   container = document.getElementById(con_tabs[i].id);
 
-  handstonable_flows.push(new Handsontable(container,{
+  handsontable_flows.push(new Handsontable(container,{
     colHeaders: ['Con Constructive', 'Pro Rebuttal', 'Con Summary', 'Con Final Focus'],
     minCols: 4,
     maxCols: 4,
@@ -156,9 +156,9 @@ for(i = 0;i<con_tabs.length;i++){
 
 /* Initializes data to be saved */
 
-for(i = 0;i<handstonable_flows.length;i++){
-  // data[1].push(handstonable_flows[i].getData())
-  data['flow-data'].push(handstonable_flows[i].getData())
+for(i = 0;i<handsontable_flows.length;i++){
+  // data[1].push(handsontable_flows[i].getData())
+  data['flow-data'].push(handsontable_flows[i].getData())
 }
 
 

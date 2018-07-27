@@ -1,5 +1,5 @@
 
-var handstonable_flows = [];
+var handsontable_flows = [];
 
 const flow_tabs = document.getElementsByClassName('tab-pane');
 var AC_tabs = document.getElementsByClassName('AC');
@@ -83,7 +83,7 @@ Handsontable.renderers.registerRenderer('ac_flowRenderer', ac_flowRenderer);
 for(i = 0;i<AC_tabs.length;i++){
     container = document.getElementById(AC_tabs[i].id);
 
-    handstonable_flows.push(new Handsontable(container,{
+    handsontable_flows.push(new Handsontable(container,{
       colHeaders: ['AC', '1NR', '1AR', '2NR', '2AR'],
       minCols: 5,
       minRows: 40,
@@ -121,7 +121,7 @@ Handsontable.renderers.registerRenderer('nc_flowRenderer', nc_flowRenderer);
 for(i = 0;i<NC_tabs.length;i++){
   container = document.getElementById(NC_tabs[i].id);
 
-  handstonable_flows.push(new Handsontable(container,{
+  handsontable_flows.push(new Handsontable(container,{
     colHeaders: ['1NC', '1AR', '2NR','2AR'],
     minCols: 4,
     maxCols: 4,
@@ -156,8 +156,8 @@ for(i = 0;i<NC_tabs.length;i++){
 
 /* Initializes data to be saved */
 
-for(i = 0;i<handstonable_flows.length;i++){
-  data['flow-data'].push(handstonable_flows[i].getData())
+for(i = 0;i<handsontable_flows.length;i++){
+  data['flow-data'].push(handsontable_flows[i].getData())
 }
 
 

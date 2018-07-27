@@ -14,7 +14,7 @@
     "Flow",
     "LD",
     "PF",
-    "Papperlessn"
+    "Paperless"
   ],
   "author": "Flexcel",
   "license": "CC0-1.0",
@@ -64,7 +64,7 @@
       "node_modules/**/*",
       "bootstrap/**/*",
       "css/**/*",
-      "handstonable/**/*",
+      "handsontable/**/*",
       "img/**/*",
       "js/**/*",
       "materialize/**/*",

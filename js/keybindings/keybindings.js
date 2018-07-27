@@ -106,7 +106,7 @@ else {
 
 
 /* 
-    Selects all the first cells of the flow: This is to make sure that handstonable 
+    Selects all the first cells of the flow: This is to make sure that handsontable 
     doesn't return undefined when getSelected() is called.
 */
 selectAllCells()
@@ -136,7 +136,7 @@ $('#flow-navbar a').on('click', function (e) {
         var rc = selectCell_rc[i];
         var r = rc[0]
         var c = rc[1]
-        handstonable_flows[i].selectCell(r, c);
+        handsontable_flows[i].selectCell(r, c);
     }
 
 })
@@ -166,7 +166,7 @@ $('#flow-navbar li').on('shown.bs.tab', function (e) {
         var rc = selectCell_rc[i];
         var r = rc[0]
         var c = rc[1]
-        handstonable_flows[i].selectCell(r, c);
+        handsontable_flows[i].selectCell(r, c);
     }
 })
 
@@ -238,12 +238,12 @@ Mousetrap.bind(['commands + d', 'ctrl+d'], function () {
     
                     if (flow_type == 'LD Plan Flow' || flow_type == 'Policy Flow') {
                         var x = 0;
-                        for (i = 0; i < handstonable_flows.length; i++) {
+                        for (i = 0; i < handsontable_flows.length; i++) {
                             if (loadedData['delete-tabs'].includes(flows[i].id)) {
                             }
                             else {
                                 dataLoaded = true
-                                handstonable_flows[i].updateSettings({
+                                handsontable_flows[i].updateSettings({
                                     data: loadedData['flow-data'][x]
                                 })
                                 x++;
@@ -251,9 +251,9 @@ Mousetrap.bind(['commands + d', 'ctrl+d'], function () {
                         }
                     }
                     else {
-                        for (i = 0; i < handstonable_flows.length; i++) {
+                        for (i = 0; i < handsontable_flows.length; i++) {
                             dataLoaded = true
-                            handstonable_flows[i].updateSettings({
+                            handsontable_flows[i].updateSettings({
                                 data: loadedData['flow-data'][i]
                             })
                         }
@@ -312,7 +312,7 @@ Mousetrap.bind(['commands + s', 'ctrl+s'], function () {
 */
 Mousetrap.bind(['commands + t', 'ctrl+t'], function () {
 
-    handstonable_flows[index].deselectCell()
+    handsontable_flows[index].deselectCell()
     vex.dialog.prompt({
         message: 'Add autocomplete key and value in the format: key,value',
         placeholder: 'v m, value:morality',
@@ -422,7 +422,7 @@ function previousTab() {
 
 /* 
     Deletes the current tab in accordance to the current index. More specifically, it deletes the current
-    nav-item, nav-link, flow-div and resets the selectedCell, handstonable flows, and tabs array.
+    nav-item, nav-link, flow-div and resets the selectedCell, handsontable flows, and tabs array.
 */
 
 function deleteTab() {
@@ -443,8 +443,8 @@ function deleteTab() {
     id = '#' + flows[deleteTab_index].id
     $(id).remove()
 
-    //-- Removes handstonable flow
-    handstonable_flows.splice(deleteTab_index, 1)
+    //-- Removes handsontable flow
+    handsontable_flows.splice(deleteTab_index, 1)
 
     // Removes data index
     data['flow-data'].splice(deleteTab_index, 1)
@@ -478,15 +478,15 @@ function switchFlow() {
 
 function resizeFlowHeight() {
     if (document.getElementById('flow-tabs').offsetHeight > 40) {
-        for (i = 0; i < handstonable_flows.length; i++) {
-            handstonable_flows[i].updateSettings({
+        for (i = 0; i < handsontable_flows.length; i++) {
+            handsontable_flows[i].updateSettings({
                 height: document.getElementById('df').offsetHeight - 131,
             })
         }
     }
     else {
-        for (i = 0; i < handstonable_flows.length; i++) {
-            handstonable_flows[i].updateSettings({
+        for (i = 0; i < handsontable_flows.length; i++) {
+            handsontable_flows[i].updateSettings({
                 height: document.getElementById('df').offsetHeight - 94,
             })
         }
@@ -495,11 +495,11 @@ function resizeFlowHeight() {
 
 
 function selectAllCells() {
-    for (i = handstonable_flows.length - 1; i >= 0; i--) {
+    for (i = handsontable_flows.length - 1; i >= 0; i--) {
         var rc = selectCell_rc[i];
         var r = rc[0]
         var c = rc[1]
-        handstonable_flows[i].selectCell(r, c);
+        handsontable_flows[i].selectCell(r, c);
     }
 }
 
@@ -519,7 +519,7 @@ function getSelectedCellIndex() {
 /* updates the selectedCells array everytime the user switches tabs */
 
 function reset_rc() {
-    var newRC = handstonable_flows[index].getSelected()
+    var newRC = handsontable_flows[index].getSelected()
     selectCell_rc[index] = [newRC[0], newRC[1]];
 }
 
@@ -581,26 +581,26 @@ $(function () {
 
     setTimeout(() => {
         resizeFlowHeight()
-        for (i = 0; i < handstonable_flows.length; i++) {
-            if (handstonable_flows[i].countCols() == 4) {
+        for (i = 0; i < handsontable_flows.length; i++) {
+            if (handsontable_flows[i].countCols() == 4) {
                 widthoffSet = 0.24615384615384617
             }
             else {
                 widthoffSet = 0.19487179487179487
             }
-            handstonable_flows[i].updateSettings({
+            handsontable_flows[i].updateSettings({
                 width: document.getElementById('df').offsetWidth - 16,
                 colWidths: (document.getElementById('df').offsetWidth - 16) * widthoffSet,
                 afterChange(changes) {
 
                     if (!dataLoaded) {
-                        data['flow-data'][index] = handstonable_flows[index].getData()
+                        data['flow-data'][index] = handsontable_flows[index].getData()
 
                         /* Autocomplete Feature */
                         changes.forEach(([row, prop, oldValue, newValue]) => {
                             if (typeof autocomplete[newValue] != 'undefined') {
                                 var nV = autocomplete[newValue]
-                                handstonable_flows[index].setDataAtCell(row, prop, nV)
+                                handsontable_flows[index].setDataAtCell(row, prop, nV)
                             }
                         });
                     }
@@ -624,26 +624,26 @@ $(function () {
 
 $(window).resize(function() {
     resizeFlowHeight()
-    for (i = 0; i < handstonable_flows.length; i++) {
-        if (handstonable_flows[i].countCols() == 4) {
+    for (i = 0; i < handsontable_flows.length; i++) {
+        if (handsontable_flows[i].countCols() == 4) {
             widthoffSet = 0.24615384615384617
         }
         else {
             widthoffSet = 0.19487179487179487
         }
-        handstonable_flows[i].updateSettings({
+        handsontable_flows[i].updateSettings({
             width: document.getElementById('df').offsetWidth - 16,
             colWidths: (document.getElementById('df').offsetWidth - 16) * widthoffSet,
             afterChange(changes) {
 
                 if (!dataLoaded) {
-                    data['flow-data'][index] = handstonable_flows[index].getData()
+                    data['flow-data'][index] = handsontable_flows[index].getData()
 
                     /* Autocomplete Feature */
                     changes.forEach(([row, prop, oldValue, newValue]) => {
                         if (typeof autocomplete[newValue] != 'undefined') {
                             var nV = autocomplete[newValue]
-                            handstonable_flows[index].setDataAtCell(row, prop, nV)
+                            handsontable_flows[index].setDataAtCell(row, prop, nV)
                         }
                     });
                 }
