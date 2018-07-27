@@ -215,6 +215,11 @@ Mousetrap.bind(['commands + d', 'ctrl+d'], function () {
             }
             var fileName = fileNames[0];
 
+            var x = fileName.split('/')
+            var w = x[x.length-1].split('.')
+            document.title = w[0]
+            
+
             fs.readFile(fileName, 'utf-8', (err, data) => {
                 if (err) {
                     alert("An error ocurred reading the file :" + err.message);
