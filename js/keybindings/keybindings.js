@@ -217,9 +217,7 @@ Mousetrap.bind(['commands + d', 'ctrl+d'], function () {
 
             var x = fileName.split('/')
             var w = x[x.length-1].split('.')
-            document.title = w[0]
             
-
             fs.readFile(fileName, 'utf-8', (err, data) => {
                 if (err) {
                     alert("An error ocurred reading the file :" + err.message);
@@ -233,6 +231,7 @@ Mousetrap.bind(['commands + d', 'ctrl+d'], function () {
                     vex.dialog.alert('Error: Only .json files can be loaded')
                 }
                 dataLoaded = true
+                document.title = w[0]
                 loadFlow()
             });
         });
