@@ -48,6 +48,8 @@ PF_Flow_Button.addEventListener("click", () => {
     remote.getCurrentWindow().setMaximizable(true)
     remote.getCurrentWindow().setResizable(true);
     remote.getCurrentWindow().loadFile('pf-flow.html')
+    console.log('FUCK')
+
 
 
 });

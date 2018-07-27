@@ -75,7 +75,10 @@
       "traditional-flow.html",
       "plan-flow.html",
       "pf-flow.html",
-      "policy-flow-dynamic.html"
+      "policy-flow-dynamic.html",
+      "jquery/**/*",
+      "popper/**/*",
+      "summernote/**/*"
     ]
   }
 }
