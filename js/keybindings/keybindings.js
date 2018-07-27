@@ -252,7 +252,7 @@ Mousetrap.bind(['commands + s', 'ctrl+s'], function () {
     var jsonContent = JSON.stringify(jsonObj);
 
     if (!fileNamed || fileName == '') {
-        handstonable_flows[index].deselectCell()
+        handsontable_flows[index].deselectCell()
         vex.dialog.prompt({
             message: 'Save As',
             placeholder: 'e.g. 1AC vs SJ Round 5',
@@ -463,12 +463,12 @@ function loadFlow() {
     if (dataSuccess && loadedData['flow_type'] == flow_type) {
         if (flow_type == 'LD Plan Flow' || flow_type == 'Policy Flow') {
             var x = 0;
-            for (i = 0; i < handstonable_flows.length; i++) {
+            for (i = 0; i < handsontable_flows.length; i++) {
                 if (loadedData['delete-tabs'].includes(flows[i].id)) {
                 }
                 else {
                     dataLoaded = true
-                    handstonable_flows[i].updateSettings({
+                    handsontable_flows[i].updateSettings({
                         data: loadedData['flow-data'][x]
                     })
                     x++;
@@ -476,9 +476,9 @@ function loadFlow() {
             }
         }
         else {
-            for (i = 0; i < handstonable_flows.length; i++) {
+            for (i = 0; i < handsontable_flows.length; i++) {
                 dataLoaded = true
-                handstonable_flows[i].updateSettings({
+                handsontable_flows[i].updateSettings({
                     data: loadedData['flow-data'][i]
                 })
             }
