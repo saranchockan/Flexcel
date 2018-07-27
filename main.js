@@ -17,7 +17,7 @@ function createWindow() {
   // and load the index.html of the app.
   mainWindow.loadFile('main-menu.html')
   // Open the DevTools.
-  mainWindow.webContents.openDevTools({detach: true})
+  // mainWindow.webContents.openDevTools({detach: true})
 
   // Maximize window
   // mainWindow.maximize();

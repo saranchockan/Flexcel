@@ -35,7 +35,6 @@ var dataSuccess = false;
 var tD = false;
 
 
-
 // Variables for storing auto-complete data
 
 const Store = require('electron-store');
@@ -101,9 +100,6 @@ if (store.has('autocomplete') == false) {
 else {
     autocomplete = store.get('autocomplete')
 }
-
-
-
 
 /* 
     Selects all the first cells of the flow: This is to make sure that handstonable 
@@ -210,7 +206,7 @@ Mousetrap.bind(['command+i', 'ctrl+i'], function () {
 
 Mousetrap.bind(['commands + d', 'ctrl+d'], function () {
 
-    if(tD==false){
+    if (tD == false) {
         dialog.showOpenDialog((fileNames) => {
             // fileNames is an array that contains all the selected
             if (fileNames === undefined) {
@@ -218,62 +214,29 @@ Mousetrap.bind(['commands + d', 'ctrl+d'], function () {
                 return;
             }
             var fileName = fileNames[0];
-    
+
             fs.readFile(fileName, 'utf-8', (err, data) => {
                 if (err) {
                     alert("An error ocurred reading the file :" + err.message);
                     return;
                 }
-    
-                try{
+                try {
                     loadedData = JSON.parse(data);
                     dataSuccess = true
                 }
-                catch(err){
+                catch (err) {
                     vex.dialog.alert('Error: Only .json files can be loaded')
                 }
                 dataLoaded = true
-    
-                if (dataSuccess && loadedData['flow_type'] == flow_type) {
-    
-                    if (flow_type == 'LD Plan Flow' || flow_type == 'Policy Flow') {
-                        var x = 0;
-                        for (i = 0; i < handstonable_flows.length; i++) {
-                            if (loadedData['delete-tabs'].includes(flows[i].id)) {
-                            }
-                            else {
-                                dataLoaded = true
-                                handstonable_flows[i].updateSettings({
-                                    data: loadedData['flow-data'][x]
-                                })
-                                x++;
-                            }
-                        }
-                    }
-                    else {
-                        for (i = 0; i < handstonable_flows.length; i++) {
-                            dataLoaded = true
-                            handstonable_flows[i].updateSettings({
-                                data: loadedData['flow-data'][i]
-                            })
-                        }
-                    }
-                }
-                else{
-                    if(dataSuccess == true){
-                        vex.dialog.alert('Error: Only ' + flow_type + ' can be loaded')
-                    }
-                }
-                console.log("The file content is : " + loadedData);
-                dataSuccess = false
+                loadFlow()
             });
         });
     }
 
-    else{
+    else {
         vex.dialog.alert('Error: Open a blank flow and load the file ')
     }
-    
+
 
 })
 
@@ -283,29 +246,49 @@ Mousetrap.bind(['commands + d', 'ctrl+d'], function () {
 
 Mousetrap.bind(['commands + s', 'ctrl+s'], function () {
 
+
     let content = "Some text to save into the file";
     var jsonObj = JSON.parse(JSON.stringify(data));
     var jsonContent = JSON.stringify(jsonObj);
 
-    // You can obviously give a direct path without use the dialog (C:/Program Files/path/myfileexample.txt)
-    dialog.showSaveDialog((fileName) => {
-        if (fileName === undefined) {
-            console.log("You didn't save the file");
-            return;
-        }
+    if (!fileNamed || fileName == '') {
+        handstonable_flows[index].deselectCell()
+        vex.dialog.prompt({
+            message: 'Save As',
+            placeholder: 'e.g. 1AC vs SJ Round 5',
+            width: 100,
+            callback: function (value) {
+                fileName = value
+                fileNamed = true
+                console.log(value)
+                selectAllCells()
+                if (fileName != '') {
+                    document.title = fileName
+                    dialog.showOpenDialog({
+                        properties: ['openDirectory']
+                    }, (filePaths, bookmarks) => {
 
-        // fileName is a string that contains the path and filename created in the save file dialog.  
-        fs.writeFile(fileName + '.json', jsonContent, 'utf8', (err) => {
-            if (err) {
-                alert("An error ocurred creating the file " + err.message)
+                        console.log(filePaths[0])
+
+                        if (filePaths[0] === undefined) {
+                            console.log("You didn't save the file");
+                            return;
+                        }
+                        var fP = filePaths[0] +'/'+ fileName
+
+                        fs.writeFile(fP + '.json', jsonContent, 'utf8', (err) => {
+                            if (err) {
+                                alert("An error ocurred creating the file " + err.message)
+                            }
+                            alert("The file has been succesfully saved");
+                        });
+                    })
+                }
             }
-
-            alert("The file has been succesfully saved");
-        });
-    });
-
+        })
+        document.getElementsByClassName('vex-dialog-prompt-input')[0].style.width = '95%'
+    }
 })
-
 
 /* 
     Allows the user to add a custom key, value for autocomplete
@@ -319,12 +302,12 @@ Mousetrap.bind(['commands + t', 'ctrl+t'], function () {
         width: 100,
         callback: function (value) {
 
-            if(value!=false){
+            if (value != false) {
                 console.log(value)
                 var v = value.split(',')
                 console.log('Key ' + v[0])
                 console.log('Value ' + v[1])
-    
+
                 if (typeof v[0] != 'undefined') {
                     if (typeof v[1] != 'undefined') {
                         autocomplete[v[0]] = v[1]
@@ -334,7 +317,7 @@ Mousetrap.bind(['commands + t', 'ctrl+t'], function () {
                 else {
                     vex.dialog.alert('Wrong Format! The format is -> key,value: v m, value:morality')
                 }
-
+                
                 selectAllCells()
             }
 
@@ -474,6 +457,40 @@ function switchFlow() {
         }
     }
 
+}
+
+function loadFlow() {
+    if (dataSuccess && loadedData['flow_type'] == flow_type) {
+        if (flow_type == 'LD Plan Flow' || flow_type == 'Policy Flow') {
+            var x = 0;
+            for (i = 0; i < handstonable_flows.length; i++) {
+                if (loadedData['delete-tabs'].includes(flows[i].id)) {
+                }
+                else {
+                    dataLoaded = true
+                    handstonable_flows[i].updateSettings({
+                        data: loadedData['flow-data'][x]
+                    })
+                    x++;
+                }
+            }
+        }
+        else {
+            for (i = 0; i < handstonable_flows.length; i++) {
+                dataLoaded = true
+                handstonable_flows[i].updateSettings({
+                    data: loadedData['flow-data'][i]
+                })
+            }
+        }
+    }
+    else {
+        if (dataSuccess == true) {
+            vex.dialog.alert('Error: Only ' + flow_type + ' can be loaded')
+        }
+    }
+    console.log("The file content is : " + loadedData);
+    dataSuccess = false
 }
 
 function resizeFlowHeight() {
@@ -622,7 +639,7 @@ $(function () {
 
 // function executed everytime window is reszied
 
-$(window).resize(function() {
+$(window).resize(function () {
     resizeFlowHeight()
     for (i = 0; i < handstonable_flows.length; i++) {
         if (handstonable_flows[i].countCols() == 4) {
