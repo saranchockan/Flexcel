@@ -20,6 +20,7 @@ var ac_delete_limit = 6
 var nc_delete_limit = 13
 var nc_limit = 9
 
+
 var vex = require('vex-js')
 vex.registerPlugin(require('vex-dialog'))
 vex.defaultOptions.className = 'vex-theme-os'
@@ -235,7 +236,7 @@ Mousetrap.bind(['commands + d', 'ctrl+d'], function () {
     
                 if (dataSuccess && loadedData['flow_type'] == flow_type) {
     
-                    if (flow_type == 'Plan-Flow' || flow_type == 'policy-Flow') {
+                    if (flow_type == 'LD Plan Flow' || flow_type == 'Policy Flow') {
                         var x = 0;
                         for (i = 0; i < handstonable_flows.length; i++) {
                             if (loadedData['delete-tabs'].includes(flows[i].id)) {

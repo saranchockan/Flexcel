@@ -11,11 +11,11 @@ var selectCell_rc = [
 
 
 var data = {
-  'flow_type':'trad-ld-Flow',
+  'flow_type':'LD Traditional Flow',
   'flow-data':[]
 }
 
-var flow_type = 'trad-ld-Flow'
+var flow_type = 'LD Traditional Flow'
 var dataLoaded = false;
 
 

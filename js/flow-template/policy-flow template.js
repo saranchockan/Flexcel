@@ -10,12 +10,12 @@ var selectCell_rc = [
 ]
 
 var data = {
-  'flow_type':'policy-Flow',
+  'flow_type':'Policy Flow',
   'flow-data':[],
   'delete-tabs':[]
 }
 
-var flow_type = 'policy-Flow'
+var flow_type = 'Policy Flow'
 var dataLoaded = false;
 
 

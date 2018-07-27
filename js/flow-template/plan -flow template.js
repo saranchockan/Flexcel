@@ -9,15 +9,14 @@ var selectCell_rc = [
   [0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0]
 ]
 
-var data = ['Plan-Flow',[],{'AC':0,'NC':0}]
 
 var data = {
-  'flow_type':'Plan-Flow',
+  'flow_type':'LD Plan Flow',
   'flow-data':[],
   'delete-tabs':[]
 }
 
-var flow_type = 'Plan-Flow'
+var flow_type = 'LD Plan Flow'
 var dataLoaded = false;
 
 

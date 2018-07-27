@@ -10,11 +10,11 @@ var selectCell_rc = [
 ]
 
 var data = {
-  'flow_type':'pf-flow',
+  'flow_type':'PF Flow',
   'flow-data':[]
 }
 
-var flow_type = 'pf-flow'
+var flow_type = 'PF Flow'
 var dataLoaded = false;
 
 

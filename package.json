@@ -1,6 +1,6 @@
 {
   "name": "Flexcel",
-  "version": "1.0.0",
+  "version": "1.0.2",
   "description": "Flexcel is an app for flowing high school LD and PF Debate rounds.",
   "main": "main.js",
   "scripts": {
