@@ -2,9 +2,9 @@
 const { electron } = require('electron')
 const { app, BrowserWindow } = require('electron')
 const { webFrame } = require('electron')
-const defaultMenu = require('electron-default-menu');
-const { Menu, shell } = require('electron');
-const dialog = require('electron').remote;
+const defaultMenu = require('electron-default-menu')
+const { Menu, shell } = require('electron')
+const dialog = require('electron').remote
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
@@ -26,8 +26,8 @@ function createWindow() {
   // mainWindow.setMenu(null)
 
   // Window's heigh and width are fixed
-  mainWindow.setResizable(false);
-  mainWindow.setMaximizable(false);
+  mainWindow.setResizable(false)
+  mainWindow.setMaximizable(false)
 
   // Disables dev tools
   //mainWindow.webContents.on("devtools-opened", () => { mainWindow.webContents.closeDevTools(); });
@@ -40,15 +40,15 @@ function createWindow() {
         buttons: ['Yes', 'No'],
         title: 'Confirm',
         message: 'Are you sure you want to quit?'
-      });
+      })
     if (choice == 1) {
       e.preventDefault();
     }
-  });
-
+  })
+  
 
   // Emitted when the window is closed.
-  mainWindow.on('closed', function () {
+  mainWindow.on('closed', () => {
     // Dereference the window object, usually you would store windows
     // in an array if your app supports multi windows, this is the time
     // when you should delete the corresponding element.
