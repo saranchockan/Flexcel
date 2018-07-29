@@ -1,6 +1,6 @@
 {
   "name": "flexcel",
-  "version": "1.0.2",
+  "version": "1.0.0",
   "description": "Flexcel is an app for flowing high school LD and PF Debate rounds.",
   "main": "main.js",
   "scripts": {
@@ -20,7 +20,7 @@
   "license": "CC0-1.0",
   "devDependencies": {
     "electron": "^2.0.0",
-    "electron-builder": "^20.22.0",
+    "electron-builder": "^20.26.0",
     "electron-toolkit": "^1.0.24"
   },
   "dependencies": {
@@ -34,6 +34,7 @@
     "handsontable": "^4.0.0",
     "jquery": "^3.3.1",
     "mousetrap": "^1.6.2",
+    "popper.js": "^1.14.3",
     "requirejs": "^2.3.5",
     "simplebar": "^2.6.1",
     "vex": "0.0.4",
@@ -42,43 +43,9 @@
   },
   "build": {
     "appId": "com.SAC.Flexcel",
-    "mac": {
-      "category": "public.app-category.utilities",
-      "target": [
-        "pkg",
-        "dmg",
-        "zip",
-        "mas"
-      ],
-      "entitlements": "build/entitlements.mac.plist",
-      "type": "development",
-      "icon": "build/apple-touch-icon-128x128.icns"
-    },
-    "mas": {
-      "entitlements": "build/entitlements.mas.plist",
-      "type": "development",
-      "category": "public.app-category.utilities"
-    },
-    "files": [
-      "main.js",
-      "node_modules/**/*",
-      "bootstrap/**/*",
-      "css/**/*",
-      "handsontable/**/*",
-      "img/**/*",
-      "js/**/*",
-      "materialize/**/*",
-      "app/**/*",
-      "package.json",
-      "embeddedDev.provisionprofile",
-      "main-menu.html",
-      "traditional-flow.html",
-      "plan-flow.html",
-      "pf-flow.html",
-      "policy-flow-dynamic.html",
-      "jquery/**/*",
-      "popper/**/*",
-      "summernote/**/*"
-    ]
+    "win": {
+      "target": "NSIS",
+      "icon": "build/icon.ico"
+    }
   }
 }
