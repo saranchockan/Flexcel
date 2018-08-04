@@ -26,6 +26,9 @@ vex.registerPlugin(require('vex-dialog'))
 vex.defaultOptions.className = 'vex-theme-os'
 
 
+var x;
+var w;
+
 // Variables for saving the flow
 
 var fileName = ""
@@ -215,8 +218,8 @@ Mousetrap.bind(['commands + d', 'ctrl+d'], function () {
             }
             var fileName = fileNames[0];
 
-            var x = fileName.split('/')
-            var w = x[x.length-1].split('.')
+            x = fileName.split('/')
+            w = x[x.length-1].split('.')
             
             fs.readFile(fileName, 'utf-8', (err, data) => {
                 if (err) {
@@ -231,7 +234,6 @@ Mousetrap.bind(['commands + d', 'ctrl+d'], function () {
                     vex.dialog.alert('Error: Only .json files can be loaded')
                 }
                 dataLoaded = true
-                document.title = w[0]
                 loadFlow()
             });
         });
@@ -487,6 +489,8 @@ function loadFlow() {
                 })
             }
         }
+        document.title = w[0]
+
     }
     else {
         if (dataSuccess == true) {
