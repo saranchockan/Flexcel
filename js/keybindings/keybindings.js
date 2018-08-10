@@ -75,13 +75,13 @@ var autocomplete = {
     'fw': 'Framework',
     'def': 'Definitions',
     'im': 'Impact',
-    'v m': 'value: morality',
-    'st sv': 'standard is mitigating structural violence',
-    'st msw': 'standard is maximizing societal welfare',
-    'st mew': 'standard is maximizing expected wellbeing',
-    'st ut': 'maximizing utility',
-    'st comm': 'standard is consistency with communal obligations',
-    'st rl': 'standard is respecting liberty',
+    'vm': 'value: morality',
+    'stsv': 'standard is mitigating structural violence',
+    'stmsw': 'standard is maximizing societal welfare',
+    'stmew': 'standard is maximizing expected wellbeing',
+    'stut': 'maximizing utility',
+    'stcomm': 'standard is consistency with communal obligations',
+    'strl': 'standard is respecting liberty',
     'goo': 'Goodin 95',
     'k83': 'Korsgaard 83',
     'k93': 'Korsgaard 93',
@@ -334,6 +334,11 @@ Mousetrap.bind(['commands + t', 'ctrl+t'], function () {
 })
 
 
+/* Allows the user to reset custom autocomplete to default */
+
+Mousetrap.bind(['commands + l', 'ctrl+l'], function(){
+    store.set('autocomplete', autocomplete)
+})
 
 /* 
     Switches to the next tab. This is done in accordance an index variable 
