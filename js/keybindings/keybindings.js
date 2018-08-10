@@ -43,6 +43,7 @@ var tD = false;
 const Store = require('electron-store');
 const store = new Store();
 
+var stopRecursive = false;
 var autocomplete = {
     'c1': 'Contention 1',
     'c2': 'Contention 2',
@@ -219,8 +220,8 @@ Mousetrap.bind(['commands + d', 'ctrl+d'], function () {
             var fileName = fileNames[0];
 
             x = fileName.split('/')
-            w = x[x.length-1].split('.')
-            
+            w = x[x.length - 1].split('.')
+
             fs.readFile(fileName, 'utf-8', (err, data) => {
                 if (err) {
                     alert("An error ocurred reading the file :" + err.message);
@@ -280,7 +281,7 @@ Mousetrap.bind(['commands + s', 'ctrl+s'], function () {
                             console.log("You didn't save the file");
                             return;
                         }
-                        var fP = filePaths[0] +'/'+ fileName
+                        var fP = filePaths[0] + '/' + fileName
 
                         fs.writeFile(fP + '.json', jsonContent, 'utf8', (err) => {
                             if (err) {
@@ -323,7 +324,7 @@ Mousetrap.bind(['commands + t', 'ctrl+t'], function () {
                 else {
                     vex.dialog.alert('Wrong Format! The format is -> key,value: v m, value:morality')
                 }
-                
+
                 selectAllCells()
             }
 
@@ -618,18 +619,33 @@ $(function () {
                 colWidths: (document.getElementById('df').offsetWidth - 16) * widthoffSet,
                 afterChange(changes) {
 
-                    if (!dataLoaded) {
+                    var auto_used = false;
+
+                    if (!dataLoaded && !stopRecursive) {
                         data['flow-data'][index] = handsontable_flows[index].getData()
 
                         /* Autocomplete Feature */
                         changes.forEach(([row, prop, oldValue, newValue]) => {
-                            if (typeof autocomplete[newValue] != 'undefined') {
-                                var nV = autocomplete[newValue]
-                                handsontable_flows[index].setDataAtCell(row, prop, nV)
+
+                            var textLine = newValue.split(" ")
+
+                            for (i = 0; i < textLine.length; i++) {
+                                if (typeof autocomplete[textLine[i]] != 'undefined') {
+                                    var nV = autocomplete[textLine[i]]
+                                    textLine[i] = nV
+                                    auto_used = true;
+                                }
                             }
+
+                            if (auto_used) {
+                                textLine = textLine.join(" ")
+                                handsontable_flows[index].setDataAtCell(row, prop, textLine)
+                            }
+
                         });
                     }
                     else {
+                        stopRecursive = true;
                         dataLoaded = false
                     }
 
