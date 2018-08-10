@@ -658,25 +658,7 @@ $(window).resize(function () {
         }
         handsontable_flows[i].updateSettings({
             width: document.getElementById('df').offsetWidth - 16,
-            colWidths: (document.getElementById('df').offsetWidth - 16) * widthoffSet,
-            afterChange(changes) {
-
-                if (!dataLoaded) {
-                    data['flow-data'][index] = handsontable_flows[index].getData()
-
-                    /* Autocomplete Feature */
-                    changes.forEach(([row, prop, oldValue, newValue]) => {
-                        if (typeof autocomplete[newValue] != 'undefined') {
-                            var nV = autocomplete[newValue]
-                            handsontable_flows[index].setDataAtCell(row, prop, nV)
-                        }
-                    });
-                }
-                else {
-                    dataLoaded = false
-                }
-
-            }
+            colWidths: (document.getElementById('df').offsetWidth - 16) * widthoffSet
         });
     }
 });
