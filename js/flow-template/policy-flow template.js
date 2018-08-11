@@ -30,7 +30,7 @@ document.getElementById('speech-doc').style.visibility = 'hidden'
 
 /* Sets red color font to 1ac and blue color font to 1nc */
 
-function flowLabels(instance, td, row, col, prop, value, cellProperties) {
+function ac_flowLabels(instance, td, row, col, prop, value, cellProperties) {
   Handsontable.renderers.TextRenderer.apply(this, arguments);
   td.style.fontWeight = 'bold';
   if (col % 2 == 1) { 
@@ -41,7 +41,7 @@ function flowLabels(instance, td, row, col, prop, value, cellProperties) {
   }
 }
 
-function flowRenderer(instance, td, row, col, prop, value, cellProperties) {
+function ac_flowRenderer(instance, td, row, col, prop, value, cellProperties) {
   Handsontable.renderers.TextRenderer.apply(this, arguments);
 
   if (col % 2 == 1) { 
@@ -56,7 +56,7 @@ function flowRenderer(instance, td, row, col, prop, value, cellProperties) {
 }
 
 
-Handsontable.renderers.registerRenderer('flowRenderer', flowRenderer);
+Handsontable.renderers.registerRenderer('ac_flowRenderer', ac_flowRenderer);
 
 /*  Adds AC flows */
 
@@ -82,11 +82,11 @@ for(i = 0;i<AC_tabs.length;i++){
         var data = this.instance.getData();
     
         if (row === 0) {
-          cellProperties.renderer = flowLabels; // uses function directly
+          cellProperties.renderer = ac_flowLabels; // uses function directly
         }
 
         else{
-          cellProperties.renderer = 'flowRenderer'; // uses lookup map
+          cellProperties.renderer = 'ac_flowRenderer'; // uses lookup map
         }
         return cellProperties;
       }
@@ -121,11 +121,11 @@ for(i = 0;i<NC_tabs.length;i++){
       var data = this.instance.getData();
   
       if (row === 0) {
-        cellProperties.renderer = flowLabels; 
+        cellProperties.renderer = ac_flowLabels; 
       }
   
       else{
-        cellProperties.renderer = 'flowRenderer'; 
+        cellProperties.renderer = 'ac_flowRenderer'; 
       }
       return cellProperties;
     }

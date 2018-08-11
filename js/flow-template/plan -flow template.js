@@ -13,7 +13,8 @@ var selectCell_rc = [
 var data = {
   'flow_type':'LD Plan Flow',
   'flow-data':[],
-  'delete-tabs':[]
+  'delete-tabs':[],
+  'added-adv-tabs':0
 }
 
 var flow_type = 'LD Plan Flow'
