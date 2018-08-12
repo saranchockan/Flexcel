@@ -13,7 +13,6 @@ var flows = document.getElementsByClassName('tab-pane');
 var index = 0;
 var mouseClicked = true;
 var tabDeleted = false;
-var tabAdded = false;
 
 // Variables used to implement constraints on tab deletion
 
@@ -28,6 +27,22 @@ var off_add_index = 13;
 
 
 
+var advNum;
+
+if(flow_type == 'LD Plan Flow'){
+    advNum = 6
+}
+else{
+    advNum = 7
+}
+
+var offNum;
+if(flow_type == 'LD Plan Flow'){
+    offNum = 6
+}
+else{
+    offNum = 7
+}
 
 var vex = require('vex-js')
 vex.registerPlugin(require('vex-dialog'))
@@ -184,9 +199,11 @@ $('#flow-navbar li').on('shown.bs.tab', function (e) {
 Mousetrap.bind(['command+u', 'ctrl+u'], function () {
     if (index == adv_add_index) {
         addAdvTab()
+        advNum = advNum + 1
     }
     else if (index == off_add_index) {
-
+        addOffTab()
+        offNum = offNum + 1
     }
 })
 
@@ -201,20 +218,23 @@ Mousetrap.bind(['command+i', 'ctrl+i'], function () {
 
     if (index != 0) {
 
-        if ((ac_delete_limit >= 2 && index == ac_delete_limit)) {
+        if ((ac_delete_limit >= 2 && index == ac_delete_limit && advNum>1)) {
             ac_delete_limit = ac_delete_limit - 1
             nc_delete_limit = nc_delete_limit - 1
             nc_limit = nc_limit - 1
             adv_add_index = adv_add_index - 1;
             off_add_index = off_add_index - 1;
+            advNum = advNum - 1
             data['delete-tabs'].push(flows[index].id)
             deleteTab()
             tD = true
         }
 
-        else if (nc_delete_limit >= nc_limit && index == nc_delete_limit) {
+        else if (nc_delete_limit >= nc_limit && index == nc_delete_limit && offNum>1) {
             nc_delete_limit = nc_delete_limit - 1
             nc_limit = nc_limit - 1
+            off_add_index = off_add_index - 1
+            offNum = offNum - 1
             data['delete-tabs'].push(flows[index].id)
             deleteTab()
             tD = true
@@ -439,25 +459,34 @@ function previousTab() {
 
 function addAdvTab() {
 
-
-
     /* Element we are inserting the Adv after */
 
     var prevElement = flows[index]
-    $('<div class="AC tab-pane fade" id="Adv-' + adv_add_index + '-tab" role="tabpanel" aria-labelledby="Adv' + adv_add_index + '">Adv' + adv_add_index + '</div>').insertAfter(prevElement)
+    $('<div class="AC tab-pane fade" id="Adv-' + advNum + '-tab" role="tabpanel" aria-labelledby="Adv' + advNum + '">Adv' + advNum + '</div>').insertAfter(prevElement)
 
     prevElement = tabs_li[index]
-    $('<li class="nav-item" id="Adv' + adv_add_index + '-li"><a class="nav-link text-white" id="Adv' + adv_add_index + '" data-toggle="pill" href="#Adv-' + adv_add_index + '-tab" role="tab" aria-controls="Adv-' + adv_add_index + '-tab" aria-selected="false">Adv ' + adv_add_index + '</a></li>').insertAfter(prevElement)
+    $('<li class="nav-item" id="Adv' + advNum + '-li"><a class="nav-link text-white" id="Adv' + advNum + '" data-toggle="pill" href="#Adv-' + advNum + '-tab" role="tab" aria-controls="Adv-' + advNum + '-tab" aria-selected="false">Adv ' + advNum + '</a></li>').insertAfter(prevElement)
 
-    //nextTab()
-    var con_id = 'Adv-' + adv_add_index + '-tab'
+    var con_id = 'Adv-' + advNum + '-tab'
     var con = document.getElementById(con_id)
+
+    var cols;
+    var minCol;
+    if(flow_type == 'LD Plan Flow'){
+        cols = ['AC', '1NR', '1AR', '2NR', '2AR']
+        minCol = 5
+    }
+    else{
+        cols = ['1AC', '1NC', '2AC', '2NC/1NR', '1AR','2NR', '2AR']
+        minCol = 7
+    }
+
 
     Handsontable.renderers.registerRenderer('ac_flowRenderer', ac_flowRenderer);
 
     handsontable_flows.splice(index+1, 0, new Handsontable(con, {
-        colHeaders: ['AC', '1NR', '1AR', '2NR', '2AR'],
-        minCols: 5,
+        colHeaders: cols,
+        minCols: minCol,
         minRows: 35,
         width: 500,
         height: 500,
@@ -480,6 +509,156 @@ function addAdvTab() {
                 cellProperties.renderer = 'ac_flowRenderer'; // uses lookup map
             }
             return cellProperties;
+        }
+    }))
+
+
+    setTimeout(() => {
+        resizeFlowHeight()
+        for (i = 0; i < handsontable_flows.length; i++) {
+            if (handsontable_flows[i].countCols() == 4) {
+                widthoffSet = 0.24615384615384617
+            }
+            else {
+                widthoffSet = 0.19487179487179487
+            }
+            handsontable_flows[i].updateSettings({
+                width: document.getElementById('df').offsetWidth - 16,
+                colWidths: (document.getElementById('df').offsetWidth - 16) * widthoffSet,
+                afterChange(changes) {
+
+                    var auto_used = false;
+
+                    if (!dataLoaded && !stopRecursive) {
+                        data['flow-data'][index] = handsontable_flows[index].getData()
+
+                        /* Autocomplete Feature */
+                        changes.forEach(([row, prop, oldValue, newValue]) => {
+
+                            var textLine = newValue.split(" ")
+
+                            for (i = 0; i < textLine.length; i++) {
+                                if (typeof autocomplete[textLine[i]] != 'undefined') {
+                                    var nV = autocomplete[textLine[i]]
+                                    textLine[i] = nV
+                                    auto_used = true;
+                                }
+                            }
+
+                            if (auto_used) {
+                                textLine = textLine.join(" ")
+                                handsontable_flows[index].setDataAtCell(row, prop, textLine)
+                            }
+
+                        });
+                    }
+                    else {
+                        stopRecursive = true;
+                        dataLoaded = false
+                    }
+
+                }
+            });
+        }
+    }, 10);
+
+
+    selectCell_rc.splice(index+1, 0, [0, 0])
+    handsontable_flows[index+1].selectCell(0, 0)
+
+
+    $('#Adv' + advNum + '-li').on('shown.bs.tab', function (e) {
+
+        if (!mouseClicked) {
+            switchFlow();
+        }
+        mouseClicked = true;
+        index = $(this).index();
+    
+        var i = getSelectedCellIndex();
+        if (i != -1) {
+            var rc = selectCell_rc[i];
+            var r = rc[0]
+            var c = rc[1]
+            handsontable_flows[i].selectCell(r, c);
+        }
+    })
+    
+
+    /* Reconfiguration */
+
+    tabs_li = document.getElementById('flow-navbar').getElementsByClassName('nav-item');
+    tabs = document.getElementById('flow-navbar').getElementsByClassName('nav-link');
+    flows = document.getElementsByClassName('tab-pane');
+
+    adv_add_index = adv_add_index + 1;
+    off_add_index = off_add_index + 1;
+
+    ac_delete_limit = ac_delete_limit + 1;
+    nc_delete_limit = nc_delete_limit + 1;
+    nc_limit = nc_limit + 1;
+
+
+    /* Removes all of Handsontable's licenses */
+
+    var allLiceneses = document.querySelectorAll("#hot-display-license-info");
+    $(allLiceneses).remove();
+
+}
+
+
+function addOffTab() {
+
+    /* Element we are inserting the Off after */
+
+    var prevElement = flows[index]
+
+    $('<div class="NC tab-pane fade" id="Off-' + offNum + '-tab" role="tabpanel" aria-labelledby="Adv' + offNum + '">Off' + offNum + '</div>').insertAfter(prevElement)
+
+    prevElement = tabs_li[index]
+    $('<li class="nav-item" id="Off' + offNum + '-li"><a class="nav-link text-white" id="Off' + offNum + '" data-toggle="pill" href="#Off-' + offNum + '-tab" role="tab" aria-controls="Off-' + offNum + '-tab" aria-selected="false">Off ' + offNum + '</a></li>').insertAfter(prevElement)
+
+    var con_id = 'Off-' + offNum + '-tab'
+    var con = document.getElementById(con_id)
+
+    var cols;
+    var minCol;
+    if(flow_type == 'LD Plan Flow'){
+        cols = ['1NC', '1AR', '2NR','2AR']
+        minCol = 4
+    }
+    else{
+        cols = ['1AC', '1NC', '2AC', '2NC/1NR', '1AR','2NR', '2AR']
+        minCol = 7
+    }
+    Handsontable.renderers.registerRenderer('nc_flowRenderer', nc_flowRenderer);
+
+    handsontable_flows.splice(index+1, 0, new Handsontable(con, {
+        colHeaders: cols,
+        minCols: minCol,
+        maxCols: minCol,
+        minRows: 35,
+        maxRows: 200,
+        width: 500,
+        height: 500, 
+        viewportRowRenderingOffsetequal: 35,
+        viewportColumnRenderingOffset:4,
+        colWidths: 240,
+        fillHandle:{
+          autoInsertRow: true
+        },
+        minSpareRows:true,
+        cells: function (row, col) {
+          var cellProperties = {};
+          var data = this.instance.getData();
+      
+          if (row === 0) {
+            cellProperties.renderer = nc_flowLabels; 
+          }
+          else{
+            cellProperties.renderer = 'nc_flowRenderer'; 
+          }
+          return cellProperties;
         }
     }))
     setTimeout(() => {
@@ -536,7 +715,7 @@ function addAdvTab() {
     handsontable_flows[index+1].selectCell(0, 0)
 
 
-    $('#Adv' + adv_add_index + '-li').on('shown.bs.tab', function (e) {
+    $('#Off' + offNum + '-li').on('shown.bs.tab', function (e) {
 
         if (!mouseClicked) {
             switchFlow();
@@ -560,9 +739,8 @@ function addAdvTab() {
     tabs = document.getElementById('flow-navbar').getElementsByClassName('nav-link');
     flows = document.getElementsByClassName('tab-pane');
 
-    adv_add_index = adv_add_index + 1;
     off_add_index = off_add_index + 1;
-    ac_delete_limit = ac_delete_limit + 1;
+
     nc_delete_limit = nc_delete_limit + 1;
     nc_limit = nc_limit + 1;
 
@@ -572,7 +750,6 @@ function addAdvTab() {
     $(allLiceneses).remove();
 
 }
-
 
 /* 
     Deletes the current tab in accordance to the current index. More specifically, it deletes the current

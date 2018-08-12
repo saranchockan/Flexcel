@@ -55,6 +55,31 @@ function ac_flowRenderer(instance, td, row, col, prop, value, cellProperties) {
   
 }
 
+function nc_flowLabels(instance, td, row, col, prop, value, cellProperties) {
+  Handsontable.renderers.TextRenderer.apply(this, arguments);
+  td.style.fontWeight = 'bold';
+  if (col % 2 == 1) { 
+    td.style.color = '#076BFF'; 
+  }
+  else { 
+    td.style.color = 'red'; 
+  }
+}
+
+function nc_flowRenderer(instance, td, row, col, prop, value, cellProperties) {
+  Handsontable.renderers.TextRenderer.apply(this, arguments);
+
+  if (col % 2 == 1) { 
+    td.style.fontWeight = 'bold';
+    td.style.color = '#076BFF'; 
+  }
+  else { 
+    td.style.fontWeight = 'bold';
+    td.style.color = 'red'; 
+  }
+  
+}
+
 
 Handsontable.renderers.registerRenderer('ac_flowRenderer', ac_flowRenderer);
 
