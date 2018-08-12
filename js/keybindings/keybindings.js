@@ -25,8 +25,6 @@ var nc_limit = 9
 var adv_add_index = 6;
 var off_add_index = 13;
 
-
-
 var advNum;
 
 if(flow_type == 'LD Plan Flow'){
@@ -219,23 +217,13 @@ Mousetrap.bind(['command+i', 'ctrl+i'], function () {
     if (index != 0) {
 
         if ((ac_delete_limit >= 2 && index == ac_delete_limit && advNum>1)) {
-            ac_delete_limit = ac_delete_limit - 1
-            nc_delete_limit = nc_delete_limit - 1
-            nc_limit = nc_limit - 1
-            adv_add_index = adv_add_index - 1;
-            off_add_index = off_add_index - 1;
-            advNum = advNum - 1
-            data['delete-tabs'].push(flows[index].id)
+
             deleteTab()
             tD = true
         }
 
         else if (nc_delete_limit >= nc_limit && index == nc_delete_limit && offNum>1) {
-            nc_delete_limit = nc_delete_limit - 1
-            nc_limit = nc_limit - 1
-            off_add_index = off_add_index - 1
-            offNum = offNum - 1
-            data['delete-tabs'].push(flows[index].id)
+
             deleteTab()
             tD = true
         }
@@ -575,6 +563,7 @@ function addAdvTab() {
         mouseClicked = true;
         index = $(this).index();
     
+        console.log("FUUUCK NOOO ADV")
         var i = getSelectedCellIndex();
         if (i != -1) {
             var rc = selectCell_rc[i];
@@ -582,6 +571,18 @@ function addAdvTab() {
             var c = rc[1]
             handsontable_flows[i].selectCell(r, c);
         }
+    })
+    
+    $('#Adv' + advNum).on('click', function (e) {
+
+        var i = getSelectedCellIndex();
+        if (i != -1) {
+            var rc = selectCell_rc[i];
+            var r = rc[0]
+            var c = rc[1]
+            handsontable_flows[i].selectCell(r, c);
+        }
+    
     })
     
 
@@ -597,6 +598,9 @@ function addAdvTab() {
     ac_delete_limit = ac_delete_limit + 1;
     nc_delete_limit = nc_delete_limit + 1;
     nc_limit = nc_limit + 1;
+
+    data['added-adv-tabs'] = data['added-adv-tabs'] + 1
+    data['flow-data'].splice(index + 1,0,handsontable_flows[index+1].getData())
 
 
     /* Removes all of Handsontable's licenses */
@@ -712,6 +716,8 @@ function addOffTab() {
 
 
     selectCell_rc.splice(index+1, 0, [0, 0])
+    data['flow-data'].splice(index + 1,0,handsontable_flows[index+1].getData())
+
     handsontable_flows[index+1].selectCell(0, 0)
 
 
@@ -722,7 +728,8 @@ function addOffTab() {
         }
         mouseClicked = true;
         index = $(this).index();
-    
+        console.log("FUUUCK NOOO ADV")
+
         var i = getSelectedCellIndex();
         if (i != -1) {
             var rc = selectCell_rc[i];
@@ -730,6 +737,18 @@ function addOffTab() {
             var c = rc[1]
             handsontable_flows[i].selectCell(r, c);
         }
+    })
+    
+    $('#Off' + offNum).on('click', function (e) {
+
+        var i = getSelectedCellIndex();
+        if (i != -1) {
+            var rc = selectCell_rc[i];
+            var r = rc[0]
+            var c = rc[1]
+            handsontable_flows[i].selectCell(r, c);
+        }
+    
     })
     
 
@@ -744,6 +763,9 @@ function addOffTab() {
     nc_delete_limit = nc_delete_limit + 1;
     nc_limit = nc_limit + 1;
 
+    data['added-off-tabs'] = data['added-off-tabs'] + 1
+
+
     /* Removes all of Handsontable's licenses */
 
     var allLiceneses = document.querySelectorAll("#hot-display-license-info");
@@ -757,6 +779,25 @@ function addOffTab() {
 */
 
 function deleteTab() {
+
+    if(index == ac_delete_limit){
+        ac_delete_limit = ac_delete_limit - 1
+        nc_delete_limit = nc_delete_limit - 1
+        nc_limit = nc_limit - 1
+        adv_add_index = adv_add_index - 1;
+        off_add_index = off_add_index - 1;
+        advNum = advNum - 1
+        data['delete-tabs'].push(flows[index].id)
+        data['added-adv-tabs'] = data['added-adv-tabs'] - 1
+    }
+    else{
+        nc_delete_limit = nc_delete_limit - 1
+        nc_limit = nc_limit - 1
+        off_add_index = off_add_index - 1
+        offNum = offNum - 1
+        data['delete-tabs'].push(flows[index].id)
+        data['added-off-tabs'] = data['added-off-tabs'] - 1
+    }
 
     tabDeleted = true
     var deleteTab_index = index
@@ -792,6 +833,9 @@ function deleteTab() {
 
 }
 
+
+
+
 /* When the user switches tab through keybindings, it manually adds visibility to the selected flow */
 
 function switchFlow() {
@@ -812,6 +856,7 @@ function switchFlow() {
 function loadFlow() {
     if (dataSuccess && loadedData['flow_type'] == flow_type) {
         if (flow_type == 'LD Plan Flow' || flow_type == 'Policy Flow') {
+            /*
             var x = 0;
             for (i = 0; i < handsontable_flows.length; i++) {
                 if (loadedData['delete-tabs'].includes(flows[i].id)) {
@@ -824,6 +869,79 @@ function loadFlow() {
                     x++;
                 }
             }
+            */
+
+
+            if(loadedData['added-adv-tabs']<0){
+                var f = Math.abs(loadedData['added-adv-tabs']);
+
+                for(i = 0;i<f;i++){
+                    var id = tabs[adv_add_index].id;
+                    var reference = '#' + id;
+                    $(document).ready(function () {
+                        $(reference).click();
+                    });
+                    index = adv_add_index
+                    deleteTab()
+                }
+            }
+            else if(loadedData['added-adv-tabs']>0){
+                var f = loadedData['added-adv-tabs']
+
+                for(i = 0;i<f;i++){
+                    var id = tabs[adv_add_index].id;
+                    var reference = '#' + id;
+                    $(document).ready(function () {
+                        $(reference).click();
+                    });
+                    index = adv_add_index
+                    addAdvTab()
+                    advNum = advNum + 1
+                }
+            }
+
+            if(loadedData['added-off-tabs']<0){
+                var f = Math.abs(loadedData['added-off-tabs']);
+
+                for(i = 0;i<f;i++){
+                    var id = tabs[off_add_index].id;
+                    var reference = '#' + id;
+                    $(document).ready(function () {
+                        $(reference).click();
+                    });
+                    index = off_add_index
+                    deleteTab()
+                }
+            }
+            else if(loadedData['added-off-tabs']>0){
+                var f = loadedData['added-off-tabs']
+
+                for(i = 0;i<f;i++){
+                    var id = tabs[off_add_index].id;
+                    var reference = '#' + id;
+                    $(document).ready(function () {
+                        $(reference).click();
+                    });
+                    index = off_add_index
+                    addOffTab()
+                    offNum = offNum + 1
+                }
+            }
+
+            for (i = 0; i < handsontable_flows.length; i++) {
+                dataLoaded = true
+                handsontable_flows[i].updateSettings({
+                    data: loadedData['flow-data'][i]
+                })
+            }
+
+            index = 0;
+            var id = tabs[index].id;
+            var reference = '#' + id;
+            $(document).ready(function () {
+                $(reference).click();
+            });
+
         }
         else {
             for (i = 0; i < handsontable_flows.length; i++) {
