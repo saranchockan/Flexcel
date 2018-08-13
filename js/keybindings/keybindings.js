@@ -122,12 +122,26 @@ var autocomplete = {
     'ak': 'Afropess K'
 }
 
+var fontColor = {
+    'affFontColor':'red',
+    'negFontColor':'#076BFF'
+}
+
 
 if (store.has('autocomplete') == false) {
     store.set('autocomplete', autocomplete)
 }
 else {
     autocomplete = store.get('autocomplete')
+}
+
+if(store.has('fontColor') == false){
+    store.set('fontColor',fontColor)
+}
+else{
+    var o = store.get('fontColor')
+    affFontColor = o['affFontColor']
+    negFontColor = o['negFontColor']
 }
 
 /* 
@@ -402,13 +416,13 @@ Mousetrap.bind(['command+f', 'ctrl+f'], function () {
             '<div class="vex-custom-field-wrapper">',
             '<h4>AFF Font Color</h4>',
             '<div class="vex-custom-input-wrapper">',
-            '<input name="color" type="color" value="#ff00cc" />',
+            '<input name="color" type="color" value="#FF0000" />',
             '</div>',
             '</div>',
             '<div class="vex-custom-field-wrapper">',
             '<div class="vex-custom-input-wrapper">',
             '<h4>NEG Font Color</h4>',
-            '<input name="color" type="color" value="#ff00cc" />',
+            '<input name="color" type="color" value="#076BFF" />',
             '</div>',
             '</div>'
         ].join(''),
@@ -418,6 +432,11 @@ Mousetrap.bind(['command+f', 'ctrl+f'], function () {
             }
             console.log('Color', data.color)
             selectAllCells()
+
+
+            fontColor['affFontColor'] = data.color[0]
+            fontColor['negFontColor'] = data.color[1]
+            store.set('fontColor',fontColor)
 
             affFontColor = data.color[0]
             negFontColor = data.color[1]
@@ -768,11 +787,10 @@ function addOffTab() {
                 colWidths: (document.getElementById('df').offsetWidth - 16) * widthoffSet,
                 afterChange(changes) {
 
-
                     for (i = 0; i < bold_cell_tD.length; i++) {
                         bold_cell_tD[i].style.fontWeight = 'bold'
                     }
-                    
+
                     var auto_used = false;
 
                     if (!dataLoaded) {
