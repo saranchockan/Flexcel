@@ -21,6 +21,9 @@ var data = {
 var flow_type = 'LD Plan Flow'
 var dataLoaded = false;
 
+var affFontColor = 'red'
+var negFontColor = '#076BFF'
+
 
 /* Hides the flow and speech-doc until the screen is wholly rendered */
 
@@ -33,50 +36,32 @@ document.getElementById('speech-doc').style.visibility = 'hidden'
 
 /* Sets red color font to 1ac and blue color font to 1nc */
 
-function ac_flowLabels(instance, td, row, col, prop, value, cellProperties) {
-  Handsontable.renderers.TextRenderer.apply(this, arguments);
-  td.style.fontWeight = 'bold';
-  if (col % 2 == 1) { 
-    td.style.color = '#076BFF'; 
-  }
-  else { 
-    td.style.color = 'red'; 
-  }
-}
+
 
 function ac_flowRenderer(instance, td, row, col, prop, value, cellProperties) {
   Handsontable.renderers.TextRenderer.apply(this, arguments);
 
   if (col % 2 == 1) { 
     td.style.fontWeight = 'bold';
-    td.style.color = '#076BFF'; 
+    td.style.color = negFontColor; 
   }
   else { 
     td.style.fontWeight = 'bold';
-    td.style.color = 'red'; 
+    td.style.color = affFontColor; 
   }
   
 }
-function nc_flowLabels(instance, td, row, col, prop, value, cellProperties) {
-  Handsontable.renderers.TextRenderer.apply(this, arguments);
-  td.style.fontWeight = 'bold';
-  if (col % 2 == 1) { 
-    td.style.color = 'red'; 
-  }
-  else { 
-    td.style.color = '#076BFF'; 
-  }
-}
+
 function nc_flowRenderer(instance, td, row, col, prop, value, cellProperties) {
   Handsontable.renderers.TextRenderer.apply(this, arguments);
 
   if (col % 2 == 1) { 
     td.style.fontWeight = 'bold';
-    td.style.color = 'red'; 
+    td.style.color = affFontColor; 
   }
   else { 
     td.style.fontWeight = 'bold';
-    td.style.color = '#076BFF'; 
+    td.style.color = negFontColor; 
   }
   
 }
@@ -105,13 +90,7 @@ for(i = 0;i<AC_tabs.length;i++){
         var cellProperties = {};
         var data = this.instance.getData();
     
-        if (row === 0) {
-          cellProperties.renderer = ac_flowLabels; // uses function directly
-        }
-
-        else{
-          cellProperties.renderer = 'ac_flowRenderer'; // uses lookup map
-        }
+        cellProperties.renderer = 'ac_flowRenderer'; 
         return cellProperties;
       }
     }))
@@ -145,13 +124,9 @@ for(i = 0;i<NC_tabs.length;i++){
       var cellProperties = {};
       var data = this.instance.getData();
   
-      if (row === 0) {
-        cellProperties.renderer = nc_flowLabels; 
-      }
-  
-      else{
-        cellProperties.renderer = 'nc_flowRenderer'; 
-      }
+
+      cellProperties.renderer = 'nc_flowRenderer'; 
+      
       return cellProperties;
     }
   }))

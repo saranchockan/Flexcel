@@ -6,19 +6,26 @@ var pro_tabs = document.getElementsByClassName('PRO');
 var con_tabs = document.getElementsByClassName('CON');
 
 var selectCell_rc = [
-  [1,0],[1,0]
+  [1, 0], [1, 0]
 ]
 
 var data = {
-  'flow_type':'PF Flow',
-  'flow-data':[],
-  'firstSpeaker':'Pro'
+  'flow_type': 'PF Flow',
+  'flow-data': [],
+  'firstSpeaker': 'Pro'
 }
 
 var flow_type = 'PF Flow'
 var dataLoaded = false;
 
 var firstSpeaker = 'Pro'
+
+var affFontColor = 'red'
+var negFontColor = '#076BFF'
+
+var bold = false;
+var aff_bold_rc = []
+var neg_bold_rc = []
 
 
 
@@ -31,89 +38,91 @@ document.getElementById('speech-doc').style.visibility = 'hidden'
 /* Sets red color font to 1ac and blue color font to 1nc */
 
 
-function pro_flowLabels(instance, td, row, col, prop, value, cellProperties) {
-  Handsontable.renderers.TextRenderer.apply(this, arguments);
-  td.style.fontWeight = 'bold';
-  if (col % 2 == 1) { 
-    td.style.color = '#076BFF'; 
-  }
-  else { 
-    td.style.color = 'red'; 
-  }
-}
 
 function pro_flowRenderer(instance, td, row, col, prop, value, cellProperties) {
   Handsontable.renderers.TextRenderer.apply(this, arguments);
 
-  if (col % 2 == 1) { 
-    td.style.fontWeight = 'bold';
-    td.style.color = '#076BFF'; 
+  var t = [row, col]
+  var g = false;
+  var i = 0;
+  while (i < aff_bold_rc.length && !g) {
+    var h = aff_bold_rc[i]
+
+    if (t[0] == h[0] && t[1] == h[1]) {
+      td.style.fontWeight = 'bold';
+      g = true
+    }
+    else {
+      i++;
+    }
   }
-  else { 
-    td.style.fontWeight = 'bold';
-    td.style.color = 'red'; 
+
+  if (col % 2 == 1) {
+    td.style.color = negFontColor;
   }
-  
+  else {
+    td.style.color = affFontColor;
+  }
+
 }
-function con_flowLabels(instance, td, row, col, prop, value, cellProperties) {
-  Handsontable.renderers.TextRenderer.apply(this, arguments);
-  td.style.fontWeight = 'bold';
-  if (col % 2 == 1) { 
-    td.style.color = 'red'; 
-  }
-  else { 
-    td.style.color = '#076BFF'; 
-  }
-}
+
 function con_flowRenderer(instance, td, row, col, prop, value, cellProperties) {
   Handsontable.renderers.TextRenderer.apply(this, arguments);
 
-  if (col % 2 == 1) { 
-    td.style.fontWeight = 'bold';
-    td.style.color = 'red'; 
+  var t = [row, col]
+  var g = false;
+  var i = 0;
+  while (i < neg_bold_rc.length && !g) {
+    var h = neg_bold_rc[i]
+
+    if (t[0] == h[0] && t[1] == h[1]) {
+      td.style.fontWeight = 'bold';
+      g = true
+    }
+    else {
+      i++;
+    }
   }
-  else { 
-    td.style.fontWeight = 'bold';
-    td.style.color = '#076BFF'; 
+
+  if (col % 2 == 1) {
+    td.style.color = affFontColor;
   }
-  
+  else {
+    td.style.color = negFontColor;
+  }
+
 }
 Handsontable.renderers.registerRenderer('pro_flowRenderer', pro_flowRenderer);
 
 // -- Adds AC Flows
 
-for(i = 0;i<pro_tabs.length;i++){
-    container = document.getElementById(pro_tabs[i].id);
+for (i = 0; i < pro_tabs.length; i++) {
+  container = document.getElementById(pro_tabs[i].id);
 
-    handsontable_flows.push(new Handsontable(container,{
-      data: [['Pro Constructive', 'Con Rebuttal', 'Pro Summary', 'Con Summary','Pro Final Focus','Con Final Focus']],
-      minCols: 6,
-      maxCols:6,
-      minRows: 40,
-      maxRows: 200,
-      width: 500,
-      height: 500, 
-      viewportRowRenderingOffsetequal: 30,
-      viewportColumnRenderingOffset:5,
-      colWidths: 190,
-      fillHandle:{
-        autoInsertRow: true
-      },
-      minSpareRows:true,
-      cells: function (row, col) {
-        var cellProperties = {};
-        var data = this.instance.getData();
-        if (row === 0) {
-          cellProperties.renderer = pro_flowLabels; 
-        }
-    
-        else{
-          cellProperties.renderer = 'pro_flowRenderer';
-        }
-    
-        return cellProperties;
-      }
-    }))
+  handsontable_flows.push(new Handsontable(container, {
+    data: [['Pro Constructive', 'Con Rebuttal', 'Pro Summary', 'Con Summary', 'Pro Final Focus', 'Con Final Focus']],
+    minCols: 6,
+    maxCols: 6,
+    minRows: 40,
+    maxRows: 200,
+    width: 500,
+    height: 500,
+    viewportRowRenderingOffsetequal: 30,
+    viewportColumnRenderingOffset: 5,
+    colWidths: 190,
+    fillHandle: {
+      autoInsertRow: true
+    },
+    minSpareRows: true,
+    cells: function (row, col) {
+      var cellProperties = {};
+      var data = this.instance.getData();
+
+      cellProperties.renderer = 'pro_flowRenderer';
+
+      return cellProperties;
+    }
+  }))
 }
 
 Handsontable.renderers.registerRenderer('con_flowRenderer', con_flowRenderer);
@@ -121,37 +130,32 @@ Handsontable.renderers.registerRenderer('con_flowRenderer', con_flowRenderer);
 
 // -- Adds NC Flows
 
-for(i = 0;i<con_tabs.length;i++){
+for (i = 0; i < con_tabs.length; i++) {
   container = document.getElementById(con_tabs[i].id);
 
-  handsontable_flows.push(new Handsontable(container,{
-    data: [['Con Constructive', 'Pro Rebuttal', 'Con Rebuttal', 'Pro Summary','Con Summary','Pro Final Focus','Neg Final Focus']],
+  handsontable_flows.push(new Handsontable(container, {
+    data: [['Con Constructive', 'Pro Rebuttal', 'Con Rebuttal', 'Pro Summary', 'Con Summary', 'Pro Final Focus', 'Neg Final Focus']],
     minCols: 7,
     maxCols: 7,
     minRows: 40,
     maxRows: 200,
     width: 500,
-    height: 500, 
+    height: 500,
     viewportRowRenderingOffsetequal: 30,
-    viewportColumnRenderingOffset:4,
+    viewportColumnRenderingOffset: 4,
     colWidths: 190,
-    fillHandle:{
+    fillHandle: {
       autoInsertRow: true
     },
-    minSpareRows:true,
+    minSpareRows: true,
     cells: function (row, col) {
       var cellProperties = {};
       var data = this.instance.getData();
-  
-      if (row === 0) {
-        cellProperties.renderer = con_flowLabels; 
-      }
-  
-      else{
-        cellProperties.renderer = 'con_flowRenderer'; 
-  
-      }
-  
+
+      cellProperties.renderer = 'con_flowRenderer';
+
+
+
       return cellProperties;
     }
   }))
@@ -159,7 +163,7 @@ for(i = 0;i<con_tabs.length;i++){
 
 /* Initializes data to be saved */
 
-for(i = 0;i<handsontable_flows.length;i++){
+for (i = 0; i < handsontable_flows.length; i++) {
   data['flow-data'].push(handsontable_flows[i].getData())
 }
 

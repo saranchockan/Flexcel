@@ -20,7 +20,10 @@ var data = {
 var flow_type = 'Policy Flow'
 var dataLoaded = false;
 
+var affFontColor = 'red'
+var negFontColor = '#076BFF'
 
+var bold = false;
 
 /* Hides the flow and speech-doc until the screen is wholly rendered */
 
@@ -32,39 +35,16 @@ document.getElementById('speech-doc').style.visibility = 'hidden'
 
 /* Sets red color font to 1ac and blue color font to 1nc */
 
-function ac_flowLabels(instance, td, row, col, prop, value, cellProperties) {
-  Handsontable.renderers.TextRenderer.apply(this, arguments);
-  td.style.fontWeight = 'bold';
-  if (col % 2 == 1) { 
-    td.style.color = '#076BFF'; 
-  }
-  else { 
-    td.style.color = 'red'; 
-  }
-}
-
 function ac_flowRenderer(instance, td, row, col, prop, value, cellProperties) {
   Handsontable.renderers.TextRenderer.apply(this, arguments);
 
   if (col % 2 == 1) { 
     td.style.fontWeight = 'bold';
-    td.style.color = '#076BFF'; 
+    td.style.color = negFontColor; 
   }
   else { 
     td.style.fontWeight = 'bold';
-    td.style.color = 'red'; 
-  }
-  
-}
-
-function nc_flowLabels(instance, td, row, col, prop, value, cellProperties) {
-  Handsontable.renderers.TextRenderer.apply(this, arguments);
-  td.style.fontWeight = 'bold';
-  if (col % 2 == 1) { 
-    td.style.color = '#076BFF'; 
-  }
-  else { 
-    td.style.color = 'red'; 
+    td.style.color = affFontColor; 
   }
 }
 
@@ -73,15 +53,13 @@ function nc_flowRenderer(instance, td, row, col, prop, value, cellProperties) {
 
   if (col % 2 == 1) { 
     td.style.fontWeight = 'bold';
-    td.style.color = '#076BFF'; 
+    td.style.color = negFontColor; 
   }
   else { 
     td.style.fontWeight = 'bold';
-    td.style.color = 'red'; 
+    td.style.color = affFontColor; 
   }
-  
 }
-
 
 Handsontable.renderers.registerRenderer('ac_flowRenderer', ac_flowRenderer);
 
@@ -108,18 +86,14 @@ for(i = 0;i<AC_tabs.length;i++){
         var cellProperties = {};
         var data = this.instance.getData();
     
-        if (row === 0) {
-          cellProperties.renderer = ac_flowLabels; // uses function directly
-        }
-
-        else{
-          cellProperties.renderer = 'ac_flowRenderer'; // uses lookup map
-        }
+        cellProperties.renderer = 'ac_flowRenderer';
+        
         return cellProperties;
       }
     }))
 }
 
+Handsontable.renderers.registerRenderer('nc_flowRenderer', nc_flowRenderer);
 
 
 /* Adds NC flows */
@@ -146,14 +120,9 @@ for(i = 0;i<NC_tabs.length;i++){
     cells: function (row, col) {
       var cellProperties = {};
       var data = this.instance.getData();
-  
-      if (row === 0) {
-        cellProperties.renderer = ac_flowLabels; 
-      }
-  
-      else{
-        cellProperties.renderer = 'ac_flowRenderer'; 
-      }
+
+      cellProperties.renderer = 'nc_flowRenderer'; 
+      
       return cellProperties;
     }
   }))

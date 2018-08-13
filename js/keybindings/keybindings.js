@@ -133,6 +133,8 @@ else {
 selectAllCells()
 
 
+
+
 /* Mousetrap js: adds keybindings for keyboard shortcuts to navigate the flow */
 
 
@@ -177,7 +179,6 @@ $('#flow-navbar li').on('shown.bs.tab', function (e) {
         the keyboard shortcut. B/c if clicked by mouse, bootstrap will automatically take 
         care of that.
     */
-    console.log('Fuck Yes')
     if (!mouseClicked) {
         switchFlow();
     }
@@ -379,6 +380,60 @@ Mousetrap.bind(['command+l', 'ctrl+l'], function () {
 
 })
 
+/* Reconfigure Font Color */
+
+Mousetrap.bind(['command+f', 'ctrl+f'], function () {
+    vex.dialog.open({
+        message: 'Select a date and color.',
+        input: [
+            '<style>',
+            '.vex-custom-field-wrapper {',
+            'margin: 1em 0;',
+            '}',
+            '.vex-custom-field-wrapper > label {',
+            'display: inline-block;',
+            'margin-bottom: .2em;',
+            '}',
+            '</style>',
+            '<div class="vex-custom-field-wrapper">',
+            '<h4>AFF Font Color</h4>',
+            '<div class="vex-custom-input-wrapper">',
+            '<input name="color" type="color" value="#ff00cc" />',
+            '</div>',
+            '</div>',
+            '<div class="vex-custom-field-wrapper">',
+            '<div class="vex-custom-input-wrapper">',
+            '<h4>NEG Font Color</h4>',
+            '<input name="color" type="color" value="#ff00cc" />',
+            '</div>',
+            '</div>'
+        ].join(''),
+        callback: function (data) {
+            if (!data) {
+                return console.log('Cancelled')
+            }
+            console.log('Color', data.color)
+            selectAllCells()
+
+            affFontColor = data.color[0]
+            negFontColor = data.color[1]
+
+
+        }
+    })
+})
+
+/* Reconfigure Font Weight */
+
+Mousetrap.bind(['command+b', 'ctrl+b'], function () {
+
+    if (!bold) {
+        bold = true
+    }
+    else {
+        bold = false
+    }
+})
 /* 
     Switches to the next tab. This is done in accordance an index variable 
     which is increased everytime you go right and decreased when you go left.
@@ -504,13 +559,8 @@ function addAdvTab() {
             var cellProperties = {};
             var data = this.instance.getData();
 
-            if (row === 0) {
-                cellProperties.renderer = ac_flowLabels; // uses function directly
-            }
+            cellProperties.renderer = 'ac_flowRenderer'; // uses lookup map
 
-            else {
-                cellProperties.renderer = 'ac_flowRenderer'; // uses lookup map
-            }
             return cellProperties;
         }
     }))
@@ -577,7 +627,6 @@ function addAdvTab() {
         mouseClicked = true;
         index = $(this).index();
 
-        console.log("FUUUCK NOOO ADV")
         var i = getSelectedCellIndex();
         if (i != -1) {
             var rc = selectCell_rc[i];
@@ -670,12 +719,8 @@ function addOffTab() {
             var cellProperties = {};
             var data = this.instance.getData();
 
-            if (row === 0) {
-                cellProperties.renderer = nc_flowLabels;
-            }
-            else {
-                cellProperties.renderer = 'nc_flowRenderer';
-            }
+            cellProperties.renderer = 'nc_flowRenderer';
+
             return cellProperties;
         }
     }))
@@ -741,7 +786,6 @@ function addOffTab() {
         }
         mouseClicked = true;
         index = $(this).index();
-        console.log("FUUUCK NOOO ADV")
 
         var i = getSelectedCellIndex();
         if (i != -1) {
@@ -957,7 +1001,7 @@ function loadFlow() {
                 })
             }
 
-                        setTimeout(() => {
+            setTimeout(() => {
                 nextTab()
                 previousTab()
                 $('.loader').remove()
@@ -1145,16 +1189,71 @@ $(function () {
             handsontable_flows[i].updateSettings({
                 width: document.getElementById('df').offsetWidth - 16,
                 colWidths: (document.getElementById('df').offsetWidth - 16) * widthoffSet,
+                beforeChangeRender(changes) {
+                    if (bold) {
+
+                        if (flow_type == 'LD Traditional Flow' || flow_type == 'PF Flow') {
+                            if (index == 0) {
+                                var k = changes[0]
+                                aff_bold_rc.push([k[0], k[1]])
+                            }
+                            else {
+                                var k = changes[0]
+                                neg_bold_rc.push([k[0], k[1]])
+                            }
+                        }
+                        else {
+
+                        }
+
+                    }
+                    else {
+                        if (flow_type == 'LD Traditional Flow' || flow_type == 'PF Flow') {
+                            if (index == 0) {
+                                var k = changes[0]
+                                var i = 0;
+                                while (i < aff_bold_rc.length) {
+                                    var h = aff_bold_rc[i]
+
+                                    if (k[0] == h[0] && k[1] == h[1]) {
+                                        aff_bold_rc.splice(i, 1);
+                                    }
+                                    else {
+                                        i++;
+                                    }
+                                }
+                            }
+                            else {
+                                var k = changes[0]
+                                var i = 0;
+                                while (i < neg_bold_rc.length) {
+                                    var h = neg_bold_rc[i]
+
+                                    if (k[0] == h[0] && k[1] == h[1]) {
+                                        neg_bold_rc.splice(i, 1);
+                                    }
+                                    else {
+                                        i++;
+                                    }
+                                }
+                            }
+                        }
+                        else {
+
+                        }
+                    }
+                },
                 afterChange(changes) {
 
+
                     var auto_used = false;
-                    console.log("MUTHA FUCK")
 
                     if (!dataLoaded) {
                         data['flow-data'][index] = handsontable_flows[index].getData()
 
                         /* Autocomplete Feature */
                         changes.forEach(([row, prop, oldValue, newValue]) => {
+
 
                             var textLine = newValue.split(" ")
 
