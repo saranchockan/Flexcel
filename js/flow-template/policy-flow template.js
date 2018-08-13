@@ -23,7 +23,8 @@ var dataLoaded = false;
 var affFontColor = 'red'
 var negFontColor = '#076BFF'
 
-var bold = false;
+
+
 
 /* Hides the flow and speech-doc until the screen is wholly rendered */
 
@@ -39,11 +40,9 @@ function ac_flowRenderer(instance, td, row, col, prop, value, cellProperties) {
   Handsontable.renderers.TextRenderer.apply(this, arguments);
 
   if (col % 2 == 1) { 
-    td.style.fontWeight = 'bold';
     td.style.color = negFontColor; 
   }
   else { 
-    td.style.fontWeight = 'bold';
     td.style.color = affFontColor; 
   }
 }
@@ -52,11 +51,9 @@ function nc_flowRenderer(instance, td, row, col, prop, value, cellProperties) {
   Handsontable.renderers.TextRenderer.apply(this, arguments);
 
   if (col % 2 == 1) { 
-    td.style.fontWeight = 'bold';
     td.style.color = negFontColor; 
   }
   else { 
-    td.style.fontWeight = 'bold';
     td.style.color = affFontColor; 
   }
 }

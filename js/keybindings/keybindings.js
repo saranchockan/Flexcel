@@ -50,6 +50,10 @@ vex.defaultOptions.className = 'vex-theme-os'
 var x;
 var w;
 
+// Font Weight Configuration
+var bold = false;
+var bold_cell_tD = []
+
 // Variables for saving the flow
 
 var fileName = ""
@@ -427,13 +431,34 @@ Mousetrap.bind(['command+f', 'ctrl+f'], function () {
 
 Mousetrap.bind(['command+b', 'ctrl+b'], function () {
 
-    if (!bold) {
-        bold = true
+    var rc = handsontable_flows[index].getSelected()
+    var r = rc[0]
+    var c = rc[1]
+    var tDElement = handsontable_flows[index].getCell(r, c)
+
+    if(tDElement.style.fontWeight == 'bold'){
+        tDElement.style.fontWeight = ''
+        bold_cell_tD.splice(bold_cell_tD.indexOf(tDElement),1)
     }
-    else {
-        bold = false
+    else{
+        tDElement.style.fontWeight = 'bold'
+        bold_cell_tD.push(tDElement)
     }
+
+
+
+
+
 })
+
+Mousetrap.bind(['command+n', 'ctrl+n'], function () {
+
+
+})
+
+
+
+
 /* 
     Switches to the next tab. This is done in accordance an index variable 
     which is increased everytime you go right and decreased when you go left.
@@ -579,6 +604,11 @@ function addAdvTab() {
                 width: document.getElementById('df').offsetWidth - 16,
                 colWidths: (document.getElementById('df').offsetWidth - 16) * widthoffSet,
                 afterChange(changes) {
+
+
+                    for (i = 0; i < bold_cell_tD.length; i++) {
+                        bold_cell_tD[i].style.fontWeight = 'bold'
+                    }
 
                     var auto_used = false;
 
@@ -738,6 +768,11 @@ function addOffTab() {
                 colWidths: (document.getElementById('df').offsetWidth - 16) * widthoffSet,
                 afterChange(changes) {
 
+
+                    for (i = 0; i < bold_cell_tD.length; i++) {
+                        bold_cell_tD[i].style.fontWeight = 'bold'
+                    }
+                    
                     var auto_used = false;
 
                     if (!dataLoaded) {
@@ -1189,62 +1224,11 @@ $(function () {
             handsontable_flows[i].updateSettings({
                 width: document.getElementById('df').offsetWidth - 16,
                 colWidths: (document.getElementById('df').offsetWidth - 16) * widthoffSet,
-                beforeChangeRender(changes) {
-                    if (bold) {
-
-                        if (flow_type == 'LD Traditional Flow' || flow_type == 'PF Flow') {
-                            if (index == 0) {
-                                var k = changes[0]
-                                aff_bold_rc.push([k[0], k[1]])
-                            }
-                            else {
-                                var k = changes[0]
-                                neg_bold_rc.push([k[0], k[1]])
-                            }
-                        }
-                        else {
-
-                        }
-
-                    }
-                    else {
-                        if (flow_type == 'LD Traditional Flow' || flow_type == 'PF Flow') {
-                            if (index == 0) {
-                                var k = changes[0]
-                                var i = 0;
-                                while (i < aff_bold_rc.length) {
-                                    var h = aff_bold_rc[i]
-
-                                    if (k[0] == h[0] && k[1] == h[1]) {
-                                        aff_bold_rc.splice(i, 1);
-                                    }
-                                    else {
-                                        i++;
-                                    }
-                                }
-                            }
-                            else {
-                                var k = changes[0]
-                                var i = 0;
-                                while (i < neg_bold_rc.length) {
-                                    var h = neg_bold_rc[i]
-
-                                    if (k[0] == h[0] && k[1] == h[1]) {
-                                        neg_bold_rc.splice(i, 1);
-                                    }
-                                    else {
-                                        i++;
-                                    }
-                                }
-                            }
-                        }
-                        else {
-
-                        }
-                    }
-                },
                 afterChange(changes) {
 
+                    for (i = 0; i < bold_cell_tD.length; i++) {
+                        bold_cell_tD[i].style.fontWeight = 'bold'
+                    }
 
                     var auto_used = false;
 

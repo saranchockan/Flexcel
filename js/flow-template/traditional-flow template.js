@@ -21,9 +21,7 @@ var dataLoaded = false;
 var affFontColor = 'red'
 var negFontColor = '#076BFF'
 
-var bold = false;
-var aff_bold_rc = []
-var neg_bold_rc = []
+
 
 
 
@@ -39,24 +37,6 @@ document.getElementById('speech-doc').style.visibility = 'hidden'
 function ac_flowRenderer(instance, td, row, col, prop, value, cellProperties) {
   Handsontable.renderers.TextRenderer.apply(this, arguments);
 
-    var t = [row,col]
-    var g = false;
-    var i = 0;
-    while(i<aff_bold_rc.length && !g){
-      var h = aff_bold_rc[i]
-
-      if(t[0] == h[0] && t[1]==h[1]){
-        td.style.fontWeight = 'bold';
-        g = true
-      }
-      else{
-        i++;
-      }
-    }
-
-
-  
-
   if (col % 2 == 1) { 
     td.style.color = negFontColor; 
 
@@ -71,23 +51,6 @@ function ac_flowRenderer(instance, td, row, col, prop, value, cellProperties) {
 
 function nc_flowRenderer(instance, td, row, col, prop, value, cellProperties) {
   Handsontable.renderers.TextRenderer.apply(this, arguments);
-
-  var t = [row,col]
-  var g = false;
-  var i = 0;
-  while(i<neg_bold_rc.length && !g){
-    var h = neg_bold_rc[i]
-
-    if(t[0] == h[0] && t[1]==h[1]){
-      td.style.fontWeight = 'bold';
-      g = true
-    }
-    else{
-      i++;
-    }
-  }
-
-
 
   if (col % 2 == 1) { 
     td.style.color = affFontColor; 
