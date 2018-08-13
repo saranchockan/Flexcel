@@ -14,7 +14,8 @@ var data = {
   'flow-data':[],
   'delete-tabs':[],
   'added-adv-tabs':0,
-  'added-off-tabs':0
+  'added-off-tabs':0,
+  'boldElements':[]
 }
 
 var flow_type = 'Policy Flow'

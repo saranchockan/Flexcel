@@ -123,8 +123,8 @@ var autocomplete = {
 }
 
 var fontColor = {
-    'affFontColor':'red',
-    'negFontColor':'#076BFF'
+    'affFontColor': 'red',
+    'negFontColor': '#076BFF'
 }
 
 
@@ -135,10 +135,10 @@ else {
     autocomplete = store.get('autocomplete')
 }
 
-if(store.has('fontColor') == false){
-    store.set('fontColor',fontColor)
+if (store.has('fontColor') == false) {
+    store.set('fontColor', fontColor)
 }
-else{
+else {
     var o = store.get('fontColor')
     affFontColor = o['affFontColor']
     negFontColor = o['negFontColor']
@@ -302,6 +302,7 @@ Mousetrap.bind(['commands + d', 'ctrl+d'], function () {
 Mousetrap.bind(['commands + s', 'ctrl+s'], function () {
 
 
+    data['boldElements'] = bold_cell_tD
     let content = "Some text to save into the file";
     var jsonObj = JSON.parse(JSON.stringify(data));
     var jsonContent = JSON.stringify(jsonObj);
@@ -436,7 +437,7 @@ Mousetrap.bind(['command+f', 'ctrl+f'], function () {
 
             fontColor['affFontColor'] = data.color[0]
             fontColor['negFontColor'] = data.color[1]
-            store.set('fontColor',fontColor)
+            store.set('fontColor', fontColor)
 
             affFontColor = data.color[0]
             negFontColor = data.color[1]
@@ -455,11 +456,11 @@ Mousetrap.bind(['command+b', 'ctrl+b'], function () {
     var c = rc[1]
     var tDElement = handsontable_flows[index].getCell(r, c)
 
-    if(tDElement.style.fontWeight == 'bold'){
+    if (tDElement.style.fontWeight == 'bold') {
         tDElement.style.fontWeight = ''
-        bold_cell_tD.splice(bold_cell_tD.indexOf(tDElement),1)
+        bold_cell_tD.splice(bold_cell_tD.indexOf(tDElement), 1)
     }
-    else{
+    else {
         tDElement.style.fontWeight = 'bold'
         bold_cell_tD.push(tDElement)
     }
@@ -966,6 +967,7 @@ function switchFlow() {
 function loadFlow() {
     if (dataSuccess && loadedData['flow_type'] == flow_type) {
 
+        bold_cell_tD = loadedData['boldElements']
         $('#body').append('<div class="loader" id="pre-loader"></div>')
         document.getElementById('flow-navbar').style.visibility = 'hidden'
         document.getElementById('flows').style.visibility = 'hidden'
@@ -1081,6 +1083,7 @@ function loadFlow() {
             document.getElementById('flows').style.visibility = 'visible'
             document.getElementById('speech-doc').style.visibility = 'visible'
         }, 2000);
+
     }
     else {
         if (dataSuccess == true) {
@@ -1244,13 +1247,14 @@ $(function () {
                 colWidths: (document.getElementById('df').offsetWidth - 16) * widthoffSet,
                 afterChange(changes) {
 
-                    for (i = 0; i < bold_cell_tD.length; i++) {
-                        bold_cell_tD[i].style.fontWeight = 'bold'
-                    }
 
                     var auto_used = false;
 
                     if (!dataLoaded) {
+
+                        for (i = 0; i < bold_cell_tD.length; i++) {
+                            bold_cell_tD[i].style.fontWeight = 'bold'
+                        }
                         data['flow-data'][index] = handsontable_flows[index].getData()
 
                         /* Autocomplete Feature */

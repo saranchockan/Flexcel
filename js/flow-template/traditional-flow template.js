@@ -12,7 +12,8 @@ var selectCell_rc = [
 
 var data = {
   'flow_type':'LD Traditional Flow',
-  'flow-data':[]
+  'flow-data':[],
+  'boldElements':[]
 }
 
 var flow_type = 'LD Traditional Flow'

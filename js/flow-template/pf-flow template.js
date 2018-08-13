@@ -12,7 +12,8 @@ var selectCell_rc = [
 var data = {
   'flow_type': 'PF Flow',
   'flow-data': [],
-  'firstSpeaker': 'Pro'
+  'firstSpeaker': 'Pro',
+  'boldElements':[]
 }
 
 var flow_type = 'PF Flow'
