@@ -10,7 +10,7 @@ if [ ! -f $CERT_PATH ]; then
 fi
 
 # Check that the folder for the flexcel project is still in the right place
-PROJECT_PATH=~/Desktop/Flexcel
+PROJECT_PATH=~/Desktop/CS/Flexcel/Flexcel
 if [ ! -f $PROJECT_PATH/package.json ]; then
   echo "Can't find the Flexcel project! Quitting."; exit 1;
 fi

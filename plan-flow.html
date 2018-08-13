@@ -48,14 +48,14 @@
   <title>Flexcel</title>
 </head>
 
-<body style="background-color: #202225">
+<body  id = "body" style="background-color: #202225">
 
   <div id='df' class="plan-container bold-borders inner">
 
     <!-- Flow: tab pane and spreadsheet placed in a div that is floated to the left-->
     <div class="plan-flow" style="background-color: #2F3136">
 
-      <div id="flow-navbar" class="w-100 p-3" style="background-color: #2F3136">
+      <div id="flow-navbar" class="w-100 p-3" style="background-color: #2F3136;visibility: hidden;">
 
         <!-- Bootstrap Nav-->
 
@@ -110,7 +110,7 @@
 
         <!-- js plugin for collapsing-->
 
-        <div id="flows" class="tab-content" id="pills-tabContent">
+        <div id="flows" class="tab-content" id="pills-tabContent" style="visibility: hidden;">
 
           <div class="AC tab-pane fade show active" id="1AC-Framing-tab" role="tabpanel" aria-labelledby="1ACFraming">1ACFraming</div>
           <div class="AC tab-pane fade" id="Inherency-tab" role="tabpanel" aria-labelledby="Inherency">Inherency</div>
@@ -132,21 +132,21 @@
     </div>
   </div>
 
-  <div id='speech-doc' class="">
+  <div id='speech-doc' class="" style="visibility: hidden;">
     <div id="summernote"></div>
   </div>
 
   </div>
-  <div class="loader" id="pre-loader" style="visibility: hidden;"></div>
+  <div class="loader" id="pre-loader"></div>
 
-  <!-- Main js-->
+  <!-- Main js
 
   <script>
     setTimeout(() => {
       document.getElementById('pre-loader').style.visibility = 'visible'
     }, 1500);
   </script>
-
+  -->
 
 
   <script>

@@ -6,16 +6,19 @@ var pro_tabs = document.getElementsByClassName('PRO');
 var con_tabs = document.getElementsByClassName('CON');
 
 var selectCell_rc = [
-  [0,0],[0,0]
+  [1,0],[1,0]
 ]
 
 var data = {
   'flow_type':'PF Flow',
-  'flow-data':[]
+  'flow-data':[],
+  'firstSpeaker':'Pro'
 }
 
 var flow_type = 'PF Flow'
 var dataLoaded = false;
+
+var firstSpeaker = 'Pro'
 
 
 
@@ -83,9 +86,9 @@ for(i = 0;i<pro_tabs.length;i++){
     container = document.getElementById(pro_tabs[i].id);
 
     handsontable_flows.push(new Handsontable(container,{
-      colHeaders: ['Pro Constructive', 'Con Rebuttal', 'Pro Summary', 'Pro Final Focus'],
-      minCols: 4,
-      maxCols:4,
+      data: [['Pro Constructive', 'Con Rebuttal', 'Pro Summary', 'Con Summary','Pro Final Focus','Con Final Focus']],
+      minCols: 6,
+      maxCols:6,
       minRows: 40,
       maxRows: 200,
       width: 500,
@@ -122,9 +125,9 @@ for(i = 0;i<con_tabs.length;i++){
   container = document.getElementById(con_tabs[i].id);
 
   handsontable_flows.push(new Handsontable(container,{
-    colHeaders: ['Con Constructive', 'Pro Rebuttal', 'Con Summary', 'Con Final Focus'],
-    minCols: 4,
-    maxCols: 4,
+    data: [['Con Constructive', 'Pro Rebuttal', 'Con Rebuttal', 'Pro Summary','Con Summary','Pro Final Focus','Neg Final Focus']],
+    minCols: 7,
+    maxCols: 7,
     minRows: 40,
     maxRows: 200,
     width: 500,
@@ -157,7 +160,6 @@ for(i = 0;i<con_tabs.length;i++){
 /* Initializes data to be saved */
 
 for(i = 0;i<handsontable_flows.length;i++){
-  // data[1].push(handsontable_flows[i].getData())
   data['flow-data'].push(handsontable_flows[i].getData())
 }
 

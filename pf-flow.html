@@ -46,12 +46,12 @@
   <title>Flexcel</title>
 </head>
 
-<body style="background-color: #202225">
+<body id = "body"style="background-color: #202225">
 
   <div id='df' class="trad-container">
     <!-- Flow: tab pane and spreadsheet placed in a div that is floated to the left-->
     <div class="trad-flow bold-borders" style="background-color: #2F3136">
-      <div id="flow-navbar" class="left-element w-100 p-3" style="background-color: #2F3136">
+      <div id="flow-navbar" class="left-element w-100 p-3" style="background-color: #2F3136;visibility: hidden;">
 
         <!-- Bootstrap Nav-->
 
@@ -65,14 +65,14 @@
 
         <!-- js plugin for collapsing-->
 
-        <div id="flows" class="tab-content" id="pills-tabContent">
+        <div id="flows" class="tab-content" id="pills-tabContent" style="visibility: hidden;">
           <div class="PRO tab-pane fade show active" id="PRO-tab" role="tabpanel" aria-labelledby="PRO">PRO</div>
           <div class="CON tab-pane fade" id="NC-Tab" role="tabpanel" aria-labelledby="NC">CON</div>
         </div>
       </div>
     </div>
   </div>
-  <div id='speech-doc' class="">
+  <div id='speech-doc' class="" style="visibility: hidden;">
     <div id="summernote"></div>
   </div>
 

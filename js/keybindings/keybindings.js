@@ -27,18 +27,18 @@ var off_add_index = 13;
 
 var advNum;
 
-if(flow_type == 'LD Plan Flow'){
+if (flow_type == 'LD Plan Flow') {
     advNum = 6
 }
-else{
+else {
     advNum = 7
 }
 
 var offNum;
-if(flow_type == 'LD Plan Flow'){
+if (flow_type == 'LD Plan Flow') {
     offNum = 6
 }
-else{
+else {
     offNum = 7
 }
 
@@ -216,13 +216,13 @@ Mousetrap.bind(['command+i', 'ctrl+i'], function () {
 
     if (index != 0) {
 
-        if ((ac_delete_limit >= 2 && index == ac_delete_limit && advNum>1)) {
+        if ((ac_delete_limit >= 2 && index == ac_delete_limit && advNum > 1)) {
 
             deleteTab()
             tD = true
         }
 
-        else if (nc_delete_limit >= nc_limit && index == nc_delete_limit && offNum>1) {
+        else if (nc_delete_limit >= nc_limit && index == nc_delete_limit && offNum > 1) {
 
             deleteTab()
             tD = true
@@ -363,6 +363,21 @@ Mousetrap.bind(['commands + t', 'ctrl+t'], function () {
 })
 
 
+/* Reconfigure PF Speaker */
+
+Mousetrap.bind(['command+l', 'ctrl+l'], function () {
+    if (flow_type == 'PF Flow') {
+        if (firstSpeaker == 'Pro') {
+            switchToCon()
+            firstSpeaker = 'Con'
+        }
+        else {
+            switchToPro()
+            firstSpeaker = 'Pro'
+        }
+    }
+
+})
 
 /* 
     Switches to the next tab. This is done in accordance an index variable 
@@ -404,9 +419,9 @@ function nextTab() {
     var rc = selectCell_rc[index];
     var r = rc[0]
     var c = rc[1]
-    handsontable_flows[index].selectCell(r,c)
+    handsontable_flows[index].selectCell(r, c)
 
-    
+
 }
 
 /* 
@@ -460,19 +475,19 @@ function addAdvTab() {
 
     var cols;
     var minCol;
-    if(flow_type == 'LD Plan Flow'){
+    if (flow_type == 'LD Plan Flow') {
         cols = ['AC', '1NR', '1AR', '2NR', '2AR']
         minCol = 5
     }
-    else{
-        cols = ['1AC', '1NC', '2AC', '2NC/1NR', '1AR','2NR', '2AR']
+    else {
+        cols = ['1AC', '1NC', '2AC', '2NC/1NR', '1AR', '2NR', '2AR']
         minCol = 7
     }
 
 
     Handsontable.renderers.registerRenderer('ac_flowRenderer', ac_flowRenderer);
 
-    handsontable_flows.splice(index+1, 0, new Handsontable(con, {
+    handsontable_flows.splice(index + 1, 0, new Handsontable(con, {
         colHeaders: cols,
         minCols: minCol,
         minRows: 35,
@@ -517,7 +532,7 @@ function addAdvTab() {
 
                     var auto_used = false;
 
-                    if (!dataLoaded && !stopRecursive) {
+                    if (!dataLoaded) {
                         data['flow-data'][index] = handsontable_flows[index].getData()
 
                         /* Autocomplete Feature */
@@ -541,7 +556,6 @@ function addAdvTab() {
                         });
                     }
                     else {
-                        stopRecursive = true;
                         dataLoaded = false
                     }
 
@@ -551,8 +565,8 @@ function addAdvTab() {
     }, 10);
 
 
-    selectCell_rc.splice(index+1, 0, [0, 0])
-    handsontable_flows[index+1].selectCell(0, 0)
+    selectCell_rc.splice(index + 1, 0, [0, 0])
+    handsontable_flows[index + 1].selectCell(0, 0)
 
 
     $('#Adv' + advNum + '-li').on('shown.bs.tab', function (e) {
@@ -562,7 +576,7 @@ function addAdvTab() {
         }
         mouseClicked = true;
         index = $(this).index();
-    
+
         console.log("FUUUCK NOOO ADV")
         var i = getSelectedCellIndex();
         if (i != -1) {
@@ -572,7 +586,7 @@ function addAdvTab() {
             handsontable_flows[i].selectCell(r, c);
         }
     })
-    
+
     $('#Adv' + advNum).on('click', function (e) {
 
         var i = getSelectedCellIndex();
@@ -582,9 +596,9 @@ function addAdvTab() {
             var c = rc[1]
             handsontable_flows[i].selectCell(r, c);
         }
-    
+
     })
-    
+
 
     /* Reconfiguration */
 
@@ -600,7 +614,7 @@ function addAdvTab() {
     nc_limit = nc_limit + 1;
 
     data['added-adv-tabs'] = data['added-adv-tabs'] + 1
-    data['flow-data'].splice(index + 1,0,handsontable_flows[index+1].getData())
+    data['flow-data'].splice(index + 1, 0, handsontable_flows[index + 1].getData())
 
 
     /* Removes all of Handsontable's licenses */
@@ -627,42 +641,42 @@ function addOffTab() {
 
     var cols;
     var minCol;
-    if(flow_type == 'LD Plan Flow'){
-        cols = ['1NC', '1AR', '2NR','2AR']
+    if (flow_type == 'LD Plan Flow') {
+        cols = ['1NC', '1AR', '2NR', '2AR']
         minCol = 4
     }
-    else{
-        cols = ['1AC', '1NC', '2AC', '2NC/1NR', '1AR','2NR', '2AR']
+    else {
+        cols = ['1AC', '1NC', '2AC', '2NC/1NR', '1AR', '2NR', '2AR']
         minCol = 7
     }
     Handsontable.renderers.registerRenderer('nc_flowRenderer', nc_flowRenderer);
 
-    handsontable_flows.splice(index+1, 0, new Handsontable(con, {
+    handsontable_flows.splice(index + 1, 0, new Handsontable(con, {
         colHeaders: cols,
         minCols: minCol,
         maxCols: minCol,
         minRows: 35,
         maxRows: 200,
         width: 500,
-        height: 500, 
+        height: 500,
         viewportRowRenderingOffsetequal: 35,
-        viewportColumnRenderingOffset:4,
+        viewportColumnRenderingOffset: 4,
         colWidths: 240,
-        fillHandle:{
-          autoInsertRow: true
+        fillHandle: {
+            autoInsertRow: true
         },
-        minSpareRows:true,
+        minSpareRows: true,
         cells: function (row, col) {
-          var cellProperties = {};
-          var data = this.instance.getData();
-      
-          if (row === 0) {
-            cellProperties.renderer = nc_flowLabels; 
-          }
-          else{
-            cellProperties.renderer = 'nc_flowRenderer'; 
-          }
-          return cellProperties;
+            var cellProperties = {};
+            var data = this.instance.getData();
+
+            if (row === 0) {
+                cellProperties.renderer = nc_flowLabels;
+            }
+            else {
+                cellProperties.renderer = 'nc_flowRenderer';
+            }
+            return cellProperties;
         }
     }))
     setTimeout(() => {
@@ -681,7 +695,7 @@ function addOffTab() {
 
                     var auto_used = false;
 
-                    if (!dataLoaded && !stopRecursive) {
+                    if (!dataLoaded) {
                         data['flow-data'][index] = handsontable_flows[index].getData()
 
                         /* Autocomplete Feature */
@@ -705,7 +719,6 @@ function addOffTab() {
                         });
                     }
                     else {
-                        stopRecursive = true;
                         dataLoaded = false
                     }
 
@@ -715,10 +728,10 @@ function addOffTab() {
     }, 10);
 
 
-    selectCell_rc.splice(index+1, 0, [0, 0])
-    data['flow-data'].splice(index + 1,0,handsontable_flows[index+1].getData())
+    selectCell_rc.splice(index + 1, 0, [0, 0])
+    data['flow-data'].splice(index + 1, 0, handsontable_flows[index + 1].getData())
 
-    handsontable_flows[index+1].selectCell(0, 0)
+    handsontable_flows[index + 1].selectCell(0, 0)
 
 
     $('#Off' + offNum + '-li').on('shown.bs.tab', function (e) {
@@ -738,7 +751,7 @@ function addOffTab() {
             handsontable_flows[i].selectCell(r, c);
         }
     })
-    
+
     $('#Off' + offNum).on('click', function (e) {
 
         var i = getSelectedCellIndex();
@@ -748,9 +761,9 @@ function addOffTab() {
             var c = rc[1]
             handsontable_flows[i].selectCell(r, c);
         }
-    
+
     })
-    
+
 
     /* Reconfiguration */
 
@@ -780,7 +793,7 @@ function addOffTab() {
 
 function deleteTab() {
 
-    if(index == ac_delete_limit){
+    if (index == ac_delete_limit) {
         ac_delete_limit = ac_delete_limit - 1
         nc_delete_limit = nc_delete_limit - 1
         nc_limit = nc_limit - 1
@@ -790,7 +803,7 @@ function deleteTab() {
         data['delete-tabs'].push(flows[index].id)
         data['added-adv-tabs'] = data['added-adv-tabs'] - 1
     }
-    else{
+    else {
         nc_delete_limit = nc_delete_limit - 1
         nc_limit = nc_limit - 1
         off_add_index = off_add_index - 1
@@ -855,27 +868,18 @@ function switchFlow() {
 
 function loadFlow() {
     if (dataSuccess && loadedData['flow_type'] == flow_type) {
+
+        $('#body').append('<div class="loader" id="pre-loader"></div>')
+        document.getElementById('flow-navbar').style.visibility = 'hidden'
+        document.getElementById('flows').style.visibility = 'hidden'
+        document.getElementById('speech-doc').style.visibility = 'hidden'
+
         if (flow_type == 'LD Plan Flow' || flow_type == 'Policy Flow') {
-            /*
-            var x = 0;
-            for (i = 0; i < handsontable_flows.length; i++) {
-                if (loadedData['delete-tabs'].includes(flows[i].id)) {
-                }
-                else {
-                    dataLoaded = true
-                    handsontable_flows[i].updateSettings({
-                        data: loadedData['flow-data'][x]
-                    })
-                    x++;
-                }
-            }
-            */
 
-
-            if(loadedData['added-adv-tabs']<0){
+            if (loadedData['added-adv-tabs'] < 0) {
                 var f = Math.abs(loadedData['added-adv-tabs']);
 
-                for(i = 0;i<f;i++){
+                for (i = 0; i < f; i++) {
                     var id = tabs[adv_add_index].id;
                     var reference = '#' + id;
                     $(document).ready(function () {
@@ -885,10 +889,10 @@ function loadFlow() {
                     deleteTab()
                 }
             }
-            else if(loadedData['added-adv-tabs']>0){
+            else if (loadedData['added-adv-tabs'] > 0) {
                 var f = loadedData['added-adv-tabs']
 
-                for(i = 0;i<f;i++){
+                for (i = 0; i < f; i++) {
                     var id = tabs[adv_add_index].id;
                     var reference = '#' + id;
                     $(document).ready(function () {
@@ -900,10 +904,10 @@ function loadFlow() {
                 }
             }
 
-            if(loadedData['added-off-tabs']<0){
+            if (loadedData['added-off-tabs'] < 0) {
                 var f = Math.abs(loadedData['added-off-tabs']);
 
-                for(i = 0;i<f;i++){
+                for (i = 0; i < f; i++) {
                     var id = tabs[off_add_index].id;
                     var reference = '#' + id;
                     $(document).ready(function () {
@@ -913,10 +917,10 @@ function loadFlow() {
                     deleteTab()
                 }
             }
-            else if(loadedData['added-off-tabs']>0){
+            else if (loadedData['added-off-tabs'] > 0) {
                 var f = loadedData['added-off-tabs']
 
-                for(i = 0;i<f;i++){
+                for (i = 0; i < f; i++) {
                     var id = tabs[off_add_index].id;
                     var reference = '#' + id;
                     $(document).ready(function () {
@@ -941,7 +945,26 @@ function loadFlow() {
             $(document).ready(function () {
                 $(reference).click();
             });
+        }
+        else if (flow_type == 'PF Flow') {
+            if (loadedData['firstSpeaker'] == 'Con') {
+                switchToCon()
+            }
+            for (i = 0; i < handsontable_flows.length; i++) {
+                dataLoaded = true
+                handsontable_flows[i].updateSettings({
+                    data: loadedData['flow-data'][i]
+                })
+            }
 
+                        setTimeout(() => {
+                nextTab()
+                previousTab()
+                $('.loader').remove()
+                document.getElementById('flow-navbar').style.visibility = 'visible'
+                document.getElementById('flows').style.visibility = 'visible'
+                document.getElementById('speech-doc').style.visibility = 'visible'
+            }, 1000);
         }
         else {
             for (i = 0; i < handsontable_flows.length; i++) {
@@ -953,6 +976,14 @@ function loadFlow() {
         }
         document.title = w[0]
 
+        setTimeout(() => {
+            nextTab()
+            previousTab()
+            $('.loader').remove()
+            document.getElementById('flow-navbar').style.visibility = 'visible'
+            document.getElementById('flows').style.visibility = 'visible'
+            document.getElementById('speech-doc').style.visibility = 'visible'
+        }, 2000);
     }
     else {
         if (dataSuccess == true) {
@@ -1006,11 +1037,45 @@ function getSelectedCellIndex() {
 /* updates the selectedCells array everytime the user switches tabs */
 
 function reset_rc() {
-    
+
     var newRC = handsontable_flows[index].getSelected()
     selectCell_rc[index] = [newRC[0], newRC[1]];
-    
+
 }
+
+function switchToCon() {
+    $('#PRO').html('CON')
+    $('#NC').html('PRO')
+
+    data['firstSpeaker'] = 'Con'
+    dataLoaded = true
+    handsontable_flows[0].updateSettings({
+        data: [['Con Constructive', 'Pro Rebuttal', 'Con Summary', 'Pro Summary', 'Con Final Focus', 'Pro Final Focus']]
+    })
+
+    dataLoaded = true
+    handsontable_flows[1].updateSettings({
+        data: [['Pro Constructive', 'Con Rebuttal', 'Pro Rebuttal', 'Con Summary', 'Pro Summary', 'Con Final Focus']]
+    })
+}
+
+function switchToPro() {
+    $('#PRO').html('PRO')
+    $('#NC').html('CON')
+
+    data['firstSpeaker'] = 'Pro'
+    dataLoaded = true
+    handsontable_flows[0].updateSettings({
+        data: [['Pro Constructive', 'Con Rebuttal', 'Pro Summary', 'Con Summary', 'Pro Final Focus', 'Con Final Focus']],
+    })
+
+    dataLoaded = true
+    handsontable_flows[1].updateSettings({
+        data: [['Con Constructive', 'Pro Rebuttal', 'Con Rebuttal', 'Pro Summary', 'Con Summary', 'Pro Final Focus', 'Neg Final Focus']],
+    })
+}
+
+
 
 /* Debuggin utilities: prints out the class list of every flow and tab div */
 
@@ -1083,8 +1148,9 @@ $(function () {
                 afterChange(changes) {
 
                     var auto_used = false;
+                    console.log("MUTHA FUCK")
 
-                    if (!dataLoaded && !stopRecursive) {
+                    if (!dataLoaded) {
                         data['flow-data'][index] = handsontable_flows[index].getData()
 
                         /* Autocomplete Feature */
@@ -1108,7 +1174,6 @@ $(function () {
                         });
                     }
                     else {
-                        stopRecursive = true;
                         dataLoaded = false
                     }
 
