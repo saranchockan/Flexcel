@@ -1055,15 +1055,6 @@ function loadFlow() {
                     data: loadedData['flow-data'][i]
                 })
             }
-
-            setTimeout(() => {
-                nextTab()
-                previousTab()
-                $('.loader').remove()
-                document.getElementById('flow-navbar').style.visibility = 'visible'
-                document.getElementById('flows').style.visibility = 'visible'
-                document.getElementById('speech-doc').style.visibility = 'visible'
-            }, 1000);
         }
         else {
             for (i = 0; i < handsontable_flows.length; i++) {
