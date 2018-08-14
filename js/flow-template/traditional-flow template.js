@@ -19,14 +19,19 @@ var data = {
 var flow_type = 'LD Traditional Flow'
 var dataLoaded = false;
 
-var affFontColor = 'red'
+var affFontColor = '#ff2600'
 var negFontColor = '#076BFF'
+
+var affShadeColor = '#ffffff'
+var negShadeColor = '#ffffff'
+
 
 /* Hides the flow and speech-doc until the screen is wholly rendered */
 
 document.getElementById('flow-navbar').style.visibility = 'hidden'
 document.getElementById('flows').style.visibility = 'hidden'
 document.getElementById('ephox_mytextarea').style.visibility = 'hidden'
+document.getElementById('mytextarea').style.visibility = 'hidden'
 
 /* Sets red color font to 1ac and blue color font to 1nc */
 
@@ -36,10 +41,12 @@ function ac_flowRenderer(instance, td, row, col, prop, value, cellProperties) {
 
   if (col % 2 == 1) { 
     td.style.color = negFontColor; 
+    td.style.background = negShadeColor
 
   }
   else { 
     td.style.color = affFontColor; 
+    td.style.background = affShadeColor
   }
 
 
@@ -51,10 +58,14 @@ function nc_flowRenderer(instance, td, row, col, prop, value, cellProperties) {
 
   if (col % 2 == 1) { 
     td.style.color = affFontColor; 
-    td.style.fontWeight = '';
+    td.style.background = affShadeColor
+
+    
   }
   else { 
     td.style.color = negFontColor; 
+    td.style.background = negShadeColor
+
   }
   
 }

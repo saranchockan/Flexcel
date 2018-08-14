@@ -123,8 +123,10 @@ var autocomplete = {
 }
 
 var fontColor = {
-    'affFontColor': 'red',
-    'negFontColor': '#076BFF'
+    'affFontColor': '#ff2600',
+    'negFontColor': '#076BFF',
+    'affShadeColor':'#ffffff',
+    'negShadeColor':'#ffffff'
 }
 
 
@@ -142,6 +144,8 @@ else {
     var o = store.get('fontColor')
     affFontColor = o['affFontColor']
     negFontColor = o['negFontColor']
+    affShadeColor = o['affShadeColor']
+    negShadeColor = o['negShadeColor']
 }
 
 /* 
@@ -417,18 +421,29 @@ Mousetrap.bind(['command+f', 'ctrl+f'], function () {
             '<div class="vex-custom-field-wrapper">',
             '<h4>AFF Font Color</h4>',
             '<div class="vex-custom-input-wrapper">',
-            '<input name="color" type="color" value="#FF0000" />',
+            '<input name="color" type="color" value="',affFontColor,'" />',
             '</div>',
             '</div>',
             '<div class="vex-custom-field-wrapper">',
             '<div class="vex-custom-input-wrapper">',
             '<h4>NEG Font Color</h4>',
-            '<input name="color" type="color" value="#076BFF" />',
+            '<input name="color" type="color" value="',negFontColor,'" />',
+            '</div>',
+            '<div class="vex-custom-field-wrapper">',
+            '<div class="vex-custom-input-wrapper">',
+            '<h4>AFF Column Color</h4>',
+            '<input name="color" type="color" value="',affShadeColor,'" />',
+            '</div>',
+            '<div class="vex-custom-field-wrapper">',
+            '<div class="vex-custom-input-wrapper">',
+            '<h4>NEG Column Color</h4>',
+            '<input name="color" type="color" value="',negShadeColor,'" />',
             '</div>',
             '</div>'
         ].join(''),
         callback: function (data) {
             if (!data) {
+                selectAllCells()
                 return console.log('Cancelled')
             }
             console.log('Color', data.color)
@@ -437,10 +452,17 @@ Mousetrap.bind(['command+f', 'ctrl+f'], function () {
 
             fontColor['affFontColor'] = data.color[0]
             fontColor['negFontColor'] = data.color[1]
-            store.set('fontColor', fontColor)
 
             affFontColor = data.color[0]
             negFontColor = data.color[1]
+
+            fontColor['affShadeColor'] = data.color[2]
+            fontColor['negShadeColor'] = data.color[3]
+            store.set('fontColor', fontColor)
+
+
+            affShadeColor = data.color[2]
+            negShadeColor = data.color[3]
 
 
         }
@@ -971,6 +993,8 @@ function loadFlow() {
         $('#body').append('<div class="loader" id="pre-loader"></div>')
         document.getElementById('flow-navbar').style.visibility = 'hidden'
         document.getElementById('flows').style.visibility = 'hidden'
+        document.getElementById('ephox_mytextarea').style.visibility = 'hidden'
+        document.getElementById('mytextarea').style.visibility = 'hidden'
 
         if (flow_type == 'LD Plan Flow' || flow_type == 'Policy Flow') {
 
@@ -1071,6 +1095,7 @@ function loadFlow() {
             $('.loader').remove()
             document.getElementById('flow-navbar').style.visibility = 'visible'
             document.getElementById('flows').style.visibility = 'visible'
+            document.getElementById('ephox_mytextarea').style.visibility = 'visible'
         }, 2000);
 
     }
@@ -1128,7 +1153,9 @@ function getSelectedCellIndex() {
 function reset_rc() {
 
     var newRC = handsontable_flows[index].getSelected()
-    selectCell_rc[index] = [newRC[0], newRC[1]];
+    if(typeof newRC!='undefined'){
+        selectCell_rc[index] = [newRC[0], newRC[1]];
+    }
 
 }
 

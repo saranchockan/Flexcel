@@ -21,8 +21,11 @@ var data = {
 var flow_type = 'LD Plan Flow'
 var dataLoaded = false;
 
-var affFontColor = 'red'
+var affFontColor = '#ff2600'
 var negFontColor = '#076BFF'
+
+var affShadeColor = '#ffffff'
+var negShadeColor = '#ffffff'
 
 var bold = false;
 var bold_rc = [[],[],[],[],[],[],[],[],[],[],[],[],[],[]]
@@ -37,6 +40,7 @@ var ind = 0;
 document.getElementById('flow-navbar').style.visibility = 'hidden'
 document.getElementById('flows').style.visibility = 'hidden'
 document.getElementById('ephox_mytextarea').style.visibility = 'hidden'
+document.getElementById('mytextarea').style.visibility = 'hidden'
 
 
 
@@ -50,9 +54,13 @@ function ac_flowRenderer(instance, td, row, col, prop, value, cellProperties) {
 
   if (col % 2 == 1) { 
     td.style.color = negFontColor; 
+    td.style.background = negShadeColor
+
   }
   else { 
     td.style.color = affFontColor; 
+    td.style.background = affShadeColor
+
   }
   
 }
@@ -62,9 +70,13 @@ function nc_flowRenderer(instance, td, row, col, prop, value, cellProperties) {
 
   if (col % 2 == 1) { 
     td.style.color = affFontColor; 
+    td.style.background = affShadeColor
+
   }
   else { 
     td.style.color = negFontColor; 
+    td.style.background = negShadeColor
+
   }
   
 }

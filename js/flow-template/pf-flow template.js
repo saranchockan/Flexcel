@@ -21,8 +21,11 @@ var dataLoaded = false;
 
 var firstSpeaker = 'Pro'
 
-var affFontColor = 'red'
+var affFontColor = '#ff2600'
 var negFontColor = '#076BFF'
+
+var affShadeColor = '#ffffff'
+var negShadeColor = '#ffffff'
 
 var bold = false;
 var aff_bold_rc = []
@@ -35,6 +38,9 @@ var neg_bold_rc = []
 document.getElementById('flow-navbar').style.visibility = 'hidden'
 document.getElementById('flows').style.visibility = 'hidden'
 document.getElementById('ephox_mytextarea').style.visibility = 'hidden'
+document.getElementById('mytextarea').style.visibility = 'hidden'
+
+
 
 
 /* Sets red color font to 1ac and blue color font to 1nc */
@@ -46,9 +52,13 @@ function pro_flowRenderer(instance, td, row, col, prop, value, cellProperties) {
 
   if (col % 2 == 1) {
     td.style.color = negFontColor;
+    td.style.background = negShadeColor
+
   }
   else {
     td.style.color = affFontColor;
+    td.style.background = affShadeColor
+
   }
 
 }
@@ -58,9 +68,13 @@ function con_flowRenderer(instance, td, row, col, prop, value, cellProperties) {
 
   if (col % 2 == 1) {
     td.style.color = affFontColor;
+    td.style.background = affShadeColor
+
   }
   else {
     td.style.color = negFontColor;
+    td.style.background = negShadeColor
+
   }
 
 }

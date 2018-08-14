@@ -24,7 +24,7 @@ body {
 #mytextarea{
     position: relative;
     float: right;
-    width: 33.5vw;
+    width: 34vw;
     height: 100vh;
 }
 
@@ -32,8 +32,12 @@ body {
 #ephox_mytextarea{
     position: relative;
     float: right;
-    width: 33.5vw;
+    width: 34vw;
     height: 100vh;
+}
+
+.ephox-chameleon-toolbar{
+    background-color: #2F3136
 }
 
 .tab_pane{
