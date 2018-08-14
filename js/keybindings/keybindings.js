@@ -971,7 +971,6 @@ function loadFlow() {
         $('#body').append('<div class="loader" id="pre-loader"></div>')
         document.getElementById('flow-navbar').style.visibility = 'hidden'
         document.getElementById('flows').style.visibility = 'hidden'
-        document.getElementById('speech-doc').style.visibility = 'hidden'
 
         if (flow_type == 'LD Plan Flow' || flow_type == 'Policy Flow') {
 
@@ -1072,7 +1071,6 @@ function loadFlow() {
             $('.loader').remove()
             document.getElementById('flow-navbar').style.visibility = 'visible'
             document.getElementById('flows').style.visibility = 'visible'
-            document.getElementById('speech-doc').style.visibility = 'visible'
         }, 2000);
 
     }
@@ -1278,10 +1276,11 @@ $(function () {
         }
         $('.loader').remove()
         document.getElementById('df').classList.add('elementToFadeInAndOutLeft')
-        //document.getElementById('speech-doc').classList.add('elementToFadeInAndOutRight')
         document.getElementById('flow-navbar').style.visibility = 'visible'
+        document.getElementById('ephox_mytextarea').classList.add('elementToFadeInAndOutRight')
+        document.getElementById('ephox_mytextarea').style.visibility = 'visible'
         document.getElementById('flows').style.visibility = 'visible'
-        //document.getElementById('speech-doc').style.visibility = 'visible'
+        $('.ephox-polish-html-switch').remove()
     }, 1000);
 });
 

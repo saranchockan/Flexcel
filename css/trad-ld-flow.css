@@ -21,24 +21,6 @@ body {
 }
 
 
-.note-editor {
-    position: relative;
-    float: right;
-    width: 33.5vw;
-    height: 100vh;
-
-}
-.note-frame{
-    position: relative;
-    float: right;
-    width: 33.5vw;
-    height: 100vh;
-}
-
-.note-editable{
-    height: 100vh;
-}
-
 #mytextarea{
     position: relative;
     float: right;

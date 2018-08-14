@@ -26,6 +26,9 @@
   <link rel="stylesheet" href="summernote/summernote-lite.css">
   <script src="summernote/summernote-lite.js"></script>
 
+  <!-- Textbox.io css/js -->
+  <script src="textboxio-client/textboxio/textboxio.js"></script>
+
   <!-- vex css/js -->
   <script src="node_modules/vex-js/dist/js/vex.combined.min.js"></script>
   <script>vex.defaultOptions.className = 'vex-theme-os'</script>
@@ -130,31 +133,24 @@
     </div>
   </div>
 
-  <div id='speech-doc' class="" style="visibility: hidden;">
-    <div id="summernote"></div>
-  </div>
+  <form>
+    <textarea id="mytextarea"></textarea>
+  </form>
 
   </div>
-  <div class="loader" id="pre-loader" style="visibility: hidden;"></div>
+  <div class="loader" id="pre-loader" ></div>
 
   <!-- Main js-->
 
-  <script>
 
-    setTimeout(() => {
-      document.getElementById('pre-loader').style.visibility = 'visible'
-    }, 1500);
-  </script>
 
 
 
   <script>
+    var editor = textboxio.replace('#mytextarea');
+    $('.ephox-polish-editor-container').remove()
+    $('.ephox-polish-html-switch').remove()
 
-    $('#summernote').summernote({
-      placeholder: 'Speech-Doc'
-    });
-    $('.note-toolbar').remove()
-    $('.note-resizebar').remove()
 
   </script>
   <script src="js/flow-template/policy-flow template.js"></script>

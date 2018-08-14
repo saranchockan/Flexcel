@@ -26,7 +26,7 @@ var negFontColor = '#076BFF'
 
 document.getElementById('flow-navbar').style.visibility = 'hidden'
 document.getElementById('flows').style.visibility = 'hidden'
-//document.getElementById('speech-doc').style.visibility = 'hidden'
+document.getElementById('ephox_mytextarea').style.visibility = 'hidden'
 
 /* Sets red color font to 1ac and blue color font to 1nc */
 
