@@ -125,8 +125,8 @@ var autocomplete = {
 var fontColor = {
     'affFontColor': '#ff2600',
     'negFontColor': '#076BFF',
-    'affShadeColor':'#ffffff',
-    'negShadeColor':'#ffffff'
+    'affShadeColor': '#ffffff',
+    'negShadeColor': '#ffffff'
 }
 
 
@@ -306,7 +306,7 @@ Mousetrap.bind(['commands + d', 'ctrl+d'], function () {
 Mousetrap.bind(['commands + s', 'ctrl+s'], function () {
 
 
-    data['boldElements'] = bold_cell_tD
+    data['boldElements'] = bold_RC
     let content = "Some text to save into the file";
     var jsonObj = JSON.parse(JSON.stringify(data));
     var jsonContent = JSON.stringify(jsonObj);
@@ -421,23 +421,23 @@ Mousetrap.bind(['command+f', 'ctrl+f'], function () {
             '<div class="vex-custom-field-wrapper">',
             '<h4>AFF Font Color</h4>',
             '<div class="vex-custom-input-wrapper">',
-            '<input name="color" type="color" value="',affFontColor,'" />',
+            '<input name="color" type="color" value="', affFontColor, '" />',
             '</div>',
             '</div>',
             '<div class="vex-custom-field-wrapper">',
             '<div class="vex-custom-input-wrapper">',
             '<h4>NEG Font Color</h4>',
-            '<input name="color" type="color" value="',negFontColor,'" />',
+            '<input name="color" type="color" value="', negFontColor, '" />',
             '</div>',
             '<div class="vex-custom-field-wrapper">',
             '<div class="vex-custom-input-wrapper">',
             '<h4>AFF Column Color</h4>',
-            '<input name="color" type="color" value="',affShadeColor,'" />',
+            '<input name="color" type="color" value="', affShadeColor, '" />',
             '</div>',
             '<div class="vex-custom-field-wrapper">',
             '<div class="vex-custom-input-wrapper">',
             '<h4>NEG Column Color</h4>',
-            '<input name="color" type="color" value="',negShadeColor,'" />',
+            '<input name="color" type="color" value="', negShadeColor, '" />',
             '</div>',
             '</div>'
         ].join(''),
@@ -485,6 +485,7 @@ Mousetrap.bind(['command+b', 'ctrl+b'], function () {
     else {
         tDElement.style.fontWeight = 'bold'
         bold_cell_tD.push(tDElement)
+        bold_RC[index].push([r, c])
     }
 
 
@@ -648,13 +649,15 @@ function addAdvTab() {
                 afterChange(changes) {
 
 
-                    for (i = 0; i < bold_cell_tD.length; i++) {
-                        bold_cell_tD[i].style.fontWeight = 'bold'
-                    }
+
 
                     var auto_used = false;
 
                     if (!dataLoaded) {
+                        for (i = 0; i < bold_cell_tD.length; i++) {
+                            bold_cell_tD[i].style.fontWeight = 'bold'
+                        }
+
                         data['flow-data'][index] = handsontable_flows[index].getData()
 
                         /* Autocomplete Feature */
@@ -736,6 +739,7 @@ function addAdvTab() {
 
     data['added-adv-tabs'] = data['added-adv-tabs'] + 1
     data['flow-data'].splice(index + 1, 0, handsontable_flows[index + 1].getData())
+    bold_RC.splice(index + 1, 0, [])
 
 
     /* Removes all of Handsontable's licenses */
@@ -810,13 +814,14 @@ function addOffTab() {
                 colWidths: (document.getElementById('df').offsetWidth - 16) * widthoffSet,
                 afterChange(changes) {
 
-                    for (i = 0; i < bold_cell_tD.length; i++) {
-                        bold_cell_tD[i].style.fontWeight = 'bold'
-                    }
 
                     var auto_used = false;
 
                     if (!dataLoaded) {
+
+                        for (i = 0; i < bold_cell_tD.length; i++) {
+                            bold_cell_tD[i].style.fontWeight = 'bold'
+                        }
                         data['flow-data'][index] = handsontable_flows[index].getData()
 
                         /* Autocomplete Feature */
@@ -851,6 +856,8 @@ function addOffTab() {
 
     selectCell_rc.splice(index + 1, 0, [0, 0])
     data['flow-data'].splice(index + 1, 0, handsontable_flows[index + 1].getData())
+    bold_RC.splice(index + 1, 0, [])
+
 
     handsontable_flows[index + 1].selectCell(0, 0)
 
@@ -954,6 +961,9 @@ function deleteTab() {
     // Removes data index
     data['flow-data'].splice(deleteTab_index, 1)
 
+    bold_RC.splice(deleteTab_index, 1)
+
+
     //-- removes cell row and column element
     selectCell_rc.splice(deleteTab_index, 1)
 
@@ -989,7 +999,7 @@ function switchFlow() {
 function loadFlow() {
     if (dataSuccess && loadedData['flow_type'] == flow_type) {
 
-        bold_cell_tD = loadedData['boldElements']
+        bold_RC = loadedData['boldElements']
         $('#body').append('<div class="loader" id="pre-loader"></div>')
         document.getElementById('flow-navbar').style.visibility = 'hidden'
         document.getElementById('flows').style.visibility = 'hidden'
@@ -1089,6 +1099,8 @@ function loadFlow() {
         }
         document.title = w[0]
 
+
+        
         setTimeout(() => {
             nextTab()
             previousTab()
@@ -1096,7 +1108,23 @@ function loadFlow() {
             document.getElementById('flow-navbar').style.visibility = 'visible'
             document.getElementById('flows').style.visibility = 'visible'
             document.getElementById('ephox_mytextarea').style.visibility = 'visible'
+            dataLoaded = false
+            for(i = 0;i<bold_RC.length;i++){
+                console.log('WOAH')
+                for(x = 0;x<bold_RC[i].length;x++){
+                    var a = bold_RC[i][x]
+                    var r = a[0]
+                    var c = a[1]
+    
+                    if(typeof r != 'undefined' && typeof c != 'undefined'){
+                        handsontable_flows[i].getCell(r,c).style.fontWeight = 'bold'
+                        bold_cell_tD.push(handsontable_flows[i].getCell(r,c))
+                    }
+    
+                }
+            }    
         }, 2000);
+
 
     }
     else {
@@ -1153,7 +1181,7 @@ function getSelectedCellIndex() {
 function reset_rc() {
 
     var newRC = handsontable_flows[index].getSelected()
-    if(typeof newRC!='undefined'){
+    if (typeof newRC != 'undefined') {
         selectCell_rc[index] = [newRC[0], newRC[1]];
     }
 
@@ -1295,6 +1323,7 @@ $(function () {
                         });
                     }
                     else {
+                        
                         dataLoaded = false
                     }
 

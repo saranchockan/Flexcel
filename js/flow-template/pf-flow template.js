@@ -27,9 +27,8 @@ var negFontColor = '#076BFF'
 var affShadeColor = '#ffffff'
 var negShadeColor = '#ffffff'
 
-var bold = false;
-var aff_bold_rc = []
-var neg_bold_rc = []
+var bold_RC = [[],[]]
+
 
 
 

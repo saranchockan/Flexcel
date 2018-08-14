@@ -27,11 +27,7 @@ var negFontColor = '#076BFF'
 var affShadeColor = '#ffffff'
 var negShadeColor = '#ffffff'
 
-var bold = false;
-var bold_rc = [[],[],[],[],[],[],[],[],[],[],[],[],[],[]]
-
-var ind = 0;
-
+var bold_RC = [[],[],[],[],[],[],[],[],[],[],[],[],[],[]]
 
 
 /* Hides the flow and speech-doc until the screen is wholly rendered */
