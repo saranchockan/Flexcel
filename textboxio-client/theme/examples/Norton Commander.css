@@ -1,0 +1,25 @@
+/* Theme created by Andrew Herron, a textbox.io engineer */
+:root {
+  --nc-highlight: color(cyan lightness(40%));
+  --nc-header: rgb(253, 252, 106);
+
+  --primary-base: rgb(1,32,168);
+  --primary-base-lighter-80: color(var(--primary-base) lightness(30%));
+  --primary-base-transparent-50: color(var(--primary-base) alpha(50%));
+  --primary-text: cyan;
+  --primary-hover: var(--nc-highlight);
+  --primary-hover-text: black;
+  --primary-hover-border: cyan;
+  --primary-active: var(--nc-highlight);
+  --primary-active-text: black;
+  --primary-focus: var(--nc-header);
+
+  --secondary-base: color(var(--primary-base) alpha(80%));
+  --secondary-text: var(--primary-text);
+  --secondary-border: cyan;
+  --secondary-hover: var(--nc-highlight);
+  --secondary-hover-text: black;
+  --secondary-active: var(--primary-base);
+  --secondary-active-text: var(--nc-header);
+  --secondary-focus: var(--primary-focus);
+}

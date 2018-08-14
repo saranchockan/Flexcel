@@ -1,0 +1,26 @@
+/* Theme created by a textbox.io engineer */
+:root {
+  --mc-red: rgba(219,20,20, 1);
+  --mc-green: rgba(3,156,0,1);
+  --mc-yellow: rgba(255,235,54,1);
+
+  --primary-base: var(--mc-red);
+  --primary-base-lighter-80: color(var(--primary-base) lightness(60%));
+  --primary-base-transparent-50: color(var(--primary-base) alpha(50%));
+  --primary-text: white;
+  --primary-active: var(--mc-green);
+  --primary-active-text: var(--mc-yellow);
+  --primary-hover: rgba(0,0,0, 0);
+  --primary-hover-text: rgba(255,255,255, 1);
+  --primary-hover-border: var(--mc-green);
+  --primary-focus: var(--mc-yellow);
+
+  --secondary-base: rgba(255,255,255, 1);
+  --secondary-text: red;
+  --secondary-border: var(--mc-green);
+  --secondary-hover: var(--mc-green);
+  --secondary-hover-text: var(--mc-yellow);
+  --secondary-active: color(var(--mc-green) alpha(50%));
+  --secondary-active-text: var(--mc-red);
+  --secondary-focus: color(var(--primary-focus) lightness(48  %));
+}

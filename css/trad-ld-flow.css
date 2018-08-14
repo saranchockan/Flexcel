@@ -39,6 +39,21 @@ body {
     height: 100vh;
 }
 
+#mytextarea{
+    position: relative;
+    float: right;
+    width: 33.5vw;
+    height: 100vh;
+}
+
+
+#ephox_mytextarea{
+    position: relative;
+    float: right;
+    width: 33.5vw;
+    height: 100vh;
+}
+
 .tab_pane{
     height: 100%;
     width: 100%;

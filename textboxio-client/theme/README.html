@@ -1,0 +1,177 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge"/>
+    <title>Textbox.io theme builder</title>
+    <script type='text/javascript' src='../textboxio/textboxio.js'></script>
+    <style>
+      body {
+        font-family: sans-serif;
+        overflow-y: scroll;
+      }
+      a.mono {
+        font-family: monospace;
+      }
+      span.code {
+        font: normal 1.1em monospace;
+        background-color: rgba(0,0,0,0.1);
+        border: 1px solid rgba(0,0,0,0.2);
+      }
+      span.status {
+        padding: 1em;
+        color: white;
+        position: fixed;
+        right:2%;
+        top:2em;
+      }
+      span.status-off {
+        background: red;
+      }
+      span.status-off::after {
+        content: 'Off';
+      }
+      span.status-off {
+        background: red;
+      }
+      span.status-on::after {
+        content: 'On';
+      }
+      span.status-on {
+        background: green;
+      }
+      .accordion {
+        padding: 0.5em;
+        background-color: rgba(0, 0, 0, 0.2);
+        border: 1px solid transparent;
+      }
+      .accordion:hover {
+        cursor: pointer;
+        border-color: black;
+        background-color: rgba(0, 0, 0, 0.1);
+      }
+      .accordion:before {
+        content: '\025B6';
+        font-size: 12px;
+        margin: 5px;
+        display: inline-block;
+        transition: transform 0.1s linear 0.2s;
+        transform: rotate(0deg);
+      }
+      .accordion.active:before {
+        transition: transform 0.1s linear;
+        transform: rotate(90deg);
+      }
+      .panel {
+        transition: opacity 0.3s ease, max-height 0.2s linear 0.1s;
+        max-height: 0px;
+        opacity: 0;
+        overflow: hidden;
+      }
+      .panel.show {
+        max-height: 37469px;
+        opacity: 1;
+      }
+    </style>
+
+    <!-- live reload script for the theme builder -->
+    <script type='text/javascript' src='http://localhost:37469/livereload.js'></script>
+
+    <script>
+      var instantiateTextbox = function () {
+        // set the live reload status colour
+        var status = document.querySelector('.status');
+        if (status !== undefined) {
+          if (typeof window.LiveReload === 'object') {
+            status.classList.add('status-on');
+          } else {
+            status.classList.add('status-off');
+          }
+        }
+
+        // listen for clicks on accordion elements
+        document.body.addEventListener('click', function (event) {
+          if (event.target.classList.contains('accordion')) {
+            var header = event.target;
+            var panel = header.nextElementSibling;
+            header.classList.toggle('active');
+            panel.classList.toggle('show');
+          }
+        });
+
+        // load textbox.io with default settings twice, so one of them is in the more drawer
+        textboxio.replaceAll('textarea', {
+          ui: {
+            toolbar: {
+              items: [
+                'undo', 'insert', 'style', 'emphasis', 'align', 'listindent', 'format', 'tools',
+                'undo', 'insert', 'style', 'emphasis', 'align', 'listindent', 'format', 'tools'
+              ]
+            }
+          }
+        });
+      };
+    </script>
+  </head>
+
+  <body onload="instantiateTextbox();">
+    <span class="status">Live Reload: </span>
+    <div style="width:75%; margin:auto">
+        <h1>Textbox.io Theme Tooling</h1>
+        <p>Welcome to the theme tool for Textbox.io. This tool requires knowledge of CSS syntax and familiarity with command line tools (see "Building your theme" below).</p>
+        <p><strong>Note:</strong> This tool can be used directly from the local filesystem by Chrome, FireFox and Safari. No web server is required unless using Internet Explorer or Edge due to local filesystem security restrictions.</p>
+
+        <p>To create a theme:
+          <ul>
+            <li>Colors are specified in <span class="code">theme.css</span> using standard CSS syntax.</li>
+            <li>A simple Grunt buildscript is provided to compile colors from <span class="code">theme.css</span> file into Textbox.io CSS files, which are previewed using this page.</li>
+            <li>The output CSS files are placed in the <span class="code">/textboxio/resources/css</span> folder ready for the <span class="code">/textboxio</span> folder to be deployed to your server.</li>
+          </ul>
+          <strong>Note:</strong> Compiled themes are specific to the version of Textbox.io deployed.  When deploying a Textbox.io update you will need to recompile and redeploy your theme.
+        </p>
+        <!-- This width is specifically set so that some buttons are in the more drawer -->
+        <textarea id="textbox" style="width: 875px; height: 350px;">
+            <h2>This is Textbox.io</h2>
+            <p>This editor is configured to duplicate all default buttons in the more drawer. Open the more drawer and the accessibility dialog to get a good cross-section of how your color changes impact the editor UI.</p>
+            <p>Any dialogs or menus that are open will live update as theme changes are made.</p>
+
+            <table border="1" style="border-collapse: collapse; width: 100%;"><tbody>
+              <tr><td><br /></td><td><br /></td><td><br /></td><td><br /></td></tr>
+              <tr><td><br /></td><td><br /></td><td><br /></td><td><br /></td></tr>
+            </tbody></table>
+            <p>This table can be used to test changes to the focus color when cells are selected, although content styles do not live reload so a page refresh is unfortunately required.</p>
+        </textarea>
+        <span style="height: 0.3em">&nbsp;</span>
+        <div>
+          <div class="accordion"><span class="arrow"></span>Building your theme</div>
+          <div class="panel">
+            <p>To begin the theme builder process:
+              <ol>
+                <li>If you don't have nodejs version 5 or above installed, follow the instructions at <a target="_blank" href="https://nodejs.org/">https://nodejs.org/</a>. If you are still using version 4 please contact us for assistance.</li>
+                <li>Inside the folder where you found this document, execute the command <span class="code">npm run watch</span>. The first time you do this it may take a minute to download the grunt and postcss tools.</li>
+                <li>Once you see grunt is <span class="code">Waiting...</span> refresh this page. If the status box in the top right does not turn green, wait a bit and try again.</li>
+              </ol>
+            </p>
+            <p>At this point any changes to <span class="code">theme.css</span> will automatically reload in this page after a few seconds. As this page references the the <span class="code">/textboxio</span> folder directly, you can rest assured uploading the editor distribution to your server will use the theme correctly.</p>
+            <h2>Troubleshooting</h2>
+            <p>Rather than live reloading, you can execute <span class="code">npm run build</span> for once-off CSS compilation. Reloading the page will then load the new CSS file (browser cache permitting).</p>
+          </div>
+        </div>
+        <div>
+          <div class="accordion active"><span class="arrow"></span>Tips</div>
+          <div class="panel show">
+            <p>The Textbox.io UI is designed with contrast in mind. While <span class="code">theme.css</span> is flexible enough to create a completely flat editor (for example, by using the same background color for the main toolbar and more drawer) it is not recommended. Variables are linked in the default <span class="code">theme.css</span> to generate related colors in the UI.</p>
+            <p>Two <a target="_blank" href="http://cssnext.io">cssnext</a> features are used in the default <span class="code">theme.css</span>:
+              <ol>
+                <li>CSS variables are starting to become common, but if you haven't seen them before the syntax is quite easy to use.<br />
+                <a class="mono" target="_blank" href="http://cssnext.io/features/#custom-properties-var">http://cssnext.io/features/#custom-properties-var</a></li>
+                <li>The CSS color function is still very new, but it's also very handy. Be sure to look at the list of color modifiers; the default style uses only <span class="code">alpha</span> and <span class="code">lightness</span> but there are plenty available.<br />
+                <a class="mono" target="_blank" href="http://cssnext.io/features/#color-function">http://cssnext.io/features/#color-function</a></li>
+              </ol>
+            </p>
+            <p>Our team has created some sample themes for your inspiration and enjoyment. Ephox takes no responsibility for themes created in poor taste.</p>
+          </div>
+        </div>
+    </div>
+  </body>
+</html>

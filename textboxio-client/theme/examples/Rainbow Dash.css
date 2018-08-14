@@ -1,0 +1,20 @@
+:root {
+  --primary-base: rgba(109,139,199, 1);
+  --primary-base-lighter-80: rgba(115,154,229, 1);
+  --primary-base-transparent-50: rgba(109,139,199, 0.5);
+  --primary-text: rgba(255,255,255, 1);
+  --primary-hover: rgba(141,112,230, 1);
+  --primary-hover-text: rgba(255,255,255, 1);
+  --primary-hover-border: rgba(206,207,219, 1);
+  --primary-active: rgba(235,236,245, 1);
+  --primary-active-text: rgba(88,112,161, 1);
+  --primary-focus: rgba(141,112,230, 1);
+  --secondary-base: rgba(255,255,255, 1);
+  --secondary-text: rgba(88,112,161, 1);
+  --secondary-border: rgba(206,207,219, 1);
+  --secondary-hover: rgba(235,236,245, 1);
+  --secondary-hover-text: rgba(88,112,161, 1);
+  --secondary-active: rgba(206,207,219, 1);
+  --secondary-active-text: rgba(88,112,161, 1);
+  --secondary-focus: rgba(141,112,230, 1);
+}

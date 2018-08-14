@@ -1,0 +1,165 @@
+:root {
+  /*
+   * The general terms used in variable names:
+   *
+   * base        - standard background
+   * text        - text on base
+   * hover       - background when hovering
+   * hover-text  - text on hover
+   * active      - background when active (pressed / selected)
+   * active-text - text when active
+   * focus       - focus highlight color
+   */
+
+
+  /*
+   * Used for:
+   *
+   * - primary toolbar background
+   * - more drawer toolbar separators
+   * - dialog title bar background
+   * - background of 'tap to edit' button on mobile
+   */
+  --primary-base: rgb(41, 41, 41);
+
+  /*
+   * Used for:
+   *
+   * - more drawer toolbar background
+   * - primary toolbar separators
+   *
+   * The % lightness may need adjusting for your choice of primary-base,
+   * partcularly if it's not a dark color.
+   */
+  --primary-base-lighter-80: color(var(--primary-base) lightness(20%));
+
+  /*
+   * Used for:
+   *
+   * - code view corner button background
+   * - all UI spinners (e.g. insert web image, upload images, paste)
+   * - mobile "tap to edit" background mask
+   */
+  --primary-base-transparent-50: color(var(--primary-base) alpha(50%));
+
+  /*
+   * Used for:
+   *
+   * - toolbar button text (including icons, which are font glyphs)
+   * - menu item text (when not in a hover state)
+   * - dialog text
+   * - text of 'tap to edit' button on mobile
+   */
+  --primary-text: rgb(250, 250, 250);
+
+  /*
+   * Used for:
+   *
+   * - background of hovered toolbar items
+   */
+  --primary-hover: transparent;
+
+  /*
+   * Used for:
+   *
+   * - text of hovered toolbar items
+   */
+  --primary-hover-text: var(--primary-text);
+
+  /*
+   * Used for:
+   *
+   * - hover borders on toolbar items
+   */
+  --primary-hover-border: rgb(138,138,138);
+
+
+  /*
+   * Used for:
+   *
+   * - background of active (pressed) toolbar items
+   */
+  --primary-active: rgb(70,70,70);
+
+
+  /*
+   * Used for:
+   *
+   * - text of active (pressed) toolbar items
+   */
+  --primary-active-text: var(--primary-text);
+
+
+  /*
+   * Used for:
+   *
+   * - Focus highlight in the toolbar, menus and dialogs
+   * - Outline of selected table cells in the content
+   */
+  --primary-focus: rgb(44, 121, 230);
+
+  /*
+   * Used for:
+   *
+   *  - drop down menu background
+   *  - dialog background
+   */
+  --secondary-base: var(--primary-text);
+
+  /*
+   * Used for:
+   *
+   * - drop down menu text
+   * - dialog text
+   */
+  --secondary-text: rgb(31, 31, 31);
+
+  /*
+   * Used for:
+   *
+   * - drop down menu border
+   * - dialog border
+   * - active and hover borders on dialog buttons
+   * - dialog disabled button text
+   */
+  --secondary-border: rgb(184, 184, 184);
+
+  /*
+   * Used for:
+   *
+   * - background of hovered items on 'secondary base' color
+   */
+  --secondary-hover: rgb(221, 221, 221);
+
+  /*
+   * Used for:
+   *
+   * - text of hovered drop down menu items
+   * - text of hovered buttons in dialogs
+   */
+  --secondary-hover-text: var(--secondary-text);
+
+  /*
+   * Used for:
+   *
+   * - background of active buttons on 'secondary base' color
+   */
+  --secondary-active: var(--secondary-border);
+
+  /*
+   * Used for:
+   *
+   * - text of active buttons on 'secondary base' color
+   */
+  --secondary-active-text: var(--secondary-text);
+
+  /*
+   * Used for:
+   *
+   * - focus highlight within drop down menu items (e.g. font size)
+   * - focus highlight in dialogs
+   * - line highlight on active tabs
+   */
+  --secondary-focus: var(--primary-focus);
+
+}

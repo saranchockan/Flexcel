@@ -1278,10 +1278,10 @@ $(function () {
         }
         $('.loader').remove()
         document.getElementById('df').classList.add('elementToFadeInAndOutLeft')
-        document.getElementById('speech-doc').classList.add('elementToFadeInAndOutRight')
+        //document.getElementById('speech-doc').classList.add('elementToFadeInAndOutRight')
         document.getElementById('flow-navbar').style.visibility = 'visible'
         document.getElementById('flows').style.visibility = 'visible'
-        document.getElementById('speech-doc').style.visibility = 'visible'
+        //document.getElementById('speech-doc').style.visibility = 'visible'
     }, 1000);
 });
 

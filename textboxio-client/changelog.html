@@ -1,0 +1,736 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html lang="en" xml:lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Textbox.io Release Notes</title>
+<style type="text/css">
+			body, tr {
+				font-family: Verdana, Helvetica, Arial, Tahoma, sans-serif;
+				font-size: 11px;
+			}
+
+			h1, h2, h3, h4, h5, h6 {
+				font-family: Arial, sans-serif;
+				letter-spacing: -0.5px;
+			}
+
+			h1 {
+				font-size: 20px;
+				padding-top: 5px;
+				padding-bottom: 5px;
+				color: rgb(100,100,100);
+			}
+
+			h2 {
+				border-top: 1px solid rgb(220,220,220);
+				color: rgb(50,50,50);
+				padding-top: 15px;
+				margin-top: 10px;
+				font-size: 14px;
+			}
+
+			h2 a{
+				color: rgb(50,50,50);
+				text-decoration: none;
+			}
+
+			h2 a:visited{
+				color: rgb(50,50,50);
+			}
+
+			h2 a:hover{
+				border-bottom: dotted 1px #121d52;
+			}
+
+			h2.faq {
+				border-top: 1px solid rgb(220,220,220);
+				color: rgb(50,50,50);
+				padding-top: 15px;
+				margin-top: 10px;
+				font-size: 14px;
+			}
+
+			h3 {
+				margin-top: 20px;
+				margin-bottom: 0px;
+				font-size: 14px;
+				font-weight: normal;
+			}
+			h4 {
+				margin-top: 15px;
+				margin-bottom: 0px;
+				font-size: 12px;
+				font-weight: normal;
+			}
+			h5 {
+
+			}
+			h6 {
+				margin-top: 15px;
+				margin-bottom: -10px;
+				padding: 0px;
+				font-size: 12px;
+				letter-spacing: 0px;
+			}
+			p, li, td {
+				line-height: 17px;
+			}
+			code {
+				background-color: #F3F3F3;
+				background-position: 100% 50%;
+			}
+		</style>
+</head>
+<body role="main">
+<h1>Ephox Textbox.io Release Notes</h1>
+<p>
+					This document contains information on changes between versions of Textbox.io.
+					For more detail and working examples, please consult the developer documentation.
+					Older changelog entries are available on the <a href="http://ephox.com/releases">Ephox releases site</a>.
+				</p>
+    
+    
+    <h2>Textbox.io 2.4.2.65</h2>
+<h3>New Features</h3>
+<ul><li>A custom color dialog has been added to the font, table border and table background color pickers. It can be disabled using the <span style="font-family: monospace">custom</span> property on the <span style="font-family: monospace"><a href="https://docs.ephox.com/display/tbio/colors">colors</a></span> configuration option.</li></ul>
+<h3>Bug Fixes</h3>
+<ul>
+<li>Copying and pasting links could convert relative URLs to incorrect absolute URLs on some browsers</li>
+<li>Photos with EXIF rotation were not rotated to the correct orientation on insert</li>
+<li>Editor height was incorrect in sticky mode</li>
+<li>Backwards selections on Firefox ESR 52 caused problems with various dialogs</li>
+<li>Autoresize fixes and improvements:
+        <ul>
+          <li>Editor didn't always shrink when content was removed</li>
+          <li>Menus could be cut off by page elements outside of the editor</li>
+          <li>Autoresize mode now uses the initial editor height as minimum height</li>
+          <li>Toolbar appeared in the wrong position after hiding then bringing back the editor</li>
+          <li>Adjusting table border height did not increase editor height</li>
+        </ul>
+      </li>
+<li>Fixes for IE:
+        <ul>
+          <li>Certain formatting in Word documents resulted in an error on paste</li>
+          <li>Attempting to paste from Word multiple times in quick succession could cause a paste failure</li>
+          <li>Copying from IE and pasting into Textbox in other browsers could include unnecessary metadata</li>
+        </ul>
+      </li>
+</ul>
+
+    <h2>Textbox.io 2.4.1.65</h2>
+<h3>New Features</h3>
+<ul>
+<li>New "autoresize" feature allows <span style="font-family: monospace">replace()</span> style editors to behave more like <span style="font-family: monospace">inline()</span> editors, adjusting the editor height to the content instead of using scroll bars.
+        <ul>
+          <li>To turn on this feature, enable the <span style="font-family: monospace"><a href="https://docs.ephox.com/display/tbio/autoresize">autoresize</a></span> property of the ui configuration.</li>
+          <li>Enabling this feature also turns on the new window docking toolbar behaviour by default (see below).</li>
+        </ul>
+      </li>
+<li>Window docking toolbar behaviour from <span style="font-family: monospace">inline()</span> editor style is now available to <span style="font-family: monospace">replace()</span> editor style as well. This greatly improves the editing experience for very tall editors.
+        <ul>
+          <li>This feature is not enabled by default unless autoresize is enabled. To turn it on, enable the <span style="font-family: monospace"><a href="https://docs.ephox.com/display/tbio/toolbar">sticky</a></span> property of the toolbar configuration.</li>
+          <li>This behaviour ensures the toolbar is always visible if any part of the editor is visible. The effect applies whens scrolling down a browser window; as the toolbar reaches the top of the window it docks there rather than allowing itself to be hidden. The toolbar will stick until the editor has been completely scrolled off the visible area.</li>
+        </ul>
+      </li>
+<li>Applying block styles other than <span style="font-family: monospace">div</span> (e.g. Heading, pre) now removes all formatting within the blocks that change</li>
+<li>New <a href="https://docs.ephox.com/display/tbio/css"><span style="font-family: monospace">css.showDocumentStyles</span></a> configuration option enables a dynamic style menu based on the content CSS. See the documentation for full details and examples.</li>
+<li>New <a href="https://docs.ephox.com/display/tbio/colors"><span style="font-family: monospace">ui.colors</span></a> configuration option to customise the list of colors in the color widget. The design of the color widget has changed slightly to accomodate this; all colors now have borders rather than just white.</li>
+<li>New <a href="https://docs.ephox.com/display/tbio/macros"><span style="font-family: monospace">macros.allowed</span></a> configuration option to adjust the list of default content macros (e.g. markdown) active within the editor. See the documentation for a list of configurable macros.</li>
+<li>Several additions and improvements to Word import, including:
+        <ul>
+          <li>Margins and indentation on multilevel lists and those with custom formatting are converted better</li>
+          <li>Ordered lists now retain their numbering in more cases, including when broken up by paragraphs and other elements</li>
+          <li>List items with borders import correctly</li>
+          <li>Added explicit support for importing Word equations as images</li>
+        </ul>
+      </li>
+</ul>
+<h3>Bug Fixes</h3>
+<ul>
+<li>BR tags were not added to empty P tags</li>
+<li>Using <span style="font-family: monospace">ui.locale</span> editor configuration overrode changes made to the spell checker language via the menu after reloading</li>
+<li>Pressing enter to exit a list item did not retain inline formatting</li>
+<li>Insert Link dialog did not transition opacity correctly in Safari 11.1</li>
+<li>Editor load event was unnecessarily delayed by up to a second</li>
+</ul>
+    <h2>Textbox.io 2.4.0.47</h2>
+<h3>Please Note</h3>
+<ul><li>Bookmark targets (all tags with an <span style="font-family: monospace">id</span> attribute) are now shown using a small bookmark icon within the content</li></ul>
+<h3>New Features</h3>
+<ul>
+<li>A new Bookmark feature is now available in the default Insert menu
+        <ul>
+          <li>Insert Bookmark generates bookmark names automatically for ease of use</li>
+          <li>When choosing a target bookmark in the Insert Hyperlink dialog, contextual text is shown rather than the bookmark name</li>
+        </ul>
+      </li>
+<li>Top, middle and bottom Cell Vertical Alignment options are now available in the contextual table toolbar</li>
+<li>Textbox.io has taken full control over clipboard operations on browsers that support the HTML5 clipboard API. This addresses a number of issues:
+        <ul>
+          <li>Copying content within or between Textbox.io editors now ignores the <a href="http://docs.ephox.com/display/tbio/paste">paste configuration</a> and always retains styles. This allows clean paste to be enforced without frustrating the user experience by removing styles when pasting editor-created content.</li>
+          <li>Copying links no longer translates relative URLs to absolute</li>
+          <li>Paste is now more reliable and less likely to result in unwanted cursor movement</li>
+          <li>Pasting HTML is now preferred over pasting an image when both are on the clipboard</li>
+          <li>Retaining styles while pasting HTML from external sources is no longer subject to browser implementation differences</li>
+          <li>Pasting images from macOS Preview into Safari is now supported, by converting the TIFF data to PNG</li>
+        </ul>
+      </li>
+<li>Support for clipboard changes in an upcoming Safari release that breaks pasting from Microsoft Office. We have worked with Apple and made adjustments in this release to minimise the impact of these changes, but there are some things to be aware of:
+        <ul>
+          <li>Flash is no longer required to paste images. More image types are supported than on any other browser, but some legacy documents (particularly when using Word 2011) will not import images at all.</li>
+          <li>The browser has taken control over the style import process
+            <ul>
+              <li>Cleaning styles behaves exactly as it did before</li>
+              <li>Retain styles should <i>appear</i> identical but may have different styling characteristics in the HTML</li>
+            </ul>
+          </li>
+          <li>Most lists are imported exactly as before, but in some edge cases Safari strips information the editor needs to identify lists. This is tracked as WebKit bug <a href="https://bugs.webkit.org/show_bug.cgi?id=182938">182938</a>.</li>
+          <li>When pasting content from Microsoft Excel, all office-related data is stripped. If the <a href="https://docs.ephox.com/display/tbio/paste">paste</a> configuration is not set, this means the editor will default to "retain" styles instead of "prompt".</li>
+        </ul>
+      </li>
+</ul>
+<h3>Bug Fixes</h3>
+<ul>
+<li>Image selection sometimes worked incorrectly on Firefox with the spelling service enabled</li>
+<li>Using the <span style="font-family: monospace">content.set()</span> API in the same function as creating an editor did not run input filters over the content</li>
+<li>Editing HTML with a textarea in the content had unreliable cursor positioning, sometimes causing HTML tags to be incorrectly added inside the textarea</li>
+<li>Calling <span style="font-family: monospace">editor.content.uploadImages()</span> no upload handler set removed the code view button</li>
+<li>Image resize did not correctly preserve the aspect ratio on newer Firefox releases</li>
+<li>Applying inline styles using the style menu added classes to the selection instead of replacing them</li>
+<li>The <span style="font-family: monospace">content.selection.getText()</span> API sometimes included zero-width characters</li>
+<li>Resizing the browser window did not update the toolbar position of docked toolbars for inline editing sections. The position is now recalculated on window resize and every time a section activates.</li>
+<li>Applying a block style after triple clicking a paragraph in Chrome or Safari incorrectly applied the style to the following block</li>
+<li>Style tags were included in the content when pasting from HTML sources such as Google Docs</li>
+<li>Repeatedly pasting embeddable links in Firefox did not embed the links</li>
+</ul>
+    <h2>Textbox.io 2.3.0.36</h2>
+<h3>New Features</h3>
+<ul>
+<li>Brand new word import process that supports more types of images, is more reliable and easier to maintain. Some of the fixes include:
+        <ul>
+          <li>Single blank lines between lists are no longer removed</li>
+          <li>Unordered lists with wingding bullets are no longer imported as ordered lists</li>
+          <li>Local images from documents with "rely on vml" set are now supported</li>
+          <li>Unsupported list types are now imported as plain lists instead of paragraphs</li>
+          <li>List font family and left margins are now included with "keep formatting"</li>
+        </ul>
+      </li>
+<li>The Editor API now supports a <a href="http://docs.ephox.com/display/tbio/editor.events.change">change event listener</a>
+</li>
+<li>When multiple cells of a table are selected, backspace or delete now clears the contents of all selected cells</li>
+<li>Editor popup and dialog elements are now attached to the page body element to operate better in modal dialog frameworks</li>
+<li>Editor popups have switched from <span style="font-family: monospace">position: fixed</span> to <span style="font-family: monospace">position: absolute</span> and now maintain their position relative to the editor when scrolling the page</li>
+</ul>
+<h3>Bug Fixes</h3>
+<ul>
+<li>Paste from Microsoft Word was broken in Safari on OSX 10.11 and earlier</li>
+<li>Comment tags had their contents HTML encoded incorrectly</li>
+<li>Clicking below content did not set the cursor correctly in IE</li>
+<li>Paste within the editor included unnecessary styles in Chrome and Safari</li>
+<li>Noscript tags had their contents HTML encoded incorrectly</li>
+<li>Editing a document that begins with a comment could fail to load the editor on newer browsers</li>
+<li>Improved behaviour of toggling off inline formatting on an empty line</li>
+<li>Table resize handles sometimes remained in the document incorrectly</li>
+<li>Pasting after a space at the end of a line could leave the cursor in the wrong position</li>
+<li>Inserting a link over an image could sometimes delete the image</li>
+<li>When pasting the cursor would briefly jump to the end of the document and back</li>
+<li>Markdown now converts both one and two dashes to an &amp;mdash;</li>
+<li>Media insertion would sometimes fail on iOS11 with Check Spelling on</li>
+<li>Undo save points were incorrectly triggered for every misspelt word highlight</li>
+<li>Lists with style <span style="font-family: monospace">list-style-type:none</span> could sometimes lose content</li>
+<li>An extra undo save point was incorrectly triggered when pasting content from MS Word</li>
+<li>Insert Link URL popup menu incorrectly inherited rounded corners</li>
+<li>The code view corner button was positioned incorrectly when scrollbars were enabled and the editor UI was in an RTL language</li>
+<li>On IE11, activating editor full screen inside an iframe triggered an error in the console and stopped the editor from functioning</li>
+<li>&amp;lt; and &amp;gt; entities inside HTML attributes were incorrectly decoded into &lt; and &gt;</li>
+<li>Deleting all content in Internet Explorer and then clicking below the cursor moved the cursor into an incorrect position</li>
+</ul>
+    <h2>Textbox.io 2.2.1.57</h2>
+<h3>Please Note</h3>
+<ul>
+<li>The <span style="font-family: monospace">editor.content.getSelectedText</span> API has been deprecated. It has moved to <span style="font-family: monospace">editor.content.selection.getText</span> and will be removed in a future release.</li>
+<li>The mobile editor UI currently renders on top of all other page elements and blocks touch events outside of the editor. Using a custom button to open a dialog can block user input on mobile.</li>
+</ul>
+<h3>New Features</h3>
+<ul>
+<li>New editor <a href="http://docs.ephox.com/display/tbio/selection">selection APIs</a>. These are fully supported but provide bare minimum functionality; feedback and use cases are welcome.</li>
+<li>Flash is no longer required to paste images on Edge version 15 or higher. The updated browser APIs also allow for the best quality output when pasting from Microsoft Word. This change does not apply to Edge 14 and earlier.</li>
+</ul>
+<h3>Bug Fixes</h3>
+<ul>
+<li>Keyboard selection was broken in IE11 when spanning across blank lines with spell checking active</li>
+<li>Applying inline formatting to multiple table cells was causing incorrect HTML generation</li>
+<li>Calling <span style="font-family: monospace">editor.content.setDirty(false)</span> immediately after typing resulted in a dirty event firing a few seconds later</li>
+<li>Creating an inline editor inside a table cell no longer treates the table as part of the editor</li>
+<li>Changing the list type of a nested list sometimes prevented the list item from being indented</li>
+<li>Editing links on mobile sometimes did not apply the updated URL correctly</li>
+<li>Improved punctuation detection for automatically linked URLs when typing content</li>
+<li>Using tab to navigate between cells could put the cursor in an invalid location on Firefox</li>
+<li>&amp; characters in URLs were not encoded correctly</li>
+<li>Pressing enter after removing bold at the end of the line sometimes applied bold formatting to the new line</li>
+<li>Merging two entire rows in a table did not give the merged row the correct height</li>
+<li>Unable to toggle off a list when two different lists are created one after the other</li>
+<li>The find dialog active highlight color did not display correctly on Firefox</li>
+<li>Creating inline editors from elements within table cells caused UI and significant feature issues</li>
+<li>Tab between cells with leading whitespace on Firefox placed the cursor in the wrong position</li>
+<li>Applying format changes with cell selection no longer applies the change to whitespace at the edge of the cell</li>
+<li>Using the keyboard to select text across blank lines on Internet Explorer could be erratic</li>
+<li>Inserting a hyperlink on an image in Internet Explorer 11 deleted the image</li>
+<li>Keep Formatting did not retain list styles where the document list style had been edited</li>
+<li>Updated JSBeautifier to fix issue with spaces being inserted between sibling hyperlinks</li>
+</ul>
+    <h2>Textbox.io 2.2.0.119</h2>
+<h3>Please Note</h3>
+<ul><li>The mobile editor UI currently renders on top of all other page elements and blocks touch events outside of the editor. Using a custom button to open a dialog can block user input on mobile.</li></ul>
+<h3>New Features</h3>
+<ul>
+<li>Rich content embedding when a URL is typed or pasted on a blank line. Links to rich content will be replaced with embedded content when using the new <a href="http://docs.ephox.com/display/tbio/embed">Link Embed</a> option in the Textbox.io SDK with services included. Supported media includes:
+        <ul>
+          <li>Social media and other sharable content (e.g. youtube, instagram, flickr)</li>
+          <li>Image URLs for JGP, PNG and GIF files are converted to images</li>
+          <li>Video URLs for MP4 files are converted to videos</li>
+          <li>Other content links will be shown as a summary card</li>
+        </ul>
+      </li>
+<li>Nested tables are now supported</li>
+<li>Table cells can now be split into columns or rows</li>
+<li>Multiple columns or rows can be deleted at the same time</li>
+<li>Table cell styles are now inherited on cell split, row insert and column insert</li>
+<li>Tab (and shift-tab) can now be used to adjust list indent</li>
+<li>Improved reliability of image resize operations, and interaction with images during upload</li>
+<li>Insert Link dialog with a dropdown arrow for better discovery of document target options</li>
+<li>Link text can now be updated in the edit link dialog</li>
+<li>Information about links that failed <a href="http://docs.ephox.com/display/tbio/validation">validation</a> is now shown on the edit link dialog</li>
+<li>Improved performance for large documents in code view</li>
+<li>Reworded messages shown when failing to pasting images on Safari due to browser limitations. Changed message color from error (red) to info (blue).</li>
+</ul>
+<h3>Bug Fixes</h3>
+<ul>
+<li>Clicking links in banner messages opened the link twice on Safari</li>
+<li>Dropping an image between paragraphs on Chrome for Windows may have caused the browser to unload the entire page</li>
+<li>Using the heading markdown macro inside a list item split the list</li>
+<li>Inserting a row on a table without width styles added width styles to the new row</li>
+<li>Visual artifact left in the document after pasting on FireFox and Internet Explorer</li>
+<li>Ancestor elements on the outer web page with "overflow: hidden" style caused the Textbox UI to collapse on mobile platforms</li>
+<li>Document line-height style caused the code view icon to be positioned incorrectly</li>
+<li>Table borders on nested tables were not rendered correctly</li>
+<li>Table navigation was not consistent in Firefox with nested tables</li>
+<li>Inserting a table from a toolbar button instead of the default menu item did not set focus back to the editor</li>
+<li>Editing nested table properties sometimes applied changes to the outer table incorrectly</li>
+<li>Setting table height to a % value and resizing a row adjusted the table height incorrectly</li>
+<li>On IE11, clicking an input element with placeholder text outside the editor while a menu is open causes the placeholder text to become editable</li>
+<li>Table cursor sometimes appeared on a different cell than was clicked</li>
+<li>Accessiblity updates to multiple dialogs</li>
+<li>Image upload process caused the image selection to be lost</li>
+<li>Undo did not update the dirty state</li>
+<li>Auto linking often included trailing punctuation in the link URL</li>
+<li>Incorrect formatting applied to new empty lines in some scenarios</li>
+</ul>
+    <h2>Textbox.io 2.1.0.182</h2>
+<h3>Please Note</h3>
+<ul><li>The mobile editor UI currently renders on top of all other page elements and blocks touch events outside of the editor. Using a custom button to open a dialog can block user input on mobile.</li></ul>
+<h3>New Features</h3>
+<ul>
+<li>Redesigned hyperlink experience
+        <ul>
+          <li>Insert and edit link dialogs have been combined into a single expandable dialog</li>
+          <li>Invalid links will be highlighted when using the new <a href="http://docs.ephox.com/display/tbio/validation">Link Validation</a> option in the Textbox.io SDK with services included</li>
+          <li>The Link URL field now offers suggestions from within the document as well as recently used links</li>
+          <li>Links can be created to any heading within the content.  Appropriate anchors will be added to the HTML when the link is created.</li>
+          <li>Links can be created to the top and bottom of the content.  Appropriate anchors will be added to the HTML when the content is saved.</li>
+          <li>Legacy anchors in the content will be listed with contextual content to help identify them</li>
+          <li>Remove link is now available on the context menu</li>
+          <li>Document links (including anchor links) can be followed through the context menu, ⌘ + click on OS X, or ctrl + click on other desktop platforms</li>
+        </ul>
+      </li>
+<li>Improved spell checking experience when using the spelling service available in the Textbox.io SDK with services included
+        <ul>
+          <li>Spelling highlights are now updated across the entire visible area of the document, instead of only next to the cursor</li>
+          <li>Support for multi language spell checking on documents with embedded language codes. These codes can be applied with granularity as small as a single word using the <a href="http://docs.ephox.com/display/tbio/Command+Item+IDs">language</a> menu. This feature works with HTML standard <span style="font-family: monospace">lang</span> attributes in the content.</li>
+          <li>The editor's default spelling language can be adjusted to any of our <a href="http://docs.ephox.com/display/tbio/Checking+Spelling">supported spelling languages</a> by the user through the settings menu, and this preference is remembered on a per-site basis</li>
+          <li>Autocorrect can now be disabled by default in the <a href="http://docs.ephox.com/display/tbio/spelling">Spelling</a> configuration option</li>
+        </ul>
+      </li>
+<li>Editor interface accessibility support now works with VoiceOver on iOS devices</li>
+<li>Rewritten HTML serialisation process makes less changes to the HTML when saving, and no longer corrupts script tag contents</li>
+<li>The Find / Replace dialog now highlights the previous search results when reopening the dialog</li>
+</ul>
+<h3>Bug Fixes</h3>
+<ul>
+<li>Pasted images were not uploaded when Image Editing was disabled in the configuration</li>
+<li>A number of W3C accessibility violations have been fixed, Textbox.io now passes <a href="https://ainspector.github.io">AInspector</a> validation</li>
+<li>The Insert Link dialog sometimes appeared in an incorrect location if the outer page had scrolled</li>
+<li>Pasting from Microsoft Word with conflicting inline styles merged the styles incorrectly</li>
+<li>Inline dialogs were often positioned too far to the left when using a right-to-left language</li>
+<li>Triple clicking a paragraph no longer applies formatting changes to the following paragraph</li>
+<li>Unordered list dropdown did not display correctly on Chrome 53 and above</li>
+<li>Content focus did not work reliably when using Edge on the Windows 10 Anniversary Update</li>
+<li>Word count was counting element boundaries as whitespaces</li>
+<li>Spell checking treated some European characters as word boundaries</li>
+<li>Large menus that scrolled had their top and bottom borders inside the scrollable area</li>
+<li>Border style issues when the list buttons were configured to be in a menu</li>
+<li>On OS X Chrome 54, undo after a paste action sometimes left the editor scrolled with all content off screen</li>
+</ul>
+    <h2>Textbox.io 2.0.0.171</h2>
+<h3>Please Note</h3>
+<ul>
+<li>Significant changes have been made to Textbox.io image management in this release. See our <a href="http://docs.ephox.com/display/tbio/Working+with+Images">Working with Images</a> article for more information.
+        <ul>
+          <li>Inserted images no longer upload automatically as Image Editing is on by default. Disabling Image Editing restores automatic uploads.</li>
+          <li>Editing images on remote servers requires a proxy to workaround CORS restrictions. A proxy implementation that is limited to image mime types is available in the Textbox.io SDK with services included.</li>
+        </ul>
+      </li>
+<li>The minimum browser version for Textbox.io has increased on three platforms. The editor will fail to load on older versions, use the <a href="http://docs.ephox.com/display/tbio/isSupported">isSupported</a> API to degrade gracefully.  The full list of supported browsers is available in the <a href="http://docs.ephox.com/display/tbio/System+Requirements">System Requirements</a> document on our website.
+        <ul>
+          <li>Internet Explorer 11</li>
+          <li>OS X Safari 9</li>
+          <li>iOS (Safari) 9</li>
+        </ul>
+      </li>
+<li>When pasting HTML content the default style retention behaviour of the editor has been changed to preserve styles. If the <a href="http://docs.ephox.com/display/tbio14/paste">paste</a> option has been set in your configuration, this will have no effect.</li>
+<li>The mobile editor UI currently renders on top of all other page elements and blocks touch events outside of the editor. Using a custom button to open a dialog can block user input on mobile.</li>
+</ul>
+<h3>New Features</h3>
+<ul>
+<li>New Image Editing tool
+        <ul>
+          <li>Flip, Rotate, Crop, Resample</li>
+          <li>When an image is selected editing tools appear in the toolbar and on the context menu</li>
+          <li>Optional resize large inserted images. The maximum image size can be configured using the <a href="http://docs.ephox.com/display/tbio/images">images</a> configuration setting.</li>
+          <li>To disable image editing, set the enabled property of the <a href="http://docs.ephox.com/display/tbio/images">images</a> configuration setting to false</li>
+          <li>Use the <a href="http://docs.ephox.com/display/tbio/images">images</a> configuration setting to specify a proxy for editing remote images.</li>
+        </ul>
+      </li>
+<li>New Accessibility checking tool
+        <ul>
+          <li>Simple UI that focuses on enabling end users to understand accessibility issues</li>
+          <li>Quick, simple fix options for most accessibility issues identified by the checker</li>
+        </ul>
+      </li>
+<li>Core editor download size has been significantly reduced (by over 50%) by extracting packaged resources into separate files</li>
+<li>Android is supported. The minimum supported version is Android 5 but Textbox.io will work on version 4 using the current release of Chrome.</li>
+<li>Microsoft Edge is now supported</li>
+<li>Editor theme CSS can now be adjusted with your choice of colors. A tool to build custom stylesheets is included with the SDK in the <span style="font-family: monospace">theme</span> folder. For more information see our <a href="http://docs.ephox.com/display/tbio/Customizing+the+User+Interface+Colors">Customizing the User Interface Colors</a> article.</li>
+<li>Greatly improved Mobile UI stability and consistency
+        <ul>
+          <li>iOS toolbar is now very stable. Instead of hiding itself when scrolling, it only vanishes when the keyboard opens and comes back after a second</li>
+          <li>Small screen phones now have a unique user interface. On phone-sized devices the editor will flatten menus into the toolbar and enable horizontal scrolling instead of using a more drawer. Features and dialogs that do not fit on the screen are automatically disabled.</li>
+          <li>Streamlined in-toolbar find/replace UI</li>
+          <li>Insert Link uses an in-toolbar UI similar to find/replace</li>
+          <li>Insert Media uses an in-toolbar UI similar to find/replace</li>
+          <li>Font Size uses an in-toolbar UI similar to find/replace</li>
+          <li>Pinch gesture can now be used to resize images</li>
+          <li>When the keyboard closes and the editor loses focus a light blue highlight indicates where the editor selection is</li>
+          <li>Reduced the amount of content scrolling when typing or performing toolbar operations</li>
+        </ul>
+      </li>
+<li>CORS is no longer required to load help dialog contents</li>
+<li>New <a href="http://docs.ephox.com/display/tbio/paste">enableFlashImport</a> configuration option to turn off the Flash component of pasting images from Microsoft Word</li>
+</ul>
+<h3>Bug Fixes</h3>
+<ul>
+<li>Indenting or outdenting an improperly formed list lost the item content</li>
+<li>Pasting an ordered list with a nested list from Word into Windows Firefox did not preserve the original ordering</li>
+<li>The isDirty API returned true when setting content to an empty string</li>
+<li>Keyboard shortcut documentation for indent and outdent for German, Italian, and Spanish was incorrect</li>
+<li>Unsupported images threw a translation JS error while pasting</li>
+<li>Removed a zero width character that was inserted when insertHtmlAtCursor was used to insert an input element</li>
+<li>Missing z-index on toolbar was causing the toolbar to be potenitally hidden underneath other containers when in inline mode</li>
+<li>Indenting or outdenting an improperly formed list lost the item content</li>
+<li>Pasting an ordered list with a nested list from Word into Windows Firefox did not preserve the original ordering</li>
+<li>The isDirty API returned true when setting content to an empty string</li>
+<li>Keyboard shortcut documentation for indent and outdent for German, Italian, and Spanish was incorrect</li>
+<li>Unsupported images threw a translation JS error while pasting</li>
+<li>Removed a zero width character that was inserted when insertHtmlAtCursor was used to insert an input element</li>
+<li>Missing z-index on toolbar was causing the toolbar to be potenitally hidden underneath other containers when in inline mode</li>
+<li>Selection was incorrect after toggling off a list when on a blank list item</li>
+<li>Toggling off a list item toggled off the entire parent list</li>
+<li>Toggling off a nested list item now transforms the list item into a top-level paragraph</li>
+</ul>
+    <h2>Textbox.io 1.3.1.88</h2>
+<h3>Please Note</h3>
+<ul>
+<li>The mobile editor UI currently renders on top of all other page elements and blocks touch events outside of the editor. Using a custom button to open a dialog can render the editor unusable on mobile.</li>
+<li>Using more than one unique value for editor locale on a page is not supported</li>
+</ul>
+<h3>New Features</h3>
+<ul>
+<li>Textbox.io menus are no longer cut off by <span style="font-family: monospace">overflow: hidden</span> containers around the editor</li>
+<li>New link context menu for easier access to the link properties dialog</li>
+<li>Links have <span style="font-family: monospace">http://</span> automatically prepended in some scenarios. Example: <span style="font-family: monospace">www.ephox.com</span> will become <span style="font-family: monospace">http://www.ephox.com</span>
+</li>
+<li>Text direction no longer toggles off when the active direction is re-selected</li>
+<li>New <a href="http://docs.ephox.com/display/tbio/isSupported">textboxio.isSupported()</a> method allows detection of a supported Textbox.io browser/platform</li>
+<li>When loading on an unsupported browser/platform:
+        <ul>
+          <li>Textbox.io no longer shows an alert dialog and cancels loading</li>
+          <li>The <span style="font-family: monospace">textboxio</span> global is created with a non-functional API</li>
+          <li>Attempting to create an <span style="font-family: monospace">editor</span> from the non-functional <span style="font-family: monospace">textboxio</span> results in an error</li>
+        </ul>
+      </li>
+<li>List and Indent buttons are now rendered in right-to-left when the cursor is in an RTL content section</li>
+<li>Clicking below or above a table at the end or beginning of the document will create a paragraph between the table and the edge of the document</li>
+<li>Textbox.io context menus are now shorter with less vertical padding</li>
+</ul>
+<h3>Bug Fixes</h3>
+<ul>
+<li>Tooltips were missing from the Find and Replace dialog buttons</li>
+<li>SecurityError in FireFox when the editor script was hosted on a different domain to the current page</li>
+<li>Using space to open the insert table widget on FireFox inserted a 1x1 table instead of showing the widget</li>
+<li>Find and Replace highlights were included in the undo history</li>
+<li>Pressing enter in the replace field of the Find and Replace dialog did not activate the replace button</li>
+<li>Improved the help text on the Insert Image from Web URL dialog</li>
+<li>Reversed the tooltips on the Image Properties dialog lock icon to use present tense</li>
+<li>Detection of content text direction was case sensitive in the attribute value</li>
+<li>Content with a space at the start could cause content retrieval to return an empty string</li>
+<li>Importing content from Word 2016 into IE10 threw a TypeError in the console</li>
+<li>The first time code view was loaded in an editing session the scrollbar and cursor position were incorrect</li>
+<li>Editing a document on FireFox with a hyperlink at the end of a line inserted typing into the link, instead of after it</li>
+<li>Importing Word documents with a lot of images occasionally showed the wrong image in place of an unsupported (blank) image</li>
+<li>Added missing ARIA attributes on the Find and Replace dialog</li>
+<li>Setting text alignment on an empty cell had no effect</li>
+<li>Using code view created extra undo points when switching back to design view even if no changes were made</li>
+<li>Loading the editor in a very thin window could cause context menus to render off the left side of the screen</li>
+<li>Inserting links with punctuation characters after a # truncated the link</li>
+</ul>
+    <h2>Textbox.io 1.3.0.341</h2>
+<h3>Please Note</h3>
+<ul>
+<li>The link information popup that appeared when the cursor is in a link has been removed</li>
+<li>A loading spinner will now be displayed when the editor resources take more than a second to load. Most API calls still work in this state, but document interactions will throw an error.</li>
+<li>The <a href="http://docs.ephox.com/display/tbio/locale">locale</a> and <a href="http://docs.ephox.com/display/tbio/languages">languages</a> configuration options have moved into the ui object. The old configuration propertes are ignored.</li>
+<li>The mobile editor UI currently renders on top of all other page elements and blocks touch events outside of the editor. Using a custom button to open a dialog can render the editor unusable on mobile.</li>
+<li>Using more than one unique value for editor locale on a page is not supported</li>
+</ul>
+<h3>New Features</h3>
+<ul>
+<li>Greatly improved table model for selection, navigation, and clipboard support, including:
+        <ul>
+          <li>Navigating tables now happens in natural order, instead of DOM order (up moves cursor up, not left)</li>
+          <li>Using the mouse or keyboard to select cells now creates a custom highlighted selection</li>
+          <li>Merging cells can be performed via the table context menu</li>
+          <li>Unmerging cells can be performed via the table context menu</li>
+          <li>Copying selected cells will copy just those cells to the clipboard, adding blank cells to fill in any gaps if the selection is not rectangular</li>
+          <li>Pasting a table into a table will merge the contents into the target table. This process will add columns and rows or unmerge cells as necessary to ensure the table remains rectangular.</li>
+          <li>Copying table cells from within the editor will retain HTML styles on paste regardless of the paste configuration setting to preserve editor table styling</li>
+          <li>Rows can now be resized, just like columns</li>
+        </ul>
+      </li>
+<li>Table cell formatting commands available on the toolbar when the cursor is within a table. These items can be disabled using the contextual property of the <a href="http://docs.ephox.com/display/tbio/toolbar">toolbar</a> configuration.
+        <ul>
+          <li>Cell background color</li>
+          <li>Cell border width</li>
+          <li>Cell border color</li>
+        </ul>
+      </li>
+<li>Greatly improved Accessibility support, including:
+        <ul>
+          <li>Editor conforms to <a href="http://www.w3.org/TR/2008/REC-WCAG20-20081211/">Web Content Accessibility Guidelines (WCAG) 2.0</a> Level AA conformance</li>
+          <li>Editor adheres to the recommendations set forth in Section 508 of the Rehabilitation Act of 1973</li>
+          <li>Editor has full display support for Windows high contrast mode themes</li>
+          <li>Improved accessibility help text</li>
+          <li>Editor ARIA label can be configured using the <span style="font-family: monospace">aria-label</span> property of the <a href="http://docs.ephox.com/display/tbio/ui">ui</a> configuration</li>
+          <li>Focus consistently returns to the editor after using the toolbar, menus or dialogs</li>
+          <li>Dialogs are now announced as a "dialog" by screen readers</li>
+          <li>Dialogs now have consistent navigation and behaviour of enter</li>
+          <li>Dialogs with required elements are labeled as required for screen readers</li>
+          <li>Navigation is now consistent when a combination of keyboard and mouse is used. Users can switch between keyboard and mouse navigation at any time.</li>
+          <li>Autocorrections are announced to screen readers</li>
+          <li>Navigating the help dialog using the keyboard is more intuitive</li>
+          <li>Method for navigating the table and color widgets are explained by screen readers</li>
+          <li>Toolbar groups correctly identify themselves using <span style="font-family: monospace">role="toolbar"</span>
+</li>
+          <li>Menus and submenus have correct ARIA roles and states</li>
+          <li>New shortcut for indent and outdent when using Dutch keyboards</li>
+          <li>Full screen tooltip and aria-label changes to "exit full screen" when the editor is in fullscreen mode</li>
+          <li>Firefox did not notify screen readers of the editor ARIA label or help text</li>
+          <li>Alignment buttons in dialogs are announced as (and behave like) radio buttons</li>
+          <li>Insert image from Web URL dialog announces the status and informational text to screen readers</li>
+          <li>Font size menu widget navigation is more intuitive. Screen readers announce the font size menu widget as a dialog and it behaves as such</li>
+        </ul>
+      </li>
+<li>New List toolbar UI delivers expanded list style functionality; Bullet and counter styles, context style highlighting, most recently used shortcut</li>
+<li>Find and replace inline dialog with find as-you-type and case sensitive matching toggle</li>
+<li>New word count feature is available in the user settings menu</li>
+<li>HTML is now automatically indented (pretty-printed) in code view and when using <span style="font-family: monospace">editor.content.get()</span>
+</li>
+<li>New <span style="font-family: monospace">message</span> API method to show custom banner notifications on the editor. See the <a href="http://docs.ephox.com/display/tbio/editor">editor</a> documentation for more details</li>
+<li>Improved Image Properties dialog enables image alignment using float. Enhanced toolbar Alignment menu now applies to images</li>
+<li>A new dirty event has been implemented. See the <a href="http://docs.ephox.com/display/tbio/events">events</a> documentation for more details</li>
+<li>New editor API retrieving or changing the dirty state of the content. See the <a href="http://docs.ephox.com/display/tbio/content">content</a> documentation for more details.</li>
+<li>Updated image resize UI style to be more consistent across platforms</li>
+<li>Support for enforcing plain text paste using the <span style="font-family: monospace">plain</span> value for the <a href="http://docs.ephox.com/display/tbio/paste">paste</a> configuration property. Double newlines in the plain text are turned into P tags, single lines into BR tags.</li>
+<li>Available font-faces in the font menu can be configured with the <a href="http://docs.ephox.com/display/tbio/fonts">fonts</a> configuration property</li>
+<li>Table width and height can be set in the table properties dialog</li>
+<li>Ability to disable Textbox.io automatic form submission behavior using the <span style="font-family: monospace">autosubmit</span> property of the <a href="http://docs.ephox.com/display/tbio/configuration">configuration.</a>
+</li>
+<li>Editor "content" keyboard shortcuts can now be disabled using the <span style="font-family: monospace">shortcuts</span> property of the <a href="http://docs.ephox.com/display/tbio/ui">ui</a> configuration. The list of disabled shortcuts is in the documentation</li>
+<li>Detailed error messages are now shown when image upload fails with a HTTP error code 400 or greater</li>
+</ul>
+<h3>Bug Fixes</h3>
+<ul>
+<li>Pasting the same image twice from Microsoft Word did not generate unique filenames</li>
+<li>Resizing the window while the editor was hidden moved all toolbar items into the more drawer</li>
+<li>Pasting an image file into Firefox prevented the user from scrolling the outer page</li>
+<li>Inserting a table with the table picker on Firefox when the editor was within a form broke programmatic calls to form.submit()</li>
+<li>Retrieving content with an image selected removed any class attribute that may have been on the image</li>
+<li>Shrinking an image with the resize handles on an image with a border did not work</li>
+<li>Switching to full screen caused local images to no longer be converted to base64 or uploaded</li>
+<li>Editor content could exceed the editor container on IE</li>
+<li>Missing mouseover tooltip label for Link Properties button in Link Dialog</li>
+<li>Full screen labels were not updated when switching modes</li>
+<li>ARIA toolbar and group roles were reversed</li>
+<li>Settings menu items did not report the checked state to screen readers</li>
+<li>Editor ARIA label was not announced when using JAWS with Firefox for Windows</li>
+<li>Indent and Outdent keyboard shortcuts used keys that are not on the keyboard for some languages</li>
+<li>Editor did not load on Chrome when the element to replace was not in the DOM</li>
+<li>Opening the context menu could cause the outer window to scroll incorrectly</li>
+<li>Editor did not load correctly when the container element was moved to a different parent element in between creating and showing the editor</li>
+<li>The editor UI was incorrect when integrated with old versions of Bootstrap CSS</li>
+<li>Performance issue when the browser window was resized with the inline editing toolbar hidden</li>
+<li>Using combinations of keyboard and mouse movement to navigate the toolbar or dialogs could result in unexpected behaviour</li>
+<li>Page could be scrolled while dialogs were open</li>
+<li>Pressing enter or space on the "choose image to upload" button of the insert image dialog did nothing on Firefox</li>
+<li>Creating an inline editor as a child of a list caused many editor operations to break</li>
+<li>The spinner on the insert image from Web URL dialog did not animate in some circumstances</li>
+<li>Some arrows displayed on the wrong side in the mobile Right-to-Left UI</li>
+<li>Mobile submenus did not work correctly in the Right-to-Left UI</li>
+<li>Mobile dialogs were not scrolled correctly when opened with a focussed input field</li>
+<li>Bottom of letters cut off in style dropdown on Firefox</li>
+<li>On Chrome, resizing an image and then pressing an undo split the paragraph after the image</li>
+<li>The editor toolbar sometimes overlapped the right side of the editor on startup instead of moving items into the more drawer</li>
+<li>Applying inline formatting to selection including an iframe deleted the iframe</li>
+<li>Using the autolink macro in IE10 could trigger an IndexSizeError at the console</li>
+<li>In some circumstances, with code view disabled the editor height was incorrect and the bottom border was not visible</li>
+<li>Loading a document with a self-closing iframe tag corrupted the content</li>
+<li>In iOS 8, "Done" on the keyboard did not do anything on the insert image from Web URL dialog</li>
+<li>Importing Microsoft Word documents with images that have wrap text set imported blank images</li>
+<li>Importing Microsoft Word documents with images in tables sometimes imported blank images</li>
+<li>Calling <span style="font-family: monospace">editor.content.insertHtmlAtCursor()</span> with a block element sometimes inserted blank lines</li>
+<li>On Internet Explorer, the editor was taking focus during calls to <span style="font-family: monospace">editor.content.set()</span> and then restoring it afterwards</li>
+</ul>
+    <h2>Textbox.io 1.2.0.276</h2>
+<h3>Please Note</h3>
+<ul>
+<li>If the editor script is not referenced as <span style="font-family: monospace">textboxio.js</span> and the <span style="font-family: monospace">basePath</span> configuration is not provided, the editor will not load. See the <a href="http://docs.ephox.com/display/tbio/basePath">basePath</a> documentation for more information.</li>
+<li>The Textbox.io image service has been removed. Images are now uploaded using multipart form request. See our <a href="http://docs.ephox.com/display/tbio/Handling+Local+Images">Handling Local Images</a> article for more information and example server-side scripts.</li>
+<li>The mobile editor UI currently renders on top of all other page elements and blocks touch events outside of the editor. Using a custom button to open a dialog can render the editor unusable on mobile.</li>
+<li>Using more than one unique value for locale in a page is not supported</li>
+</ul>
+<h3>New Features</h3>
+<ul>
+<li>WAI-ARIA compliant keyboard navigation for Textbox.io toolbars, widgets, menus and dialogs. This allows the editor to be used by those requiring assistive technologies.</li>
+<li>Support for creating multilingual content. These features are not on the default toolbar, see the <a href="http://docs.ephox.com/display/tbio/Command+Item+IDs">Command Item IDs</a> article for ways to enable them.
+        <ul>
+          <li>Changing the language of selected text (HTML <span style="font-family: monospace">lang</span> attribute)</li>
+          <li>Changing the text direction of block elements (HTML <span style="font-family: monospace">dir</span> attribute)</li>
+        </ul>
+      </li>
+<li>Greatly improved creation of inline formatting (bold, italic, underline) across platforms, ensuring use of simplified, semantic HTML markup</li>
+<li>Added superscript, subscript, and strikethrough inline formatting options. These are available in the font menu, or using individual <a href="http://docs.ephox.com/display/tbio/Command+Item+IDs">Command Item IDs</a>.</li>
+<li>New Image Properties dialog to specify alternative text, width and height attributes</li>
+<li>New Link Properties dialog to specify target and title attributes</li>
+<li>Support for the caption element in tables</li>
+<li>New <a href="http://docs.ephox.com/display/tbio/basePath">basePath</a> configuration property.</li>
+<li>Inserting local images can now be disabled using the <span style="font-family: monospace">allowLocal</span> property of the <a href="http://docs.ephox.com/display/tbio/images">images</a> configuration</li>
+<li>The code view button can now be hidden without disabling code view completely, using the <span style="font-family: monospace">showButton</span> property of the <a href="http://docs.ephox.com/display/tbio/codeview">codeview</a> configuration</li>
+<li>CSS content stylesheets can now be specified as text using the <a href="http://docs.ephox.com/display/tbio/documentStyles">documentStyles</a> configuration property. This option is ignored in inline editing mode.</li>
+<li>Ability to use a custom JavaScript function for image uploads. See the <a href="http://docs.ephox.com/display/tbio/images">images</a> documentation for more information.</li>
+</ul>
+<h3>Bug Fixes</h3>
+<ul>
+<li>Calling <span style="font-family: monospace">editor.content.set()</span> before the editor loaded and immediately calling <span style="font-family: monospace">editor.content.get()</span> would return an empty string</li>
+<li>Creating an editor in Firefox when its container was not visible would prevent the editor from loading</li>
+<li>Creating a hidden editor in any browser would put all toolbar items in the more drawer</li>
+<li>When using Chrome for Windows, dragging an image between the end of the content and the bottom of the editor would navigate to the image instead of inserting it</li>
+<li>Long continuous lines of text did not wrap correctly</li>
+<li>Selecting multiple table cells and applying list formatting could wrap all cells in a single list</li>
+<li>Nested submenus with custom buttons failed with a translation error</li>
+<li>Mobile styles dropdown was not scrollable</li>
+<li>Tab in a modal dialog sent focus to the outer page</li>
+<li>Loading new editor content did not reset the cursor</li>
+<li>Resizing an image during upload could cause unpredictable behaviour</li>
+<li>Smart quotes were not handled correctly by the spell checker</li>
+<li>Content with <span style="font-family: monospace">&lt;noscript&gt;</span> tags caused problems with undo history in IE10 and IE11</li>
+<li>Pasting into Safari while a lot of content was selected could cause the paste to fail</li>
+<li>Applying alignment to a selected image broke the rendering of all selected images</li>
+<li>Input filters added with the <a href="http://docs.ephox.com/display/tbio/filters">filters</a> API were not activated when switching from code view to design view</li>
+<li>Pressing enter did not exit a list correctly when the loaded content had whitespace between list elements</li>
+<li>
+<span style="font-family: monospace">editor.remove()</span> could cause the page to scroll</li>
+<li>Converting a block tag to another block type (e.g. Paragraph to Heading 1) did not preseve HTML attributes other than <span style="font-family: monospace">style</span>
+</li>
+<li>Pressing enter at the end of a div inserted a new paragraph instead of a new div</li>
+<li>Custom menu items with icons displayed an X instead of the icon on mobile</li>
+<li>Menus did not reposition correctly when the editor size changed while the menu was open</li>
+<li>Menus did not reposition correctly when rotating a mobile device</li>
+</ul>
+    <h2>Textbox.io 1.1.0.331</h2>
+<h3>Please Note</h3>
+<ul><li>Editor configuration now has a locale option. However using more than one unique value for locale in a page is not supported.</li></ul>
+<h3>New Features</h3>
+<ul>
+<li>Syntax highlighted Code View with autocompletion is now available (using CodeMirror). Click the icon in the bottom right to switch.</li>
+<li>Inline Editing is now available to create a seamless WYSIWYG user experience, which automatically enables floating toolbars</li>
+<li>Floating draggable toolbars are now available</li>
+<li>iOS 8 support</li>
+<li>The editor interface is now available in 33 languages. The browser locale is used by default, if a matching translation is available.  The locale can also be set via the editor API.</li>
+<li>Spell Checking is now available in 13 languages. The user interface language is used by default, if a matching dictionary is available.</li>
+<li>Right to left interface support for Arabic and Hebrew locales</li>
+<li>Actions on custom buttons are now passed an editor reference</li>
+<li>Removed image Drag and Drop overlay UI. Images are now inserted where the mouse points instead of where the cursor was.</li>
+<li>Code View can be disabled in the editor configuration object.</li>
+<li>new getSelectedText API</li>
+</ul>
+<h3>Bug Fixes</h3>
+<ul>
+<li>Image "src" attributes were not all updated before the uploadImages() callback was fired</li>
+<li>Text did not wrap correctly on mobile browsers with long continuous lines in the content</li>
+<li>Pressing enter at the end of a heading with inline styles did not convert the next line to a paragraph</li>
+<li>Issues performing undo operations after auto-capitalization in a table</li>
+<li>The "loaded" event fires not only once but every time the editor goes from full screen to normal</li>
+<li>Converting a selection to list block items when there are new lines in between inserts unwanted bullets</li>
+<li>The "loaded" event was incorrectly firing when the user switched to fullscreen or back, in addition to on load</li>
+<li>Changing the font size on a misspelled word would sometimes result in a partial underline</li>
+<li>The cursor position was incorrect after using the insertHtmlAtCursor API</li>
+<li>Input filters were not applied to content added with the insertHtmlAtCursor API</li>
+<li>Text could not be selected within the help dialog</li>
+<li>Pressing backspace with an image selected in Internet Explorer would sometimes navigate back</li>
+<li>When an image upload timed out, the failed image was not converted to base64 on save</li>
+<li>Pressing enter in the "web image url" dialog field submitted the outer web form containing TBIO</li>
+<li>Spelling highlights were not filtered out when copying and pasting within the editor</li>
+<li>Text Alignment and Font Weight styles could leak from the outer page into the editor UI</li>
+</ul>
+    <h2>Textbox.io 1.0.0.1443</h2>
+<h3>Please Note</h3>
+<ul>
+<li>Mobile support is limited to iOS 7.  Android devices will be supported in a future release.</li>
+<li>Image insertion operations may move the current cursor and/or selection location.</li>
+<li>On iOS occasionally the virtual keyboard can become out of synchronization with the editor (i.e. it is displayed or hidden when it shouldn't be).  Returning focus to the editor by touching in the editable region usually corrects this issue.</li>
+<li>Due to an Internet Explorer 10 rendering issue, new paragraphs may appear as two lines instead of a single line on this browser.</li>
+<li>On Internet Explorer 11 spelling highlights can occasionally cause the current selection to change.</li>
+<li>Some character combinations within a URL may cause the generated link to be invalid or incomplete.</li>
+<li>Microsoft Word documents with large numbers of images may cause a "#1502" memory error in Adobe Flash indicating that he image paste operation has failed due to memory constraints.</li>
+<li>Image upload is currently only supported for images smaller than 4.5MB.</li>
+</ul>
+<h3>New Features</h3>
+<ul>
+<li>User-centric, streamlined, responsive UI based on HTML5 and CSS3</li>
+<li>Rich text editing for mobile devices using iOS 7</li>
+<li>Clean copy and paste from Microsoft Office, including image content</li>
+<li>Automatic image uploads and supporting image upload service</li>
+<li>Drag and drop to insert images</li>
+<li>Fullscreen mode</li>
+<li>Spell checking as you type with supporting spell check service</li>
+<li>Autocorrect</li>
+<li>Markdown support for distraction free writing</li>
+<li>Inline HTML styling including bold, italic, underline and font selection</li>
+<li>Work with HTML block styles including paragraphs, headings and blockquotes</li>
+<li>Insert and edit hyperlinks</li>
+<li>Ordered and unordered lists</li>
+<li>Create and edit tables</li>
+<li>Simple integration API with intelligent defaults</li>
+<li>Customization API to control available commands</li>
+<li>Create custom functionality and extensions using the custom button API</li>
+</ul>
+</body>
+</html>

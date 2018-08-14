@@ -1,0 +1,25 @@
+/* Theme created by a textbox.io engineer */
+:root {
+ /* Protocol */
+  --droid: goldenrod;
+
+  --primary-base: color(var(--droid) shade(42%));
+  --primary-base-lighter-80: color(var(--droid) shade(42%));
+  --primary-base-transparent-50: color(var(--droid) alpha(84%));
+  --primary-text: color(var(--droid) tint(42%));
+  --primary-hover: color(var(--droid) tint(42%));
+  --primary-hover-text: color(var(--droid) shade(42%));
+  --primary-hover-border: color(var(--droid) tint(42%));
+  --primary-active: color(var(--droid) tint(42%));
+  --primary-active-text: color(var(--droid) shade(42%));
+  --primary-focus: color(var(--droid));
+
+  --secondary-base: color(var(--droid) tint(42%) alpha(84%));
+  --secondary-text: color(var(--droid) shade(42%));
+  --secondary-border: color(var(--droid));
+  --secondary-hover: color(var(--droid) shade(42%));
+  --secondary-hover-text: color(var(--droid) tint(42%));
+  --secondary-active: var(--secondary-border);
+  --secondary-active-text: var(--secondary-text);
+  --secondary-focus: var(--primary-focus);
+}
