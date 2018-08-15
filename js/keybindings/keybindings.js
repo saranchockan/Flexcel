@@ -469,6 +469,11 @@ Mousetrap.bind(['command+f', 'ctrl+f'], function () {
                 handsontable_flows[i].render()
             }
 
+            for (i = 0; i < bold_cell_tD.length; i++) {
+
+                bold_cell_tD[i].style.fontWeight = 'bold'
+            }
+
 
         }
     })

@@ -13,7 +13,7 @@ var data = {
   'flow_type': 'PF Flow',
   'flow-data': [],
   'firstSpeaker': 'Pro',
-  'boldElements':[]
+  'boldElements': []
 }
 
 var flow_type = 'PF Flow'
@@ -27,7 +27,7 @@ var negFontColor = '#076BFF'
 var affShadeColor = '#ffffff'
 var negShadeColor = '#ffffff'
 
-var bold_RC = [[],[]]
+var bold_RC = [[], []]
 
 
 
@@ -60,6 +60,8 @@ function pro_flowRenderer(instance, td, row, col, prop, value, cellProperties) {
 
   }
 
+
+
 }
 
 function con_flowRenderer(instance, td, row, col, prop, value, cellProperties) {
@@ -75,6 +77,8 @@ function con_flowRenderer(instance, td, row, col, prop, value, cellProperties) {
     td.style.background = negShadeColor
 
   }
+
+
 
 }
 Handsontable.renderers.registerRenderer('pro_flowRenderer', pro_flowRenderer);
