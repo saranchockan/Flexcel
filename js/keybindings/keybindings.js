@@ -62,6 +62,7 @@ var loadedData;
 var dataSuccess = false;
 var tD = false;
 
+var loadedOnce = false;
 
 // Variables for storing auto-complete data
 
@@ -262,7 +263,7 @@ Mousetrap.bind(['command+i', 'ctrl+i'], function () {
 
 Mousetrap.bind(['commands + d', 'ctrl+d'], function () {
 
-    if (tD == false) {
+    if (tD == false && loadedOnce==false) {
         dialog.showOpenDialog((fileNames) => {
             // fileNames is an array that contains all the selected
             if (fileNames === undefined) {
@@ -287,7 +288,7 @@ Mousetrap.bind(['commands + d', 'ctrl+d'], function () {
                     vex.dialog.alert('Error: Only .json files can be loaded')
                 }
                 dataLoaded = true
-                loadFlow()
+                loadFlow(boldFlow)
             });
         });
     }
@@ -539,10 +540,7 @@ function nextTab() {
 
     }
 
-    var rc = selectCell_rc[index];
-    var r = rc[0]
-    var c = rc[1]
-    handsontable_flows[index].selectCell(r, c)
+   
 
 
 }
@@ -996,8 +994,10 @@ function switchFlow() {
 
 }
 
-function loadFlow() {
+function loadFlow(callback) {
     if (dataSuccess && loadedData['flow_type'] == flow_type) {
+
+        loadedOnce = true
 
         bold_RC = loadedData['boldElements']
         $('#body').append('<div class="loader" id="pre-loader"></div>')
@@ -1098,7 +1098,7 @@ function loadFlow() {
             }
         }
         document.title = w[0]
-
+        data = loadedData
 
         
         setTimeout(() => {
@@ -1109,20 +1109,7 @@ function loadFlow() {
             document.getElementById('flows').style.visibility = 'visible'
             document.getElementById('ephox_mytextarea').style.visibility = 'visible'
             dataLoaded = false
-            for(i = 0;i<bold_RC.length;i++){
-                console.log('WOAH')
-                for(x = 0;x<bold_RC[i].length;x++){
-                    var a = bold_RC[i][x]
-                    var r = a[0]
-                    var c = a[1]
-    
-                    if(typeof r != 'undefined' && typeof c != 'undefined'){
-                        handsontable_flows[i].getCell(r,c).style.fontWeight = 'bold'
-                        bold_cell_tD.push(handsontable_flows[i].getCell(r,c))
-                    }
-    
-                }
-            }    
+ 
         }, 2000);
 
 
@@ -1134,6 +1121,7 @@ function loadFlow() {
     }
     console.log("The file content is : " + loadedData);
     dataSuccess = false
+    callback()
 }
 
 function resizeFlowHeight() {
@@ -1219,7 +1207,30 @@ function switchToPro() {
     })
 }
 
+function boldFlow(){
 
+    if(loadedOnce){
+        for(i = 0;i<bold_RC.length;i++){
+            console.log('WOAH')
+            for(x = 0;x<bold_RC[i].length;x++){
+                var a = bold_RC[i][x]
+                var r = a[0]
+                var c = a[1]
+    
+                if(typeof r != 'undefined' && typeof c != 'undefined'){
+                    handsontable_flows[i].getCell(r,c).style.fontWeight = 'bold'
+                    bold_cell_tD.push(handsontable_flows[i].getCell(r,c))
+                }
+    
+            }
+        } 
+
+        nextTab()
+        previousTab()
+
+    }
+  
+}
 
 /* Debuggin utilities: prints out the class list of every flow and tab div */
 

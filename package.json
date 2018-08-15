@@ -78,7 +78,7 @@
       "policy-flow-dynamic.html",
       "jquery/**/*",
       "popper/**/*",
-      "summernote/**/*"
+      "textboxio-client/**/*"
     ]
   }
 }
