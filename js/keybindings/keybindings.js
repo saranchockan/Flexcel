@@ -465,6 +465,10 @@ Mousetrap.bind(['command+f', 'ctrl+f'], function () {
             affShadeColor = data.color[2]
             negShadeColor = data.color[3]
 
+            for(i = 0;i<handsontable_flows.length;i++){
+                handsontable_flows[i].render()
+            }
+
 
         }
     })
