@@ -321,7 +321,7 @@ Mousetrap.bind(['commands + s', 'ctrl+s'], function () {
             callback: function (value) {
                 fileName = value
                 fileNamed = true
-                console.log(value)
+
                 selectAllCells()
                 if (fileName != '') {
                     document.title = fileName
@@ -329,8 +329,8 @@ Mousetrap.bind(['commands + s', 'ctrl+s'], function () {
                         properties: ['openDirectory']
                     }, (filePaths, bookmarks) => {
 
-                        console.log(filePaths[0])
 
+                        
                         if (filePaths[0] === undefined) {
                             console.log("You didn't save the file");
                             return;
@@ -364,11 +364,11 @@ Mousetrap.bind(['commands + t', 'ctrl+t'], function () {
         callback: function (value) {
 
             if (value != false) {
-                console.log(value)
-                var v = value.split(',')
-                console.log('Key ' + v[0])
-                console.log('Value ' + v[1])
 
+                var v = value.split(',')
+
+
+                
                 if (typeof v[0] != 'undefined') {
                     if (typeof v[1] != 'undefined') {
                         autocomplete[v[0]] = v[1]
@@ -503,14 +503,6 @@ Mousetrap.bind(['command+b', 'ctrl+b'], function () {
 
 
 })
-
-Mousetrap.bind(['command+n', 'ctrl+n'], function () {
-
-
-})
-
-
-
 
 /* 
     Switches to the next tab. This is done in accordance an index variable 
@@ -654,9 +646,6 @@ function addAdvTab() {
                 width: document.getElementById('df').offsetWidth - 16,
                 colWidths: (document.getElementById('df').offsetWidth - 16) * widthoffSet,
                 afterChange(changes) {
-
-
-
 
                     var auto_used = false;
 
@@ -1220,7 +1209,7 @@ function boldFlow(){
 
     if(loadedOnce){
         for(i = 0;i<bold_RC.length;i++){
-            console.log('WOAH')
+
             for(x = 0;x<bold_RC[i].length;x++){
                 var a = bold_RC[i][x]
                 var r = a[0]
