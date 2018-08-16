@@ -39,7 +39,18 @@ body {
 .ephox-chameleon-toolbar{
     background-color: #2F3136
 }
+.ephox-candy-mountain{
+    height: 100vh;
+}
 
+.ephox-polish-editor-container.ephox-polish-editor-main, .ephox-polish-source-container{
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+    min-height: inherit;
+}
 .tab_pane{
     height: 100%;
     width: 100%;

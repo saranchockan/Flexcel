@@ -215,6 +215,20 @@ $('#flow-navbar li').on('shown.bs.tab', function (e) {
         var c = rc[1]
         handsontable_flows[i].selectCell(r, c);
     }
+
+    for(i = 0;i<bold_RC.length;i++){
+        for(x = 0;x<bold_RC[i].length;x++){
+            var a = bold_RC[i][x]
+            var r = a[0]
+            var c = a[1]
+
+            if(typeof r != 'undefined' && typeof c != 'undefined'){
+                handsontable_flows[i].getCell(r,c).style.fontWeight = 'bold'
+                bold_cell_tD.push(handsontable_flows[i].getCell(r,c))
+            }
+
+        }
+    } 
 })
 
 /* Adds Tab */
@@ -243,12 +257,14 @@ Mousetrap.bind(['command+i', 'ctrl+i'], function () {
         if ((ac_delete_limit >= 2 && index == ac_delete_limit && advNum > 1)) {
 
             deleteTab()
+            resizeFlowHeight()
             tD = true
         }
 
         else if (nc_delete_limit >= nc_limit && index == nc_delete_limit && offNum > 1) {
 
             deleteTab()
+            resizeFlowHeight()
             tD = true
         }
 
@@ -470,7 +486,6 @@ Mousetrap.bind(['command+f', 'ctrl+f'], function () {
             }
 
             for (i = 0; i < bold_cell_tD.length; i++) {
-
                 bold_cell_tD[i].style.fontWeight = 'bold'
             }
 
@@ -997,7 +1012,6 @@ function loadFlow(callback) {
 
         loadedOnce = true
 
-        bold_RC = loadedData['boldElements']
         $('#body').append('<div class="loader" id="pre-loader"></div>')
         document.getElementById('flow-navbar').style.visibility = 'hidden'
         document.getElementById('flows').style.visibility = 'hidden'
@@ -1102,6 +1116,7 @@ function loadFlow(callback) {
         setTimeout(() => {
             nextTab()
             previousTab()
+            resizeFlowHeight()
             $('.loader').remove()
             document.getElementById('flow-navbar').style.visibility = 'visible'
             document.getElementById('flows').style.visibility = 'visible'
@@ -1119,11 +1134,20 @@ function loadFlow(callback) {
     }
     console.log("The file content is : " + loadedData);
     dataSuccess = false
+    bold_RC = loadedData['boldElements']
+
     callback()
 }
 
 function resizeFlowHeight() {
-    if (document.getElementById('flow-tabs').offsetHeight > 40) {
+    if (document.getElementById('flow-tabs').offsetHeight > 100) {
+        for (i = 0; i < handsontable_flows.length; i++) {
+            handsontable_flows[i].updateSettings({
+                height: document.getElementById('df').offsetHeight - 168,
+            })
+        }
+    }
+    else if (document.getElementById('flow-tabs').offsetHeight > 40) {
         for (i = 0; i < handsontable_flows.length; i++) {
             handsontable_flows[i].updateSettings({
                 height: document.getElementById('df').offsetHeight - 131,
@@ -1137,6 +1161,21 @@ function resizeFlowHeight() {
             })
         }
     }
+
+            for(i = 0;i<bold_RC.length;i++){
+
+            for(x = 0;x<bold_RC[i].length;x++){
+                var a = bold_RC[i][x]
+                var r = a[0]
+                var c = a[1]
+    
+                if(typeof r != 'undefined' && typeof c != 'undefined'){
+                    handsontable_flows[i].getCell(r,c).style.fontWeight = 'bold'
+                    bold_cell_tD.push(handsontable_flows[i].getCell(r,c))
+                }
+    
+            }
+        } 
 }
 
 
@@ -1365,4 +1404,18 @@ $(window).resize(function () {
             colWidths: (document.getElementById('df').offsetWidth - 16) * widthoffSet
         });
     }
+
+    for(i = 0;i<bold_RC.length;i++){
+        for(x = 0;x<bold_RC[i].length;x++){
+            var a = bold_RC[i][x]
+            var r = a[0]
+            var c = a[1]
+
+            if(typeof r != 'undefined' && typeof c != 'undefined'){
+                handsontable_flows[i].getCell(r,c).style.fontWeight = 'bold'
+                bold_cell_tD.push(handsontable_flows[i].getCell(r,c))
+            }
+
+        }
+    } 
 });
