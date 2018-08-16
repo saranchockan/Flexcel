@@ -375,15 +375,13 @@ Mousetrap.bind(['commands + t', 'ctrl+t'], function () {
     handsontable_flows[index].deselectCell()
     vex.dialog.prompt({
         message: 'Add autocomplete key and value in the format: key,value',
-        placeholder: 'v m, value:morality',
+        placeholder: 'vm, value:morality',
         width: 100,
         callback: function (value) {
 
             if (value != false) {
 
                 var v = value.split(',')
-
-
                 
                 if (typeof v[0] != 'undefined') {
                     if (typeof v[1] != 'undefined') {
