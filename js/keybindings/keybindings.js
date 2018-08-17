@@ -328,7 +328,6 @@ Mousetrap.bind(['commands + s', 'ctrl+s'], function () {
     var jsonObj = JSON.parse(JSON.stringify(data));
     var jsonContent = JSON.stringify(jsonObj);
 
-    if (!fileNamed || fileName == '') {
         handsontable_flows[index].deselectCell()
         vex.dialog.prompt({
             message: 'Save As',
@@ -345,8 +344,6 @@ Mousetrap.bind(['commands + s', 'ctrl+s'], function () {
                         properties: ['openDirectory']
                     }, (filePaths, bookmarks) => {
 
-
-                        
                         if (filePaths[0] === undefined) {
                             console.log("You didn't save the file");
                             return;
@@ -364,7 +361,6 @@ Mousetrap.bind(['commands + s', 'ctrl+s'], function () {
             }
         })
         document.getElementsByClassName('vex-dialog-prompt-input')[0].style.width = '95%'
-    }
 })
 
 /* 
