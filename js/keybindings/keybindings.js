@@ -216,18 +216,19 @@ $('#flow-navbar li').on('shown.bs.tab', function (e) {
         handsontable_flows[i].selectCell(r, c);
     }
 
-    for (i = 0; i < bold_RC.length; i++) {
-        for (x = 0; x < bold_RC[i].length; x++) {
-            var a = bold_RC[i][x]
-            var r = a[0]
-            var c = a[1]
+    for (x = 0; x < bold_RC[index].length; x++) {
+        var a = bold_RC[i][x]
+        var r = a[0]
+        var c = a[1]
 
-            if (typeof r != 'undefined' && typeof c != 'undefined') {
+
+        if (typeof r != 'undefined' && typeof c != 'undefined') {
+
+            if (typeof handsontable_flows[i].getCell(r, c) != 'undefined') {
                 handsontable_flows[i].getCell(r, c).style.fontWeight = 'bold'
-                bold_cell_tD.push(handsontable_flows[i].getCell(r, c))
             }
-
         }
+
     }
 })
 
@@ -721,18 +722,21 @@ function addAdvTab() {
             handsontable_flows[i].selectCell(r, c);
         }
 
-        for (i = 0; i < bold_RC.length; i++) {
-            for (x = 0; x < bold_RC[i].length; x++) {
-                var a = bold_RC[i][x]
-                var r = a[0]
-                var c = a[1]
+        for (x = 0; x < bold_RC[index].length; x++) {
+            var a = bold_RC[i][x]
+            var r = a[0]
+            var c = a[1]
+
+            if (typeof r != 'undefined' && typeof c != 'undefined') {
 
                 if (typeof r != 'undefined' && typeof c != 'undefined') {
-                    handsontable_flows[i].getCell(r, c).style.fontWeight = 'bold'
-                    bold_cell_tD.push(handsontable_flows[i].getCell(r, c))
-                }
 
+                    if(typeof handsontable_flows[i].getCell(r, c) != 'undefined'){
+                        handsontable_flows[i].getCell(r, c).style.fontWeight = 'bold'
+                    }
+                }
             }
+
         }
     })
 
@@ -903,18 +907,18 @@ function addOffTab() {
             handsontable_flows[i].selectCell(r, c);
         }
 
-        for (i = 0; i < bold_RC.length; i++) {
-            for (x = 0; x < bold_RC[i].length; x++) {
-                var a = bold_RC[i][x]
-                var r = a[0]
-                var c = a[1]
+        for (x = 0; x < bold_RC[index].length; x++) {
+            var a = bold_RC[i][x]
+            var r = a[0]
+            var c = a[1]
 
-                if (typeof r != 'undefined' && typeof c != 'undefined') {
+            if (typeof r != 'undefined' && typeof c != 'undefined') {
+
+                if(typeof handsontable_flows[i].getCell(r, c) != 'undefined'){
                     handsontable_flows[i].getCell(r, c).style.fontWeight = 'bold'
-                    bold_cell_tD.push(handsontable_flows[i].getCell(r, c))
                 }
-
             }
+
         }
     })
 
@@ -1122,6 +1126,11 @@ function loadFlow(callback) {
             if (loadedData['firstSpeaker'] == 'Con') {
                 switchToCon()
             }
+            else {
+                if (firstSpeaker == 'Con') {
+                    switchToPro()
+                }
+            }
             for (i = 0; i < handsontable_flows.length; i++) {
                 dataLoaded = true
                 handsontable_flows[i].updateSettings({
@@ -1141,13 +1150,17 @@ function loadFlow(callback) {
         data = loadedData
 
 
+        setTimeout(() => {
+            resizeFlowHeight()
+            $('.loader').remove()
+            nextTab()
+            previousTab()
+            document.getElementById('flow-navbar').style.visibility = 'visible'
+            document.getElementById('flows').style.visibility = 'visible'
+            document.getElementById('ephox_mytextarea').style.visibility = 'visible'
+            dataLoaded = false
+        }, 2000);
 
-        resizeFlowHeight()
-        $('.loader').remove()
-        document.getElementById('flow-navbar').style.visibility = 'visible'
-        document.getElementById('flows').style.visibility = 'visible'
-        document.getElementById('ephox_mytextarea').style.visibility = 'visible'
-        dataLoaded = false
 
     }
     else {
@@ -1157,8 +1170,8 @@ function loadFlow(callback) {
     }
     console.log("The file content is : " + loadedData);
     dataSuccess = false
-    bold_RC = loadedData['boldElements']
 
+    bold_RC = loadedData['boldElements']
     callback()
 }
 
@@ -1193,10 +1206,11 @@ function resizeFlowHeight() {
             var c = a[1]
 
             if (typeof r != 'undefined' && typeof c != 'undefined') {
-                handsontable_flows[i].getCell(r, c).style.fontWeight = 'bold'
-                bold_cell_tD.push(handsontable_flows[i].getCell(r, c))
-            }
 
+                if(typeof handsontable_flows[i].getCell(r, c) != 'undefined'){
+                    handsontable_flows[i].getCell(r, c).style.fontWeight = 'bold'
+                }
+            }
         }
     }
 }
@@ -1435,11 +1449,12 @@ $(window).resize(function () {
             var r = a[0]
             var c = a[1]
 
+      
             if (typeof r != 'undefined' && typeof c != 'undefined') {
-                handsontable_flows[i].getCell(r, c).style.fontWeight = 'bold'
-                bold_cell_tD.push(handsontable_flows[i].getCell(r, c))
+                if(typeof handsontable_flows[i].getCell(r, c) != 'undefined'){
+                    handsontable_flows[i].getCell(r, c).style.fontWeight = 'bold'
+                }
             }
-
         }
     }
 });
