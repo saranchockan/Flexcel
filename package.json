@@ -51,12 +51,12 @@
         "mas"
       ],
       "entitlements": "build/entitlements.mac.plist",
-      "type": "distribution",
+      "type": "development",
       "icon": "build/apple-touch-icon-128x128.icns"
     },
     "mas": {
       "entitlements": "build/entitlements.mas.plist",
-      "type": "distribution",
+      "type": "development",
       "category": "public.app-category.utilities"
     },
     "files": [
@@ -70,7 +70,7 @@
       "materialize/**/*",
       "app/**/*",
       "package.json",
-      "embedded.provisionprofile",
+      "embeddedDev.provisionprofile",
       "main-menu.html",
       "traditional-flow.html",
       "plan-flow.html",

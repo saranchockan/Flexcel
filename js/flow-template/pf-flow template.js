@@ -125,7 +125,7 @@ for (i = 0; i < con_tabs.length; i++) {
 
   handsontable_flows.push(new Handsontable(container, {
     data: [['Con Constructive', 'Pro Rebuttal', 'Con Rebuttal', 'Pro Summary', 'Con Summary', 'Pro Final Focus', 'Neg Final Focus']],
-    minCols: 7,
+    minCols: 6,
     maxCols: 7,
     minRows: 40,
     maxRows: 200,

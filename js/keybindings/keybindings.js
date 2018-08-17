@@ -216,19 +216,19 @@ $('#flow-navbar li').on('shown.bs.tab', function (e) {
         handsontable_flows[i].selectCell(r, c);
     }
 
-    for(i = 0;i<bold_RC.length;i++){
-        for(x = 0;x<bold_RC[i].length;x++){
+    for (i = 0; i < bold_RC.length; i++) {
+        for (x = 0; x < bold_RC[i].length; x++) {
             var a = bold_RC[i][x]
             var r = a[0]
             var c = a[1]
 
-            if(typeof r != 'undefined' && typeof c != 'undefined'){
-                handsontable_flows[i].getCell(r,c).style.fontWeight = 'bold'
-                bold_cell_tD.push(handsontable_flows[i].getCell(r,c))
+            if (typeof r != 'undefined' && typeof c != 'undefined') {
+                handsontable_flows[i].getCell(r, c).style.fontWeight = 'bold'
+                bold_cell_tD.push(handsontable_flows[i].getCell(r, c))
             }
 
         }
-    } 
+    }
 })
 
 /* Adds Tab */
@@ -279,7 +279,7 @@ Mousetrap.bind(['command+i', 'ctrl+i'], function () {
 
 Mousetrap.bind(['commands + d', 'ctrl+d'], function () {
 
-    if (tD == false && loadedOnce==false) {
+    if (tD == false && loadedOnce == false) {
         dialog.showOpenDialog((fileNames) => {
             // fileNames is an array that contains all the selected
             if (fileNames === undefined) {
@@ -328,39 +328,39 @@ Mousetrap.bind(['commands + s', 'ctrl+s'], function () {
     var jsonObj = JSON.parse(JSON.stringify(data));
     var jsonContent = JSON.stringify(jsonObj);
 
-        handsontable_flows[index].deselectCell()
-        vex.dialog.prompt({
-            message: 'Save As',
-            placeholder: 'e.g. 1AC vs SJ Round 5',
-            width: 100,
-            callback: function (value) {
-                fileName = value
-                fileNamed = true
+    handsontable_flows[index].deselectCell()
+    vex.dialog.prompt({
+        message: 'Save As',
+        placeholder: 'e.g. 1AC vs SJ Round 5',
+        width: 100,
+        callback: function (value) {
+            fileName = value
+            fileNamed = true
 
-                selectAllCells()
-                if (fileName != '') {
-                    document.title = fileName
-                    dialog.showOpenDialog({
-                        properties: ['openDirectory']
-                    }, (filePaths, bookmarks) => {
+            selectAllCells()
+            if (fileName != '') {
+                document.title = fileName
+                dialog.showOpenDialog({
+                    properties: ['openDirectory']
+                }, (filePaths, bookmarks) => {
 
-                        if (filePaths[0] === undefined) {
-                            console.log("You didn't save the file");
-                            return;
+                    if (filePaths[0] === undefined) {
+                        console.log("You didn't save the file");
+                        return;
+                    }
+                    var fP = filePaths[0] + '/' + fileName
+
+                    fs.writeFile(fP + '.json', jsonContent, 'utf8', (err) => {
+                        if (err) {
+                            alert("An error ocurred creating the file " + err.message)
                         }
-                        var fP = filePaths[0] + '/' + fileName
-
-                        fs.writeFile(fP + '.json', jsonContent, 'utf8', (err) => {
-                            if (err) {
-                                alert("An error ocurred creating the file " + err.message)
-                            }
-                            alert("The file has been succesfully saved");
-                        });
-                    })
-                }
+                        alert("The file has been succesfully saved");
+                    });
+                })
             }
-        })
-        document.getElementsByClassName('vex-dialog-prompt-input')[0].style.width = '95%'
+        }
+    })
+    document.getElementsByClassName('vex-dialog-prompt-input')[0].style.width = '95%'
 })
 
 /* 
@@ -378,11 +378,17 @@ Mousetrap.bind(['commands + t', 'ctrl+t'], function () {
             if (value != false) {
 
                 var v = value.split(',')
-                
+
                 if (typeof v[0] != 'undefined') {
                     if (typeof v[1] != 'undefined') {
-                        autocomplete[v[0]] = v[1]
-                        store.set('autocomplete', autocomplete)
+
+                        if (v[0] == v[1]) {
+                            vex.dialog.alert('You cannot have the same key and value!')
+                        }
+                        else {
+                            autocomplete[v[0]] = v[1]
+                            store.set('autocomplete', autocomplete)
+                        }
                     }
                 }
                 else {
@@ -475,7 +481,7 @@ Mousetrap.bind(['command+f', 'ctrl+f'], function () {
             affShadeColor = data.color[2]
             negShadeColor = data.color[3]
 
-            for(i = 0;i<handsontable_flows.length;i++){
+            for (i = 0; i < handsontable_flows.length; i++) {
                 handsontable_flows[i].render()
             }
 
@@ -550,7 +556,7 @@ function nextTab() {
 
     }
 
-   
+
 
 
 }
@@ -713,6 +719,20 @@ function addAdvTab() {
             var r = rc[0]
             var c = rc[1]
             handsontable_flows[i].selectCell(r, c);
+        }
+
+        for (i = 0; i < bold_RC.length; i++) {
+            for (x = 0; x < bold_RC[i].length; x++) {
+                var a = bold_RC[i][x]
+                var r = a[0]
+                var c = a[1]
+
+                if (typeof r != 'undefined' && typeof c != 'undefined') {
+                    handsontable_flows[i].getCell(r, c).style.fontWeight = 'bold'
+                    bold_cell_tD.push(handsontable_flows[i].getCell(r, c))
+                }
+
+            }
         }
     })
 
@@ -881,6 +901,20 @@ function addOffTab() {
             var r = rc[0]
             var c = rc[1]
             handsontable_flows[i].selectCell(r, c);
+        }
+
+        for (i = 0; i < bold_RC.length; i++) {
+            for (x = 0; x < bold_RC[i].length; x++) {
+                var a = bold_RC[i][x]
+                var r = a[0]
+                var c = a[1]
+
+                if (typeof r != 'undefined' && typeof c != 'undefined') {
+                    handsontable_flows[i].getCell(r, c).style.fontWeight = 'bold'
+                    bold_cell_tD.push(handsontable_flows[i].getCell(r, c))
+                }
+
+            }
         }
     })
 
@@ -1106,19 +1140,14 @@ function loadFlow(callback) {
         document.title = w[0]
         data = loadedData
 
-        
-        setTimeout(() => {
-            nextTab()
-            previousTab()
-            resizeFlowHeight()
-            $('.loader').remove()
-            document.getElementById('flow-navbar').style.visibility = 'visible'
-            document.getElementById('flows').style.visibility = 'visible'
-            document.getElementById('ephox_mytextarea').style.visibility = 'visible'
-            dataLoaded = false
- 
-        }, 2000);
 
+
+        resizeFlowHeight()
+        $('.loader').remove()
+        document.getElementById('flow-navbar').style.visibility = 'visible'
+        document.getElementById('flows').style.visibility = 'visible'
+        document.getElementById('ephox_mytextarea').style.visibility = 'visible'
+        dataLoaded = false
 
     }
     else {
@@ -1156,20 +1185,20 @@ function resizeFlowHeight() {
         }
     }
 
-            for(i = 0;i<bold_RC.length;i++){
+    for (i = 0; i < bold_RC.length; i++) {
 
-            for(x = 0;x<bold_RC[i].length;x++){
-                var a = bold_RC[i][x]
-                var r = a[0]
-                var c = a[1]
-    
-                if(typeof r != 'undefined' && typeof c != 'undefined'){
-                    handsontable_flows[i].getCell(r,c).style.fontWeight = 'bold'
-                    bold_cell_tD.push(handsontable_flows[i].getCell(r,c))
-                }
-    
+        for (x = 0; x < bold_RC[i].length; x++) {
+            var a = bold_RC[i][x]
+            var r = a[0]
+            var c = a[1]
+
+            if (typeof r != 'undefined' && typeof c != 'undefined') {
+                handsontable_flows[i].getCell(r, c).style.fontWeight = 'bold'
+                bold_cell_tD.push(handsontable_flows[i].getCell(r, c))
             }
-        } 
+
+        }
+    }
 }
 
 
@@ -1234,33 +1263,34 @@ function switchToPro() {
 
     dataLoaded = true
     handsontable_flows[1].updateSettings({
+        minCol: 7,
+        maxCols: 7,
         data: [['Con Constructive', 'Pro Rebuttal', 'Con Rebuttal', 'Pro Summary', 'Con Summary', 'Pro Final Focus', 'Neg Final Focus']],
     })
 }
 
-function boldFlow(){
+function boldFlow() {
 
-    if(loadedOnce){
-        for(i = 0;i<bold_RC.length;i++){
+    if (loadedOnce) {
+        for (i = 0; i < bold_RC.length; i++) {
+            console.log('index ', i)
 
-            for(x = 0;x<bold_RC[i].length;x++){
+            for (x = 0; x < bold_RC[i].length; x++) {
+                console.log('col ', x)
+
                 var a = bold_RC[i][x]
                 var r = a[0]
                 var c = a[1]
-    
-                if(typeof r != 'undefined' && typeof c != 'undefined'){
-                    handsontable_flows[i].getCell(r,c).style.fontWeight = 'bold'
-                    bold_cell_tD.push(handsontable_flows[i].getCell(r,c))
+
+                if (typeof r != 'undefined' && typeof c != 'undefined') {
+                    handsontable_flows[i].getCell(r, c).style.fontWeight = 'bold'
+                    bold_cell_tD.push(handsontable_flows[i].getCell(r, c))
                 }
-    
+
             }
-        } 
-
-        nextTab()
-        previousTab()
-
+        }
     }
-  
+
 }
 
 /* Debuggin utilities: prints out the class list of every flow and tab div */
@@ -1365,7 +1395,7 @@ $(function () {
                         });
                     }
                     else {
-                        
+
                         dataLoaded = false
                     }
 
@@ -1399,17 +1429,17 @@ $(window).resize(function () {
         });
     }
 
-    for(i = 0;i<bold_RC.length;i++){
-        for(x = 0;x<bold_RC[i].length;x++){
+    for (i = 0; i < bold_RC.length; i++) {
+        for (x = 0; x < bold_RC[i].length; x++) {
             var a = bold_RC[i][x]
             var r = a[0]
             var c = a[1]
 
-            if(typeof r != 'undefined' && typeof c != 'undefined'){
-                handsontable_flows[i].getCell(r,c).style.fontWeight = 'bold'
-                bold_cell_tD.push(handsontable_flows[i].getCell(r,c))
+            if (typeof r != 'undefined' && typeof c != 'undefined') {
+                handsontable_flows[i].getCell(r, c).style.fontWeight = 'bold'
+                bold_cell_tD.push(handsontable_flows[i].getCell(r, c))
             }
 
         }
-    } 
+    }
 });
