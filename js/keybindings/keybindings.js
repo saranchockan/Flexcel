@@ -1045,10 +1045,12 @@ function loadFlow(callback) {
         loadedOnce = true
 
         $('#body').append('<div class="loader" id="pre-loader"></div>')
+        
         document.getElementById('flow-navbar').style.visibility = 'hidden'
         document.getElementById('flows').style.visibility = 'hidden'
         document.getElementById('ephox_mytextarea').style.visibility = 'hidden'
         document.getElementById('mytextarea').style.visibility = 'hidden'
+        
 
         if (flow_type == 'LD Plan Flow' || flow_type == 'Policy Flow') {
 
@@ -1150,16 +1152,7 @@ function loadFlow(callback) {
         data = loadedData
 
 
-        setTimeout(() => {
-            resizeFlowHeight()
-            $('.loader').remove()
-            nextTab()
-            previousTab()
-            document.getElementById('flow-navbar').style.visibility = 'visible'
-            document.getElementById('flows').style.visibility = 'visible'
-            document.getElementById('ephox_mytextarea').style.visibility = 'visible'
-            dataLoaded = false
-        }, 2000);
+
 
 
     }
@@ -1173,6 +1166,16 @@ function loadFlow(callback) {
 
     bold_RC = loadedData['boldElements']
     callback()
+    setTimeout(() => {
+        resizeFlowHeight()
+        $('.loader').remove()
+        
+        document.getElementById('flow-navbar').style.visibility = 'visible'
+        document.getElementById('flows').style.visibility = 'visible'
+        document.getElementById('ephox_mytextarea').style.visibility = 'visible'
+        
+        dataLoaded = false
+    }, 2000);
 }
 
 function resizeFlowHeight() {
@@ -1451,6 +1454,7 @@ $(window).resize(function () {
 
       
             if (typeof r != 'undefined' && typeof c != 'undefined') {
+
                 if(typeof handsontable_flows[i].getCell(r, c) != 'undefined'){
                     handsontable_flows[i].getCell(r, c).style.fontWeight = 'bold'
                 }
