@@ -226,6 +226,8 @@ $('#flow-navbar li').on('shown.bs.tab', function (e) {
 
             if (typeof handsontable_flows[i].getCell(r, c) != 'undefined') {
                 handsontable_flows[i].getCell(r, c).style.fontWeight = 'bold'
+                bold_cell_tD.push(handsontable_flows[i].getCell(r, c))
+
             }
         }
 
@@ -514,10 +516,6 @@ Mousetrap.bind(['command+b', 'ctrl+b'], function () {
         bold_RC[index].push([r, c])
     }
 
-
-
-
-
 })
 
 /* 
@@ -731,8 +729,10 @@ function addAdvTab() {
 
                 if (typeof r != 'undefined' && typeof c != 'undefined') {
 
-                    if(typeof handsontable_flows[i].getCell(r, c) != 'undefined'){
+                    if (typeof handsontable_flows[i].getCell(r, c) != 'undefined') {
                         handsontable_flows[i].getCell(r, c).style.fontWeight = 'bold'
+                        bold_cell_tD.push(handsontable_flows[i].getCell(r, c))
+
                     }
                 }
             }
@@ -914,8 +914,10 @@ function addOffTab() {
 
             if (typeof r != 'undefined' && typeof c != 'undefined') {
 
-                if(typeof handsontable_flows[i].getCell(r, c) != 'undefined'){
+                if (typeof handsontable_flows[i].getCell(r, c) != 'undefined') {
                     handsontable_flows[i].getCell(r, c).style.fontWeight = 'bold'
+                    bold_cell_tD.push(handsontable_flows[i].getCell(r, c))
+
                 }
             }
 
@@ -1045,42 +1047,20 @@ function loadFlow(callback) {
         loadedOnce = true
 
         $('#body').append('<div class="loader" id="pre-loader"></div>')
+
+
         
+
+
         document.getElementById('flow-navbar').style.visibility = 'hidden'
         document.getElementById('flows').style.visibility = 'hidden'
         document.getElementById('ephox_mytextarea').style.visibility = 'hidden'
         document.getElementById('mytextarea').style.visibility = 'hidden'
         
 
+
+
         if (flow_type == 'LD Plan Flow' || flow_type == 'Policy Flow') {
-
-            if (loadedData['added-adv-tabs'] < 0) {
-                var f = Math.abs(loadedData['added-adv-tabs']);
-
-                for (i = 0; i < f; i++) {
-                    var id = tabs[adv_add_index].id;
-                    var reference = '#' + id;
-                    $(document).ready(function () {
-                        $(reference).click();
-                    });
-                    index = adv_add_index
-                    deleteTab()
-                }
-            }
-            else if (loadedData['added-adv-tabs'] > 0) {
-                var f = loadedData['added-adv-tabs']
-
-                for (i = 0; i < f; i++) {
-                    var id = tabs[adv_add_index].id;
-                    var reference = '#' + id;
-                    $(document).ready(function () {
-                        $(reference).click();
-                    });
-                    index = adv_add_index
-                    addAdvTab()
-                    advNum = advNum + 1
-                }
-            }
 
             if (loadedData['added-off-tabs'] < 0) {
                 var f = Math.abs(loadedData['added-off-tabs']);
@@ -1093,6 +1073,7 @@ function loadFlow(callback) {
                     });
                     index = off_add_index
                     deleteTab()
+
                 }
             }
             else if (loadedData['added-off-tabs'] > 0) {
@@ -1107,22 +1088,53 @@ function loadFlow(callback) {
                     index = off_add_index
                     addOffTab()
                     offNum = offNum + 1
+
                 }
             }
+
+            if (loadedData['added-adv-tabs'] < 0) {
+                var f = Math.abs(loadedData['added-adv-tabs']);
+
+                for (i = 0; i < f; i++) {
+                    var id = tabs[adv_add_index].id;
+                    var reference = '#' + id;
+                    $(document).ready(function () {
+                        $(reference).click();
+                    });
+                    index = adv_add_index
+                    deleteTab()
+
+                }
+            }
+            else if (loadedData['added-adv-tabs'] > 0) {
+                var f = loadedData['added-adv-tabs']
+
+                for (i = 0; i < f; i++) {
+                    var id = tabs[adv_add_index].id;
+                    var reference = '#' + id;
+                    $(document).ready(function () {
+                        $(reference).click();
+                    });
+                    index = adv_add_index
+                    addAdvTab()
+                    advNum = advNum + 1
+
+                }
+            }
+
+
 
             for (i = 0; i < handsontable_flows.length; i++) {
                 dataLoaded = true
                 handsontable_flows[i].updateSettings({
                     data: loadedData['flow-data'][i]
                 })
+
+                if (i == handsontable_flows.length - 1) {
+                    callback()
+                }
             }
 
-            index = 0;
-            var id = tabs[index].id;
-            var reference = '#' + id;
-            $(document).ready(function () {
-                $(reference).click();
-            });
         }
         else if (flow_type == 'PF Flow') {
             if (loadedData['firstSpeaker'] == 'Con') {
@@ -1139,6 +1151,7 @@ function loadFlow(callback) {
                     data: loadedData['flow-data'][i]
                 })
             }
+            callback()
         }
         else {
             for (i = 0; i < handsontable_flows.length; i++) {
@@ -1147,6 +1160,7 @@ function loadFlow(callback) {
                     data: loadedData['flow-data'][i]
                 })
             }
+            callback()
         }
         document.title = w[0]
         data = loadedData
@@ -1164,18 +1178,7 @@ function loadFlow(callback) {
     console.log("The file content is : " + loadedData);
     dataSuccess = false
 
-    bold_RC = loadedData['boldElements']
-    callback()
-    setTimeout(() => {
-        resizeFlowHeight()
-        $('.loader').remove()
-        
-        document.getElementById('flow-navbar').style.visibility = 'visible'
-        document.getElementById('flows').style.visibility = 'visible'
-        document.getElementById('ephox_mytextarea').style.visibility = 'visible'
-        
-        dataLoaded = false
-    }, 2000);
+
 }
 
 function resizeFlowHeight() {
@@ -1210,8 +1213,10 @@ function resizeFlowHeight() {
 
             if (typeof r != 'undefined' && typeof c != 'undefined') {
 
-                if(typeof handsontable_flows[i].getCell(r, c) != 'undefined'){
+                if (typeof handsontable_flows[i].getCell(r, c) != 'undefined') {
                     handsontable_flows[i].getCell(r, c).style.fontWeight = 'bold'
+                    bold_cell_tD.push(handsontable_flows[i].getCell(r, c))
+
                 }
             }
         }
@@ -1282,12 +1287,13 @@ function switchToPro() {
     handsontable_flows[1].updateSettings({
         minCol: 7,
         maxCols: 7,
-        data: [['Con Constructive', 'Pro Rebuttal', 'Con Rebuttal', 'Pro Summary', 'Con Summary', 'Pro Final Focus', 'Neg Final Focus']],
+        data: [['Con Constructive', 'Pro Rebuttal', 'Con Rebuttal', 'Pro Summary', 'Con Summary', 'Pro Final Focus', 'Con Final Focus']],
     })
 }
 
 function boldFlow() {
 
+    bold_RC = loadedData['boldElements']
     if (loadedOnce) {
         for (i = 0; i < bold_RC.length; i++) {
             console.log('index ', i)
@@ -1300,13 +1306,33 @@ function boldFlow() {
                 var c = a[1]
 
                 if (typeof r != 'undefined' && typeof c != 'undefined') {
-                    handsontable_flows[i].getCell(r, c).style.fontWeight = 'bold'
-                    bold_cell_tD.push(handsontable_flows[i].getCell(r, c))
+
+                    if (typeof handsontable_flows[i].getCell(r, c) != 'undefined') {
+                        handsontable_flows[i].getCell(r, c).style.fontWeight = 'bold'
+                        bold_cell_tD.push(handsontable_flows[i].getCell(r, c))
+                    }
                 }
 
             }
+
         }
     }
+
+
+        setTimeout(() => {
+            switchFlow()
+            $('.loader').remove()
+            document.getElementById('flow-navbar').style.visibility = 'visible'
+            document.getElementById('flows').style.visibility = 'visible'
+            document.getElementById('ephox_mytextarea').style.visibility = 'visible'
+            dataLoaded = false
+
+        }, 1000);
+    
+
+
+
+
 
 }
 
@@ -1452,11 +1478,13 @@ $(window).resize(function () {
             var r = a[0]
             var c = a[1]
 
-      
+
             if (typeof r != 'undefined' && typeof c != 'undefined') {
 
-                if(typeof handsontable_flows[i].getCell(r, c) != 'undefined'){
+                if (typeof handsontable_flows[i].getCell(r, c) != 'undefined') {
                     handsontable_flows[i].getCell(r, c).style.fontWeight = 'bold'
+                    bold_cell_tD.push(handsontable_flows[i].getCell(r, c))
+
                 }
             }
         }
