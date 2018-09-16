@@ -1,6 +1,6 @@
 {
   "name": "Flexcel",
-  "version": "2.0.0",
+  "version": "2.0.2",
   "description": "Flexcel is an app for flowing high school LD and PF Debate rounds.",
   "main": "main.js",
   "scripts": {
@@ -36,6 +36,7 @@
     "mousetrap": "^1.6.2",
     "requirejs": "^2.3.5",
     "simplebar": "^2.6.1",
+    "sortablejs": "^1.7.0",
     "vex": "0.0.4",
     "vex-dialog": "^1.1.0",
     "vex-js": "^3.1.1"
@@ -51,12 +52,12 @@
         "mas"
       ],
       "entitlements": "build/entitlements.mac.plist",
-      "type": "development",
+      "type": "distribution",
       "icon": "build/apple-touch-icon-128x128.icns"
     },
     "mas": {
       "entitlements": "build/entitlements.mas.plist",
-      "type": "development",
+      "type": "distribution",
       "category": "public.app-category.utilities"
     },
     "files": [
@@ -70,7 +71,7 @@
       "materialize/**/*",
       "app/**/*",
       "package.json",
-      "embeddedDev.provisionprofile",
+      "embedded.provisionprofile",
       "main-menu.html",
       "traditional-flow.html",
       "plan-flow.html",

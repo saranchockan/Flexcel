@@ -17,7 +17,7 @@ function createWindow() {
   // and load the index.html of the app.
   mainWindow.loadFile('main-menu.html')
   // Open the DevTools.
-  // mainWindow.webContents.openDevTools({detach: true})
+  mainWindow.webContents.openDevTools({detach: true})
 
   // Maximize window
   // mainWindow.maximize();
@@ -30,10 +30,11 @@ function createWindow() {
   mainWindow.setMaximizable(false)
 
   // Disables dev tools
-  //mainWindow.webContents.on("devtools-opened", () => { mainWindow.webContents.closeDevTools(); });
+  // mainWindow.webContents.on("devtools-opened", () => { mainWindow.webContents.closeDevTools(); });
 
 
   mainWindow.on('close', function (e) {
+    /*
     var choice = require('electron').dialog.showMessageBox(this,
       {
         type: 'question',
@@ -44,6 +45,8 @@ function createWindow() {
     if (choice == 1) {
       e.preventDefault();
     }
+    */
+   app.quit()
   })
   
 
@@ -146,7 +149,7 @@ app.on('ready', () => {
       submenu: [
         {
           label: 'Learn More',
-          click() { require('electron').shell.openExternal('http://electron.atom.io') }
+          click() { require('electron').shell.openExternal('https://flexcel-flow.github.io/flexcel-website/index.html') }
         }
       ]
     }

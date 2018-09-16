@@ -178,15 +178,13 @@ Mousetrap.bind(['command+p', 'ctrl+p'], function () {
 
 $('#flow-navbar a').on('click', function (e) {
 
-    var i = getSelectedCellIndex();
-    if (i != -1) {
-        var rc = selectCell_rc[i];
-        var r = rc[0]
-        var c = rc[1]
-        handsontable_flows[i].selectCell(r, c);
-    }
+    var rc = selectCell_rc[index];
+    var r = rc[0]
+    var c = rc[1]
+    handsontable_flows[index].selectCell(r, c);
 
 })
+
 
 
 /* 
@@ -208,25 +206,21 @@ $('#flow-navbar li').on('shown.bs.tab', function (e) {
     mouseClicked = true;
     index = $(this).index();
 
-    var i = getSelectedCellIndex();
-    if (i != -1) {
-        var rc = selectCell_rc[i];
-        var r = rc[0]
-        var c = rc[1]
-        handsontable_flows[i].selectCell(r, c);
-    }
+    var rc = selectCell_rc[index];
+    var r = rc[0]
+    var c = rc[1]
+    handsontable_flows[index].selectCell(r, c);
 
     for (x = 0; x < bold_RC[index].length; x++) {
-        var a = bold_RC[i][x]
+        var a = bold_RC[index][x]
         var r = a[0]
         var c = a[1]
 
-
         if (typeof r != 'undefined' && typeof c != 'undefined') {
 
-            if (typeof handsontable_flows[i].getCell(r, c) != 'undefined') {
-                handsontable_flows[i].getCell(r, c).style.fontWeight = 'bold'
-                bold_cell_tD.push(handsontable_flows[i].getCell(r, c))
+            if (typeof handsontable_flows[index].getCell(r, c) != 'undefined') {
+                handsontable_flows[index].getCell(r, c).style.fontWeight = 'bold'
+                bold_cell_tD.push(handsontable_flows[index].getCell(r, c))
 
             }
         }
@@ -712,28 +706,47 @@ function addAdvTab() {
         mouseClicked = true;
         index = $(this).index();
 
-        var i = getSelectedCellIndex();
-        if (i != -1) {
-            var rc = selectCell_rc[i];
-            var r = rc[0]
-            var c = rc[1]
-            handsontable_flows[i].selectCell(r, c);
-        }
+        var rc = selectCell_rc[index];
+        var r = rc[0]
+        var c = rc[1]
+        handsontable_flows[index].selectCell(r, c);
 
         for (x = 0; x < bold_RC[index].length; x++) {
-            var a = bold_RC[i][x]
+            var a = bold_RC[index][x]
             var r = a[0]
             var c = a[1]
 
             if (typeof r != 'undefined' && typeof c != 'undefined') {
 
-                if (typeof r != 'undefined' && typeof c != 'undefined') {
+                if (typeof handsontable_flows[index].getCell(r, c) != 'undefined') {
+                    handsontable_flows[index].getCell(r, c).style.fontWeight = 'bold'
+                    bold_cell_tD.push(handsontable_flows[index].getCell(r, c))
 
-                    if (typeof handsontable_flows[i].getCell(r, c) != 'undefined') {
-                        handsontable_flows[i].getCell(r, c).style.fontWeight = 'bold'
-                        bold_cell_tD.push(handsontable_flows[i].getCell(r, c))
+                }
+            }
 
-                    }
+        } if (!mouseClicked) {
+            switchFlow();
+        }
+        mouseClicked = true;
+        index = $(this).index();
+
+        var rc = selectCell_rc[index];
+        var r = rc[0]
+        var c = rc[1]
+        handsontable_flows[index].selectCell(r, c);
+
+        for (x = 0; x < bold_RC[index].length; x++) {
+            var a = bold_RC[index][x]
+            var r = a[0]
+            var c = a[1]
+
+            if (typeof r != 'undefined' && typeof c != 'undefined') {
+
+                if (typeof handsontable_flows[index].getCell(r, c) != 'undefined') {
+                    handsontable_flows[index].getCell(r, c).style.fontWeight = 'bold'
+                    bold_cell_tD.push(handsontable_flows[index].getCell(r, c))
+
                 }
             }
 
@@ -742,13 +755,11 @@ function addAdvTab() {
 
     $('#Adv' + advNum).on('click', function (e) {
 
-        var i = getSelectedCellIndex();
-        if (i != -1) {
-            var rc = selectCell_rc[i];
-            var r = rc[0]
-            var c = rc[1]
-            handsontable_flows[i].selectCell(r, c);
-        }
+
+        var rc = selectCell_rc[index];
+        var r = rc[0]
+        var c = rc[1]
+        handsontable_flows[index].selectCell(r, c);
 
     })
 
@@ -899,24 +910,21 @@ function addOffTab() {
         mouseClicked = true;
         index = $(this).index();
 
-        var i = getSelectedCellIndex();
-        if (i != -1) {
-            var rc = selectCell_rc[i];
-            var r = rc[0]
-            var c = rc[1]
-            handsontable_flows[i].selectCell(r, c);
-        }
+        var rc = selectCell_rc[index];
+        var r = rc[0]
+        var c = rc[1]
+        handsontable_flows[index].selectCell(r, c);
 
         for (x = 0; x < bold_RC[index].length; x++) {
-            var a = bold_RC[i][x]
+            var a = bold_RC[index][x]
             var r = a[0]
             var c = a[1]
 
             if (typeof r != 'undefined' && typeof c != 'undefined') {
 
-                if (typeof handsontable_flows[i].getCell(r, c) != 'undefined') {
-                    handsontable_flows[i].getCell(r, c).style.fontWeight = 'bold'
-                    bold_cell_tD.push(handsontable_flows[i].getCell(r, c))
+                if (typeof handsontable_flows[index].getCell(r, c) != 'undefined') {
+                    handsontable_flows[index].getCell(r, c).style.fontWeight = 'bold'
+                    bold_cell_tD.push(handsontable_flows[index].getCell(r, c))
 
                 }
             }
@@ -926,13 +934,10 @@ function addOffTab() {
 
     $('#Off' + offNum).on('click', function (e) {
 
-        var i = getSelectedCellIndex();
-        if (i != -1) {
-            var rc = selectCell_rc[i];
-            var r = rc[0]
-            var c = rc[1]
-            handsontable_flows[i].selectCell(r, c);
-        }
+        var rc = selectCell_rc[index];
+        var r = rc[0]
+        var c = rc[1]
+        handsontable_flows[index].selectCell(r, c);
 
     })
 
@@ -1028,15 +1033,21 @@ function deleteTab() {
 
 function switchFlow() {
 
+    var id = tabs[index].href.split("#")[1]
+
+
     for (i = 0; i < flows.length; i++) {
-        if (index == i) {
+
+
+        if (flows[i].id == id) {
             flows[i].classList.add('active');
             flows[i].classList.add('show');
         }
-        else {
+        else{
             flows[i].classList.remove('show');
             flows[i].classList.remove('active');
         }
+
     }
 
 }
@@ -1049,14 +1060,14 @@ function loadFlow(callback) {
         $('#body').append('<div class="loader" id="pre-loader"></div>')
 
 
-        
+
 
 
         document.getElementById('flow-navbar').style.visibility = 'hidden'
         document.getElementById('flows').style.visibility = 'hidden'
         document.getElementById('ephox_mytextarea').style.visibility = 'hidden'
         document.getElementById('mytextarea').style.visibility = 'hidden'
-        
+
 
 
 
@@ -1234,15 +1245,16 @@ function selectAllCells() {
 }
 
 function getSelectedCellIndex() {
-    for (i = 0; i < flows.length; i++) {
 
-        var name_list = flows[i].classList
-        if (name_list.contains('active')) {
-            return i;
+    var id = tabs[index].href.split("#")[1]
+
+    for (i = 0; i < flows.length; i++) {
+        if (flows[i].id == id) {
+            return i
         }
     }
-
     return -1;
+
 }
 
 
@@ -1319,16 +1331,16 @@ function boldFlow() {
     }
 
 
-        setTimeout(() => {
-            switchFlow()
-            $('.loader').remove()
-            document.getElementById('flow-navbar').style.visibility = 'visible'
-            document.getElementById('flows').style.visibility = 'visible'
-            document.getElementById('ephox_mytextarea').style.visibility = 'visible'
-            dataLoaded = false
+    setTimeout(() => {
+        switchFlow()
+        $('.loader').remove()
+        document.getElementById('flow-navbar').style.visibility = 'visible'
+        document.getElementById('flows').style.visibility = 'visible'
+        document.getElementById('ephox_mytextarea').style.visibility = 'visible'
+        dataLoaded = false
 
-        }, 1000);
-    
+    }, 1000);
+
 
 
 
@@ -1453,7 +1465,11 @@ $(function () {
         document.getElementById('flows').style.visibility = 'visible'
         $('.ephox-polish-html-switch').remove()
     }, 1000);
+
+
 });
+
+
 
 // function executed everytime window is reszied
 
@@ -1488,5 +1504,53 @@ $(window).resize(function () {
                 }
             }
         }
+    }
+});
+
+var list_tabs = document.getElementById("flow-tabs");
+new Sortable(list_tabs, {
+    onEnd: function (/**Event*/evt) {
+
+
+        tabs_li = document.getElementById('flow-navbar').getElementsByClassName('nav-item');
+        tabs = document.getElementById('flow-navbar').getElementsByClassName('nav-link');
+        flows = document.getElementsByClassName('tab-pane');
+
+        if(evt.oldIndex<evt.newIndex){
+            for(i = evt.oldIndex;i<evt.newIndex;i++){
+                var tempFlow = handsontable_flows[i]
+                handsontable_flows[i] = handsontable_flows[i+1]
+                handsontable_flows[i+1] = tempFlow
+
+                var tempSC = selectCell_rc[i]
+                selectCell_rc[i] = selectCell_rc[i+1]
+                selectCell_rc[i+1] = tempSC
+
+                var tempBC = bold_RC[i]
+                bold_RC[i] = bold_RC[i+1]
+                bold_RC[i+1] = tempBC
+            }
+            index = evt.newIndex
+        }
+        else{
+            for(i = evt.oldIndex;i>evt.newIndex;i--){
+                var tempFlow = handsontable_flows[i]
+                handsontable_flows[i] = handsontable_flows[i-1]
+                handsontable_flows[i-1] = tempFlow
+
+                var tempSC = selectCell_rc[i]
+                selectCell_rc[i] = selectCell_rc[i-1]
+                selectCell_rc[i-1] = tempSC
+
+                var tempBC = bold_RC[i]
+                bold_RC[i] = bold_RC[i-1]
+                bold_RC[i-1] = tempBC
+            }
+            index = evt.newIndex
+        }
+
+
+        selectAllCells()
+
     }
 });
