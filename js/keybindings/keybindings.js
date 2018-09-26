@@ -1426,6 +1426,23 @@ $(function () {
                 }
             });
         }
+
+        var tabs = document.getElementsByClassName("tab")
+
+         $('.tab').on('dblclick',function(){
+             $(this).find('input').toggle().val($(this).find('a').html()).focus();
+             $(this).find('a').toggle();
+         });
+        
+         $('.tab').on('blur','input',function(){
+            $(this).toggle();
+            $(this).siblings('a').toggle().html($(this).val());
+        });
+
+
+
+
+
         $('.loader').remove()
         document.getElementById('df').classList.add('elementToFadeInAndOutLeft')
         document.getElementById('flow-navbar').style.visibility = 'visible'

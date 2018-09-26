@@ -129,5 +129,15 @@ body {
 }
 
 
+input[type=text]
+{
+    display:none;
+    width:120px;
+}
+a
+{
+    display:block;
+}
+
 
 
