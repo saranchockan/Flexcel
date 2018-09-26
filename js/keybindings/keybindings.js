@@ -14,21 +14,13 @@ var index = 0;
 var mouseClicked = true;
 var tabDeleted = false;
 
-// Variables used to implement constraints on tab deletion
-
-var ac_delete_limit = 6
-var nc_delete_limit = 13
-var nc_limit = 9
 
 // Variables used to implement constraints on add deletion
 
-var adv_add_index = 6;
-var off_add_index = 13;
-
 var advNum;
-
 if (flow_type == 'LD Plan Flow') {
     advNum = 6
+
 }
 else {
     advNum = 7
@@ -57,7 +49,6 @@ var bold_cell_tD = []
 // Variables for saving the flow
 
 var fileName = ""
-var fileNamed = false
 var loadedData;
 var dataSuccess = false;
 var tD = false;
@@ -69,7 +60,6 @@ var loadedOnce = false;
 const Store = require('electron-store');
 const store = new Store();
 
-var stopRecursive = false;
 var autocomplete = {
     'c1': 'Contention 1',
     'c2': 'Contention 2',
@@ -229,16 +219,27 @@ $('#flow-navbar li').on('shown.bs.tab', function (e) {
 })
 
 /* Adds Tab */
-Mousetrap.bind(['command+u', 'ctrl+u'], function () {
-    if (index == adv_add_index) {
-        addAdvTab()
-        advNum = advNum + 1
-    }
-    else if (index == off_add_index) {
-        addOffTab()
-        offNum = offNum + 1
-    }
+
+Mousetrap.bind(['command+k', 'ctrl+k'], function () {
+
+    addAdvTab(()=>{
+
+    })
+    advNum = advNum + 1
+
 })
+
+Mousetrap.bind(['command+j', 'ctrl+j'], function () {
+
+    addOffTab(()=>{
+
+    })
+    offNum = offNum + 1
+
+
+})
+
+
 
 /* 
     Deletes the current tab. A tab can only be deleted in order of the flow tabs i.e you can only
@@ -247,25 +248,9 @@ Mousetrap.bind(['command+u', 'ctrl+u'], function () {
 
 Mousetrap.bind(['command+i', 'ctrl+i'], function () {
 
-    //-- Can't delete Framing tab
-
-    if (index != 0) {
-
-        if ((ac_delete_limit >= 2 && index == ac_delete_limit && advNum > 1)) {
-
-            deleteTab()
-            resizeFlowHeight()
-            tD = true
-        }
-
-        else if (nc_delete_limit >= nc_limit && index == nc_delete_limit && offNum > 1) {
-
-            deleteTab()
-            resizeFlowHeight()
-            tD = true
-        }
-
-    }
+    deleteTab()
+    resizeFlowHeight()
+    tD = true
 
 })
 
@@ -278,7 +263,6 @@ Mousetrap.bind(['commands + d', 'ctrl+d'], function () {
 
     if (tD == false && loadedOnce == false) {
         dialog.showOpenDialog((fileNames) => {
-            // fileNames is an array that contains all the selected
             if (fileNames === undefined) {
                 console.log("No file selected");
                 return;
@@ -301,7 +285,7 @@ Mousetrap.bind(['commands + d', 'ctrl+d'], function () {
                     vex.dialog.alert('Error: Only .json files can be loaded')
                 }
                 dataLoaded = true
-                loadFlow(boldFlow)
+                loadFlow()
             });
         });
     }
@@ -319,9 +303,9 @@ Mousetrap.bind(['commands + d', 'ctrl+d'], function () {
 
 Mousetrap.bind(['commands + s', 'ctrl+s'], function () {
 
-
     data['boldElements'] = bold_RC
-    let content = "Some text to save into the file";
+    configureTabs()
+
     var jsonObj = JSON.parse(JSON.stringify(data));
     var jsonContent = JSON.stringify(jsonObj);
 
@@ -522,6 +506,7 @@ Mousetrap.bind(['command+b', 'ctrl+b'], function () {
 
 function nextTab() {
 
+    console.log('WOW NEXT TAB')
 
     if (!tabDeleted) {
         reset_rc()
@@ -563,6 +548,8 @@ function nextTab() {
 */
 function previousTab() {
 
+    console.log('WOW PREVIOUS TAB')
+
     if (!tabDeleted) {
         reset_rc()
     }
@@ -590,7 +577,7 @@ function previousTab() {
     }
 }
 
-function addAdvTab() {
+function addAdvTab(callback) {
 
     /* Element we are inserting the Adv after */
 
@@ -598,7 +585,7 @@ function addAdvTab() {
     $('<div class="AC tab-pane fade" id="Adv-' + advNum + '-tab" role="tabpanel" aria-labelledby="Adv' + advNum + '">Adv' + advNum + '</div>').insertAfter(prevElement)
 
     prevElement = tabs_li[index]
-    $('<li class="nav-item" id="Adv' + advNum + '-li"><a class="nav-link text-white" id="Adv' + advNum + '" data-toggle="pill" href="#Adv-' + advNum + '-tab" role="tab" aria-controls="Adv-' + advNum + '-tab" aria-selected="false">Adv ' + advNum + '</a></li>').insertAfter(prevElement)
+    $('<li class="nav-item" id="Adv' + advNum + '-li"><a class="nav-link text-white" id="Adv' + advNum + '" data-toggle="pill" href="#Adv-' + advNum + '-tab" role="tab" aria-controls="Adv-' + advNum + '-tab" aria-selected="false">Adv ' + '</a></li>').insertAfter(prevElement)
 
     var con_id = 'Adv-' + advNum + '-tab'
     var con = document.getElementById(con_id)
@@ -755,7 +742,6 @@ function addAdvTab() {
 
     $('#Adv' + advNum).on('click', function (e) {
 
-
         var rc = selectCell_rc[index];
         var r = rc[0]
         var c = rc[1]
@@ -770,14 +756,7 @@ function addAdvTab() {
     tabs = document.getElementById('flow-navbar').getElementsByClassName('nav-link');
     flows = document.getElementsByClassName('tab-pane');
 
-    adv_add_index = adv_add_index + 1;
-    off_add_index = off_add_index + 1;
 
-    ac_delete_limit = ac_delete_limit + 1;
-    nc_delete_limit = nc_delete_limit + 1;
-    nc_limit = nc_limit + 1;
-
-    data['added-adv-tabs'] = data['added-adv-tabs'] + 1
     data['flow-data'].splice(index + 1, 0, handsontable_flows[index + 1].getData())
     bold_RC.splice(index + 1, 0, [])
 
@@ -787,10 +766,15 @@ function addAdvTab() {
     var allLiceneses = document.querySelectorAll("#hot-display-license-info");
     $(allLiceneses).remove();
 
+    nextTab()
+    console.log('FUCK ADV')
+
+    callback()
+
 }
 
 
-function addOffTab() {
+function addOffTab(callback) {
 
     /* Element we are inserting the Off after */
 
@@ -799,7 +783,7 @@ function addOffTab() {
     $('<div class="NC tab-pane fade" id="Off-' + offNum + '-tab" role="tabpanel" aria-labelledby="Adv' + offNum + '">Off' + offNum + '</div>').insertAfter(prevElement)
 
     prevElement = tabs_li[index]
-    $('<li class="nav-item" id="Off' + offNum + '-li"><a class="nav-link text-white" id="Off' + offNum + '" data-toggle="pill" href="#Off-' + offNum + '-tab" role="tab" aria-controls="Off-' + offNum + '-tab" aria-selected="false">Off ' + offNum + '</a></li>').insertAfter(prevElement)
+    $('<li class="nav-item" id="Off' + offNum + '-li"><a class="nav-link text-white" id="Off' + offNum + '" data-toggle="pill" href="#Off-' + offNum + '-tab" role="tab" aria-controls="Off-' + offNum + '-tab" aria-selected="false">Off ' + '</a></li>').insertAfter(prevElement)
 
     var con_id = 'Off-' + offNum + '-tab'
     var con = document.getElementById(con_id)
@@ -948,18 +932,18 @@ function addOffTab() {
     tabs = document.getElementById('flow-navbar').getElementsByClassName('nav-link');
     flows = document.getElementsByClassName('tab-pane');
 
-    off_add_index = off_add_index + 1;
 
-    nc_delete_limit = nc_delete_limit + 1;
-    nc_limit = nc_limit + 1;
-
-    data['added-off-tabs'] = data['added-off-tabs'] + 1
 
 
     /* Removes all of Handsontable's licenses */
 
     var allLiceneses = document.querySelectorAll("#hot-display-license-info");
     $(allLiceneses).remove();
+
+    nextTab()
+    callback()
+    console.log('FUCK OFF')
+
 
 }
 
@@ -970,28 +954,22 @@ function addOffTab() {
 
 function deleteTab() {
 
-    if (index == ac_delete_limit) {
-        ac_delete_limit = ac_delete_limit - 1
-        nc_delete_limit = nc_delete_limit - 1
-        nc_limit = nc_limit - 1
-        adv_add_index = adv_add_index - 1;
-        off_add_index = off_add_index - 1;
-        advNum = advNum - 1
-        data['delete-tabs'].push(flows[index].id)
-        data['added-adv-tabs'] = data['added-adv-tabs'] - 1
-    }
-    else {
-        nc_delete_limit = nc_delete_limit - 1
-        nc_limit = nc_limit - 1
-        off_add_index = off_add_index - 1
-        offNum = offNum - 1
-        data['delete-tabs'].push(flows[index].id)
-        data['added-off-tabs'] = data['added-off-tabs'] - 1
-    }
 
     tabDeleted = true
     var deleteTab_index = index
     nextTab()
+
+
+    //-- Removes the div
+
+    var id = tabs[deleteTab_index].href.split("#")[1]
+
+    for (i = 0; i < flows.length; i++) {
+        if (flows[i].id == id) {
+            id = '#' + flows[i].id
+            $(id).remove()
+        }
+    }
 
     //-- Removes the nav-pill
     var id = '#' + tabs[deleteTab_index].id
@@ -1001,9 +979,7 @@ function deleteTab() {
     id = '#' + tabs_li[deleteTab_index].id
     $(id).remove()
 
-    //-- Removes the div
-    id = '#' + flows[deleteTab_index].id
-    $(id).remove()
+
 
     //-- Removes handsontable flow
     handsontable_flows.splice(deleteTab_index, 1)
@@ -1026,6 +1002,19 @@ function deleteTab() {
 
 }
 
+function configureTabs() {
+
+    for (i = 0; i < tabs.length; i++) {
+        data['tab-names'][i] = tabs[i].innerHTML
+
+        if (tabs[i].classList.contains('1AC')) {
+            data['tab-types'][i] = '1AC'
+        }
+        else {
+            data['tab-types'][i] = '1NC'
+        }
+    }
+}
 
 
 
@@ -1043,7 +1032,7 @@ function switchFlow() {
             flows[i].classList.add('active');
             flows[i].classList.add('show');
         }
-        else{
+        else {
             flows[i].classList.remove('show');
             flows[i].classList.remove('active');
         }
@@ -1052,99 +1041,27 @@ function switchFlow() {
 
 }
 
-function loadFlow(callback) {
+function loadFlow() {
     if (dataSuccess && loadedData['flow_type'] == flow_type) {
 
+        
+        
         loadedOnce = true
-
         $('#body').append('<div class="loader" id="pre-loader"></div>')
-
-
-
-
-
         document.getElementById('flow-navbar').style.visibility = 'hidden'
         document.getElementById('flows').style.visibility = 'hidden'
         document.getElementById('ephox_mytextarea').style.visibility = 'hidden'
         document.getElementById('mytextarea').style.visibility = 'hidden'
-
-
-
+    
+        
 
         if (flow_type == 'LD Plan Flow' || flow_type == 'Policy Flow') {
 
-            if (loadedData['added-off-tabs'] < 0) {
-                var f = Math.abs(loadedData['added-off-tabs']);
+            deleteAllTabs()
 
-                for (i = 0; i < f; i++) {
-                    var id = tabs[off_add_index].id;
-                    var reference = '#' + id;
-                    $(document).ready(function () {
-                        $(reference).click();
-                    });
-                    index = off_add_index
-                    deleteTab()
+            addLoadedTabs(loadData)
 
-                }
-            }
-            else if (loadedData['added-off-tabs'] > 0) {
-                var f = loadedData['added-off-tabs']
-
-                for (i = 0; i < f; i++) {
-                    var id = tabs[off_add_index].id;
-                    var reference = '#' + id;
-                    $(document).ready(function () {
-                        $(reference).click();
-                    });
-                    index = off_add_index
-                    addOffTab()
-                    offNum = offNum + 1
-
-                }
-            }
-
-            if (loadedData['added-adv-tabs'] < 0) {
-                var f = Math.abs(loadedData['added-adv-tabs']);
-
-                for (i = 0; i < f; i++) {
-                    var id = tabs[adv_add_index].id;
-                    var reference = '#' + id;
-                    $(document).ready(function () {
-                        $(reference).click();
-                    });
-                    index = adv_add_index
-                    deleteTab()
-
-                }
-            }
-            else if (loadedData['added-adv-tabs'] > 0) {
-                var f = loadedData['added-adv-tabs']
-
-                for (i = 0; i < f; i++) {
-                    var id = tabs[adv_add_index].id;
-                    var reference = '#' + id;
-                    $(document).ready(function () {
-                        $(reference).click();
-                    });
-                    index = adv_add_index
-                    addAdvTab()
-                    advNum = advNum + 1
-
-                }
-            }
-
-
-
-            for (i = 0; i < handsontable_flows.length; i++) {
-                dataLoaded = true
-                handsontable_flows[i].updateSettings({
-                    data: loadedData['flow-data'][i]
-                })
-
-                if (i == handsontable_flows.length - 1) {
-                    callback()
-                }
-            }
+    
 
         }
         else if (flow_type == 'PF Flow') {
@@ -1156,30 +1073,13 @@ function loadFlow(callback) {
                     switchToPro()
                 }
             }
-            for (i = 0; i < handsontable_flows.length; i++) {
-                dataLoaded = true
-                handsontable_flows[i].updateSettings({
-                    data: loadedData['flow-data'][i]
-                })
-            }
-            callback()
+            loadData(boldFlow)
         }
         else {
-            for (i = 0; i < handsontable_flows.length; i++) {
-                dataLoaded = true
-                handsontable_flows[i].updateSettings({
-                    data: loadedData['flow-data'][i]
-                })
-            }
-            callback()
+            loadData(boldFlow)
         }
         document.title = w[0]
-        data = loadedData
-
-
-
-
-
+        // data = loadedData
     }
     else {
         if (dataSuccess == true) {
@@ -1191,6 +1091,8 @@ function loadFlow(callback) {
 
 
 }
+
+/* Resizes the flow based on the number of tabs */
 
 function resizeFlowHeight() {
     if (document.getElementById('flow-tabs').offsetHeight > 100) {
@@ -1235,6 +1137,8 @@ function resizeFlowHeight() {
 }
 
 
+/* Selects all cells */
+
 function selectAllCells() {
     for (i = handsontable_flows.length - 1; i >= 0; i--) {
         var rc = selectCell_rc[i];
@@ -1244,18 +1148,84 @@ function selectAllCells() {
     }
 }
 
-function getSelectedCellIndex() {
+/* Deletes all tabs to load customized flow */
 
-    var id = tabs[index].href.split("#")[1]
+function deleteAllTabs() {
+    previousTab()
+    for (i = 0; i < 13; i++) {
 
-    for (i = 0; i < flows.length; i++) {
-        if (flows[i].id == id) {
-            return i
-        }
+        setTimeout(() => {
+            deleteTab()
+        }, 100);
     }
-    return -1;
 
 }
+
+/* Adds and names the customized tabs */
+
+function addLoadedTabs(callback) {
+    var tab_names = loadedData["tab-names"]
+    var numOfTabs = tab_names.length
+    var tab_types = loadedData["tab-types"]
+
+    for (i = 0; i < numOfTabs; i++) {
+
+        if (tab_types[i] == '1AC') {
+            console.log('FUCK DAMN ADV')
+            addAdvTab(()=>{
+                advNum = advNum + 1
+                tabs[index].innerHTML = tab_names[i]
+            })
+
+        }
+        else if (tab_types[i] == '1NC') {
+            console.log('FUCK DAMN OFF')
+
+            addOffTab(()=>{
+                offNum = offNum + 1
+                tabs[index].innerHTML = tab_names[i]
+            })
+
+        }
+    }
+
+    setTimeout(() => {
+        callback()
+    }, 2000);
+
+
+}
+
+
+/* Loads the Data into the Flow */
+
+function loadData() {
+
+    nextTab()
+    deleteTab()
+    for (i = 0; i < handsontable_flows.length; i++) {
+        dataLoaded = true
+        handsontable_flows[i].updateSettings({
+            data: loadedData['flow-data'][i]
+        })
+    }
+
+    setTimeout(() => {
+        var tab_names = loadedData["tab-names"]
+        var numOfTabs = tab_names.length
+    
+        for (i = 0; i < numOfTabs; i++) {
+            tabs[i].innerHTML = tab_names[i]
+        }
+    }, 2000);
+
+    setTimeout(() => {
+        boldFlow()
+    }, 2000);
+
+
+}
+
 
 
 /* updates the selectedCells array everytime the user switches tabs */
@@ -1308,10 +1278,8 @@ function boldFlow() {
     bold_RC = loadedData['boldElements']
     if (loadedOnce) {
         for (i = 0; i < bold_RC.length; i++) {
-            console.log('index ', i)
 
             for (x = 0; x < bold_RC[i].length; x++) {
-                console.log('col ', x)
 
                 var a = bold_RC[i][x]
                 var r = a[0]
@@ -1333,13 +1301,14 @@ function boldFlow() {
 
     setTimeout(() => {
         switchFlow()
+        nextTab()
+        previousTab()
         $('.loader').remove()
         document.getElementById('flow-navbar').style.visibility = 'visible'
         document.getElementById('flows').style.visibility = 'visible'
         document.getElementById('ephox_mytextarea').style.visibility = 'visible'
         dataLoaded = false
-
-    }, 1000);
+    }, 2000);
 
 
 
@@ -1507,6 +1476,7 @@ $(window).resize(function () {
     }
 });
 
+
 var list_tabs = document.getElementById("flow-tabs");
 new Sortable(list_tabs, {
     onEnd: function (/**Event*/evt) {
@@ -1516,41 +1486,55 @@ new Sortable(list_tabs, {
         tabs = document.getElementById('flow-navbar').getElementsByClassName('nav-link');
         flows = document.getElementsByClassName('tab-pane');
 
-        if(evt.oldIndex<evt.newIndex){
-            for(i = evt.oldIndex;i<evt.newIndex;i++){
+        if (evt.oldIndex < evt.newIndex) {
+            for (i = evt.oldIndex; i < evt.newIndex; i++) {
                 var tempFlow = handsontable_flows[i]
-                handsontable_flows[i] = handsontable_flows[i+1]
-                handsontable_flows[i+1] = tempFlow
+                handsontable_flows[i] = handsontable_flows[i + 1]
+                handsontable_flows[i + 1] = tempFlow
 
                 var tempSC = selectCell_rc[i]
-                selectCell_rc[i] = selectCell_rc[i+1]
-                selectCell_rc[i+1] = tempSC
+                selectCell_rc[i] = selectCell_rc[i + 1]
+                selectCell_rc[i + 1] = tempSC
 
                 var tempBC = bold_RC[i]
-                bold_RC[i] = bold_RC[i+1]
-                bold_RC[i+1] = tempBC
+                bold_RC[i] = bold_RC[i + 1]
+                bold_RC[i + 1] = tempBC
+
+                var tempDataFlow = data["flow-data"][i]
+                data["flow-data"][i] = data["flow-data"][i + 1]
+                data["flow-data"][i + 1] = tempDataFlow
             }
-            index = evt.newIndex
         }
-        else{
-            for(i = evt.oldIndex;i>evt.newIndex;i--){
+        else {
+            for (i = evt.oldIndex; i > evt.newIndex; i--) {
                 var tempFlow = handsontable_flows[i]
-                handsontable_flows[i] = handsontable_flows[i-1]
-                handsontable_flows[i-1] = tempFlow
+                handsontable_flows[i] = handsontable_flows[i - 1]
+                handsontable_flows[i - 1] = tempFlow
 
                 var tempSC = selectCell_rc[i]
-                selectCell_rc[i] = selectCell_rc[i-1]
-                selectCell_rc[i-1] = tempSC
+                selectCell_rc[i] = selectCell_rc[i - 1]
+                selectCell_rc[i - 1] = tempSC
 
                 var tempBC = bold_RC[i]
-                bold_RC[i] = bold_RC[i-1]
-                bold_RC[i-1] = tempBC
+                bold_RC[i] = bold_RC[i - 1]
+                bold_RC[i - 1] = tempBC
+
+                var tempDataFlow = data["flow-data"][i]
+                data["flow-data"][i] = data["flow-data"][i - 1]
+                data["flow-data"][i - 1] = tempDataFlow
             }
-            index = evt.newIndex
         }
 
+
+        for (i = 0; i < tabs.length; i++) {
+            if (tabs[i].classList.contains('active')) {
+                index = i;
+            }
+        }
 
         selectAllCells()
-
     }
 });
+
+
+
