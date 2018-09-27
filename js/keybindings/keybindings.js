@@ -768,60 +768,63 @@ function addAdvTab(callback) {
 
     })
 
-    /* User can rename the tab on dblclick */
+            /* User can rename the tab on dblclick */
 
-    $('#Adv' + advNum + '-li').on('dblclick', function () {
-        handsontable_flows[index].deselectCell()
-        $(this).find('input').toggle().val($(this).find('a').html()).focus();
-        $(this).find('a').toggleClass('hidden')
-    });
-
-    /* Events on Input */
-
-    $('#Adv' + advNum + '-li').on('keydown blur dblclick', 'input', function (e) {
-        if (e.type == "keydown") {
-            if (e.which == 13) {
-                $(this).toggle();
-                $(this).siblings('a').toggle().html($(this).val());
-                var f = $(this).parent('.nav-item')[0].id
-                $('#' + f).find('a').removeClass('hidden')
-
-                $('#' + f).find('a').css({
-                    "display":"block"
-                })
-
-                var id = tabs[index].id;
-                var reference = '#' + id;
-                $(document).ready(function () {
-                    $(reference).click();
-                });
-            }
-            if (e.which == 38 || e.which == 40 || e.which == 37 || e.which == 39) {
-                e.stopPropagation();
-            }
-        }
-        else if (e.type == "focusout") {
-            if ($(this).css('display') == "inline-block") {
-                $(this).toggle();
-                $(this).siblings('a').toggle().html($(this).val());
-                var f = $(this).parent('.nav-item')[0].id
-                $('#' + f).find('a').removeClass('hidden')
-                $('#' + f).find('a').css({
-                    "display":"block"
-                })
-
-                var id = tabs[index].id;
-                var reference = '#' + id;
-                $(document).ready(function () {
-                    $(reference).click();
-                });
-
-            }
-        }
-        else {
-            e.stopPropagation();
-        }
-    });
+            $('.tab').on('dblclick', function () {
+                handsontable_flows[index].deselectCell()
+                $(this).find('input').toggle().val($(this).find('a').html()).focus();
+                $(this).find('a').toggleClass('hidden')
+            });
+    
+            /* Events on Input */
+    
+            $('.tab').on('keydown blur dblclick', 'input', function (e) {
+                if (e.type == "keydown") {
+                    if (e.which == 13) {
+                        $(this).toggle();
+                        $(this).siblings('a').toggle().html($(this).val());
+                        var f = $(this).parent('.nav-item')[0].id
+                        $('#' + f).find('a').removeClass('hidden')
+    
+                        $('#' + f).find('a').css({
+                            "display":"block"
+                        })
+                        var id = tabs[index].id;
+                        var reference = '#' + id;
+                        $(document).ready(function () {
+                            $(reference).click();
+                        });
+    
+                        
+                    }
+                    if (e.which == 38 || e.which == 40 || e.which == 37 || e.which == 39) {
+                        e.stopPropagation();
+                    }
+                }
+                else if (e.type == "focusout") {
+                    if ($(this).css('display') == "inline-block") {
+                        $(this).toggle();
+                        $(this).siblings('a').toggle().html($(this).val());
+                        var f = $(this).parent('.nav-item')[0].id
+                        $('#' + f).find('a').removeClass('hidden')
+                        var id = tabs[index].id;
+                        var reference = '#' + id;
+    
+                        $('#' + f).find('a').css({
+                            "display":"block"
+                        })
+    
+                        $(document).ready(function () {
+                            $(reference).click();
+                        });
+                    }
+                    
+    
+                }
+                else {
+                    e.stopPropagation();
+                }
+            });
 
 
     /* Reconfiguration */
@@ -995,52 +998,63 @@ function addOffTab(callback) {
 
     })
 
-    /* User can rename the tab on dblclick */
+            /* User can rename the tab on dblclick */
 
-    $('#Off' + offNum + '-li').on('dblclick', function () {
-        handsontable_flows[index].deselectCell()
-        $(this).find('input').toggle().val($(this).find('a').html()).focus();
-        $(this).find('a').toggleClass('hidden')
-    });
-
-    /* Events on Input */
-
-    $('#Off' + offNum + '-li').on('keydown blur dblclick', 'input', function (e) {
-        if (e.type == "keydown") {
-            if (e.which == 13) {
-                $(this).toggle();
-                $(this).siblings('a').toggle().html($(this).val());
-                var f = $(this).parent('.nav-item')[0].id
-                $('#' + f).find('a').removeClass('hidden')
-                var id = tabs[index].id;
-                var reference = '#' + id;
-                $(document).ready(function () {
-                    $(reference).click();
-                });
-            }
-            if (e.which == 38 || e.which == 40 || e.which == 37 || e.which == 39) {
-                e.stopPropagation();
-            }
-        }
-        else if (e.type == "focusout") {
-            if ($(this).css('display') == "inline-block") {
-                $(this).toggle();
-                $(this).siblings('a').toggle().html($(this).val());
-                var f = $(this).parent('.nav-item')[0].id
-                $('#' + f).find('a').removeClass('hidden')
-                var id = tabs[index].id;
-                var reference = '#' + id;
-                $(document).ready(function () {
-                    $(reference).click();
-                });
-
-            }
-        }
-        else {
-            e.stopPropagation();
-        }
-    });
-
+            $('.tab').on('dblclick', function () {
+                handsontable_flows[index].deselectCell()
+                $(this).find('input').toggle().val($(this).find('a').html()).focus();
+                $(this).find('a').toggleClass('hidden')
+            });
+    
+            /* Events on Input */
+    
+            $('.tab').on('keydown blur dblclick', 'input', function (e) {
+                if (e.type == "keydown") {
+                    if (e.which == 13) {
+                        $(this).toggle();
+                        $(this).siblings('a').toggle().html($(this).val());
+                        var f = $(this).parent('.nav-item')[0].id
+                        $('#' + f).find('a').removeClass('hidden')
+    
+                        $('#' + f).find('a').css({
+                            "display":"block"
+                        })
+                        var id = tabs[index].id;
+                        var reference = '#' + id;
+                        $(document).ready(function () {
+                            $(reference).click();
+                        });
+    
+                        
+                    }
+                    if (e.which == 38 || e.which == 40 || e.which == 37 || e.which == 39) {
+                        e.stopPropagation();
+                    }
+                }
+                else if (e.type == "focusout") {
+                    if ($(this).css('display') == "inline-block") {
+                        $(this).toggle();
+                        $(this).siblings('a').toggle().html($(this).val());
+                        var f = $(this).parent('.nav-item')[0].id
+                        $('#' + f).find('a').removeClass('hidden')
+                        var id = tabs[index].id;
+                        var reference = '#' + id;
+    
+                        $('#' + f).find('a').css({
+                            "display":"block"
+                        })
+    
+                        $(document).ready(function () {
+                            $(reference).click();
+                        });
+                    }
+                    
+    
+                }
+                else {
+                    e.stopPropagation();
+                }
+            });
 
     /* Reconfiguration */
 
