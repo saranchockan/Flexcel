@@ -48,8 +48,10 @@ var fileName = ""
 var loadedData
 var dataSuccess = false
 var tD = false
-
 var loadedOnce = false;
+
+// Speech-Doc Removal
+var speechDocRemoved = false;
 
 // Variables for storing auto-complete data
 
@@ -216,21 +218,52 @@ $('#flow-navbar li').on('shown.bs.tab', function (e) {
 
 Mousetrap.bind(['command+k', 'ctrl+k'], function () {
 
-    addAdvTab(() => {
-    })
+    if (flow_type == 'LD Plan Flow' || flow_type == 'Policy Flow') {
+        addAdvTab(() => {
+        })
+    }
+
     advNum = advNum + 1
 
 })
 
 Mousetrap.bind(['command+j', 'ctrl+j'], function () {
 
-    addOffTab(() => {
-    })
+    if (flow_type == 'LD Plan Flow' || flow_type == 'Policy Flow') {
+        addOffTab(() => {
+        })
+    }
+
     offNum = offNum + 1
 
 })
 
 
+Mousetrap.bind(['command+y', 'ctrl+y'], function () {
+    $('#ephox_mytextarea').toggle()
+
+    if(!speechDocRemoved){
+        speechDocRemoved = true
+
+        $('.plan-container').css({
+            "position":"absolute","height":"100vh","width":"100vw"
+        })
+        $('.ephox-polish-html-switch').remove()
+
+        $(window).resize()
+    }
+    else{
+        speechDocRemoved = false
+
+        $('.plan-container').css({
+            "position":"absolute","height":"100vh","width":"68.80152187698161vw"
+        })
+        $('.ephox-polish-html-switch').remove()
+
+        $(window).resize()
+
+    }
+}, 'keyup');
 
 /* 
     Deletes the current tab. A tab can only be deleted in order of the flow tabs i.e you can only
@@ -389,6 +422,11 @@ Mousetrap.bind(['command+l', 'ctrl+l'], function () {
     }
 
 })
+
+/* Reconfigures flow css when speech-doc is removed */
+
+
+
 
 /* Reconfigure Font Color */
 
@@ -568,7 +606,7 @@ function addAdvTab(callback) {
     $('<div class="AC tab-pane fade" id="Adv-' + advNum + '-tab" role="tabpanel" aria-labelledby="Adv' + advNum + '">Adv' + advNum + '</div>').insertAfter(prevElement)
 
     prevElement = tabs_li[index]
-    $('<li class="nav-item" id="Adv' + advNum + '-li"><a class="nav-link text-white" id="Adv' + advNum + '" data-toggle="pill" href="#Adv-' + advNum + '-tab" role="tab" aria-controls="Adv-' + advNum + '-tab" aria-selected="false">Adv ' + '</a></li>').insertAfter(prevElement)
+    $('<li class="tab nav-item" id="Adv' + advNum + '-li"><input class="txt" type="text"/><a class="nav-link text-white" id="Adv' + advNum + '" data-toggle="pill" href="#Adv-' + advNum + '-tab" role="tab" aria-controls="Adv-' + advNum + '-tab" aria-selected="false">Adv ' + '</a></li>').insertAfter(prevElement)
 
     var con_id = 'Adv-' + advNum + '-tab'
     var con = document.getElementById(con_id)
@@ -730,6 +768,54 @@ function addAdvTab(callback) {
 
     })
 
+    /* User can rename the tab on dblclick */
+
+    $('#Adv' + advNum + '-li').on('dblclick', function () {
+        handsontable_flows[index].deselectCell()
+        $(this).find('input').toggle().val($(this).find('a').html()).focus();
+        $(this).find('a').toggleClass('hidden')
+    });
+
+    /* Events on Input */
+
+    $('#Adv' + advNum + '-li').on('keydown blur dblclick', 'input', function (e) {
+        if (e.type == "keydown") {
+            if (e.which == 13) {
+                $(this).toggle();
+                $(this).siblings('a').toggle().html($(this).val());
+                var f = $(this).parent('.nav-item')[0].id
+                $('#' + f).find('a').removeClass('hidden')
+
+                var id = tabs[index].id;
+                var reference = '#' + id;
+                $(document).ready(function () {
+                    $(reference).click();
+                });
+            }
+            if (e.which == 38 || e.which == 40 || e.which == 37 || e.which == 39) {
+                e.stopPropagation();
+            }
+        }
+        else if (e.type == "focusout") {
+            if ($(this).css('display') == "inline-block") {
+                $(this).toggle();
+                $(this).siblings('a').toggle().html($(this).val());
+                var f = $(this).parent('.nav-item')[0].id
+                $('#' + f).find('a').removeClass('hidden')
+
+                var id = tabs[index].id;
+                var reference = '#' + id;
+                $(document).ready(function () {
+                    $(reference).click();
+                });
+
+            }
+        }
+        else {
+            e.stopPropagation();
+        }
+    });
+
 
     /* Reconfiguration */
 
@@ -747,7 +833,7 @@ function addAdvTab(callback) {
     var allLiceneses = document.querySelectorAll("#hot-display-license-info");
     $(allLiceneses).remove();
 
-    nextTab()
+    // nextTab()
     callback()
 
 }
@@ -762,7 +848,7 @@ function addOffTab(callback) {
     $('<div class="NC tab-pane fade" id="Off-' + offNum + '-tab" role="tabpanel" aria-labelledby="Adv' + offNum + '">Off' + offNum + '</div>').insertAfter(prevElement)
 
     prevElement = tabs_li[index]
-    $('<li class="nav-item" id="Off' + offNum + '-li"><a class="nav-link text-white" id="Off' + offNum + '" data-toggle="pill" href="#Off-' + offNum + '-tab" role="tab" aria-controls="Off-' + offNum + '-tab" aria-selected="false">Off ' + '</a></li>').insertAfter(prevElement)
+    $('<li class="tab nav-item" id="Off' + offNum + '-li"><input class="txt" type="text"/><a class="nav-link text-white" id="Off' + offNum + '" data-toggle="pill" href="#Off-' + offNum + '-tab" role="tab" aria-controls="Off-' + offNum + '-tab" aria-selected="false">Off ' + '</a></li>').insertAfter(prevElement)
 
     var con_id = 'Off-' + offNum + '-tab'
     var con = document.getElementById(con_id)
@@ -902,6 +988,52 @@ function addOffTab(callback) {
 
     })
 
+    /* User can rename the tab on dblclick */
+
+    $('#Off' + offNum + '-li').on('dblclick', function () {
+        handsontable_flows[index].deselectCell()
+        $(this).find('input').toggle().val($(this).find('a').html()).focus();
+        $(this).find('a').toggleClass('hidden')
+    });
+
+    /* Events on Input */
+
+    $('#Off' + offNum + '-li').on('keydown blur dblclick', 'input', function (e) {
+        if (e.type == "keydown") {
+            if (e.which == 13) {
+                $(this).toggle();
+                $(this).siblings('a').toggle().html($(this).val());
+                var f = $(this).parent('.nav-item')[0].id
+                $('#' + f).find('a').removeClass('hidden')
+                var id = tabs[index].id;
+                var reference = '#' + id;
+                $(document).ready(function () {
+                    $(reference).click();
+                });
+            }
+            if (e.which == 38 || e.which == 40 || e.which == 37 || e.which == 39) {
+                e.stopPropagation();
+            }
+        }
+        else if (e.type == "focusout") {
+            if ($(this).css('display') == "inline-block") {
+                $(this).toggle();
+                $(this).siblings('a').toggle().html($(this).val());
+                var f = $(this).parent('.nav-item')[0].id
+                $('#' + f).find('a').removeClass('hidden')
+                var id = tabs[index].id;
+                var reference = '#' + id;
+                $(document).ready(function () {
+                    $(reference).click();
+                });
+
+            }
+        }
+        else {
+            e.stopPropagation();
+        }
+    });
+
 
     /* Reconfiguration */
 
@@ -917,7 +1049,7 @@ function addOffTab(callback) {
     var allLiceneses = document.querySelectorAll("#hot-display-license-info");
     $(allLiceneses).remove();
 
-    nextTab()
+    // nextTab()
     callback()
 
 
@@ -980,14 +1112,16 @@ function deleteTab() {
 
 function configureTabs() {
 
-    for (i = 0; i < tabs.length; i++) {
-        data['tab-names'][i] = tabs[i].innerHTML
+    if (flow_type == 'LD Plan Flow' || flow_type == 'Policy Flow') {
+        for (i = 0; i < tabs.length; i++) {
+            data['tab-names'][i] = tabs[i].innerHTML
 
-        if (tabs[i].classList.contains('1AC')) {
-            data['tab-types'][i] = '1AC'
-        }
-        else {
-            data['tab-types'][i] = '1NC'
+            if (tabs[i].classList.contains('1AC')) {
+                data['tab-types'][i] = '1AC'
+            }
+            else {
+                data['tab-types'][i] = '1NC'
+            }
         }
     }
 }
@@ -1020,8 +1154,6 @@ function switchFlow() {
 function loadFlow() {
     if (dataSuccess && loadedData['flow_type'] == flow_type) {
 
-
-
         loadedOnce = true
         $('#body').append('<div class="loader" id="pre-loader"></div>')
         document.getElementById('flow-navbar').style.visibility = 'hidden'
@@ -1029,15 +1161,10 @@ function loadFlow() {
         document.getElementById('ephox_mytextarea').style.visibility = 'hidden'
         document.getElementById('mytextarea').style.visibility = 'hidden'
 
-
-
         if (flow_type == 'LD Plan Flow' || flow_type == 'Policy Flow') {
 
             deleteAllTabs()
-
             addLoadedTabs(loadData)
-
-
 
         }
         else if (flow_type == 'PF Flow') {
@@ -1049,13 +1176,12 @@ function loadFlow() {
                     switchToPro()
                 }
             }
-            loadData(boldFlow)
+            loadData()
         }
         else {
-            loadData(boldFlow)
+            loadData()
         }
         document.title = w[0]
-        // data = loadedData
     }
     else {
         if (dataSuccess == true) {
@@ -1128,7 +1254,7 @@ function selectAllCells() {
 
 function deleteAllTabs() {
     previousTab()
-    for (i = 0; i < 13; i++) {
+    for (i = 0; i < tabs.length; i++) {
 
         setTimeout(() => {
             deleteTab()
@@ -1156,7 +1282,7 @@ function addLoadedTabs(callback) {
         }
         else if (tab_types[i] == '1NC') {
 
-            
+
             addOffTab(() => {
                 offNum = offNum + 1
                 tabs[index].innerHTML = tab_names[i]
@@ -1268,12 +1394,9 @@ function boldFlow() {
                         bold_cell_tD.push(handsontable_flows[i].getCell(r, c))
                     }
                 }
-
             }
-
         }
     }
-
 
     setTimeout(() => {
         switchFlow()
@@ -1283,13 +1406,15 @@ function boldFlow() {
         document.getElementById('flow-navbar').style.visibility = 'visible'
         document.getElementById('flows').style.visibility = 'visible'
         document.getElementById('ephox_mytextarea').style.visibility = 'visible'
+        tabs_li = document.getElementById('flow-navbar').getElementsByClassName('nav-item');
+        tabs = document.getElementById('flow-navbar').getElementsByClassName('nav-link');
+        flows = document.getElementsByClassName('tab-pane');
         dataLoaded = false
     }, 2000);
 
-
-
-
-
+    setTimeout(() => {
+        data = loadedData
+    }, 2000);
 
 }
 
@@ -1405,7 +1530,7 @@ $(function () {
 
         /* User can rename the tab on dblclick */
 
-        $('.tab').on('dblclick',function(){
+        $('.tab').on('dblclick', function () {
             handsontable_flows[index].deselectCell()
             $(this).find('input').toggle().val($(this).find('a').html()).focus();
             $(this).find('a').toggleClass('hidden')
@@ -1413,39 +1538,43 @@ $(function () {
 
         /* Events on Input */
 
-       $('.tab').on('keydown blur dblclick','input',function(e){
-           if(e.type=="keydown")
-           {
-              if(e.which==13)
-              {
-                  $(this).toggle();
-                  $(this).siblings('a').toggle().html($(this).val());
-                  var f = $(this).parent('.nav-item')[0].id
-                  $('#'+f).find('a').removeClass('hidden')
-              }
-              if(e.which==38 || e.which==40 || e.which==37 || e.which==39)
-              {
-                  e.stopPropagation();
-              }
-           }
-           else if(e.type=="focusout")
-           {
-               if($(this).css('display')=="inline-block")
-               {
-                   $(this).toggle();
-                   $(this).siblings('a').toggle().html($(this).val());
-                   var f = $(this).parent('.nav-item')[0].id
-                   $('#'+f).find('a').removeClass('hidden')
+        $('.tab').on('keydown blur dblclick', 'input', function (e) {
+            if (e.type == "keydown") {
+                if (e.which == 13) {
+                    $(this).toggle();
+                    $(this).siblings('a').toggle().html($(this).val());
+                    var f = $(this).parent('.nav-item')[0].id
+                    $('#' + f).find('a').removeClass('hidden')
 
-               }
-           }
-           else
-           {
-               e.stopPropagation();
-           }
-       });
+                    var id = tabs[index].id;
+                    var reference = '#' + id;
+                    $(document).ready(function () {
+                        $(reference).click();
+                    });
+                }
+                if (e.which == 38 || e.which == 40 || e.which == 37 || e.which == 39) {
+                    e.stopPropagation();
+                }
+            }
+            else if (e.type == "focusout") {
+                if ($(this).css('display') == "inline-block") {
+                    $(this).toggle();
+                    $(this).siblings('a').toggle().html($(this).val());
+                    var f = $(this).parent('.nav-item')[0].id
+                    $('#' + f).find('a').removeClass('hidden')
 
+                    var id = tabs[index].id;
+                    var reference = '#' + id;
+                    $(document).ready(function () {
+                        $(reference).click();
+                    });
 
+                }
+            }
+            else {
+                e.stopPropagation();
+            }
+        });
 
         $('.loader').remove()
         document.getElementById('df').classList.add('elementToFadeInAndOutLeft')
@@ -1456,12 +1585,9 @@ $(function () {
         $('.ephox-polish-html-switch').remove()
     }, 1000);
 
-
 });
 
-
-
-// function executed everytime window is reszied
+// Function executed everytime window is reszied
 
 $(window).resize(function () {
     resizeFlowHeight()
@@ -1484,7 +1610,6 @@ $(window).resize(function () {
             var r = a[0]
             var c = a[1]
 
-
             if (typeof r != 'undefined' && typeof c != 'undefined') {
 
                 if (typeof handsontable_flows[i].getCell(r, c) != 'undefined') {
@@ -1498,62 +1623,73 @@ $(window).resize(function () {
 });
 
 
+
+// Implements Tab Sorting
+
 var list_tabs = document.getElementById("flow-tabs");
-new Sortable(list_tabs, {
-    onEnd: function (/**Event*/evt) {
+
+if (flow_type == 'LD Plan Flow' || flow_type == 'Policy Flow') {
+    new Sortable(list_tabs, {
+        onEnd: function (/**Event*/evt) {
 
 
-        tabs_li = document.getElementById('flow-navbar').getElementsByClassName('nav-item');
-        tabs = document.getElementById('flow-navbar').getElementsByClassName('nav-link');
-        flows = document.getElementsByClassName('tab-pane');
+            tabs_li = document.getElementById('flow-navbar').getElementsByClassName('nav-item');
+            tabs = document.getElementById('flow-navbar').getElementsByClassName('nav-link');
+            flows = document.getElementsByClassName('tab-pane');
 
-        if (evt.oldIndex < evt.newIndex) {
-            for (i = evt.oldIndex; i < evt.newIndex; i++) {
-                var tempFlow = handsontable_flows[i]
-                handsontable_flows[i] = handsontable_flows[i + 1]
-                handsontable_flows[i + 1] = tempFlow
+            if (evt.oldIndex < evt.newIndex) {
+                for (i = evt.oldIndex; i < evt.newIndex; i++) {
+                    var tempFlow = handsontable_flows[i]
+                    handsontable_flows[i] = handsontable_flows[i + 1]
+                    handsontable_flows[i + 1] = tempFlow
 
-                var tempSC = selectCell_rc[i]
-                selectCell_rc[i] = selectCell_rc[i + 1]
-                selectCell_rc[i + 1] = tempSC
+                    var tempSC = selectCell_rc[i]
+                    selectCell_rc[i] = selectCell_rc[i + 1]
+                    selectCell_rc[i + 1] = tempSC
 
-                var tempBC = bold_RC[i]
-                bold_RC[i] = bold_RC[i + 1]
-                bold_RC[i + 1] = tempBC
+                    var tempBC = bold_RC[i]
+                    bold_RC[i] = bold_RC[i + 1]
+                    bold_RC[i + 1] = tempBC
 
-                var tempDataFlow = data["flow-data"][i]
-                data["flow-data"][i] = data["flow-data"][i + 1]
-                data["flow-data"][i + 1] = tempDataFlow
+                    var tempDataFlow = data["flow-data"][i]
+                    data["flow-data"][i] = data["flow-data"][i + 1]
+                    data["flow-data"][i + 1] = tempDataFlow
+                }
             }
-        }
-        else {
-            for (i = evt.oldIndex; i > evt.newIndex; i--) {
-                var tempFlow = handsontable_flows[i]
-                handsontable_flows[i] = handsontable_flows[i - 1]
-                handsontable_flows[i - 1] = tempFlow
+            else {
+                for (i = evt.oldIndex; i > evt.newIndex; i--) {
+                    var tempFlow = handsontable_flows[i]
+                    handsontable_flows[i] = handsontable_flows[i - 1]
+                    handsontable_flows[i - 1] = tempFlow
 
-                var tempSC = selectCell_rc[i]
-                selectCell_rc[i] = selectCell_rc[i - 1]
-                selectCell_rc[i - 1] = tempSC
+                    var tempSC = selectCell_rc[i]
+                    selectCell_rc[i] = selectCell_rc[i - 1]
+                    selectCell_rc[i - 1] = tempSC
 
-                var tempBC = bold_RC[i]
-                bold_RC[i] = bold_RC[i - 1]
-                bold_RC[i - 1] = tempBC
+                    var tempBC = bold_RC[i]
+                    bold_RC[i] = bold_RC[i - 1]
+                    bold_RC[i - 1] = tempBC
 
-                var tempDataFlow = data["flow-data"][i]
-                data["flow-data"][i] = data["flow-data"][i - 1]
-                data["flow-data"][i - 1] = tempDataFlow
+                    var tempDataFlow = data["flow-data"][i]
+                    data["flow-data"][i] = data["flow-data"][i - 1]
+                    data["flow-data"][i - 1] = tempDataFlow
+                }
             }
-        }
 
-
-        for (i = 0; i < tabs.length; i++) {
-            if (tabs[i].classList.contains('active')) {
-                index = i;
+            for (i = 0; i < tabs.length; i++) {
+                if (tabs[i].classList.contains('active')) {
+                    index = i;
+                }
             }
+            selectAllCells()
         }
+    });
 
-        selectAllCells()
-    }
-});
+}
+
+
+
+
+
+
 

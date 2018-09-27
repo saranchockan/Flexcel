@@ -29,9 +29,6 @@ var negShadeColor = '#ffffff'
 
 var bold_RC = [[], []]
 
-
-
-
 /* Hides the flow and speech-doc until the screen is wholly rendered */
 
 document.getElementById('flow-navbar').style.visibility = 'hidden'
@@ -43,8 +40,6 @@ document.getElementById('mytextarea').style.visibility = 'hidden'
 
 
 /* Sets red color font to 1ac and blue color font to 1nc */
-
-
 
 function pro_flowRenderer(instance, td, row, col, prop, value, cellProperties) {
   Handsontable.renderers.TextRenderer.apply(this, arguments);
