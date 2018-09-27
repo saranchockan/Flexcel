@@ -30,8 +30,22 @@ body {
 #ephox_mytextarea{
     position: relative;
     float: right;
-    width: 33.5vw;
+    width: 31vw !important;
     height: 100vh;
+}
+
+.ephox-polish-sticky-container{
+    position: relative;
+    float: right;
+    height: 100%;
+    width: 100%;
+}
+
+.ephox-polish-socket{
+    position: relative;
+    float: right;
+    height: 100%;
+    width: 100%;
 }
 
 .ephox-chameleon-toolbar{
