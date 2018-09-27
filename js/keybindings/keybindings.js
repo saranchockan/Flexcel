@@ -1,26 +1,23 @@
-var Mousetrap = require('mousetrap');
+var Mousetrap = require('mousetrap')
 const fs = require('fs')
 const dialog = require('electron').remote.dialog
 
 // Variables used to access HTML elements for DOM manipulation
 
-var tabs_li = document.getElementById('flow-navbar').getElementsByClassName('nav-item');
-var tabs = document.getElementById('flow-navbar').getElementsByClassName('nav-link');
-var flows = document.getElementsByClassName('tab-pane');
+var tabs_li = document.getElementById('flow-navbar').getElementsByClassName('nav-item')
+var tabs = document.getElementById('flow-navbar').getElementsByClassName('nav-link')
+var flows = document.getElementsByClassName('tab-pane')
 
 // Variables used for tab switching through hotkeys
 
-var index = 0;
-var mouseClicked = true;
-var tabDeleted = false;
-
+var index = 0
+var mouseClicked = true
+var tabDeleted = false
 
 // Variables used to implement constraints on add deletion
-
 var advNum;
 if (flow_type == 'LD Plan Flow') {
     advNum = 6
-
 }
 else {
     advNum = 7
@@ -39,19 +36,18 @@ vex.registerPlugin(require('vex-dialog'))
 vex.defaultOptions.className = 'vex-theme-os'
 
 
-var x;
-var w;
+var x
+var w
 
 // Font Weight Configuration
-var bold = false;
 var bold_cell_tD = []
 
 // Variables for saving the flow
 
 var fileName = ""
-var loadedData;
-var dataSuccess = false;
-var tD = false;
+var loadedData
+var dataSuccess = false
+var tD = false
 
 var loadedOnce = false;
 
@@ -146,8 +142,6 @@ else {
 selectAllCells()
 
 
-
-
 /* Mousetrap js: adds keybindings for keyboard shortcuts to navigate the flow */
 
 
@@ -222,8 +216,7 @@ $('#flow-navbar li').on('shown.bs.tab', function (e) {
 
 Mousetrap.bind(['command+k', 'ctrl+k'], function () {
 
-    addAdvTab(()=>{
-
+    addAdvTab(() => {
     })
     advNum = advNum + 1
 
@@ -231,11 +224,9 @@ Mousetrap.bind(['command+k', 'ctrl+k'], function () {
 
 Mousetrap.bind(['command+j', 'ctrl+j'], function () {
 
-    addOffTab(()=>{
-
+    addOffTab(() => {
     })
     offNum = offNum + 1
-
 
 })
 
@@ -293,8 +284,6 @@ Mousetrap.bind(['commands + d', 'ctrl+d'], function () {
     else {
         vex.dialog.alert('Error: Open a blank flow and load the file ')
     }
-
-
 })
 
 /* 
@@ -506,8 +495,6 @@ Mousetrap.bind(['command+b', 'ctrl+b'], function () {
 
 function nextTab() {
 
-    console.log('WOW NEXT TAB')
-
     if (!tabDeleted) {
         reset_rc()
     }
@@ -534,9 +521,6 @@ function nextTab() {
 
     }
 
-
-
-
 }
 
 /* 
@@ -548,7 +532,6 @@ function nextTab() {
 */
 function previousTab() {
 
-    console.log('WOW PREVIOUS TAB')
 
     if (!tabDeleted) {
         reset_rc()
@@ -600,7 +583,6 @@ function addAdvTab(callback) {
         cols = ['1AC', '1NC', '2AC', '2NC/1NR', '1AR', '2NR', '2AR']
         minCol = 7
     }
-
 
     Handsontable.renderers.registerRenderer('ac_flowRenderer', ac_flowRenderer);
 
@@ -684,7 +666,6 @@ function addAdvTab(callback) {
     selectCell_rc.splice(index + 1, 0, [0, 0])
     handsontable_flows[index + 1].selectCell(0, 0)
 
-
     $('#Adv' + advNum + '-li').on('shown.bs.tab', function (e) {
 
         if (!mouseClicked) {
@@ -767,8 +748,6 @@ function addAdvTab(callback) {
     $(allLiceneses).remove();
 
     nextTab()
-    console.log('FUCK ADV')
-
     callback()
 
 }
@@ -838,9 +817,7 @@ function addOffTab(callback) {
                 colWidths: (document.getElementById('df').offsetWidth - 16) * widthoffSet,
                 afterChange(changes) {
 
-
                     var auto_used = false;
-
                     if (!dataLoaded) {
 
                         for (i = 0; i < bold_cell_tD.length; i++) {
@@ -942,7 +919,6 @@ function addOffTab(callback) {
 
     nextTab()
     callback()
-    console.log('FUCK OFF')
 
 
 }
@@ -1044,16 +1020,16 @@ function switchFlow() {
 function loadFlow() {
     if (dataSuccess && loadedData['flow_type'] == flow_type) {
 
-        
-        
+
+
         loadedOnce = true
         $('#body').append('<div class="loader" id="pre-loader"></div>')
         document.getElementById('flow-navbar').style.visibility = 'hidden'
         document.getElementById('flows').style.visibility = 'hidden'
         document.getElementById('ephox_mytextarea').style.visibility = 'hidden'
         document.getElementById('mytextarea').style.visibility = 'hidden'
-    
-        
+
+
 
         if (flow_type == 'LD Plan Flow' || flow_type == 'Policy Flow') {
 
@@ -1061,7 +1037,7 @@ function loadFlow() {
 
             addLoadedTabs(loadData)
 
-    
+
 
         }
         else if (flow_type == 'PF Flow') {
@@ -1171,17 +1147,17 @@ function addLoadedTabs(callback) {
     for (i = 0; i < numOfTabs; i++) {
 
         if (tab_types[i] == '1AC') {
-            console.log('FUCK DAMN ADV')
-            addAdvTab(()=>{
+
+            addAdvTab(() => {
                 advNum = advNum + 1
                 tabs[index].innerHTML = tab_names[i]
             })
 
         }
         else if (tab_types[i] == '1NC') {
-            console.log('FUCK DAMN OFF')
 
-            addOffTab(()=>{
+            
+            addOffTab(() => {
                 offNum = offNum + 1
                 tabs[index].innerHTML = tab_names[i]
             })
@@ -1213,7 +1189,7 @@ function loadData() {
     setTimeout(() => {
         var tab_names = loadedData["tab-names"]
         var numOfTabs = tab_names.length
-    
+
         for (i = 0; i < numOfTabs; i++) {
             tabs[i].innerHTML = tab_names[i]
         }
@@ -1427,19 +1403,47 @@ $(function () {
             });
         }
 
-        var tabs = document.getElementsByClassName("tab")
+        /* User can rename the tab on dblclick */
 
-         $('.tab').on('dblclick',function(){
-             $(this).find('input').toggle().val($(this).find('a').html()).focus();
-             $(this).find('a').toggle();
-         });
-        
-         $('.tab').on('blur','input',function(){
-            $(this).toggle();
-            $(this).siblings('a').toggle().html($(this).val());
+        $('.tab').on('dblclick',function(){
+            handsontable_flows[index].deselectCell()
+            $(this).find('input').toggle().val($(this).find('a').html()).focus();
+            $(this).find('a').toggleClass('hidden')
         });
 
+        /* Events on Input */
 
+       $('.tab').on('keydown blur dblclick','input',function(e){
+           if(e.type=="keydown")
+           {
+              if(e.which==13)
+              {
+                  $(this).toggle();
+                  $(this).siblings('a').toggle().html($(this).val());
+                  var f = $(this).parent('.nav-item')[0].id
+                  $('#'+f).find('a').removeClass('hidden')
+              }
+              if(e.which==38 || e.which==40 || e.which==37 || e.which==39)
+              {
+                  e.stopPropagation();
+              }
+           }
+           else if(e.type=="focusout")
+           {
+               if($(this).css('display')=="inline-block")
+               {
+                   $(this).toggle();
+                   $(this).siblings('a').toggle().html($(this).val());
+                   var f = $(this).parent('.nav-item')[0].id
+                   $('#'+f).find('a').removeClass('hidden')
+
+               }
+           }
+           else
+           {
+               e.stopPropagation();
+           }
+       });
 
 
 
@@ -1552,6 +1556,4 @@ new Sortable(list_tabs, {
         selectAllCells()
     }
 });
-
-
 

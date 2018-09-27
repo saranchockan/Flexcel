@@ -129,15 +129,15 @@ body {
 }
 
 
+
 input[type=text]
 {
     display:none;
     width:120px;
-}
-a
-{
-    display:block;
+    color: white;
+    border-bottom-color: #007bff !important;
 }
 
-
-
+a{
+    display: block;
+}
