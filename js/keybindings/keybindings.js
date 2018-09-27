@@ -606,7 +606,7 @@ function addAdvTab(callback) {
     $('<div class="AC tab-pane fade" id="Adv-' + advNum + '-tab" role="tabpanel" aria-labelledby="Adv' + advNum + '">Adv' + advNum + '</div>').insertAfter(prevElement)
 
     prevElement = tabs_li[index]
-    $('<li class="tab nav-item" id="Adv' + advNum + '-li"><input class="txt" type="text"/><a class="nav-link text-white" id="Adv' + advNum + '" data-toggle="pill" href="#Adv-' + advNum + '-tab" role="tab" aria-controls="Adv-' + advNum + '-tab" aria-selected="false">Adv ' + '</a></li>').insertAfter(prevElement)
+    $('<li class="tab nav-item" id="Adv' + advNum + '-li"><input class="txt" type="text"/><a class="1AC nav-link text-white" id="Adv' + advNum + '" data-toggle="pill" href="#Adv-' + advNum + '-tab" role="tab" aria-controls="Adv-' + advNum + '-tab" aria-selected="false">Adv ' + '</a></li>').insertAfter(prevElement)
 
     var con_id = 'Adv-' + advNum + '-tab'
     var con = document.getElementById(con_id)
@@ -786,6 +786,10 @@ function addAdvTab(callback) {
                 var f = $(this).parent('.nav-item')[0].id
                 $('#' + f).find('a').removeClass('hidden')
 
+                $('#' + f).find('a').css({
+                    "display":"block"
+                })
+
                 var id = tabs[index].id;
                 var reference = '#' + id;
                 $(document).ready(function () {
@@ -802,6 +806,9 @@ function addAdvTab(callback) {
                 $(this).siblings('a').toggle().html($(this).val());
                 var f = $(this).parent('.nav-item')[0].id
                 $('#' + f).find('a').removeClass('hidden')
+                $('#' + f).find('a').css({
+                    "display":"block"
+                })
 
                 var id = tabs[index].id;
                 var reference = '#' + id;
@@ -848,7 +855,7 @@ function addOffTab(callback) {
     $('<div class="NC tab-pane fade" id="Off-' + offNum + '-tab" role="tabpanel" aria-labelledby="Adv' + offNum + '">Off' + offNum + '</div>').insertAfter(prevElement)
 
     prevElement = tabs_li[index]
-    $('<li class="tab nav-item" id="Off' + offNum + '-li"><input class="txt" type="text"/><a class="nav-link text-white" id="Off' + offNum + '" data-toggle="pill" href="#Off-' + offNum + '-tab" role="tab" aria-controls="Off-' + offNum + '-tab" aria-selected="false">Off ' + '</a></li>').insertAfter(prevElement)
+    $('<li class="tab nav-item" id="Off' + offNum + '-li"><input class="txt" type="text"/><a class="1NC nav-link text-white" id="Off' + offNum + '" data-toggle="pill" href="#Off-' + offNum + '-tab" role="tab" aria-controls="Off-' + offNum + '-tab" aria-selected="false">Off ' + '</a></li>').insertAfter(prevElement)
 
     var con_id = 'Off-' + offNum + '-tab'
     var con = document.getElementById(con_id)
@@ -1546,11 +1553,16 @@ $(function () {
                     var f = $(this).parent('.nav-item')[0].id
                     $('#' + f).find('a').removeClass('hidden')
 
+                    $('#' + f).find('a').css({
+                        "display":"block"
+                    })
                     var id = tabs[index].id;
                     var reference = '#' + id;
                     $(document).ready(function () {
                         $(reference).click();
                     });
+
+                    
                 }
                 if (e.which == 38 || e.which == 40 || e.which == 37 || e.which == 39) {
                     e.stopPropagation();
@@ -1562,14 +1574,19 @@ $(function () {
                     $(this).siblings('a').toggle().html($(this).val());
                     var f = $(this).parent('.nav-item')[0].id
                     $('#' + f).find('a').removeClass('hidden')
-
                     var id = tabs[index].id;
                     var reference = '#' + id;
+
+                    $('#' + f).find('a').css({
+                        "display":"block"
+                    })
+
                     $(document).ready(function () {
                         $(reference).click();
                     });
-
                 }
+                
+
             }
             else {
                 e.stopPropagation();
