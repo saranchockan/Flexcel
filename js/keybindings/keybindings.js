@@ -6,7 +6,8 @@ const dialog = require('electron').remote.dialog
 
 var tabs_li = document.getElementById('flow-navbar').getElementsByClassName('nav-item')
 var tabs = document.getElementById('flow-navbar').getElementsByClassName('nav-link')
-var flows = document.getElementsByClassName('tab-pane')
+var flows = document.getElementsByClassName('flow')
+
 
 // Variables used for tab switching through hotkeys
 
@@ -240,23 +241,23 @@ Mousetrap.bind(['command+j', 'ctrl+j'], function () {
 
 
 Mousetrap.bind(['command+y', 'ctrl+y'], function () {
-    $('#ephox_mytextarea').toggle()
+    $('#sd').toggle()
 
-    if(!speechDocRemoved){
+    if (!speechDocRemoved) {
         speechDocRemoved = true
 
         $('.plan-container').css({
-            "position":"absolute","height":"100vh","width":"100vw"
+            "position": "absolute", "height": "100vh", "width": "100vw"
         })
         $('.ephox-polish-html-switch').remove()
 
         $(window).resize()
     }
-    else{
+    else {
         speechDocRemoved = false
 
         $('.plan-container').css({
-            "position":"absolute","height":"100vh","width":"68.80152187698161vw"
+            "position": "absolute", "height": "100vh", "width": "68.80152187698161vw"
         })
         $('.ephox-polish-html-switch').remove()
 
@@ -533,6 +534,8 @@ Mousetrap.bind(['command+b', 'ctrl+b'], function () {
 
 function nextTab() {
 
+    console.time("nextTab")
+
     if (!tabDeleted) {
         reset_rc()
     }
@@ -558,6 +561,9 @@ function nextTab() {
         });
 
     }
+
+    console.timeEnd("nextTab")
+
 
 }
 
@@ -599,11 +605,12 @@ function previousTab() {
 }
 
 function addAdvTab(callback) {
+    console.time("addAdvTab")
 
     /* Element we are inserting the Adv after */
 
     var prevElement = flows[index]
-    $('<div class="AC tab-pane fade" id="Adv-' + advNum + '-tab" role="tabpanel" aria-labelledby="Adv' + advNum + '">Adv' + advNum + '</div>').insertAfter(prevElement)
+    $('<div class="AC flow tab-pane fade" id="Adv-' + advNum + '-tab" role="tabpanel" aria-labelledby="Adv' + advNum + '">Adv' + advNum + '</div>').insertAfter(prevElement)
 
     prevElement = tabs_li[index]
     $('<li class="tab nav-item" id="Adv' + advNum + '-li"><input class="txt" type="text"/><a class="1AC nav-link text-white" id="Adv' + advNum + '" data-toggle="pill" href="#Adv-' + advNum + '-tab" role="tab" aria-controls="Adv-' + advNum + '-tab" aria-selected="false">Adv ' + '</a></li>').insertAfter(prevElement)
@@ -768,70 +775,70 @@ function addAdvTab(callback) {
 
     })
 
-            /* User can rename the tab on dblclick */
+    /* User can rename the tab on dblclick */
 
-            $('.tab').on('dblclick', function () {
-                handsontable_flows[index].deselectCell()
-                $(this).find('input').toggle().val($(this).find('a').html()).focus();
-                $(this).find('a').toggleClass('hidden')
-            });
-    
-            /* Events on Input */
-    
-            $('.tab').on('keydown blur dblclick', 'input', function (e) {
-                if (e.type == "keydown") {
-                    if (e.which == 13) {
-                        $(this).toggle();
-                        $(this).siblings('a').toggle().html($(this).val());
-                        var f = $(this).parent('.nav-item')[0].id
-                        $('#' + f).find('a').removeClass('hidden')
-    
-                        $('#' + f).find('a').css({
-                            "display":"block"
-                        })
-                        var id = tabs[index].id;
-                        var reference = '#' + id;
-                        $(document).ready(function () {
-                            $(reference).click();
-                        });
-    
-                        
-                    }
-                    if (e.which == 38 || e.which == 40 || e.which == 37 || e.which == 39) {
-                        e.stopPropagation();
-                    }
-                }
-                else if (e.type == "focusout") {
-                    if ($(this).css('display') == "inline-block") {
-                        $(this).toggle();
-                        $(this).siblings('a').toggle().html($(this).val());
-                        var f = $(this).parent('.nav-item')[0].id
-                        $('#' + f).find('a').removeClass('hidden')
-                        var id = tabs[index].id;
-                        var reference = '#' + id;
-    
-                        $('#' + f).find('a').css({
-                            "display":"block"
-                        })
-    
-                        $(document).ready(function () {
-                            $(reference).click();
-                        });
-                    }
-                    
-    
-                }
-                else {
-                    e.stopPropagation();
-                }
-            });
+    $('#Adv' + advNum + '-li').on('dblclick', function () {
+        handsontable_flows[index].deselectCell()
+        $(this).find('input').toggle().val($(this).find('a').html()).focus();
+        $(this).find('a').toggleClass('hidden')
+    });
+
+    /* Events on Input */
+
+    $('#Adv' + advNum + '-li').on('keydown blur dblclick', 'input', function (e) {
+        if (e.type == "keydown") {
+            if (e.which == 13) {
+                $(this).toggle();
+                $(this).siblings('a').toggle().html($(this).val());
+                var f = $(this).parent('.nav-item')[0].id
+                $('#' + f).find('a').removeClass('hidden')
+
+                $('#' + f).find('a').css({
+                    "display": "block"
+                })
+                var id = tabs[index].id;
+                var reference = '#' + id;
+                $(document).ready(function () {
+                    $(reference).click();
+                });
+
+
+            }
+            if (e.which == 38 || e.which == 40 || e.which == 37 || e.which == 39) {
+                e.stopPropagation();
+            }
+        }
+        else if (e.type == "focusout") {
+            if ($(this).css('display') == "inline-block") {
+                $(this).toggle();
+                $(this).siblings('a').toggle().html($(this).val());
+                var f = $(this).parent('.nav-item')[0].id
+                $('#' + f).find('a').removeClass('hidden')
+                var id = tabs[index].id;
+                var reference = '#' + id;
+
+                $('#' + f).find('a').css({
+                    "display": "block"
+                })
+
+                $(document).ready(function () {
+                    $(reference).click();
+                });
+            }
+
+
+        }
+        else {
+            e.stopPropagation();
+        }
+    });
 
 
     /* Reconfiguration */
 
     tabs_li = document.getElementById('flow-navbar').getElementsByClassName('nav-item');
     tabs = document.getElementById('flow-navbar').getElementsByClassName('nav-link');
-    flows = document.getElementsByClassName('tab-pane');
+    flows = document.getElementsByClassName('flow');
 
 
     data['flow-data'].splice(index + 1, 0, handsontable_flows[index + 1].getData())
@@ -843,8 +850,10 @@ function addAdvTab(callback) {
     var allLiceneses = document.querySelectorAll("#hot-display-license-info");
     $(allLiceneses).remove();
 
-    // nextTab()
+    nextTab()
     callback()
+    console.timeEnd("addAdvTab")
+
 
 }
 
@@ -855,7 +864,7 @@ function addOffTab(callback) {
 
     var prevElement = flows[index]
 
-    $('<div class="NC tab-pane fade" id="Off-' + offNum + '-tab" role="tabpanel" aria-labelledby="Adv' + offNum + '">Off' + offNum + '</div>').insertAfter(prevElement)
+    $('<div class="NC flow tab-pane fade" id="Off-' + offNum + '-tab" role="tabpanel" aria-labelledby="Adv' + offNum + '">Off' + offNum + '</div>').insertAfter(prevElement)
 
     prevElement = tabs_li[index]
     $('<li class="tab nav-item" id="Off' + offNum + '-li"><input class="txt" type="text"/><a class="1NC nav-link text-white" id="Off' + offNum + '" data-toggle="pill" href="#Off-' + offNum + '-tab" role="tab" aria-controls="Off-' + offNum + '-tab" aria-selected="false">Off ' + '</a></li>').insertAfter(prevElement)
@@ -998,69 +1007,70 @@ function addOffTab(callback) {
 
     })
 
-            /* User can rename the tab on dblclick */
+    /* User can rename the tab on dblclick */
 
-            $('.tab').on('dblclick', function () {
-                handsontable_flows[index].deselectCell()
-                $(this).find('input').toggle().val($(this).find('a').html()).focus();
-                $(this).find('a').toggleClass('hidden')
-            });
-    
-            /* Events on Input */
-    
-            $('.tab').on('keydown blur dblclick', 'input', function (e) {
-                if (e.type == "keydown") {
-                    if (e.which == 13) {
-                        $(this).toggle();
-                        $(this).siblings('a').toggle().html($(this).val());
-                        var f = $(this).parent('.nav-item')[0].id
-                        $('#' + f).find('a').removeClass('hidden')
-    
-                        $('#' + f).find('a').css({
-                            "display":"block"
-                        })
-                        var id = tabs[index].id;
-                        var reference = '#' + id;
-                        $(document).ready(function () {
-                            $(reference).click();
-                        });
-    
-                        
-                    }
-                    if (e.which == 38 || e.which == 40 || e.which == 37 || e.which == 39) {
-                        e.stopPropagation();
-                    }
-                }
-                else if (e.type == "focusout") {
-                    if ($(this).css('display') == "inline-block") {
-                        $(this).toggle();
-                        $(this).siblings('a').toggle().html($(this).val());
-                        var f = $(this).parent('.nav-item')[0].id
-                        $('#' + f).find('a').removeClass('hidden')
-                        var id = tabs[index].id;
-                        var reference = '#' + id;
-    
-                        $('#' + f).find('a').css({
-                            "display":"block"
-                        })
-    
-                        $(document).ready(function () {
-                            $(reference).click();
-                        });
-                    }
-                    
-    
-                }
-                else {
-                    e.stopPropagation();
-                }
-            });
+    $('#Off' + offNum + '-li').on('dblclick', function () {
+        handsontable_flows[index].deselectCell()
+        $(this).find('input').toggle().val($(this).find('a').html()).focus();
+        $(this).find('a').toggleClass('hidden')
+
+    });
+
+    /* Events on Input */
+
+    $('#Off' + offNum + '-li').on('keydown blur dblclick', 'input', function (e) {
+        if (e.type == "keydown") {
+            if (e.which == 13) {
+                $(this).toggle();
+                $(this).siblings('a').toggle().html($(this).val());
+                var f = $(this).parent('.nav-item')[0].id
+                $('#' + f).find('a').removeClass('hidden')
+
+                $('#' + f).find('a').css({
+                    "display": "block"
+                })
+                var id = tabs[index].id;
+                var reference = '#' + id;
+                $(document).ready(function () {
+                    $(reference).click();
+                });
+
+
+            }
+            if (e.which == 38 || e.which == 40 || e.which == 37 || e.which == 39) {
+                e.stopPropagation();
+            }
+        }
+        else if (e.type == "focusout") {
+            if ($(this).css('display') == "inline-block") {
+                $(this).toggle();
+                $(this).siblings('a').toggle().html($(this).val());
+                var f = $(this).parent('.nav-item')[0].id
+                $('#' + f).find('a').removeClass('hidden')
+                var id = tabs[index].id;
+                var reference = '#' + id;
+
+                $('#' + f).find('a').css({
+                    "display": "block"
+                })
+
+                $(document).ready(function () {
+                    $(reference).click();
+                });
+            }
+
+
+        }
+        else {
+            e.stopPropagation();
+        }
+    });
 
     /* Reconfiguration */
 
     tabs_li = document.getElementById('flow-navbar').getElementsByClassName('nav-item');
     tabs = document.getElementById('flow-navbar').getElementsByClassName('nav-link');
-    flows = document.getElementsByClassName('tab-pane');
+    flows = document.getElementsByClassName('flow')
 
 
 
@@ -1070,7 +1080,7 @@ function addOffTab(callback) {
     var allLiceneses = document.querySelectorAll("#hot-display-license-info");
     $(allLiceneses).remove();
 
-    // nextTab()
+    nextTab()
     callback()
 
 
@@ -1125,7 +1135,7 @@ function deleteTab() {
 
     tabs_li = document.getElementById('flow-navbar').getElementsByClassName('nav-item');
     tabs = document.getElementById('flow-navbar').getElementsByClassName('nav-link');
-    flows = document.getElementsByClassName('tab-pane');
+    flows = document.getElementsByClassName('flow')
 
     previousTab()
 
@@ -1176,11 +1186,15 @@ function loadFlow() {
     if (dataSuccess && loadedData['flow_type'] == flow_type) {
 
         loadedOnce = true
+        
+        
         $('#body').append('<div class="loader" id="pre-loader"></div>')
         document.getElementById('flow-navbar').style.visibility = 'hidden'
         document.getElementById('flows').style.visibility = 'hidden'
-        document.getElementById('ephox_mytextarea').style.visibility = 'hidden'
-        document.getElementById('mytextarea').style.visibility = 'hidden'
+        document.getElementById('sd').style.visibility = 'hidden'
+        document.getElementById('sd').style.visibility = 'hidden'
+        
+        
 
         if (flow_type == 'LD Plan Flow' || flow_type == 'Policy Flow') {
 
@@ -1275,7 +1289,7 @@ function selectAllCells() {
 
 function deleteAllTabs() {
     previousTab()
-    for (i = 0; i < tabs.length; i++) {
+    for (i = 1; i < tabs.length; i++) {
 
         setTimeout(() => {
             deleteTab()
@@ -1313,6 +1327,8 @@ function addLoadedTabs(callback) {
     }
 
     setTimeout(() => {
+        nextTab()
+        deleteTab()
         callback()
     }, 2000);
 
@@ -1324,8 +1340,6 @@ function addLoadedTabs(callback) {
 
 function loadData() {
 
-    nextTab()
-    deleteTab()
     for (i = 0; i < handsontable_flows.length; i++) {
         dataLoaded = true
         handsontable_flows[i].updateSettings({
@@ -1426,10 +1440,10 @@ function boldFlow() {
         $('.loader').remove()
         document.getElementById('flow-navbar').style.visibility = 'visible'
         document.getElementById('flows').style.visibility = 'visible'
-        document.getElementById('ephox_mytextarea').style.visibility = 'visible'
+        document.getElementById('sd').style.visibility = 'visible'
         tabs_li = document.getElementById('flow-navbar').getElementsByClassName('nav-item');
         tabs = document.getElementById('flow-navbar').getElementsByClassName('nav-link');
-        flows = document.getElementsByClassName('tab-pane');
+        flows = document.getElementsByClassName('flow')
         dataLoaded = false
     }, 2000);
 
@@ -1488,6 +1502,7 @@ function nav_classNames() {
 */
 
 $(function () {
+    console.log('LOADING')
     nextTab()
     previousTab()
 
@@ -1555,6 +1570,9 @@ $(function () {
             handsontable_flows[index].deselectCell()
             $(this).find('input').toggle().val($(this).find('a').html()).focus();
             $(this).find('a').toggleClass('hidden')
+            console.log($(this))
+            console.log('FUCK')
+
         });
 
         /* Events on Input */
@@ -1568,7 +1586,7 @@ $(function () {
                     $('#' + f).find('a').removeClass('hidden')
 
                     $('#' + f).find('a').css({
-                        "display":"block"
+                        "display": "block"
                     })
                     var id = tabs[index].id;
                     var reference = '#' + id;
@@ -1576,7 +1594,7 @@ $(function () {
                         $(reference).click();
                     });
 
-                    
+
                 }
                 if (e.which == 38 || e.which == 40 || e.which == 37 || e.which == 39) {
                     e.stopPropagation();
@@ -1592,14 +1610,14 @@ $(function () {
                     var reference = '#' + id;
 
                     $('#' + f).find('a').css({
-                        "display":"block"
+                        "display": "block"
                     })
 
                     $(document).ready(function () {
                         $(reference).click();
                     });
                 }
-                
+
 
             }
             else {
@@ -1610,8 +1628,8 @@ $(function () {
         $('.loader').remove()
         document.getElementById('df').classList.add('elementToFadeInAndOutLeft')
         document.getElementById('flow-navbar').style.visibility = 'visible'
-        document.getElementById('ephox_mytextarea').classList.add('elementToFadeInAndOutRight')
-        document.getElementById('ephox_mytextarea').style.visibility = 'visible'
+        document.getElementById('sd').classList.add('elementToFadeInAndOutRight')
+        document.getElementById('sd').style.visibility = 'visible'
         document.getElementById('flows').style.visibility = 'visible'
         $('.ephox-polish-html-switch').remove()
     }, 1000);
@@ -1666,7 +1684,7 @@ if (flow_type == 'LD Plan Flow' || flow_type == 'Policy Flow') {
 
             tabs_li = document.getElementById('flow-navbar').getElementsByClassName('nav-item');
             tabs = document.getElementById('flow-navbar').getElementsByClassName('nav-link');
-            flows = document.getElementsByClassName('tab-pane');
+            flows = document.getElementsByClassName('flow')
 
             if (evt.oldIndex < evt.newIndex) {
                 for (i = evt.oldIndex; i < evt.newIndex; i++) {
@@ -1717,10 +1735,3 @@ if (flow_type == 'LD Plan Flow' || flow_type == 'Policy Flow') {
     });
 
 }
-
-
-
-
-
-
-

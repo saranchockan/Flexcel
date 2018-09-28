@@ -30,10 +30,10 @@ var bold_RC = [[],[]]
 
 /* Hides the flow and speech-doc until the screen is wholly rendered */
 
+document.getElementById('df').style.visibility = 'hidden'
 document.getElementById('flow-navbar').style.visibility = 'hidden'
 document.getElementById('flows').style.visibility = 'hidden'
-document.getElementById('ephox_mytextarea').style.visibility = 'hidden'
-document.getElementById('mytextarea').style.visibility = 'hidden'
+document.getElementById('sd').style.visibility = 'sd'
 
 /* Sets red color font to 1ac and blue color font to 1nc */
 
@@ -85,9 +85,9 @@ for(i = 0;i<AC_tabs.length;i++){
       maxRows: 200,
       width: 500,
       height: 500, 
-      viewportRowRenderingOffsetequal: 30,
+      viewportRowRenderingOffsetequal: 35,
       viewportColumnRenderingOffset:5,
-      colWidths: 174,
+      colWidths: 190,
       fillHandle:{
         autoInsertRow: true
       },
@@ -120,9 +120,9 @@ for(i = 0;i<NC_tabs.length;i++){
     maxRows: 200,
     width: 500,
     height: 500, 
-    viewportRowRenderingOffsetequal: 30,
+    viewportRowRenderingOffsetequal: 35,
     viewportColumnRenderingOffset:4,
-    colWidths: 174,
+    colWidths: 240,
     fillHandle:{
       autoInsertRow: true
     },

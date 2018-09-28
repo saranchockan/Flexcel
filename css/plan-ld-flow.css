@@ -5,6 +5,9 @@ body {
     overflow-x: hidden;
 }
  
+#flexce{
+    position: absolute;
+}
 
 .plan-container{
     position: absolute;
@@ -20,18 +23,30 @@ body {
     width: 100%;
 }
 
-#mytextarea{
-    position: relative;
+.doc-container{
+    position: relative !important;
     float: right;
     width: 31vw;
     height: 100vh;
 }
 
-#ephox_mytextarea{
+.doc-flow{
     position: relative;
     float: right;
-    width: 31vw !important;
-    height: 100vh;
+    height: 100%;
+    width: 100%;
+}
+
+#doc-navbar{
+    height: 100%;
+}
+
+form{
+    height: 100%;
+}
+
+#ephox_doc1, #ephox_doc2, #ephox_doc3{
+    height: 100% !important;
 }
 
 .ephox-polish-sticky-container{
@@ -48,29 +63,18 @@ body {
     width: 100%;
 }
 
-.ephox-chameleon-toolbar{
-    background-color: #2F3136
-}
-
-.ephox-candy-mountain{
-    height: 100vh;
-}
-
-.ephox-polish-editor-container.ephox-polish-editor-main, .ephox-polish-source-container{
-    width: 100%;
-    height: 100vh;
-    display: flex;
-    flex-direction: column;
-    box-sizing: border-box;
-    min-height: inherit;
-}
-
-.tab_pane{
-    height: 100%;
+.docs{
+    height: 94%;
     width: 100%;
     overflow-y: hidden;
 }
 
+
+.doc{
+    height: 100%;
+    width: 100%;
+    overflow-y: hidden;
+}
 
 /* stacks inner div on top of each other */
 .inner {
@@ -143,7 +147,7 @@ body {
 
 
 
-input[type=text]
+input[class=txt]
 {
     display:none;
     width:120px;

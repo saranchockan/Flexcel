@@ -30,14 +30,10 @@ var bold_RC = [[],[],[],[],[],[],[],[],[],[],[],[],[],[]]
 
 
 /* Hides the flow and speech-doc until the screen is wholly rendered */
-
-// document.getElementById('df').style.visibility = 'hidden'
+document.getElementById('df').style.visibility = 'hidden'
 document.getElementById('flow-navbar').style.visibility = 'hidden'
 document.getElementById('flows').style.visibility = 'hidden'
-document.getElementById('ephox_mytextarea').style.visibility = 'hidden'
-document.getElementById('mytextarea').style.visibility = 'hidden'
-
-
+document.getElementById('sd').style.visibility = 'sd'
 
 
 /* Sets red color font to 1ac and blue color font to 1nc */
