@@ -1186,7 +1186,7 @@ function loadFlow() {
     if (dataSuccess && loadedData['flow_type'] == flow_type) {
 
         loadedOnce = true
-        
+
         
         $('#body').append('<div class="loader" id="pre-loader"></div>')
         document.getElementById('flow-navbar').style.visibility = 'hidden'
@@ -1194,8 +1194,6 @@ function loadFlow() {
         document.getElementById('sd').style.visibility = 'hidden'
         document.getElementById('sd').style.visibility = 'hidden'
         
-        
-
         if (flow_type == 'LD Plan Flow' || flow_type == 'Policy Flow') {
 
             deleteAllTabs()
@@ -1305,33 +1303,33 @@ function addLoadedTabs(callback) {
     var numOfTabs = tab_names.length
     var tab_types = loadedData["tab-types"]
 
-    for (i = 0; i < numOfTabs; i++) {
-
-        if (tab_types[i] == '1AC') {
-
-            addAdvTab(() => {
-                advNum = advNum + 1
-                tabs[index].innerHTML = tab_names[i]
-            })
-
-        }
-        else if (tab_types[i] == '1NC') {
-
-
-            addOffTab(() => {
-                offNum = offNum + 1
-                tabs[index].innerHTML = tab_names[i]
-            })
-
-        }
-    }
 
     setTimeout(() => {
+        for (i = 0; i < numOfTabs; i++) {
+
+            if (tab_types[i] == '1AC') {
+
+                addAdvTab(() => {
+                    advNum = advNum + 1
+                    tabs[index].innerHTML = tab_names[i]
+                })
+
+            }
+            else if (tab_types[i] == '1NC') {
+
+
+                addOffTab(() => {
+                    offNum = offNum + 1
+                    tabs[index].innerHTML = tab_names[i]
+                })
+
+            }
+        }
+
         nextTab()
         deleteTab()
         callback()
-    }, 2000);
-
+    }, 10000);
 
 }
 
@@ -1346,15 +1344,6 @@ function loadData() {
             data: loadedData['flow-data'][i]
         })
     }
-
-    setTimeout(() => {
-        var tab_names = loadedData["tab-names"]
-        var numOfTabs = tab_names.length
-
-        for (i = 0; i < numOfTabs; i++) {
-            tabs[i].innerHTML = tab_names[i]
-        }
-    }, 2000);
 
     setTimeout(() => {
         boldFlow()
