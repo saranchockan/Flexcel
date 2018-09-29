@@ -166,6 +166,15 @@ Mousetrap.bind(['command+p', 'ctrl+p'], function () {
 }, 'keyup');
 
 
+/* Adds keybinding to rename the current tab */
+
+Mousetrap.bind(['command+r', 'ctrl+r'], function () {
+    handsontable_flows[index].deselectCell()
+    tabs_li[index].find('input').toggle().val($(this).find('a').html()).focus();
+    tabs_li[index].find('a').toggleClass('hidden')
+}, 'keyup');
+
+
 /* Puts focus on the cell when the tab is selected/clicked */
 
 $('#flow-navbar a').on('click', function (e) {
@@ -231,7 +240,7 @@ Mousetrap.bind(['command+k', 'ctrl+k'], function () {
 
     advNum = advNum + 1
 
-})
+}, 'keyup')
 
 Mousetrap.bind(['command+j', 'ctrl+j'], function () {
 
@@ -242,7 +251,7 @@ Mousetrap.bind(['command+j', 'ctrl+j'], function () {
 
     offNum = offNum + 1
 
-})
+}, 'keyup')
 
 
 Mousetrap.bind(['command+y', 'ctrl+y'], function () {
@@ -284,7 +293,7 @@ Mousetrap.bind(['command+i', 'ctrl+i'], function () {
         tD = true
     }
 
-})
+}, 'keyup')
 
 /* 
    User selects the file and it loaded into the flow if the 
@@ -322,7 +331,7 @@ Mousetrap.bind(['command+d', 'ctrl+d'], function () {
 
 
 
-})
+}, 'keyup')
 
 /* 
     Saves the flow (data json obj) to a json format.    
@@ -369,7 +378,7 @@ Mousetrap.bind(['command+s', 'ctrl+s'], function () {
         }
     })
     document.getElementsByClassName('vex-dialog-prompt-input')[0].style.width = '95%'
-})
+}, 'keyup')
 
 /* 
     Allows the user to add a custom key, value for autocomplete
@@ -397,8 +406,8 @@ Mousetrap.bind(['command+t', 'ctrl+t'], function () {
 
                     if (data.key.split(" ").length == 1) {
 
-                            autocomplete[data.key] = data.value
-                            store.set('autocomplete', autocomplete)
+                        autocomplete[data.key] = data.value
+                        store.set('autocomplete', autocomplete)
 
                     }
                     else {
@@ -417,7 +426,7 @@ Mousetrap.bind(['command+t', 'ctrl+t'], function () {
     document.getElementsByClassName('vex-auto')[1].style.width = '95%'
 
 
-})
+}, 'keyup')
 
 
 Mousetrap.bind(['command+g', 'ctrl+g'], function () {
@@ -446,7 +455,7 @@ Mousetrap.bind(['command+g', 'ctrl+g'], function () {
     $('.vex-content').css({
         "overflow-y": "hidden"
     })
-   
+
     $('.vex-overlay').css({
         "overflow-y": "hidden"
     })
@@ -454,19 +463,19 @@ Mousetrap.bind(['command+g', 'ctrl+g'], function () {
         "overflow-y": "hidden"
     })
 
-    
-    $('.auto_delete').on('click',function(e){
+
+    $('.auto_delete').on('click', function (e) {
         var j = $(this).parent('.list-group-item')[0].id
         $('#' + j).remove()
         delete autocomplete[j]
         store.set('autocomplete', autocomplete)
     })
 
-})
+}, 'keyup')
 
-function generateAutoList(){
-    for(key in autocomplete){
-        autocomplete_list.splice(autocomplete_list.length - 2,0,'<li id = "' + key + '" class="list-group-item">' + key + ': ' + autocomplete[key] + '<button type="button" style = "right:20px;float:right" class="auto_delete btn btn-danger"> Delete</button>' + '</li>')
+function generateAutoList() {
+    for (key in autocomplete) {
+        autocomplete_list.splice(autocomplete_list.length - 2, 0, '<li id = "' + key + '" class="list-group-item">' + key + ': ' + autocomplete[key] + '<button type="button" style = "right:20px;float:right" class="auto_delete btn btn-danger"> Delete</button>' + '</li>')
     }
 }
 /* Reconfigure PF Speaker */
@@ -483,7 +492,7 @@ Mousetrap.bind(['command+l', 'ctrl+l'], function () {
         }
     }
 
-})
+}, 'keyup')
 
 
 
@@ -561,7 +570,7 @@ Mousetrap.bind(['command+f', 'ctrl+f'], function () {
 
         }
     })
-})
+}, 'keyup')
 
 /* Reconfigure Font Weight */
 
@@ -582,7 +591,7 @@ Mousetrap.bind(['command+b', 'ctrl+b'], function () {
         bold_RC[index].push([r, c])
     }
 
-})
+}, 'keyup')
 
 /* 
     Switches to the next tab. This is done in accordance an index variable 
