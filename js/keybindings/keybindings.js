@@ -48,16 +48,14 @@ var bold_cell_tD = []
 var fileName = ""
 var loadedData
 var dataSuccess = false
-var tD = false
-var loadedOnce = false;
 
 // Speech-Doc Removal
-var speechDocRemoved = false;
+var speechDocRemoved = false
 
 // Variables for storing auto-complete data
 
-const Store = require('electron-store');
-const store = new Store();
+const Store = require('electron-store')
+const store = new Store()
 
 var autocomplete = {
     'c1': 'Contention 1',
@@ -111,6 +109,13 @@ var autocomplete = {
     'cpk': 'Cap K',
     'ak': 'Afropess K'
 }
+
+var autocomplete_list = ['<div class = "autocomplete_list">',
+    '<ul class="list-group">',
+    '</ul>',
+    '</div>'
+]
+
 
 var fontColor = {
     'affFontColor': '#ff2600',
@@ -273,12 +278,12 @@ Mousetrap.bind(['command+y', 'ctrl+y'], function () {
 
 Mousetrap.bind(['command+i', 'ctrl+i'], function () {
 
-    if(flow_type == 'LD Plan Flow' || flow_type == 'Policy Flow'){
+    if (flow_type == 'LD Plan Flow' || flow_type == 'Policy Flow') {
         deleteTab()
         resizeFlowHeight()
         tD = true
     }
- 
+
 })
 
 /* 
@@ -286,47 +291,44 @@ Mousetrap.bind(['command+i', 'ctrl+i'], function () {
    flow-type and file type is correct.
 */
 
-Mousetrap.bind(['commands + d', 'ctrl+d'], function () {
+Mousetrap.bind(['command+d', 'ctrl+d'], function () {
 
-    if (tD == false && loadedOnce == false) {
-        dialog.showOpenDialog((fileNames) => {
-            if (fileNames === undefined) {
-                console.log("No file selected");
+    dialog.showOpenDialog((fileNames) => {
+        if (fileNames === undefined) {
+            console.log("No file selected");
+            return;
+        }
+        var fileName = fileNames[0];
+
+        x = fileName.split('/')
+        w = x[x.length - 1].split('.')
+
+        fs.readFile(fileName, 'utf-8', (err, data) => {
+            if (err) {
+                alert("An error ocurred reading the file :" + err.message);
                 return;
             }
-            var fileName = fileNames[0];
-
-            x = fileName.split('/')
-            w = x[x.length - 1].split('.')
-
-            fs.readFile(fileName, 'utf-8', (err, data) => {
-                if (err) {
-                    alert("An error ocurred reading the file :" + err.message);
-                    return;
-                }
-                try {
-                    loadedData = JSON.parse(data);
-                    dataSuccess = true
-                }
-                catch (err) {
-                    vex.dialog.alert('Error: Only .json files can be loaded')
-                }
-                dataLoaded = true
-                loadFlow()
-            });
+            try {
+                loadedData = JSON.parse(data);
+                dataSuccess = true
+            }
+            catch (err) {
+                vex.dialog.alert('Error: Only .json files can be loaded')
+            }
+            dataLoaded = true
+            loadFlow()
         });
-    }
+    });
 
-    else {
-        vex.dialog.alert('Error: Open a blank flow and load the file ')
-    }
+
+
 })
 
 /* 
     Saves the flow (data json obj) to a json format.    
 */
 
-Mousetrap.bind(['commands + s', 'ctrl+s'], function () {
+Mousetrap.bind(['command+s', 'ctrl+s'], function () {
 
     data['boldElements'] = bold_RC
     configureTabs()
@@ -372,7 +374,7 @@ Mousetrap.bind(['commands + s', 'ctrl+s'], function () {
 /* 
     Allows the user to add a custom key, value for autocomplete
 */
-Mousetrap.bind(['commands + t', 'ctrl+t'], function () {
+Mousetrap.bind(['command+t', 'ctrl+t'], function () {
 
     handsontable_flows[index].deselectCell()
 
@@ -380,7 +382,7 @@ Mousetrap.bind(['commands + t', 'ctrl+t'], function () {
         message: 'Enter the autocomplete key and value.',
         input: [
             '<input class = "vex-auto" name="key" type="text" placeholder="Key" required />',
-            '<input class = "vex-auto" name="value" type="text" placeholder="Value" required />'
+            '<input class = "vex-auto" name="value" type="text" placeholder="Value"/>'
         ].join(''),
         buttons: [
             $.extend({}, vex.dialog.buttons.YES, { text: 'OK' }),
@@ -391,17 +393,19 @@ Mousetrap.bind(['commands + t', 'ctrl+t'], function () {
                 console.log('Cancelled')
             } else {
                 console.log('Username', data.key, 'Password', data.value)
-                if(data.key != data.value){
+                if (data.key != data.value) {
 
-                    if(data.key.split(" ").length == 1){
-                        autocomplete[data.key] = data.value
-                        store.set('autocomplete', autocomplete)
+                    if (data.key.split(" ").length == 1) {
+
+                            autocomplete[data.key] = data.value
+                            store.set('autocomplete', autocomplete)
+
                     }
-                    else{
+                    else {
                         vex.dialog.alert('Error: Key can only be a single word.')
                     }
                 }
-                else{
+                else {
                     vex.dialog.alert('Error: Key and Value cannot be the same')
                 }
             }
@@ -416,6 +420,55 @@ Mousetrap.bind(['commands + t', 'ctrl+t'], function () {
 })
 
 
+Mousetrap.bind(['command+g', 'ctrl+g'], function () {
+
+    generateAutoList()
+    handsontable_flows[index].deselectCell()
+
+    vex.dialog.open({
+        message: 'Enter the autocomplete key and value.',
+        input: autocomplete_list.join(''),
+        buttons: [],
+        callback: function (data) {
+            if (!data) {
+                console.log('Cancelled')
+            } else {
+
+            }
+            selectAllCells()
+
+        }
+    })
+    $('.autocomplete_list').css({
+        "overflow-y": "scroll", "height": "500px", "width": "98%"
+    })
+
+    $('.vex-content').css({
+        "overflow-y": "hidden"
+    })
+   
+    $('.vex-overlay').css({
+        "overflow-y": "hidden"
+    })
+    $('.vex').css({
+        "overflow-y": "hidden"
+    })
+
+    
+    $('.auto_delete').on('click',function(e){
+        var j = $(this).parent('.list-group-item')[0].id
+        $('#' + j).remove()
+        delete autocomplete[j]
+        store.set('autocomplete', autocomplete)
+    })
+
+})
+
+function generateAutoList(){
+    for(key in autocomplete){
+        autocomplete_list.splice(autocomplete_list.length - 2,0,'<li id = "' + key + '" class="list-group-item">' + key + ': ' + autocomplete[key] + '<button type="button" style = "right:20px;float:right" class="auto_delete btn btn-danger"> Delete</button>' + '</li>')
+    }
+}
 /* Reconfigure PF Speaker */
 
 Mousetrap.bind(['command+l', 'ctrl+l'], function () {
@@ -432,7 +485,6 @@ Mousetrap.bind(['command+l', 'ctrl+l'], function () {
 
 })
 
-/* Reconfigures flow css when speech-doc is removed */
 
 
 
@@ -1193,15 +1245,12 @@ function switchFlow() {
 function loadFlow() {
     if (dataSuccess && loadedData['flow_type'] == flow_type) {
 
-        loadedOnce = true
-
-        
         $('#body').append('<div class="loader" id="pre-loader"></div>')
         document.getElementById('flow-navbar').style.visibility = 'hidden'
         document.getElementById('flows').style.visibility = 'hidden'
         document.getElementById('sd').style.visibility = 'hidden'
         document.getElementById('sd').style.visibility = 'hidden'
-        
+
         if (flow_type == 'LD Plan Flow' || flow_type == 'Policy Flow') {
 
             deleteAllTabs()
@@ -1410,21 +1459,19 @@ function switchToPro() {
 function boldFlow() {
 
     bold_RC = loadedData['boldElements']
-    if (loadedOnce) {
-        for (i = 0; i < bold_RC.length; i++) {
+    for (i = 0; i < bold_RC.length; i++) {
 
-            for (x = 0; x < bold_RC[i].length; x++) {
+        for (x = 0; x < bold_RC[i].length; x++) {
 
-                var a = bold_RC[i][x]
-                var r = a[0]
-                var c = a[1]
+            var a = bold_RC[i][x]
+            var r = a[0]
+            var c = a[1]
 
-                if (typeof r != 'undefined' && typeof c != 'undefined') {
+            if (typeof r != 'undefined' && typeof c != 'undefined') {
 
-                    if (typeof handsontable_flows[i].getCell(r, c) != 'undefined') {
-                        handsontable_flows[i].getCell(r, c).style.fontWeight = 'bold'
-                        bold_cell_tD.push(handsontable_flows[i].getCell(r, c))
-                    }
+                if (typeof handsontable_flows[i].getCell(r, c) != 'undefined') {
+                    handsontable_flows[i].getCell(r, c).style.fontWeight = 'bold'
+                    bold_cell_tD.push(handsontable_flows[i].getCell(r, c))
                 }
             }
         }
