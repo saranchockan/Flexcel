@@ -27,10 +27,6 @@
   <script src="sortablejs/Sortable.min.js"></script>
   <script src="sortablejs/Sortable.js"></script>
 
-
-
-
-
   <!-- Textbox.io css/js -->
   <script src="textboxio-client/textboxio/textboxio.js"></script>
 
@@ -171,17 +167,30 @@
     <div class="doc-flow" style="background-color: #2F3136">
       <div id="doc-navbar" class="w-100 p-3" style="background-color: #2F3136;">
         <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
-          <li class="nav-item">
+          <li id="d1" class="tab nav-item">
+            <input class="txt" type="text" />
             <a class="doc-a nav-link text-white active" id="pills-home-tab" data-toggle="pill" href="#pills-home" role="tab"
               aria-controls="pills-home" aria-selected="true">Doc 1</a>
           </li>
-          <li class="nav-item">
+          <li id="d2" class="tab nav-item">
+            <input class="txt" type="text" />
             <a class="doc-a nav-link text-white" id="pills-profile-tab" data-toggle="pill" href="#pills-profile" role="tab"
               aria-controls="pills-profile" aria-selected="false">Doc 2</a>
           </li>
-          <li class="nav-item">
+          <li id="d3" class="tab nav-item">
+            <input class="txt" type="text" />
             <a class="doc-a nav-link text-white" id="pills-contact-tab" data-toggle="pill" href="#pills-contact" role="tab"
               aria-controls="pills-contact" aria-selected="false">Doc 3</a>
+          </li>
+          <li id="d4" class=" tab nav-item">
+            <input class="txt" type="text" />
+            <a class="doc-a nav-link text-white" id="d4-contact-tab" data-toggle="pill" href="#d4-contact" role="tab"
+              aria-controls="d4-contact" aria-selected="false">Doc 4</a>
+          </li>
+          <li id="d5" class=" tab nav-item">
+            <input class="txt" type="text" />
+            <a class="doc-a nav-link text-white" id="d5-contact-tab" data-toggle="pill" href="#d5-contact" role="tab"
+              aria-controls="d5-contact" aria-selected="false">Doc 5</a>
           </li>
         </ul>
 
@@ -201,6 +210,16 @@
               <textarea id="doc3"></textarea>
             </form>
           </div>
+          <div class="doc tab-pane fade" id="d4-contact" role="tabpanel" aria-labelledby="d4-contact-tab">
+            <form>
+              <textarea id="doc4"></textarea>
+            </form>
+          </div>
+          <div class="doc tab-pane fade" id="d5-contact" role="tabpanel" aria-labelledby="d5-contact-tab">
+            <form>
+              <textarea id="doc5"></textarea>
+            </form>
+          </div>
         </div>
       </div>
     </div>
@@ -213,6 +232,8 @@
     var d1 = textboxio.replace('#doc1');
     var d2 = textboxio.replace('#doc2');
     var d3 = textboxio.replace('#doc3');
+    var d4 = textboxio.replace('#doc4');
+    var d5 = textboxio.replace('#doc5');
 
     $('.ephox-polish-editor-container').remove()
     $('.ephox-polish-html-switch').remove()

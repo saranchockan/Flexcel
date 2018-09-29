@@ -16,8 +16,8 @@
   <script src="popper/popper.min.js"></script>
   <script src="bootstrap/js/bootstrap.min.js"></script>
 
-    <!-- Materialize js -->
-    <script src="materialize/js/materialize.js"></script>
+  <!-- Materialize js -->
+  <script src="materialize/js/materialize.js"></script>
 
   <!-- Handsontable js & CSS -->
   <script src="handsontable/handsontable.full.js"></script>
@@ -38,8 +38,8 @@
   <!-- vex css/js -->
   <script src="node_modules/vex-js/dist/js/vex.combined.min.js"></script>
   <script>vex.defaultOptions.className = 'vex-theme-os'</script>
-  <link rel="stylesheet" href="node_modules/vex-js/dist/css/vex.css"/>
-  <link rel="stylesheet" href="node_modules/vex-js/dist/css/vex-theme-os.css"/>
+  <link rel="stylesheet" href="node_modules/vex-js/dist/css/vex.css" />
+  <link rel="stylesheet" href="node_modules/vex-js/dist/css/vex-theme-os.css" />
 
   <!-- Electron configuration -->
   <script>if (window.module) module = window.module;</script>
@@ -53,112 +53,112 @@
   <title>Flexcel</title>
 </head>
 
-<body  id = "body" style="background-color: #2F3136">
+<body id="body" style="background-color: #2F3136">
 
-  <div id = "flexcel" style="background-color: #2F3136"">
-    <div id='df' class="plan-container  inner">
+  <div id="flexcel" style="background-color: #2F3136"">
+    <div id='df' class=" plan-container inner">
 
-      <!-- Flow: tab pane and spreadsheet placed in a div that is floated to the left-->
-      <div class="plan-flow" style="background-color: #2F3136">
-  
-        <div id="flow-navbar" class="w-100 p-3" style="background-color: #2F3136;visibility: hidden;height:100%;">
-  
-          <!-- Bootstrap Nav-->
-  
-          <ul id="flow-tabs" class="nav nav-pills nav-fill mb-3" style="background-color: #202225" role="tablist">
-            <li class="nav-item">
-              <a class="nav-link active text-white" id="1AC" data-toggle="pill" href="#1AC-tab" role="tab" aria-controls="1AC-tab" aria-selected="true">1AC</a>
-              <li class="nav-item">
-                <a class="nav-link text-white" id="NC" data-toggle="pill" href="#NC-Tab" role="tab" aria-controls="NC-Tab" aria-selected="false">1NC</a>
-              </li>
-          </ul>
-  
-          <!-- js plugin for collapsing-->
-  
-          <div id="flows" class="tab-content" id="pills-tabContent" style="visibility: hidden;">
-  
-            <div class="AC flow tab-pane fade show active" id="1AC-tab" role="tabpanel" aria-labelledby="1AC">1AC</div>
-            <div class="NC flow tab-pane fade" id="NC-Tab" role="tabpanel" aria-labelledby="NC">1NC</div>
+    <!-- Flow: tab pane and spreadsheet placed in a div that is floated to the left-->
+    <div class="plan-flow" style="background-color: #2F3136">
 
+      <div id="flow-navbar" class="w-100 p-3" style="background-color: #2F3136;visibility: hidden;height:100%;">
+
+        <!-- Bootstrap Nav-->
+
+        <ul id="flow-tabs" class="nav nav-pills nav-fill mb-3" style="background-color: #202225" role="tablist">
+          <li class="nav-item">
+            <a class="nav-link active text-white" id="1AC" data-toggle="pill" href="#1AC-tab" role="tab" aria-controls="1AC-tab"
+              aria-selected="true">1AC</a>
+          <li class="nav-item">
+            <a class="nav-link text-white" id="NC" data-toggle="pill" href="#NC-Tab" role="tab" aria-controls="NC-Tab"
+              aria-selected="false">1NC</a>
+          </li>
+        </ul>
+
+        <!-- js plugin for collapsing-->
+
+        <div id="flows" class="tab-content" id="pills-tabContent" style="visibility: hidden;">
+
+          <div class="AC flow tab-pane fade show active" id="1AC-tab" role="tabpanel" aria-labelledby="1AC">1AC</div>
+          <div class="NC flow tab-pane fade" id="NC-Tab" role="tabpanel" aria-labelledby="NC">1NC</div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="sd" class="doc-container bold-borders inner" style="visibility:hidden">
+    <div class="doc-flow" style="background-color: #2F3136">
+      <div id="doc-navbar" class="w-100 p-3" style="background-color: #2F3136;">
+        <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+          <li id="d1" class="tab nav-item">
+            <input class="txt" type="text" />
+            <a class="doc-a nav-link text-white active" id="pills-home-tab" data-toggle="pill" href="#pills-home" role="tab"
+              aria-controls="pills-home" aria-selected="true">Doc 1</a>
+          </li>
+          <li id="d2" class="tab nav-item">
+            <input class="txt" type="text" />
+            <a class="doc-a nav-link text-white" id="pills-profile-tab" data-toggle="pill" href="#pills-profile" role="tab"
+              aria-controls="pills-profile" aria-selected="false">Doc 2</a>
+          </li>
+          <li id="d3" class="tab nav-item">
+            <input class="txt" type="text" />
+            <a class="doc-a nav-link text-white" id="pills-contact-tab" data-toggle="pill" href="#pills-contact" role="tab"
+              aria-controls="pills-contact" aria-selected="false">Doc 3</a>
+          </li>
+          <li id="d4" class=" tab nav-item">
+            <input class="txt" type="text" />
+            <a class="doc-a nav-link text-white" id="d4-contact-tab" data-toggle="pill" href="#d4-contact" role="tab"
+              aria-controls="d4-contact" aria-selected="false">Doc 4</a>
+          </li>
+          <li id="d5" class=" tab nav-item">
+            <input class="txt" type="text" />
+            <a class="doc-a nav-link text-white" id="d5-contact-tab" data-toggle="pill" href="#d5-contact" role="tab"
+              aria-controls="d5-contact" aria-selected="false">Doc 5</a>
+          </li>
+        </ul>
+
+        <div class="docs tab-content" id="pills-tabContent">
+          <div class="doc tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
+            <form>
+              <textarea id="doc1"></textarea>
+            </form>
+          </div>
+          <div class="doc tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
+            <form>
+              <textarea id="doc2"></textarea>
+            </form>
+          </div>
+          <div class="doc tab-pane fade" id="pills-contact" role="tabpanel" aria-labelledby="pills-contact-tab">
+            <form>
+              <textarea id="doc3"></textarea>
+            </form>
+          </div>
+          <div class="doc tab-pane fade" id="d4-contact" role="tabpanel" aria-labelledby="d4-contact-tab">
+            <form>
+              <textarea id="doc4"></textarea>
+            </form>
+          </div>
+          <div class="doc tab-pane fade" id="d5-contact" role="tabpanel" aria-labelledby="d5-contact-tab">
+            <form>
+              <textarea id="doc5"></textarea>
+            </form>
           </div>
         </div>
       </div>
     </div>
-  
-    <div id = "sd" class="doc-container  inner" style="visibility:hidden">
-      <div class="doc-flow" style="background-color: #2F3136">
-        <div id = "doc-navbar" class="w-100 p-3" style="background-color: #2F3136;">
-          <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
-            <li class="nav-item">
-              <a class="doc-a nav-link text-white active" id="pills-home-tab" data-toggle="pill" href="#pills-home" role="tab" aria-controls="pills-home" aria-selected="true">Doc 1</a>
-            </li>
-            <li class="nav-item">
-              <a class="doc-a nav-link text-white" id="pills-profile-tab" data-toggle="pill" href="#pills-profile" role="tab" aria-controls="pills-profile" aria-selected="false">Doc 2</a>
-            </li>
-            <li class="nav-item">
-              <a class="doc-a nav-link text-white" id="pills-contact-tab" data-toggle="pill" href="#pills-contact" role="tab" aria-controls="pills-contact" aria-selected="false">Doc 3</a>
-            </li>
-          </ul>
-
-
-          <div class="docs tab-content" id="pills-tabContent">
-            <div class="doc tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
-              <form>
-                <textarea id="doc1"></textarea>
-              </form>
-            </div>
-            <div class="doc tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
-              <form>
-                <textarea id="doc2"></textarea>
-              </form>
-            </div>
-            <div class="doc tab-pane fade" id="pills-contact" role="tabpanel" aria-labelledby="pills-contact-tab">
-              <form>
-                <textarea id="doc3"></textarea>
-              </form>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
+  </div>
   </div>
 
 
   <div class="loader" id="pre-loader"></div>
 
-  <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">New message</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="modal-body">
-          <form>
-            <div class="form-group">
-              <label for="recipient-name" class="col-form-label">Recipient:</label>
-              <input type="text" class="form-control" id="recipient-name">
-            </div>
-            <div class="form-group">
-              <label for="message-text" class="col-form-label">Message:</label>
-              <textarea class="form-control" id="message-text"></textarea>
-            </div>
-          </form>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-primary">Send message</button>
-        </div>
-      </div>
-    </div>
-  </div>
-  
   <script>
     var d1 = textboxio.replace('#doc1');
     var d2 = textboxio.replace('#doc2');
     var d3 = textboxio.replace('#doc3');
+    var d4 = textboxio.replace('#doc4');
+    var d5 = textboxio.replace('#doc5');
 
     $('.ephox-polish-editor-container').remove()
     $('.ephox-polish-html-switch').remove()

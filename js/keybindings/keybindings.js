@@ -169,8 +169,8 @@ Mousetrap.bind(['command+p', 'ctrl+p'], function () {
 /* Adds keybinding to rename the current tab */
 
 Mousetrap.bind(['command+r', 'ctrl+r'], function () {
-    
-    if(flow_type == 'LD Plan Flow' || flow_type == 'Policy Flow'){
+
+    if (flow_type == 'LD Plan Flow' || flow_type == 'Policy Flow') {
         handsontable_flows[index].deselectCell()
         var i = '#' + tabs_li[index].id
         $(i).find('input').toggle().val($(this).find('a').html()).focus();
@@ -1648,6 +1648,18 @@ $(function () {
                         $(reference).click();
                     });
 
+                    var m = document.getElementById('pills-tab').offsetHeight
+                    if (m > 40) {
+                        $('#pills-tabContent').css({
+                            "height": "89%"
+                        })
+                    }
+                    else {
+                        $('#pills-tabContent').css({
+                            "height": "94%"
+                        })
+                    }
+
 
                 }
                 if (e.which == 38 || e.which == 40 || e.which == 37 || e.which == 39) {
@@ -1789,6 +1801,10 @@ if (flow_type == 'LD Plan Flow' || flow_type == 'Policy Flow') {
     });
 
 }
+
+
+var speech_tabs = document.getElementById("pills-tab")
+new Sortable(speech_tabs)
 
 
 

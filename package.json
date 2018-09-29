@@ -82,7 +82,8 @@
       "policy-flow-dynamic.html",
       "jquery/**/*",
       "popper/**/*",
-      "textboxio-client/**/*"
+      "textboxio-client/**/*",
+      "sortablejs/**/*"
     ]
   }
 }
