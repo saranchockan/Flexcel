@@ -169,9 +169,13 @@ Mousetrap.bind(['command+p', 'ctrl+p'], function () {
 /* Adds keybinding to rename the current tab */
 
 Mousetrap.bind(['command+r', 'ctrl+r'], function () {
-    handsontable_flows[index].deselectCell()
-    tabs_li[index].find('input').toggle().val($(this).find('a').html()).focus();
-    tabs_li[index].find('a').toggleClass('hidden')
+    
+    if(flow_type == 'LD Plan Flow' || flow_type == 'Policy Flow'){
+        handsontable_flows[index].deselectCell()
+        var i = '#' + tabs_li[index].id
+        $(i).find('input').toggle().val($(this).find('a').html()).focus();
+        $(i).find('a').toggleClass('hidden')
+    }
 }, 'keyup');
 
 
