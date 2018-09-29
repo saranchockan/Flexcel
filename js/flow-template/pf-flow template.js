@@ -36,8 +36,6 @@ document.getElementById('flows').style.visibility = 'hidden'
 document.getElementById('sd').style.visibility = 'sd'
 
 
-
-
 /* Sets red color font to 1ac and blue color font to 1nc */
 
 function pro_flowRenderer(instance, td, row, col, prop, value, cellProperties) {
@@ -53,8 +51,6 @@ function pro_flowRenderer(instance, td, row, col, prop, value, cellProperties) {
     td.style.background = affShadeColor
 
   }
-
-
 
 }
 

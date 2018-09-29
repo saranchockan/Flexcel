@@ -1436,8 +1436,8 @@ function reset_rc() {
 }
 
 function switchToCon() {
-    $('#PRO').html('CON')
-    $('#NC').html('PRO')
+    $('#1AC').html('CON')
+    $('#1NC').html('PRO')
 
     data['firstSpeaker'] = 'Con'
     dataLoaded = true
@@ -1452,8 +1452,8 @@ function switchToCon() {
 }
 
 function switchToPro() {
-    $('#PRO').html('PRO')
-    $('#NC').html('CON')
+    $('#1AC').html('PRO')
+    $('#1NC').html('CON')
 
     data['firstSpeaker'] = 'Pro'
     dataLoaded = true
