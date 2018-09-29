@@ -273,10 +273,12 @@ Mousetrap.bind(['command+y', 'ctrl+y'], function () {
 
 Mousetrap.bind(['command+i', 'ctrl+i'], function () {
 
-    deleteTab()
-    resizeFlowHeight()
-    tD = true
-
+    if(flow_type == 'LD Plan Flow' || flow_type == 'Policy Flow'){
+        deleteTab()
+        resizeFlowHeight()
+        tD = true
+    }
+ 
 })
 
 /* 
@@ -373,38 +375,44 @@ Mousetrap.bind(['commands + s', 'ctrl+s'], function () {
 Mousetrap.bind(['commands + t', 'ctrl+t'], function () {
 
     handsontable_flows[index].deselectCell()
-    vex.dialog.prompt({
-        message: 'Add autocomplete key and value in the format: key,value',
-        placeholder: 'vm, value:morality',
-        width: 100,
-        callback: function (value) {
 
-            if (value != false) {
+    vex.dialog.open({
+        message: 'Enter the autocomplete key and value.',
+        input: [
+            '<input class = "vex-auto" name="key" type="text" placeholder="Key" required />',
+            '<input class = "vex-auto" name="value" type="text" placeholder="Value" required />'
+        ].join(''),
+        buttons: [
+            $.extend({}, vex.dialog.buttons.YES, { text: 'OK' }),
+            $.extend({}, vex.dialog.buttons.NO, { text: 'CANCEL' })
+        ],
+        callback: function (data) {
+            if (!data) {
+                console.log('Cancelled')
+            } else {
+                console.log('Username', data.key, 'Password', data.value)
+                if(data.key != data.value){
 
-                var v = value.split(',')
-
-                if (typeof v[0] != 'undefined') {
-                    if (typeof v[1] != 'undefined') {
-
-                        if (v[0] == v[1]) {
-                            vex.dialog.alert('You cannot have the same key and value!')
-                        }
-                        else {
-                            autocomplete[v[0]] = v[1]
-                            store.set('autocomplete', autocomplete)
-                        }
+                    if(data.key.split(" ").length == 1){
+                        autocomplete[data.key] = data.value
+                        store.set('autocomplete', autocomplete)
+                    }
+                    else{
+                        vex.dialog.alert('Error: Key can only be a single word.')
                     }
                 }
-                else {
-                    vex.dialog.alert('Wrong Format! The format is -> key,value: v m, value:morality')
+                else{
+                    vex.dialog.alert('Error: Key and Value cannot be the same')
                 }
-
-                selectAllCells()
             }
+            selectAllCells()
 
         }
     })
-    document.getElementsByClassName('vex-dialog-prompt-input')[0].style.width = '95%'
+    document.getElementsByClassName('vex-auto')[0].style.width = '95%'
+    document.getElementsByClassName('vex-auto')[1].style.width = '95%'
+
+
 })
 
 
@@ -1491,7 +1499,6 @@ function nav_classNames() {
 */
 
 $(function () {
-    console.log('LOADING')
     nextTab()
     previousTab()
 
@@ -1559,8 +1566,6 @@ $(function () {
             handsontable_flows[index].deselectCell()
             $(this).find('input').toggle().val($(this).find('a').html()).focus();
             $(this).find('a').toggleClass('hidden')
-            console.log($(this))
-            console.log('FUCK')
 
         });
 
@@ -1724,3 +1729,6 @@ if (flow_type == 'LD Plan Flow' || flow_type == 'Policy Flow') {
     });
 
 }
+
+
+

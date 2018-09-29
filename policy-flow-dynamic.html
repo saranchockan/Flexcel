@@ -12,6 +12,7 @@
 
   <!-- jQuery first, then Popper.js, then Bootstrap JS -->
   <script src="jquery/jquery-3.2.1.slim.min.js"></script>
+
   <script src="popper/popper.min.js"></script>
   <script src="bootstrap/js/bootstrap.min.js"></script>
 
@@ -21,13 +22,18 @@
   <!-- Handsontable js & CSS -->
   <script src="handsontable/handsontable.full.js"></script>
   <link rel="stylesheet" media="screen" href="handsontable/handsontable.full.min.css">
-  
+
   <!-- Sortable js & CSS -->
   <script src="sortablejs/Sortable.min.js"></script>
   <script src="sortablejs/Sortable.js"></script>
 
+
+
+
+
   <!-- Textbox.io css/js -->
   <script src="textboxio-client/textboxio/textboxio.js"></script>
+
 
   <!-- vex css/js -->
   <script src="node_modules/vex-js/dist/js/vex.combined.min.js"></script>
@@ -46,66 +52,93 @@
 
 
 
+
   <title>Flexcel</title>
 </head>
 
-<body  id = "body" style="background-color: #202225">
+<body id="body" style="background-color: #2F3136">
 
-  <div id='df' class="plan-container bold-borders inner">
+  <div id="flexcel" style="background-color: #2F3136"">
+    <div id='df' class=" plan-container bold-borders inner">
 
     <!-- Flow: tab pane and spreadsheet placed in a div that is floated to the left-->
     <div class="plan-flow" style="background-color: #2F3136">
 
-      <div id="flow-navbar" class="w-100 p-3" style="background-color: #2F3136;visibility: hidden;">
+      <div id="flow-navbar" class="w-100 p-3" style="background-color: #2F3136;visibility: hidden;height:100%;">
 
         <!-- Bootstrap Nav-->
 
         <ul id="flow-tabs" class="nav nav-pills mb-3" style="background-color: #202225" role="tablist">
-          <li class="nav-item" id="1ACFraming-li">
-            <a class="nav-link active text-white" id="1ACFraming" data-toggle="pill" href="#1AC-Framing-tab" role="tab" aria-controls="1AC-Framing-tab"
-              aria-selected="true">Inherency</a>
+
+          <li class="tab nav-item" id="Inherency-li">
+            <input class="txt" type="text" />
+            <a class="1AC nav-link text-white" id="Inherency" data-toggle="pill" href="#Inherency-tab" role="tab"
+              aria-controls="Inherency-tab" aria-selected="false">Inherency</a>
           </li>
-          <li class="nav-item" id="Inherency-li">
-            <a class="nav-link text-white" id="Inherency" data-toggle="pill" href="#Inherency-tab" role="tab" aria-controls="Inherency-tab"
+          <li class="tab nav-item" id="Adv1-li">
+            <input class="txt" type="text" />
+            <a class="1AC nav-link text-white" id="Adv1" data-toggle="pill" href="#Adv-1-tab" role="tab" aria-controls="Adv-1-tab"
               aria-selected="false">Adv 1</a>
           </li>
-          <li class="nav-item" id="Adv1-li">
-            <a class="nav-link text-white" id="Adv1" data-toggle="pill" href="#Adv-1-tab" role="tab" aria-controls="Adv-1-tab" aria-selected="false">Adv 2</a>
+          <li class="tab nav-item" id="Adv2-li">
+            <input class="txt" type="text" />
+            <a class="1AC nav-link text-white" id="Adv2" data-toggle="pill" href="#Adv-2-tab" role="tab" aria-controls="Adv-2-tab"
+              aria-selected="false">Adv 2</a>
           </li>
-          <li class="nav-item" id="Adv2-li">
-            <a class="nav-link text-white" id="Adv2" data-toggle="pill" href="#Adv-2-tab" role="tab" aria-controls="Adv-2-tab" aria-selected="false">Adv 3</a>
+          <li class="tab nav-item" id="Adv3-li">
+            <input class="txt" type="text" />
+            <a class="1AC nav-link text-white" id="Adv3" data-toggle="pill" href="#Adv-3-tab" role="tab" aria-controls="Adv-3-tab"
+              aria-selected="false">Adv 3</a>
           </li>
-          <li class="nav-item" id="Adv3-li">
-            <a class="nav-link text-white" id="Adv3" data-toggle="pill" href="#Adv-3-tab" role="tab" aria-controls="Adv-3-tab" aria-selected="false">Adv 4</a>
+          <li class="tab nav-item" id="Adv4-li">
+            <input class="txt" type="text" />
+            <a class="1AC nav-link text-white" id="Adv4" data-toggle="pill" href="#Adv-4-tab" role="tab" aria-controls="Adv-4-tab"
+              aria-selected="false">Adv 4</a>
           </li>
-          <li class="nav-item" id="Adv4-li">
-            <a class="nav-link text-white" id="Adv4" data-toggle="pill" href="#Adv-4-tab" role="tab" aria-controls="Adv-4-tab" aria-selected="false">Adv 5</a>
+          <li class="tab nav-item" id="Adv5-li">
+            <input class="txt" type="text" />
+            <a class="1AC nav-link text-white" id="Adv5" data-toggle="pill" href="#Adv-5-tab" role="tab" aria-controls="Adv-5-tab"
+              aria-selected="false">Adv 5</a>
           </li>
-          <li class="nav-item" id="Adv5-li">
-            <a class="nav-link text-white" id="Adv5" data-toggle="pill" href="#Adv-5-tab" role="tab" aria-controls="Adv-5-tab" aria-selected="false">Adv 6</a>
+          <li class="tab nav-item" id="Adv6-li">
+            <input class="txt" type="text" />
+            <a class="1AC nav-link text-white" id="Adv6" data-toggle="pill" href="#Adv-6-tab" role="tab" aria-controls="Adv-6-tab"
+              aria-selected="false">Adv 6</a>
           </li>
-          <li class="nav-item" id="Solvency-li">
-            <a class="nav-link text-white" id="Solvency" data-toggle="pill" href="#Solvency-tab" role="tab" aria-controls="Solvency-tab"
-              aria-selected="false">Solvency</a>
+          <li class="tab nav-item" id="Solvency-li">
+            <input class="txt" type="text" />
+            <a class="1AC nav-link text-white" id="Solvency" data-toggle="pill" href="#Solvency-tab" role="tab"
+              aria-controls="Solvency-tab" aria-selected="false">Solvency</a>
           </li>
-          <li class="nav-item" id="1NCFraming-li">
-            <a class="nav-link text-white" id="1NCFraming" data-toggle="pill" href="#1NC-Framing-tab" role="tab" aria-controls="1NC-Framing-tab"
+          <li class="tab nav-item" id="Off1-li">
+            <input class="txt" type="text" />
+            <a class="1NC nav-link text-white" id="Off1" data-toggle="pill" href="#Off-1-Tab" role="tab" aria-controls="Off-1-Tab"
               aria-selected="false">Off 1</a>
           </li>
-          <li class="nav-item" id="Off1-li">
-            <a class="nav-link text-white" id="Off1" data-toggle="pill" href="#Off-1-Tab" role="tab" aria-controls="Off-1-Tab" aria-selected="false">Off 2</a>
+          <li class="tab nav-item" id="Off2-li">
+            <input class="txt" type="text" />
+            <a class="1NC nav-link text-white" id="Off2" data-toggle="pill" href="#Off-2-Tab" role="tab" aria-controls="Off-2-Tab"
+              aria-selected="false">Off 2</a>
           </li>
-          <li class="nav-item" id="Off2-li">
-            <a class="nav-link text-white" id="Off2" data-toggle="pill" href="#Off-2-Tab" role="tab" aria-controls="Off-2-Tab" aria-selected="false">Off 3</a>
+          <li class="tab nav-item" id="Off3-li">
+            <input class="txt" type="text" />
+            <a class="1NC nav-link text-white" id="Off3" data-toggle="pill" href="#Off-3-Tab" role="tab" aria-controls="Off-3-Tab"
+              aria-selected="false">Off 3</a>
           </li>
-          <li class="nav-item" id="Off3-li">
-            <a class="nav-link text-white" id="Off3" data-toggle="pill" href="#Off-3-Tab" role="tab" aria-controls="Off-3-Tab" aria-selected="false">Off 4</a>
+          <li class="tab nav-item" id="Off4-li">
+            <input class="txt" type="text" />
+            <a class="1NC nav-link text-white" id="Off4" data-toggle="pill" href="#Off-4-Tab" role="tab" aria-controls="Off-4-Tab"
+              aria-selected="false">Off 4</a>
           </li>
-          <li class="nav-item" id="Off4-li">
-            <a class="nav-link text-white" id="Off4" data-toggle="pill" href="#Off-4-Tab" role="tab" aria-controls="Off-4-Tab" aria-selected="false">Off 5</a>
+          <li class="tab nav-item" id="Off5-li">
+            <input class="txt" type="text" />
+            <a class="1NC nav-link text-white" id="Off5" data-toggle="pill" href="#Off-5-Tab" role="tab" aria-controls="Off-5-Tab"
+              aria-selected="false">Off 5</a>
           </li>
-          <li class="nav-item" id="Off5-li">
-            <a class="nav-link text-white" id="Off5" data-toggle="pill" href="#Off-5-Tab" role="tab" aria-controls="Off-5-Tab" aria-selected="false">Off 6</a>
+          <li class="tab nav-item" id="Off6-li">
+            <input class="txt" type="text" />
+            <a class="1NC nav-link text-white" id="Off6" data-toggle="pill" href="#Off-6-Tab" role="tab" aria-controls="Off-6-Tab"
+              aria-selected="false">Off 6</a>
           </li>
         </ul>
 
@@ -113,44 +146,76 @@
 
         <div id="flows" class="tab-content" id="pills-tabContent" style="visibility: hidden;">
 
-          <div class="AC tab-pane fade show active" id="1AC-Framing-tab" role="tabpanel" aria-labelledby="1ACFraming">1ACFraming</div>
-          <div class="AC tab-pane fade" id="Inherency-tab" role="tabpanel" aria-labelledby="Inherency">Inherency</div>
-          <div class="AC tab-pane fade" id="Adv-1-tab" role="tabpanel" aria-labelledby="Adv1">Adv1</div>
-          <div class="AC tab-pane fade" id="Adv-2-tab" role="tabpanel" aria-labelledby="Adv2">Adv2</div>
-          <div class="AC tab-pane fade" id="Adv-3-tab" role="tabpanel" aria-labelledby="Adv3">Adv3</div>
-          <div class="AC tab-pane fade" id="Adv-4-tab" role="tabpanel" aria-labelledby="Adv4">Adv4</div>
-          <div class="AC tab-pane fade" id="Adv-5-tab" role="tabpanel" aria-labelledby="Adv5">Adv5</div>
-          <div class="AC tab-pane fade" id="Solvency-tab" role="tabpanel" aria-labelledby="Solvency">Solvency</div>
-          <div class="NC tab-pane fade" id="1NC-Framing-tab" role="tabpanel" aria-labelledby="1NCFraming">1NCFraming</div>
-          <div class="NC tab-pane fade" id="Off-1-Tab" role="tabpanel" aria-labelledby="Off1">Off1</div>
-          <div class="NC tab-pane fade" id="Off-2-Tab" role="tabpanel" aria-labelledby="Off2">Off2</div>
-          <div class="NC tab-pane fade" id="Off-3-Tab" role="tabpanel" aria-labelledby="Off3">Off3</div>
-          <div class="NC tab-pane fade" id="Off-4-Tab" role="tabpanel" aria-labelledby="Off4">Off4</div>
-          <div class="NC tab-pane fade" id="Off-5-Tab" role="tabpanel" aria-labelledby="Off5">Off5</div>
+          <div class="AC flow tab-pane fade show active" id="Inherency-tab" role="tabpanel" aria-labelledby="Inherency">Inherency</div>
+          <div class="AC flow tab-pane fade" id="Adv-1-tab" role="tabpanel" aria-labelledby="Adv1">Adv1</div>
+          <div class="AC flow tab-pane fade" id="Adv-2-tab" role="tabpanel" aria-labelledby="Adv2">Adv2</div>
+          <div class="AC flow tab-pane fade" id="Adv-3-tab" role="tabpanel" aria-labelledby="Adv3">Adv3</div>
+          <div class="AC flow tab-pane fade" id="Adv-4-tab" role="tabpanel" aria-labelledby="Adv4">Adv4</div>
+          <div class="AC flow tab-pane fade" id="Adv-5-tab" role="tabpanel" aria-labelledby="Adv5">Adv5</div>
+          <div class="AC flow tab-pane fade" id="Adv-6-tab" role="tabpanel" aria-labelledby="Adv6">Adv6</div>
+
+          <div class="AC flow tab-pane fade" id="Solvency-tab" role="tabpanel" aria-labelledby="Solvency">Solvency</div>
+          <div class="NC flow tab-pane fade" id="Off-1-Tab" role="tabpanel" aria-labelledby="Off1">Off1</div>
+          <div class="NC flow tab-pane fade" id="Off-2-Tab" role="tabpanel" aria-labelledby="Off2">Off2</div>
+          <div class="NC flow tab-pane fade" id="Off-3-Tab" role="tabpanel" aria-labelledby="Off3">Off3</div>
+          <div class="NC flow tab-pane fade" id="Off-4-Tab" role="tabpanel" aria-labelledby="Off4">Off4</div>
+          <div class="NC flow tab-pane fade" id="Off-5-Tab" role="tabpanel" aria-labelledby="Off5">Off5</div>
+          <div class="NC flow tab-pane fade" id="Off-6-Tab" role="tabpanel" aria-labelledby="Off6">Off6</div>
 
         </div>
       </div>
     </div>
   </div>
 
-  <form>
-    <textarea id="mytextarea"></textarea>
-  </form>
+  <div id="sd" class="doc-container bold-borders inner" style="visibility:hidden">
+    <div class="doc-flow" style="background-color: #2F3136">
+      <div id="doc-navbar" class="w-100 p-3" style="background-color: #2F3136;">
+        <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+          <li class="nav-item">
+            <a class="doc-a nav-link text-white active" id="pills-home-tab" data-toggle="pill" href="#pills-home" role="tab"
+              aria-controls="pills-home" aria-selected="true">Doc 1</a>
+          </li>
+          <li class="nav-item">
+            <a class="doc-a nav-link text-white" id="pills-profile-tab" data-toggle="pill" href="#pills-profile" role="tab"
+              aria-controls="pills-profile" aria-selected="false">Doc 2</a>
+          </li>
+          <li class="nav-item">
+            <a class="doc-a nav-link text-white" id="pills-contact-tab" data-toggle="pill" href="#pills-contact" role="tab"
+              aria-controls="pills-contact" aria-selected="false">Doc 3</a>
+          </li>
+        </ul>
 
+        <div class="docs tab-content" id="pills-tabContent">
+          <div class="doc tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
+            <form>
+              <textarea id="doc1"></textarea>
+            </form>
+          </div>
+          <div class="doc tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
+            <form>
+              <textarea id="doc2"></textarea>
+            </form>
+          </div>
+          <div class="doc tab-pane fade" id="pills-contact" role="tabpanel" aria-labelledby="pills-contact-tab">
+            <form>
+              <textarea id="doc3"></textarea>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
-  <div class="loader" id="pre-loader" ></div>
+  </div>
 
-  <!-- Main js-->
-
-
-
-
+  <div class="loader" id="pre-loader"></div>
 
   <script>
-    var editor = textboxio.replace('#mytextarea');
+    var d1 = textboxio.replace('#doc1');
+    var d2 = textboxio.replace('#doc2');
+    var d3 = textboxio.replace('#doc3');
+
     $('.ephox-polish-editor-container').remove()
     $('.ephox-polish-html-switch').remove()
-
 
   </script>
   <script src="js/flow-template/policy-flow template.js"></script>
