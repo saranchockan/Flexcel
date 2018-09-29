@@ -1649,7 +1649,15 @@ $(function () {
                     });
 
                     var m = document.getElementById('pills-tab').offsetHeight
-                    if (m > 40) {
+                    
+                    
+                    if(m == 120){
+                        $('#pills-tabContent').css({
+                            "height": "84%"
+                        })
+                    }
+                    
+                    if (m == 80) {
                         $('#pills-tabContent').css({
                             "height": "89%"
                         })
@@ -1682,6 +1690,26 @@ $(function () {
                     $(document).ready(function () {
                         $(reference).click();
                     });
+
+                    var m = document.getElementById('pills-tab').offsetHeight
+                    
+                    
+                    if(m == 120){
+                        $('#pills-tabContent').css({
+                            "height": "84%"
+                        })
+                    }
+                    
+                    if (m == 80) {
+                        $('#pills-tabContent').css({
+                            "height": "89%"
+                        })
+                    }
+                    else {
+                        $('#pills-tabContent').css({
+                            "height": "94%"
+                        })
+                    }
                 }
 
 
