@@ -19,7 +19,7 @@ var tabDeleted = false
 
 var tab_height = 0
 var flow_height = 0
-var height_change = false
+var win_height = 0
 
 // Variables used to implement constraints on add deletion
 var advNum;
@@ -613,7 +613,6 @@ Mousetrap.bind(['command+b', 'ctrl+b'], function () {
 
 function nextTab() {
 
-    console.time("nextTab")
 
     if (!tabDeleted) {
         reset_rc()
@@ -640,9 +639,6 @@ function nextTab() {
         });
 
     }
-
-    console.timeEnd("nextTab")
-
 
 }
 
@@ -1248,7 +1244,7 @@ function loadFlow() {
 
             setTimeout(() => {
                 addLoadedTabs(loadData)
-            }, 3000);
+            }, 5000);
 
         }
         else if (flow_type == 'PF Flow') {
@@ -1289,13 +1285,14 @@ function resizeFlowHeight() {
     var l = handsontable_flows.length
 
 
-    if (tab_height != ft_height) {
+    if (tab_height != ft_height || win_height != df_height) {
         if (ft_height > 100) {
             for (i = 0; i < l; i++) {
                 handsontable_flows[i].updateSettings({
                     height: df_height - 168,
                 })
             }
+            win_height = df_height
             tab_height = ft_height
             flow_height = df_height - 168
         }
@@ -1306,6 +1303,7 @@ function resizeFlowHeight() {
                     height: df_height - 131,
                 })
             }
+            win_height = df_height
             tab_height = ft_height
             flow_height = df_height - 131
         }
@@ -1316,6 +1314,7 @@ function resizeFlowHeight() {
                     height: df_height - 94,
                 })
             }
+            win_height = df_height
             tab_height = ft_height
             flow_height = df_height - 94
         }
@@ -1354,14 +1353,11 @@ function addLoadedTabs(callback) {
     var numOfTabs = tab_names.length
     var tab_types = loadedData["tab-types"]
 
-    console.log(tab_names)
 
     for (j = 0; j < numOfTabs; j++) {
 
-        console.log(j)
         if (tab_types[j] == '1AC') {
 
-            console.log(j + ' ' + tab_names[i])
 
             addAdvTab(() => {
                 advNum = advNum + 1
@@ -1371,7 +1367,6 @@ function addLoadedTabs(callback) {
         }
         else if (tab_types[j] == '1NC') {
 
-            console.log(j + ' ' + tab_names[j])
             addOffTab(() => {
                 offNum = offNum + 1
                 tabs[index].innerHTML = tab_names[j]
@@ -1717,28 +1712,8 @@ $(function () {
 // Function executed everytime window is reszied
 
 $(window).resize(function () {
-    if (document.getElementById('flow-tabs').offsetHeight > 100) {
-        for (i = 0; i < handsontable_flows.length; i++) {
-            handsontable_flows[i].updateSettings({
-                height: document.getElementById('df').offsetHeight - 168,
-            })
-        }
-    }
-    else if (document.getElementById('flow-tabs').offsetHeight > 40) {
-        for (i = 0; i < handsontable_flows.length; i++) {
-            handsontable_flows[i].updateSettings({
-                height: document.getElementById('df').offsetHeight - 131,
-            })
-        }
-    }
-    else {
-        for (i = 0; i < handsontable_flows.length; i++) {
-            handsontable_flows[i].updateSettings({
-                height: document.getElementById('df').offsetHeight - 94,
-            })
-        }
-    }
-
+    
+    resizeFlowHeight()
     for (i = 0; i < bold_RC.length; i++) {
 
         for (x = 0; x < bold_RC[i].length; x++) {
