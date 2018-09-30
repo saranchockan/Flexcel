@@ -436,6 +436,8 @@ Mousetrap.bind(['command+t', 'ctrl+t'], function () {
     document.getElementsByClassName('vex-auto')[1].style.width = '95%'
 
 
+
+
 }, 'keyup')
 
 
@@ -458,13 +460,26 @@ Mousetrap.bind(['command+g', 'ctrl+g'], function () {
 
         }
     })
+
+    
+    
     $('.autocomplete_list').css({
-        "overflow-y": "scroll", "height": "500px", "width": "98%"
+        "overflow-y": "scroll", "height": (win_height*0.9) + "px", "width": "98%", "top":"50%"
     })
 
+
+
     $('.vex-content').css({
-        "overflow-y": "hidden"
+        "overflow-y": "hidden",
+        "display": "inline-block",
+        "position" : "fixed",
+        "top": "0",
+        "bottom": "0",
+        "left": "0",
+        "right": "0"
     })
+
+
 
     $('.vex-overlay').css({
         "overflow-y": "hidden"
@@ -1230,13 +1245,13 @@ function switchFlow() {
 function loadFlow() {
     if (dataSuccess && loadedData['flow_type'] == flow_type) {
 
-        
+
         $('#body').append('<div class="loader" id="pre-loader"></div>')
         document.getElementById('flow-navbar').style.visibility = 'hidden'
         document.getElementById('flows').style.visibility = 'hidden'
         document.getElementById('sd').style.visibility = 'hidden'
         document.getElementById('sd').style.visibility = 'hidden'
-        
+
 
         if (flow_type == 'LD Plan Flow' || flow_type == 'Policy Flow') {
 
@@ -1386,7 +1401,7 @@ function addLoadedTabs(callback) {
 
 function loadData() {
 
-    
+
     for (i = 0; i < handsontable_flows.length; i++) {
         dataLoaded = true
         handsontable_flows[i].updateSettings({
@@ -1712,7 +1727,7 @@ $(function () {
 // Function executed everytime window is reszied
 
 $(window).resize(function () {
-    
+
     resizeFlowHeight()
     for (i = 0; i < bold_RC.length; i++) {
 
