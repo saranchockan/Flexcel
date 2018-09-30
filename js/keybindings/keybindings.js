@@ -15,6 +15,12 @@ var index = 0
 var mouseClicked = true
 var tabDeleted = false
 
+// Variables used for configuring flow height
+
+var tab_height = 0
+var flow_height = 0
+var height_change = false
+
 // Variables used to implement constraints on add deletion
 var advNum;
 if (flow_type == 'LD Plan Flow') {
@@ -678,7 +684,6 @@ function previousTab() {
 }
 
 function addAdvTab(callback) {
-    console.time("addAdvTab")
 
     /* Element we are inserting the Adv after */
 
@@ -691,15 +696,20 @@ function addAdvTab(callback) {
     var con_id = 'Adv-' + advNum + '-tab'
     var con = document.getElementById(con_id)
 
-    var cols;
-    var minCol;
+    var cols
+    var minCol
+    var widthoffSet
+
     if (flow_type == 'LD Plan Flow') {
         cols = ['AC', '1NR', '1AR', '2NR', '2AR']
         minCol = 5
+        widthoffSet = 0.19487179487179487
+
     }
     else {
         cols = ['1AC', '1NC', '2AC', '2NC/1NR', '1AR', '2NR', '2AR']
         minCol = 7
+        widthoffSet = 0.19487179487179487
     }
 
     Handsontable.renderers.registerRenderer('ac_flowRenderer', ac_flowRenderer);
@@ -728,57 +738,50 @@ function addAdvTab(callback) {
     }))
 
 
-    setTimeout(() => {
-        resizeFlowHeight()
-        for (i = 0; i < handsontable_flows.length; i++) {
-            if (handsontable_flows[i].countCols() == 4) {
-                widthoffSet = 0.24615384615384617
+    var df_w = document.getElementById('df').offsetWidth
+    resizeFlowHeight()
+
+    handsontable_flows[index + 1].updateSettings({
+        height: flow_height,
+        width: df_w - 16,
+        colWidths: (df_w - 16) * widthoffSet,
+        afterChange(changes) {
+
+            var auto_used = false;
+
+            if (!dataLoaded) {
+                for (i = 0; i < bold_cell_tD.length; i++) {
+                    bold_cell_tD[i].style.fontWeight = 'bold'
+                }
+
+                data['flow-data'][index] = handsontable_flows[index].getData()
+
+                /* Autocomplete Feature */
+                changes.forEach(([row, prop, oldValue, newValue]) => {
+
+                    var textLine = newValue.split(" ")
+
+                    for (i = 0; i < textLine.length; i++) {
+                        if (typeof autocomplete[textLine[i]] != 'undefined') {
+                            var nV = autocomplete[textLine[i]]
+                            textLine[i] = nV
+                            auto_used = true;
+                        }
+                    }
+
+                    if (auto_used) {
+                        textLine = textLine.join(" ")
+                        handsontable_flows[index].setDataAtCell(row, prop, textLine)
+                    }
+
+                });
             }
             else {
-                widthoffSet = 0.19487179487179487
+                dataLoaded = false
             }
-            handsontable_flows[i].updateSettings({
-                width: document.getElementById('df').offsetWidth - 16,
-                colWidths: (document.getElementById('df').offsetWidth - 16) * widthoffSet,
-                afterChange(changes) {
 
-                    var auto_used = false;
-
-                    if (!dataLoaded) {
-                        for (i = 0; i < bold_cell_tD.length; i++) {
-                            bold_cell_tD[i].style.fontWeight = 'bold'
-                        }
-
-                        data['flow-data'][index] = handsontable_flows[index].getData()
-
-                        /* Autocomplete Feature */
-                        changes.forEach(([row, prop, oldValue, newValue]) => {
-
-                            var textLine = newValue.split(" ")
-
-                            for (i = 0; i < textLine.length; i++) {
-                                if (typeof autocomplete[textLine[i]] != 'undefined') {
-                                    var nV = autocomplete[textLine[i]]
-                                    textLine[i] = nV
-                                    auto_used = true;
-                                }
-                            }
-
-                            if (auto_used) {
-                                textLine = textLine.join(" ")
-                                handsontable_flows[index].setDataAtCell(row, prop, textLine)
-                            }
-
-                        });
-                    }
-                    else {
-                        dataLoaded = false
-                    }
-
-                }
-            });
         }
-    }, 10);
+    });
 
 
     selectCell_rc.splice(index + 1, 0, [0, 0])
@@ -811,7 +814,7 @@ function addAdvTab(callback) {
                 }
             }
 
-        } 
+        }
     })
 
     $('#Adv' + advNum).on('click', function (e) {
@@ -900,8 +903,6 @@ function addAdvTab(callback) {
 
     nextTab()
     callback()
-    console.timeEnd("addAdvTab")
-
 
 }
 
@@ -920,15 +921,21 @@ function addOffTab(callback) {
     var con_id = 'Off-' + offNum + '-tab'
     var con = document.getElementById(con_id)
 
-    var cols;
-    var minCol;
+    var cols
+    var minCol
+    var widthoffSet
+
     if (flow_type == 'LD Plan Flow') {
         cols = ['1NC', '1AR', '2NR', '2AR']
         minCol = 4
+        widthoffSet = 0.24615384615384617
+
     }
     else {
         cols = ['1AC', '1NC', '2AC', '2NC/1NR', '1AR', '2NR', '2AR']
         minCol = 7
+        widthoffSet = 0.19487179487179487
+
     }
     Handsontable.renderers.registerRenderer('nc_flowRenderer', nc_flowRenderer);
 
@@ -956,56 +963,50 @@ function addOffTab(callback) {
             return cellProperties;
         }
     }))
-    setTimeout(() => {
-        resizeFlowHeight()
-        for (i = 0; i < handsontable_flows.length; i++) {
-            if (handsontable_flows[i].countCols() == 4) {
-                widthoffSet = 0.24615384615384617
+
+    resizeFlowHeight()
+    var df_w = document.getElementById('df').offsetWidth 
+
+    handsontable_flows[index + 1].updateSettings({
+        height:flow_height,
+        width: df_w - 16,
+        colWidths: (df_w - 16) * widthoffSet,
+        afterChange(changes) {
+
+            var auto_used = false;
+            if (!dataLoaded) {
+
+                for (i = 0; i < bold_cell_tD.length; i++) {
+                    bold_cell_tD[i].style.fontWeight = 'bold'
+                }
+                data['flow-data'][index] = handsontable_flows[index].getData()
+
+                /* Autocomplete Feature */
+                changes.forEach(([row, prop, oldValue, newValue]) => {
+
+                    var textLine = newValue.split(" ")
+
+                    for (i = 0; i < textLine.length; i++) {
+                        if (typeof autocomplete[textLine[i]] != 'undefined') {
+                            var nV = autocomplete[textLine[i]]
+                            textLine[i] = nV
+                            auto_used = true;
+                        }
+                    }
+
+                    if (auto_used) {
+                        textLine = textLine.join(" ")
+                        handsontable_flows[index].setDataAtCell(row, prop, textLine)
+                    }
+
+                });
             }
             else {
-                widthoffSet = 0.19487179487179487
+                dataLoaded = false
             }
-            handsontable_flows[i].updateSettings({
-                width: document.getElementById('df').offsetWidth - 16,
-                colWidths: (document.getElementById('df').offsetWidth - 16) * widthoffSet,
-                afterChange(changes) {
 
-                    var auto_used = false;
-                    if (!dataLoaded) {
-
-                        for (i = 0; i < bold_cell_tD.length; i++) {
-                            bold_cell_tD[i].style.fontWeight = 'bold'
-                        }
-                        data['flow-data'][index] = handsontable_flows[index].getData()
-
-                        /* Autocomplete Feature */
-                        changes.forEach(([row, prop, oldValue, newValue]) => {
-
-                            var textLine = newValue.split(" ")
-
-                            for (i = 0; i < textLine.length; i++) {
-                                if (typeof autocomplete[textLine[i]] != 'undefined') {
-                                    var nV = autocomplete[textLine[i]]
-                                    textLine[i] = nV
-                                    auto_used = true;
-                                }
-                            }
-
-                            if (auto_used) {
-                                textLine = textLine.join(" ")
-                                handsontable_flows[index].setDataAtCell(row, prop, textLine)
-                            }
-
-                        });
-                    }
-                    else {
-                        dataLoaded = false
-                    }
-
-                }
-            });
         }
-    }, 10);
+    });
 
 
     selectCell_rc.splice(index + 1, 0, [0, 0])
@@ -1272,48 +1273,78 @@ function loadFlow() {
 
 }
 
-/* Resizes the flow based on the number of tabs */
 
-function resizeFlowHeight() {
-    if (document.getElementById('flow-tabs').offsetHeight > 100) {
-        for (i = 0; i < handsontable_flows.length; i++) {
+function configureFlowHeight() {
+
+    var ft_height = document.getElementById('flow-tabs').offsetHeight
+    var df_height = document.getElementById('df').offsetHeight
+
+    var l = handsontable_flows.length
+
+    if (ft_height > 100) {
+        for (i = 0; i < l; i++) {
             handsontable_flows[i].updateSettings({
-                height: document.getElementById('df').offsetHeight - 168,
+                height: df_height - 168,
             })
         }
     }
-    else if (document.getElementById('flow-tabs').offsetHeight > 40) {
-        for (i = 0; i < handsontable_flows.length; i++) {
+    else if (ft_height > 40) {
+        for (i = 0; i < l; i++) {
             handsontable_flows[i].updateSettings({
-                height: document.getElementById('df').offsetHeight - 131,
+                height: df_height - 131,
             })
         }
     }
     else {
-        for (i = 0; i < handsontable_flows.length; i++) {
+        for (i = 0; i < l; i++) {
             handsontable_flows[i].updateSettings({
-                height: document.getElementById('df').offsetHeight - 94,
+                height: df_heightt - 94,
             })
         }
     }
+}
 
-    for (i = 0; i < bold_RC.length; i++) {
+/* Resizes the flow based on the number of tabs */
 
-        for (x = 0; x < bold_RC[i].length; x++) {
-            var a = bold_RC[i][x]
-            var r = a[0]
-            var c = a[1]
+function resizeFlowHeight() {
 
-            if (typeof r != 'undefined' && typeof c != 'undefined') {
+    var ft_height = document.getElementById('flow-tabs').offsetHeight
+    var df_height = document.getElementById('df').offsetHeight
 
-                if (typeof handsontable_flows[i].getCell(r, c) != 'undefined') {
-                    handsontable_flows[i].getCell(r, c).style.fontWeight = 'bold'
-                    bold_cell_tD.push(handsontable_flows[i].getCell(r, c))
+    var l = handsontable_flows.length
 
-                }
-            }
-        }
+    if (tab_height == ft_height) {
+
     }
+    else if (ft_height > 100) {
+        for (i = 0; i < l; i++) {
+            handsontable_flows[i].updateSettings({
+                height: df_height - 168,
+            })
+        }
+        tab_height = ft_height
+        flow_height = df_height - 168
+    }
+    else if (ft_height > 40) {
+        for (i = 0; i < l; i++) {
+            handsontable_flows[i].updateSettings({
+                height: df_height - 131,
+            })
+        }
+        tab_height = ft_height
+        flow_height = df_height - 131
+    }
+    else {
+        for (i = 0; i < l; i++) {
+            handsontable_flows[i].updateSettings({
+                height: df_heightt - 94,
+            })
+        }
+        tab_height = ft_height
+        flow_height = df_heightt - 94
+    }
+
+
 }
 
 
@@ -1624,14 +1655,14 @@ $(function () {
                     });
 
                     var m = document.getElementById('pills-tab').offsetHeight
-                    
-                    
-                    if(m == 120){
+
+
+                    if (m == 120) {
                         $('#pills-tabContent').css({
                             "height": "84%"
                         })
                     }
-                    
+
                     if (m == 80) {
                         $('#pills-tabContent').css({
                             "height": "89%"
@@ -1667,14 +1698,14 @@ $(function () {
                     });
 
                     var m = document.getElementById('pills-tab').offsetHeight
-                    
-                    
-                    if(m == 120){
+
+
+                    if (m == 120) {
                         $('#pills-tabContent').css({
                             "height": "84%"
                         })
                     }
-                    
+
                     if (m == 80) {
                         $('#pills-tabContent').css({
                             "height": "89%"
