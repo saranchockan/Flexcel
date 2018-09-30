@@ -811,32 +811,7 @@ function addAdvTab(callback) {
                 }
             }
 
-        } if (!mouseClicked) {
-            switchFlow();
-        }
-        mouseClicked = true;
-        index = $(this).index();
-
-        var rc = selectCell_rc[index];
-        var r = rc[0]
-        var c = rc[1]
-        handsontable_flows[index].selectCell(r, c);
-
-        for (x = 0; x < bold_RC[index].length; x++) {
-            var a = bold_RC[index][x]
-            var r = a[0]
-            var c = a[1]
-
-            if (typeof r != 'undefined' && typeof c != 'undefined') {
-
-                if (typeof handsontable_flows[index].getCell(r, c) != 'undefined') {
-                    handsontable_flows[index].getCell(r, c).style.fontWeight = 'bold'
-                    bold_cell_tD.push(handsontable_flows[index].getCell(r, c))
-
-                }
-            }
-
-        }
+        } 
     })
 
     $('#Adv' + advNum).on('click', function (e) {
