@@ -110,13 +110,6 @@ app.on('ready', () => {
       label: 'View',
       submenu: [
         {
-          label: 'Reload',
-          accelerator: 'CmdOrCtrl+R',
-          click(item, focusedWindow) {
-            if (focusedWindow) focusedWindow.reload()
-          }
-        },
-        {
           type: 'separator'
         },
         {
