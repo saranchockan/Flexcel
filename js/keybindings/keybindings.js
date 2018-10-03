@@ -132,8 +132,9 @@ var fontColor = {
 }
 
 
-if (store.has('autocomplete') == false) {
+if (store.has('autocomplete') == false || store.has('flexcel3.0') == false) {
     store.set('autocomplete', autocomplete)
+    store.set('flexcel3.0',{})
 }
 else {
     autocomplete = store.get('autocomplete')

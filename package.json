@@ -47,6 +47,23 @@
   },
   "build": {
     "appId": "com.SAC.Flexcel",
+    "mac": {
+      "category": "public.app-category.utilities",
+      "target": [
+        "pkg",
+        "dmg",
+        "zip",
+        "mas"
+      ],
+      "entitlements": "build/entitlements.mac.plist",
+      "type": "development",
+      "icon": "build/apple-touch-icon-128x128.icns"
+    },
+    "mas": {
+      "entitlements": "build/entitlements.mas.plist",
+      "type": "development",
+      "category": "public.app-category.utilities"
+    },
     "win": {
       "target": "NSIS",
       "icon": "build/icon.ico"
