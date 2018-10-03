@@ -406,7 +406,14 @@ Mousetrap.bind(['command+t', 'ctrl+t'], function () {
         ].join(''),
         buttons: [
             $.extend({}, vex.dialog.buttons.YES, { text: 'OK' }),
-            $.extend({}, vex.dialog.buttons.NO, { text: 'CANCEL' })
+            $.extend({}, vex.dialog.buttons.NO, { text: 'CANCEL' }),
+            $.extend({}, vex.dialog.buttons.NO, {
+                text: 'Reset', click: function ($vexContent, event) {
+                    resetAutoDefault()
+                    console.log('fuck')
+                }
+            })
+
         ],
         callback: function (data) {
             if (!data) {
@@ -464,10 +471,10 @@ Mousetrap.bind(['command+g', 'ctrl+g'], function () {
         }
     })
 
-    
-    
+
+
     $('.autocomplete_list').css({
-        "overflow-y": "scroll", "height": (win_height*0.9) + "px", "width": "98%", "top":"50%"
+        "overflow-y": "scroll", "height": (win_height * 0.9) + "px", "width": "98%", "top": "50%"
     })
 
 
@@ -475,7 +482,7 @@ Mousetrap.bind(['command+g', 'ctrl+g'], function () {
     $('.vex-content').css({
         "overflow-y": "hidden",
         "display": "inline-block",
-        "position" : "fixed",
+        "position": "fixed",
         "top": "0",
         "bottom": "0",
         "left": "0",
@@ -497,14 +504,13 @@ Mousetrap.bind(['command+g', 'ctrl+g'], function () {
         $('#' + j).remove()
         delete autocomplete[j]
         store.set('autocomplete', autocomplete)
-        
+
     })
 
 }, 'keyup')
 
 
-
-Mousetrap.bind(['command+u', 'ctrl+u'], function () {
+function resetAutoDefault() {
     autocomplete = {
         'c1': 'Contention 1',
         'c2': 'Contention 2',
@@ -538,12 +544,13 @@ Mousetrap.bind(['command+u', 'ctrl+u'], function () {
         'st': 'standard is',
         'im': 'Impact',
         'vm': 'value: morality',
-        'sv': 'standard is mitigating structural violence',
-        'msw': 'standard is maximizing societal welfare',
-        'mew': 'standard is maximizing expected wellbeing',
+        'st':'standard is',
+        'sv': 'mitigating structural violence',
+        'msw': 'maximizing societal welfare',
+        'mew': 'maximizing expected wellbeing',
         'ut': 'maximizing utility',
-        'comm': 'standard is consistency with communal obligations',
-        'rl': 'standard is respecting liberty',
+        'comm': 'consistency with communal obligations',
+        'rl': 'respecting liberty',
         'goo': 'Goodin 95',
         'k83': 'Korsgaard 83',
         'k93': 'Korsgaard 93',
@@ -560,10 +567,8 @@ Mousetrap.bind(['command+u', 'ctrl+u'], function () {
     }
     store.set('autocomplete', autocomplete)
     autocomplete = store.get('autocomplete')
+}
 
-    
-
-}, 'keyup')
 
 function generateAutoList() {
     for (key in autocomplete) {
