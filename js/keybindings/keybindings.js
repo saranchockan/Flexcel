@@ -83,6 +83,7 @@ var autocomplete = {
     'o7': 'Off 7',
     'o8': 'Off 8',
     'o9': 'Off 9',
+    'o10': 'Off 10',
     'obs': 'Observations',
     'Adv1': 'Advantage 1',
     'Adv2': 'Advantage 2',
@@ -90,23 +91,23 @@ var autocomplete = {
     'Adv4': 'Advantage 4',
     'Adv5': 'Advantage 5',
     'Adv6': 'Advantage 6',
-    'o10': 'Off 10',
     'fw': 'Framework',
     'def': 'Definitions',
+    'st': 'standard is',
     'im': 'Impact',
     'vm': 'value: morality',
-    'stsv': 'standard is mitigating structural violence',
-    'stmsw': 'standard is maximizing societal welfare',
-    'stmew': 'standard is maximizing expected wellbeing',
-    'stut': 'maximizing utility',
-    'stcomm': 'standard is consistency with communal obligations',
-    'strl': 'standard is respecting liberty',
+    'sv': 'standard is mitigating structural violence',
+    'msw': 'standard is maximizing societal welfare',
+    'mew': 'standard is maximizing expected wellbeing',
+    'ut': 'maximizing utility',
+    'comm': 'standard is consistency with communal obligations',
+    'rl': 'standard is respecting liberty',
     'goo': 'Goodin 95',
     'k83': 'Korsgaard 83',
     'k93': 'Korsgaard 93',
     'b02': 'Bostrom 02',
     'b11': 'Bostrom 11',
-    'win': 'Winter and Leighton 99',
+    'win99': 'Winter and Leighton 99',
     'int': 'Interp -',
     'vio': 'Violation -',
     'sta': 'Standards',
@@ -449,7 +450,9 @@ Mousetrap.bind(['command+g', 'ctrl+g'], function () {
     vex.dialog.open({
         message: 'Enter the autocomplete key and value.',
         input: autocomplete_list.join(''),
-        buttons: [],
+        buttons: [
+
+        ],
         callback: function (data) {
             if (!data) {
                 console.log('Cancelled')
@@ -494,7 +497,71 @@ Mousetrap.bind(['command+g', 'ctrl+g'], function () {
         $('#' + j).remove()
         delete autocomplete[j]
         store.set('autocomplete', autocomplete)
+        
     })
+
+}, 'keyup')
+
+
+
+Mousetrap.bind(['command+u', 'ctrl+u'], function () {
+    autocomplete = {
+        'c1': 'Contention 1',
+        'c2': 'Contention 2',
+        'c3': 'Contention 3',
+        'c4': 'Contention 4',
+        'c5': 'Contention 5',
+        'c6': 'Contention 6',
+        'c7': 'Contention 7',
+        'c8': 'Contention 8',
+        'c9': 'Contention 9',
+        'c10': 'Contention 10',
+        'o1': 'Off 1',
+        'o2': 'Off 2',
+        'o3': 'Off 3',
+        'o4': 'Off 4',
+        'o5': 'Off 5',
+        'o6': 'Off 6',
+        'o7': 'Off 7',
+        'o8': 'Off 8',
+        'o9': 'Off 9',
+        'o10': 'Off 10',
+        'obs': 'Observations',
+        'Adv1': 'Advantage 1',
+        'Adv2': 'Advantage 2',
+        'Adv3': 'Advantage 3',
+        'Adv4': 'Advantage 4',
+        'Adv5': 'Advantage 5',
+        'Adv6': 'Advantage 6',
+        'fw': 'Framework',
+        'def': 'Definitions',
+        'st': 'standard is',
+        'im': 'Impact',
+        'vm': 'value: morality',
+        'sv': 'standard is mitigating structural violence',
+        'msw': 'standard is maximizing societal welfare',
+        'mew': 'standard is maximizing expected wellbeing',
+        'ut': 'maximizing utility',
+        'comm': 'standard is consistency with communal obligations',
+        'rl': 'standard is respecting liberty',
+        'goo': 'Goodin 95',
+        'k83': 'Korsgaard 83',
+        'k93': 'Korsgaard 93',
+        'b02': 'Bostrom 02',
+        'b11': 'Bostrom 11',
+        'win99': 'Winter and Leighton 99',
+        'int': 'Interp -',
+        'vio': 'Violation -',
+        'sta': 'Standards',
+        'vot': 'Voters',
+        'ecd': 'Econ Da',
+        'cpk': 'Cap K',
+        'ak': 'Afropess K'
+    }
+    store.set('autocomplete', autocomplete)
+    autocomplete = store.get('autocomplete')
+
+    
 
 }, 'keyup')
 
