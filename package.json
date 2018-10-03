@@ -46,44 +46,31 @@
   },
   "build": {
     "appId": "com.SAC.Flexcel",
-    "mac": {
-      "category": "public.app-category.utilities",
-      "target": [
-        "pkg",
-        "dmg",
-        "zip",
-        "mas"
-      ],
-      "entitlements": "build/entitlements.mac.plist",
-      "type": "development",
-      "icon": "build/apple-touch-icon-128x128.icns"
-    },
-    "mas": {
-      "entitlements": "build/entitlements.mas.plist",
-      "type": "development",
-      "category": "public.app-category.utilities"
-    },
-    "files": [
-      "main.js",
-      "node_modules/**/*",
-      "bootstrap/**/*",
-      "css/**/*",
-      "handsontable/**/*",
-      "img/**/*",
-      "js/**/*",
-      "materialize/**/*",
-      "app/**/*",
-      "package.json",
-      "embedded.provisionprofile",
-      "main-menu.html",
-      "traditional-flow.html",
-      "plan-flow.html",
-      "pf-flow.html",
-      "policy-flow-dynamic.html",
-      "jquery/**/*",
-      "popper/**/*",
-      "textboxio-client/**/*",
-      "sortablejs/**/*"
-    ]
-  }
+    "win": {
+      "target": "NSIS",
+      "icon": "build/icon.ico"
+    }
+  },
+  "files": [
+    "main.js",
+    "node_modules/**/*",
+    "bootstrap/**/*",
+    "css/**/*",
+    "handsontable/**/*",
+    "img/**/*",
+    "js/**/*",
+    "materialize/**/*",
+    "app/**/*",
+    "package.json",
+    "embedded.provisionprofile",
+    "main-menu.html",
+    "traditional-flow.html",
+    "plan-flow.html",
+    "pf-flow.html",
+    "policy-flow-dynamic.html",
+    "jquery/**/*",
+    "popper/**/*",
+    "textboxio-client/**/*",
+    "sortablejs/**/*"
+  ]
 }
