@@ -410,7 +410,7 @@ Mousetrap.bind(['command+t', 'ctrl+t'], function () {
             $.extend({}, vex.dialog.buttons.NO, {
                 text: 'Reset', click: function ($vexContent, event) {
                     resetAutoDefault()
-                    console.log('fuck')
+                    this.close()
                 }
             })
 
