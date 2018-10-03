@@ -1485,6 +1485,7 @@ function boldFlow() {
     }
 
     setTimeout(() => {
+        resizeFlowHeight()
         switchFlow()
         nextTab()
         previousTab()
