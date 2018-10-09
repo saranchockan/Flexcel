@@ -165,13 +165,13 @@ selectAllCells()
 
 Mousetrap.bind(['command+o', 'ctrl+o'], function () {
     previousTab()
-}, 'keyup');
+}, 'keyup')
 
 /* Adds keybindg to switch to the next tab */
 
 Mousetrap.bind(['command+p', 'ctrl+p'], function () {
     nextTab()
-}, 'keyup');
+}, 'keyup')
 
 
 /* Adds keybinding to rename the current tab */
@@ -181,10 +181,10 @@ Mousetrap.bind(['command+r', 'ctrl+r'], function () {
     if (flow_type == 'LD Plan Flow' || flow_type == 'Policy Flow') {
         handsontable_flows[index].deselectCell()
         var i = '#' + tabs_li[index].id
-        $(i).find('input').toggle().val($(this).find('a').html()).focus();
+        $(i).find('input').toggle().val($(this).find('a').html()).focus()
         $(i).find('a').toggleClass('hidden')
     }
-}, 'keyup');
+}, 'keyup')
 
 
 /* Puts focus on the cell when the tab is selected/clicked */
@@ -194,7 +194,7 @@ $('#flow-navbar a').on('click', function (e) {
     var rc = selectCell_rc[index];
     var r = rc[0]
     var c = rc[1]
-    handsontable_flows[index].selectCell(r, c);
+    handsontable_flows[index].selectCell(r, c)
 
 })
 
@@ -214,15 +214,15 @@ $('#flow-navbar li').on('shown.bs.tab', function (e) {
         care of that.
     */
     if (!mouseClicked) {
-        switchFlow();
+        switchFlow()
     }
     mouseClicked = true;
-    index = $(this).index();
+    index = $(this).index()
 
     var rc = selectCell_rc[index];
     var r = rc[0]
     var c = rc[1]
-    handsontable_flows[index].selectCell(r, c);
+    handsontable_flows[index].selectCell(r, c)
 
     for (x = 0; x < bold_RC[index].length; x++) {
         var a = bold_RC[index][x]
@@ -290,7 +290,7 @@ Mousetrap.bind(['command+y', 'ctrl+y'], function () {
         $(window).resize()
 
     }
-}, 'keyup');
+}, 'keyup')
 
 /* 
     Deletes the current tab. A tab can only be deleted in order of the flow tabs i.e you can only
@@ -316,7 +316,7 @@ Mousetrap.bind(['command+d', 'ctrl+d'], function () {
 
     dialog.showOpenDialog((fileNames) => {
         if (fileNames === undefined) {
-            console.log("No file selected");
+            console.log("No file selected")
             return;
         }
         var fileName = fileNames[0];
@@ -326,11 +326,11 @@ Mousetrap.bind(['command+d', 'ctrl+d'], function () {
 
         fs.readFile(fileName, 'utf-8', (err, data) => {
             if (err) {
-                alert("An error ocurred reading the file :" + err.message);
+                alert("An error ocurred reading the file :" + err.message)
                 return;
             }
             try {
-                loadedData = JSON.parse(data);
+                loadedData = JSON.parse(data)
                 dataSuccess = true
             }
             catch (err) {
@@ -338,8 +338,8 @@ Mousetrap.bind(['command+d', 'ctrl+d'], function () {
             }
             dataLoaded = true
             loadFlow()
-        });
-    });
+        })
+    })
 
 
 
@@ -354,8 +354,8 @@ Mousetrap.bind(['command+s', 'ctrl+s'], function () {
     data['boldElements'] = bold_RC
     configureTabs()
 
-    var jsonObj = JSON.parse(JSON.stringify(data));
-    var jsonContent = JSON.stringify(jsonObj);
+    var jsonObj = JSON.parse(JSON.stringify(data))
+    var jsonContent = JSON.stringify(jsonObj)
 
     handsontable_flows[index].deselectCell()
     vex.dialog.prompt({
@@ -374,7 +374,7 @@ Mousetrap.bind(['command+s', 'ctrl+s'], function () {
                 }, (filePaths, bookmarks) => {
 
                     if (filePaths[0] === undefined) {
-                        console.log("You didn't save the file");
+                        console.log("You didn't save the file")
                         return;
                     }
                     var fP = filePaths[0] + '/' + fileName
@@ -383,8 +383,8 @@ Mousetrap.bind(['command+s', 'ctrl+s'], function () {
                         if (err) {
                             alert("An error ocurred creating the file " + err.message)
                         }
-                        alert("The file has been succesfully saved");
-                    });
+                        alert("The file has been succesfully saved")
+                    })
                 })
             }
         }
@@ -714,8 +714,8 @@ function nextTab() {
         var id = tabs[index].id;
         var reference = '#' + id;
         $(document).ready(function () {
-            $(reference).click();
-        });
+            $(reference).click()
+        })
     }
 
     else {
@@ -723,8 +723,8 @@ function nextTab() {
         var id = tabs[index].id;
         var reference = '#' + id;
         $(document).ready(function () {
-            $(reference).click();
-        });
+            $(reference).click()
+        })
 
     }
 
@@ -752,16 +752,16 @@ function previousTab() {
         var id = tabs[index].id;
         var reference = '#' + id;
         $(document).ready(function () {
-            $(reference).click();
-        });
+            $(reference).click()
+        })
     }
     else {
         index = tabs.length - 1;
         var id = tabs[index].id;
         var reference = '#' + id;
         $(document).ready(function () {
-            $(reference).click();
-        });
+            $(reference).click()
+        })
 
 
     }
@@ -796,7 +796,7 @@ function addAdvTab(callback) {
         widthoffSet = 0.19487179487179487
     }
 
-    Handsontable.renderers.registerRenderer('ac_flowRenderer', ac_flowRenderer);
+    Handsontable.renderers.registerRenderer('ac_flowRenderer', ac_flowRenderer)
 
     handsontable_flows.splice(index + 1, 0, new Handsontable(con, {
         colHeaders: cols,
@@ -813,7 +813,7 @@ function addAdvTab(callback) {
         minSpareRows: true,
         cells: function (row, col) {
             var cellProperties = {};
-            var data = this.instance.getData();
+            var data = this.instance.getData()
 
             cellProperties.renderer = 'ac_flowRenderer'; // uses lookup map
 
@@ -858,14 +858,14 @@ function addAdvTab(callback) {
                         handsontable_flows[index].setDataAtCell(row, prop, textLine)
                     }
 
-                });
+                })
             }
             else {
                 dataLoaded = false
             }
 
         }
-    });
+    })
 
 
     selectCell_rc.splice(index + 1, 0, [0, 0])
@@ -874,15 +874,15 @@ function addAdvTab(callback) {
     $('#Adv' + advNum + '-li').on('shown.bs.tab', function (e) {
 
         if (!mouseClicked) {
-            switchFlow();
+            switchFlow()
         }
         mouseClicked = true;
-        index = $(this).index();
+        index = $(this).index()
 
         var rc = selectCell_rc[index];
         var r = rc[0]
         var c = rc[1]
-        handsontable_flows[index].selectCell(r, c);
+        handsontable_flows[index].selectCell(r, c)
 
         for (x = 0; x < bold_RC[index].length; x++) {
             var a = bold_RC[index][x]
@@ -906,7 +906,7 @@ function addAdvTab(callback) {
         var rc = selectCell_rc[index];
         var r = rc[0]
         var c = rc[1]
-        handsontable_flows[index].selectCell(r, c);
+        handsontable_flows[index].selectCell(r, c)
 
     })
 
@@ -914,17 +914,17 @@ function addAdvTab(callback) {
 
     $('#Adv' + advNum + '-li').on('dblclick', function () {
         handsontable_flows[index].deselectCell()
-        $(this).find('input').toggle().val($(this).find('a').html()).focus();
+        $(this).find('input').toggle().val($(this).find('a').html()).focus()
         $(this).find('a').toggleClass('hidden')
-    });
+    })
 
     /* Events on Input */
 
     $('#Adv' + advNum + '-li').on('keydown blur dblclick', 'input', function (e) {
         if (e.type == "keydown") {
             if (e.which == 13) {
-                $(this).toggle();
-                $(this).siblings('a').toggle().html($(this).val());
+                $(this).toggle()
+                $(this).siblings('a').toggle().html($(this).val())
                 var f = $(this).parent('.nav-item')[0].id
                 $('#' + f).find('a').removeClass('hidden')
 
@@ -934,19 +934,19 @@ function addAdvTab(callback) {
                 var id = tabs[index].id;
                 var reference = '#' + id;
                 $(document).ready(function () {
-                    $(reference).click();
-                });
+                    $(reference).click()
+                })
 
 
             }
             if (e.which == 38 || e.which == 40 || e.which == 37 || e.which == 39) {
-                e.stopPropagation();
+                e.stopPropagation()
             }
         }
         else if (e.type == "focusout") {
             if ($(this).css('display') == "inline-block") {
-                $(this).toggle();
-                $(this).siblings('a').toggle().html($(this).val());
+                $(this).toggle()
+                $(this).siblings('a').toggle().html($(this).val())
                 var f = $(this).parent('.nav-item')[0].id
                 $('#' + f).find('a').removeClass('hidden')
                 var id = tabs[index].id;
@@ -957,23 +957,23 @@ function addAdvTab(callback) {
                 })
 
                 $(document).ready(function () {
-                    $(reference).click();
-                });
+                    $(reference).click()
+                })
             }
 
 
         }
         else {
-            e.stopPropagation();
+            e.stopPropagation()
         }
-    });
+    })
 
 
     /* Reconfiguration */
 
-    tabs_li = document.getElementById('flow-navbar').getElementsByClassName('nav-item');
-    tabs = document.getElementById('flow-navbar').getElementsByClassName('nav-link');
-    flows = document.getElementsByClassName('flow');
+    tabs_li = document.getElementById('flow-navbar').getElementsByClassName('nav-item')
+    tabs = document.getElementById('flow-navbar').getElementsByClassName('nav-link')
+    flows = document.getElementsByClassName('flow')
 
 
     data['flow-data'].splice(index + 1, 0, handsontable_flows[index + 1].getData())
@@ -982,8 +982,8 @@ function addAdvTab(callback) {
 
     /* Removes all of Handsontable's licenses */
 
-    var allLiceneses = document.querySelectorAll("#hot-display-license-info");
-    $(allLiceneses).remove();
+    var allLiceneses = document.querySelectorAll("#hot-display-license-info")
+    $(allLiceneses).remove()
 
     nextTab()
     callback()
@@ -1021,7 +1021,7 @@ function addOffTab(callback) {
         widthoffSet = 0.19487179487179487
 
     }
-    Handsontable.renderers.registerRenderer('nc_flowRenderer', nc_flowRenderer);
+    Handsontable.renderers.registerRenderer('nc_flowRenderer', nc_flowRenderer)
 
     handsontable_flows.splice(index + 1, 0, new Handsontable(con, {
         colHeaders: cols,
@@ -1040,7 +1040,7 @@ function addOffTab(callback) {
         minSpareRows: true,
         cells: function (row, col) {
             var cellProperties = {};
-            var data = this.instance.getData();
+            var data = this.instance.getData()
 
             cellProperties.renderer = 'nc_flowRenderer';
 
@@ -1083,14 +1083,14 @@ function addOffTab(callback) {
                         handsontable_flows[index].setDataAtCell(row, prop, textLine)
                     }
 
-                });
+                })
             }
             else {
                 dataLoaded = false
             }
 
         }
-    });
+    })
 
 
     selectCell_rc.splice(index + 1, 0, [0, 0])
@@ -1104,15 +1104,15 @@ function addOffTab(callback) {
     $('#Off' + offNum + '-li').on('shown.bs.tab', function (e) {
 
         if (!mouseClicked) {
-            switchFlow();
+            switchFlow()
         }
         mouseClicked = true;
-        index = $(this).index();
+        index = $(this).index()
 
         var rc = selectCell_rc[index];
         var r = rc[0]
         var c = rc[1]
-        handsontable_flows[index].selectCell(r, c);
+        handsontable_flows[index].selectCell(r, c)
 
         for (x = 0; x < bold_RC[index].length; x++) {
             var a = bold_RC[index][x]
@@ -1136,7 +1136,7 @@ function addOffTab(callback) {
         var rc = selectCell_rc[index];
         var r = rc[0]
         var c = rc[1]
-        handsontable_flows[index].selectCell(r, c);
+        handsontable_flows[index].selectCell(r, c)
 
     })
 
@@ -1144,18 +1144,18 @@ function addOffTab(callback) {
 
     $('#Off' + offNum + '-li').on('dblclick', function () {
         handsontable_flows[index].deselectCell()
-        $(this).find('input').toggle().val($(this).find('a').html()).focus();
+        $(this).find('input').toggle().val($(this).find('a').html()).focus()
         $(this).find('a').toggleClass('hidden')
 
-    });
+    })
 
     /* Events on Input */
 
     $('#Off' + offNum + '-li').on('keydown blur dblclick', 'input', function (e) {
         if (e.type == "keydown") {
             if (e.which == 13) {
-                $(this).toggle();
-                $(this).siblings('a').toggle().html($(this).val());
+                $(this).toggle()
+                $(this).siblings('a').toggle().html($(this).val())
                 var f = $(this).parent('.nav-item')[0].id
                 $('#' + f).find('a').removeClass('hidden')
 
@@ -1165,19 +1165,19 @@ function addOffTab(callback) {
                 var id = tabs[index].id;
                 var reference = '#' + id;
                 $(document).ready(function () {
-                    $(reference).click();
-                });
+                    $(reference).click()
+                })
 
 
             }
             if (e.which == 38 || e.which == 40 || e.which == 37 || e.which == 39) {
-                e.stopPropagation();
+                e.stopPropagation()
             }
         }
         else if (e.type == "focusout") {
             if ($(this).css('display') == "inline-block") {
-                $(this).toggle();
-                $(this).siblings('a').toggle().html($(this).val());
+                $(this).toggle()
+                $(this).siblings('a').toggle().html($(this).val())
                 var f = $(this).parent('.nav-item')[0].id
                 $('#' + f).find('a').removeClass('hidden')
                 var id = tabs[index].id;
@@ -1188,21 +1188,21 @@ function addOffTab(callback) {
                 })
 
                 $(document).ready(function () {
-                    $(reference).click();
-                });
+                    $(reference).click()
+                })
             }
 
 
         }
         else {
-            e.stopPropagation();
+            e.stopPropagation()
         }
-    });
+    })
 
     /* Reconfiguration */
 
-    tabs_li = document.getElementById('flow-navbar').getElementsByClassName('nav-item');
-    tabs = document.getElementById('flow-navbar').getElementsByClassName('nav-link');
+    tabs_li = document.getElementById('flow-navbar').getElementsByClassName('nav-item')
+    tabs = document.getElementById('flow-navbar').getElementsByClassName('nav-link')
     flows = document.getElementsByClassName('flow')
 
 
@@ -1210,8 +1210,8 @@ function addOffTab(callback) {
 
     /* Removes all of Handsontable's licenses */
 
-    var allLiceneses = document.querySelectorAll("#hot-display-license-info");
-    $(allLiceneses).remove();
+    var allLiceneses = document.querySelectorAll("#hot-display-license-info")
+    $(allLiceneses).remove()
 
     nextTab()
     callback()
@@ -1266,8 +1266,8 @@ function deleteTab() {
     selectCell_rc.splice(deleteTab_index, 1)
 
 
-    tabs_li = document.getElementById('flow-navbar').getElementsByClassName('nav-item');
-    tabs = document.getElementById('flow-navbar').getElementsByClassName('nav-link');
+    tabs_li = document.getElementById('flow-navbar').getElementsByClassName('nav-item')
+    tabs = document.getElementById('flow-navbar').getElementsByClassName('nav-link')
     flows = document.getElementsByClassName('flow')
 
     previousTab()
@@ -1303,12 +1303,12 @@ function switchFlow() {
 
 
         if (flows[i].id == id) {
-            flows[i].classList.add('active');
-            flows[i].classList.add('show');
+            flows[i].classList.add('active')
+            flows[i].classList.add('show')
         }
         else {
-            flows[i].classList.remove('show');
-            flows[i].classList.remove('active');
+            flows[i].classList.remove('show')
+            flows[i].classList.remove('active')
         }
 
     }
@@ -1332,7 +1332,7 @@ function loadFlow() {
 
             setTimeout(() => {
                 addLoadedTabs(loadData)
-            }, 5000);
+            }, 5000)
 
         }
         else if (flow_type == 'PF Flow') {
@@ -1356,7 +1356,7 @@ function loadFlow() {
             vex.dialog.alert('Error: Only ' + flow_type + ' can be loaded')
         }
     }
-    console.log("The file content is : " + loadedData);
+    console.log("The file content is : " + loadedData)
     dataSuccess = false
 
 
@@ -1417,7 +1417,7 @@ function selectAllCells() {
         var rc = selectCell_rc[i];
         var r = rc[0]
         var c = rc[1]
-        handsontable_flows[i].selectCell(r, c);
+        handsontable_flows[i].selectCell(r, c)
     }
 }
 
@@ -1429,7 +1429,7 @@ function deleteAllTabs() {
 
         setTimeout(() => {
             deleteTab()
-        }, 100);
+        }, 100)
     }
 
 }
@@ -1484,7 +1484,7 @@ function loadData() {
 
     setTimeout(() => {
         boldFlow()
-    }, 2000);
+    }, 2000)
 
 
 }
@@ -1566,15 +1566,15 @@ function boldFlow() {
         document.getElementById('flow-navbar').style.visibility = 'visible'
         document.getElementById('flows').style.visibility = 'visible'
         document.getElementById('sd').style.visibility = 'visible'
-        tabs_li = document.getElementById('flow-navbar').getElementsByClassName('nav-item');
-        tabs = document.getElementById('flow-navbar').getElementsByClassName('nav-link');
+        tabs_li = document.getElementById('flow-navbar').getElementsByClassName('nav-item')
+        tabs = document.getElementById('flow-navbar').getElementsByClassName('nav-link')
         flows = document.getElementsByClassName('flow')
         dataLoaded = false
-    }, 2000);
+    }, 2000)
 
     setTimeout(() => {
         data = loadedData
-    }, 2000);
+    }, 2000)
 
 }
 
@@ -1677,7 +1677,7 @@ $(function () {
                                 handsontable_flows[index].setDataAtCell(row, prop, textLine)
                             }
 
-                        });
+                        })
                     }
                     else {
 
@@ -1685,25 +1685,25 @@ $(function () {
                     }
 
                 }
-            });
+            })
         }
 
         /* User can rename the tab on dblclick */
 
         $('.tab').on('dblclick', function () {
             handsontable_flows[index].deselectCell()
-            $(this).find('input').toggle().val($(this).find('a').html()).focus();
+            $(this).find('input').toggle().val($(this).find('a').html()).focus()
             $(this).find('a').toggleClass('hidden')
 
-        });
+        })
 
         /* Events on Input */
 
         $('.tab').on('keydown blur dblclick', 'input', function (e) {
             if (e.type == "keydown") {
                 if (e.which == 13) {
-                    $(this).toggle();
-                    $(this).siblings('a').toggle().html($(this).val());
+                    $(this).toggle()
+                    $(this).siblings('a').toggle().html($(this).val())
                     var f = $(this).parent('.nav-item')[0].id
                     $('#' + f).find('a').removeClass('hidden')
 
@@ -1713,8 +1713,8 @@ $(function () {
                     var id = tabs[index].id;
                     var reference = '#' + id;
                     $(document).ready(function () {
-                        $(reference).click();
-                    });
+                        $(reference).click()
+                    })
 
                     var m = document.getElementById('pills-tab').offsetHeight
 
@@ -1739,13 +1739,13 @@ $(function () {
 
                 }
                 if (e.which == 38 || e.which == 40 || e.which == 37 || e.which == 39) {
-                    e.stopPropagation();
+                    e.stopPropagation()
                 }
             }
             else if (e.type == "focusout") {
                 if ($(this).css('display') == "inline-block") {
-                    $(this).toggle();
-                    $(this).siblings('a').toggle().html($(this).val());
+                    $(this).toggle()
+                    $(this).siblings('a').toggle().html($(this).val())
                     var f = $(this).parent('.nav-item')[0].id
                     $('#' + f).find('a').removeClass('hidden')
                     var id = tabs[index].id;
@@ -1756,8 +1756,8 @@ $(function () {
                     })
 
                     $(document).ready(function () {
-                        $(reference).click();
-                    });
+                        $(reference).click()
+                    })
 
                     var m = document.getElementById('pills-tab').offsetHeight
 
@@ -1783,9 +1783,9 @@ $(function () {
 
             }
             else {
-                e.stopPropagation();
+                e.stopPropagation()
             }
-        });
+        })
 
         $('.loader').remove()
         document.getElementById('df').classList.add('elementToFadeInAndOutLeft')
@@ -1794,9 +1794,9 @@ $(function () {
         document.getElementById('sd').style.visibility = 'visible'
         document.getElementById('flows').style.visibility = 'visible'
         $('.ephox-polish-html-switch').remove()
-    }, 1000);
+    }, 1000)
 
-});
+})
 
 // Function executed everytime window is reszied
 
@@ -1831,7 +1831,7 @@ $(window).resize(function () {
         handsontable_flows[i].updateSettings({
             width: document.getElementById('df').offsetWidth - 16,
             colWidths: (document.getElementById('df').offsetWidth - 16) * widthoffSet
-        });
+        })
     }
 
     for (i = 0; i < bold_RC.length; i++) {
@@ -1850,21 +1850,21 @@ $(window).resize(function () {
             }
         }
     }
-});
+})
 
 
 
 // Implements Tab Sorting
 
-var list_tabs = document.getElementById("flow-tabs");
+var list_tabs = document.getElementById("flow-tabs")
 
 if (flow_type == 'LD Plan Flow' || flow_type == 'Policy Flow') {
     new Sortable(list_tabs, {
         onEnd: function (/**Event*/evt) {
 
 
-            tabs_li = document.getElementById('flow-navbar').getElementsByClassName('nav-item');
-            tabs = document.getElementById('flow-navbar').getElementsByClassName('nav-link');
+            tabs_li = document.getElementById('flow-navbar').getElementsByClassName('nav-item')
+            tabs = document.getElementById('flow-navbar').getElementsByClassName('nav-link')
             flows = document.getElementsByClassName('flow')
 
             if (evt.oldIndex < evt.newIndex) {
@@ -1913,7 +1913,7 @@ if (flow_type == 'LD Plan Flow' || flow_type == 'Policy Flow') {
             }
             selectAllCells()
         }
-    });
+    })
 
 }
 
