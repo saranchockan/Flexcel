@@ -1918,6 +1918,20 @@ if (flow_type == 'LD Plan Flow' || flow_type == 'Policy Flow') {
                 }
             }
 
+
+            for (i = 0; i < tabs.length; i++) {
+                if (tabs[i].classList.contains('hidden')) {
+
+                    tabs[i].classList.remove('hidden')
+                    tabs[i].classList.add('active')
+
+                    var f = tabs_li[i].id
+                    $('#' + f).find('a').css({
+                        "display": "block"
+                    })
+                }
+            }
+
             for (i = 0; i < tabs.length; i++) {
                 if (tabs[i].classList.contains('active')) {
                     index = i;
