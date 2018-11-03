@@ -312,9 +312,24 @@ Mousetrap.bind(['command+y', 'ctrl+y'], function () {
 Mousetrap.bind(['command+i', 'ctrl+i'], function () {
 
     if (flow_type == 'LD Plan Flow' || flow_type == 'Policy Flow') {
-        deleteTab()
-        resizeFlowHeight()
-        tD = true
+        handsontable_flows[index].deselectCell()
+
+        vex.dialog.confirm({
+            message: 'Are you sure you want to delete the tab?',
+            
+            callback: function (value) {
+                if (value) {
+                    deleteTab()
+                    resizeFlowHeight()
+                    tD = true
+                } 
+                selectAllCells()
+
+            }
+        })
+
+        $(".vex-dialog-button-primary")[0].focus()
+        
     }
 
 }, 'keyup')
