@@ -130,9 +130,6 @@ app.on('ready', () => {
       role: 'window',
       submenu: [
         {
-          role: 'minimize'
-        },
-        {
           role: 'close'
         }
       ]
