@@ -272,7 +272,7 @@ Mousetrap.bind(['command+m', 'ctrl+m'], function () {
     var rc = handsontable_flows[index].getSelected()
     var r = rc[0]
     var c = rc[1]
-    handsontable_flows[index].alter('insert_row',r,c)
+    handsontable_flows[index].alter('insert_row',r,1)
     handsontable_flows[index].selectCell(r,c)
     data['flow-data'][index] = handsontable_flows[index].getData()
 
