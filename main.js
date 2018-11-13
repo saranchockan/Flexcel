@@ -208,11 +208,6 @@ app.on('ready', () => {
         role: 'close'
       },
       {
-        label: 'Minimize',
-        accelerator: 'CmdOrCtrl+M',
-        role: 'minimize'
-      },
-      {
         label: 'Zoom',
         role: 'zoom'
       },
