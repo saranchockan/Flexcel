@@ -476,6 +476,7 @@ Mousetrap.bind(['command+t', 'ctrl+t'], function () {
 
 }, 'keyup')
 
+/* Generates a modal for the user to see and edit autocomplete list */
 
 Mousetrap.bind(['command+g', 'ctrl+g'], function () {
 
@@ -483,7 +484,7 @@ Mousetrap.bind(['command+g', 'ctrl+g'], function () {
     handsontable_flows[index].deselectCell()
 
     vex.dialog.open({
-        message: 'Enter the autocomplete key and value.',
+      
         input: autocomplete_list.join(''),
         buttons: [
 
@@ -599,6 +600,11 @@ function resetAutoDefault() {
 
 
 function generateAutoList() {
+    autocomplete_list = ['<div class = "autocomplete_list">',
+    '<ul class="list-group">',
+    '</ul>',
+    '</div>'
+]
     for (key in autocomplete) {
         autocomplete_list.splice(autocomplete_list.length - 2, 0, '<li id = "' + key + '" class="list-group-item">' + key + ': ' + autocomplete[key] + '<button type="button" style = "right:20px;float:right" class="auto_delete btn btn-danger"> Delete</button>' + '</li>')
     }
@@ -1518,7 +1524,7 @@ function loadData() {
 
 
 
-/* updates the selectedCells array everytime the user switches tabs */
+/* Updates the selectedCells array everytime the user switches tabs */
 
 function reset_rc() {
 
