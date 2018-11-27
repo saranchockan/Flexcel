@@ -506,8 +506,6 @@ Mousetrap.bind(['command+g', 'ctrl+g'], function () {
         "overflow-y": "scroll", "height": (win_height * 0.9) + "px", "width": "98%", "top": "50%"
     })
 
-
-
     $('.vex-content').css({
         "overflow-y": "hidden",
         "display": "inline-block",
@@ -517,8 +515,6 @@ Mousetrap.bind(['command+g', 'ctrl+g'], function () {
         "left": "0",
         "right": "0"
     })
-
-
 
     $('.vex-overlay').css({
         "overflow-y": "hidden"
@@ -624,10 +620,6 @@ Mousetrap.bind(['command+l', 'ctrl+l'], function () {
     }
 
 }, 'keyup')
-
-
-
-
 
 /* Reconfigure Font Color */
 
@@ -1542,12 +1534,12 @@ function switchToCon() {
     data['firstSpeaker'] = 'Con'
     dataLoaded = true
     handsontable_flows[0].updateSettings({
-        data: [['Con Constructive', 'Pro Rebuttal', 'Con Summary', 'Pro Summary', 'Con Final Focus', 'Pro Final Focus']]
+        data: [['Con Constructive', 'Pro Rebuttal', 'Con Summary', 'Pro Summary', 'Con Final Focus', 'Pro Final Focus','','','','','','']]
     })
 
     dataLoaded = true
     handsontable_flows[1].updateSettings({
-        data: [['Pro Constructive', 'Con Rebuttal', 'Pro Rebuttal', 'Con Summary', 'Pro Summary', 'Con Final Focus']]
+        data: [['Pro Constructive', 'Con Rebuttal', 'Pro Rebuttal', 'Con Summary', 'Pro Summary', 'Con Final Focus','','','','','','']]
     })
 }
 
@@ -1558,14 +1550,14 @@ function switchToPro() {
     data['firstSpeaker'] = 'Pro'
     dataLoaded = true
     handsontable_flows[0].updateSettings({
-        data: [['Pro Constructive', 'Con Rebuttal', 'Pro Summary', 'Con Summary', 'Pro Final Focus', 'Con Final Focus']],
+        data: [['Pro Constructive', 'Con Rebuttal', 'Pro Summary', 'Con Summary', 'Pro Final Focus', 'Con Final Focus','','','','','','']],
     })
 
     dataLoaded = true
     handsontable_flows[1].updateSettings({
         minCol: 7,
-        maxCols: 7,
-        data: [['Con Constructive', 'Pro Rebuttal', 'Con Rebuttal', 'Pro Summary', 'Con Summary', 'Pro Final Focus', 'Con Final Focus']],
+        maxCols: 12,
+        data:  [['Con Constructive', 'Pro Rebuttal', 'Con Rebuttal', 'Pro Summary', 'Con Summary', 'Pro Final Focus', 'Neg Final Focus', '', '', '', '', '']],
     })
 }
 
