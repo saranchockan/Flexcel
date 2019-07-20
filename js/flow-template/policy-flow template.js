@@ -1,4 +1,3 @@
-
 var handsontable_flows = [];
 
 const flow_tabs = document.getElementsByClassName('tab-pane');

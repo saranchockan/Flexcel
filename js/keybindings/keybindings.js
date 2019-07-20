@@ -134,7 +134,7 @@ var fontColor = {
 
 if (store.has('autocomplete') == false || store.has('flexcel3.0') == false) {
     store.set('autocomplete', autocomplete)
-    store.set('flexcel3.0',{})
+    store.set('flexcel3.0', {})
 }
 else {
     autocomplete = store.get('autocomplete')
@@ -272,8 +272,8 @@ Mousetrap.bind(['command+m', 'ctrl+m'], function () {
     var rc = handsontable_flows[index].getSelected()
     var r = rc[0]
     var c = rc[1]
-    handsontable_flows[index].alter('insert_row',r,1)
-    handsontable_flows[index].selectCell(r,c)
+    handsontable_flows[index].alter('insert_row', r, 1)
+    handsontable_flows[index].selectCell(r, c)
     data['flow-data'][index] = handsontable_flows[index].getData()
 
 }, 'keyup')
@@ -316,20 +316,20 @@ Mousetrap.bind(['command+i', 'ctrl+i'], function () {
 
         vex.dialog.confirm({
             message: 'Are you sure you want to delete the tab?',
-            
+
             callback: function (value) {
                 if (value) {
                     deleteTab()
                     resizeFlowHeight()
                     tD = true
-                } 
+                }
                 selectAllCells()
 
             }
         })
 
         $(".vex-dialog-button-primary")[0].focus()
-        
+
     }
 
 }, 'keyup')
@@ -484,9 +484,88 @@ Mousetrap.bind(['command+g', 'ctrl+g'], function () {
     handsontable_flows[index].deselectCell()
 
     vex.dialog.open({
-      
+
         input: autocomplete_list.join(''),
         buttons: [
+
+            $.extend({}, vex.dialog.buttons.YES, {
+                text: 'Save', click: function ($vexContent, event) {
+                    handsontable_flows[index].deselectCell()
+
+                    var jsonObj = JSON.parse(JSON.stringify(autocomplete))
+                    var jsonContent = JSON.stringify(jsonObj)
+
+
+                    vex.dialog.prompt({
+                        message: 'Save As',
+                        placeholder: 'Flexcel Autocomplete',
+                        width: 100,
+                        callback: function (value) {
+
+                            selectAllCells()
+                            if (value != '') {
+                                dialog.showOpenDialog({
+                                    properties: ['openDirectory']
+                                }, (filePaths, bookmarks) => {
+
+                                    if (filePaths[0] === undefined) {
+                                        console.log("You didn't save the file")
+                                        return;
+                                    }
+                                    var fP = filePaths[0] + '/' + value
+
+                                    fs.writeFile(fP + '.json', jsonContent, 'utf8', (err) => {
+                                        if (err) {
+                                            alert("An error ocurred creating the file " + err.message)
+                                        }
+                                        alert("The file has been succesfully saved")
+                                    })
+                                })
+                            }
+                        }
+                    })
+                    document.getElementsByClassName('vex-dialog-prompt-input')[0].style.width = '95%'
+                    this.close()
+                }
+            })
+
+            ,
+            $.extend({}, vex.dialog.buttons.YES, {
+                text: 'Load', click: function ($vexContent, event) {
+                    handsontable_flows[index].deselectCell()
+
+                    dialog.showOpenDialog((fileNames) => {
+                        if (fileNames === undefined) {
+                            console.log("No file selected")
+                            return;
+                        }
+                        var fileName = fileNames[0];
+
+                        x = fileName.split('/')
+                        w = x[x.length - 1].split('.')
+
+                        fs.readFile(fileName, 'utf-8', (err, data) => {
+                            if (err) {
+                                alert("An error ocurred reading the file :" + err.message)
+                                return;
+                            }
+                            try {
+                                var loadedAutocomplete = JSON.parse(data)
+
+                                autocomplete = { ...autocomplete, ...loadedAutocomplete }
+                                store.set('autocomplete', autocomplete)
+
+                            }
+                            catch (err) {
+                                vex.dialog.alert('Error: Only .json files can be loaded')
+                            }
+                        })
+                    })
+
+                }
+            }
+            )
+
 
         ],
         callback: function (data) {
@@ -499,7 +578,11 @@ Mousetrap.bind(['command+g', 'ctrl+g'], function () {
 
         }
     })
+    document.getElementsByClassName('vex-dialog-button-primary')[0].style.width = 2%
 
+    $('.vex-dialog-button-primary').css({
+        'margin-right':'2%',        
+    })
 
 
     $('.autocomplete_list').css({
@@ -569,7 +652,7 @@ function resetAutoDefault() {
         'st': 'standard is',
         'im': 'Impact',
         'vm': 'value: morality',
-        'st':'standard is',
+        'st': 'standard is',
         'sv': 'mitigating structural violence',
         'msw': 'maximizing societal welfare',
         'mew': 'maximizing expected wellbeing',
@@ -597,10 +680,10 @@ function resetAutoDefault() {
 
 function generateAutoList() {
     autocomplete_list = ['<div class = "autocomplete_list">',
-    '<ul class="list-group">',
-    '</ul>',
-    '</div>'
-]
+        '<ul class="list-group">',
+        '</ul>',
+        '</div>'
+    ]
     for (key in autocomplete) {
         autocomplete_list.splice(autocomplete_list.length - 2, 0, '<li id = "' + key + '" class="list-group-item">' + key + ': ' + autocomplete[key] + '<button type="button" style = "right:20px;float:right" class="auto_delete btn btn-danger"> Delete</button>' + '</li>')
     }
@@ -1534,12 +1617,12 @@ function switchToCon() {
     data['firstSpeaker'] = 'Con'
     dataLoaded = true
     handsontable_flows[0].updateSettings({
-        data: [['Con Constructive', 'Pro Rebuttal', 'Con Summary', 'Pro Summary', 'Con Final Focus', 'Pro Final Focus','','','','','','']]
+        data: [['Con Constructive', 'Pro Rebuttal', 'Con Summary', 'Pro Summary', 'Con Final Focus', 'Pro Final Focus', '', '', '', '', '', '']]
     })
 
     dataLoaded = true
     handsontable_flows[1].updateSettings({
-        data: [['Pro Constructive', 'Con Rebuttal', 'Pro Rebuttal', 'Con Summary', 'Pro Summary', 'Con Final Focus','','','','','','']]
+        data: [['Pro Constructive', 'Con Rebuttal', 'Pro Rebuttal', 'Con Summary', 'Pro Summary', 'Con Final Focus', '', '', '', '', '', '']]
     })
 }
 
@@ -1550,14 +1633,14 @@ function switchToPro() {
     data['firstSpeaker'] = 'Pro'
     dataLoaded = true
     handsontable_flows[0].updateSettings({
-        data: [['Pro Constructive', 'Con Rebuttal', 'Pro Summary', 'Con Summary', 'Pro Final Focus', 'Con Final Focus','','','','','','']],
+        data: [['Pro Constructive', 'Con Rebuttal', 'Pro Summary', 'Con Summary', 'Pro Final Focus', 'Con Final Focus', '', '', '', '', '', '']],
     })
 
     dataLoaded = true
     handsontable_flows[1].updateSettings({
         minCol: 7,
         maxCols: 12,
-        data:  [['Con Constructive', 'Pro Rebuttal', 'Con Rebuttal', 'Pro Summary', 'Con Summary', 'Pro Final Focus', 'Neg Final Focus', '', '', '', '', '']],
+        data: [['Con Constructive', 'Pro Rebuttal', 'Con Rebuttal', 'Pro Summary', 'Con Summary', 'Pro Final Focus', 'Neg Final Focus', '', '', '', '', '']],
     })
 }
 
@@ -1959,6 +2042,3 @@ if (flow_type == 'LD Plan Flow' || flow_type == 'Policy Flow') {
 
 var speech_tabs = document.getElementById("pills-tab")
 new Sortable(speech_tabs)
-
-
-

@@ -19,8 +19,8 @@
   "author": "Flexcel",
   "license": "CC0-1.0",
   "devDependencies": {
-    "electron": "^2.0.0",
-    "electron-builder": "^20.28.4",
+    "electron": "^2.0.18",
+    "electron-builder": "^20.38.5",
     "electron-toolkit": "^1.0.24"
   },
   "dependencies": {
