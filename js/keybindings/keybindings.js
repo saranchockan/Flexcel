@@ -131,6 +131,11 @@ var fontColor = {
     'negShadeColor': '#ffffff'
 }
 
+// For users to switch through various default flows
+
+var templates = []
+
+/* Checks and loads user data and perferences */
 
 if (store.has('autocomplete') == false || store.has('flexcel3.0') == false) {
     store.set('autocomplete', autocomplete)
@@ -149,6 +154,13 @@ else {
     negFontColor = o['negFontColor']
     affShadeColor = o['affShadeColor']
     negShadeColor = o['negShadeColor']
+}
+
+if (store.has('templates') == false){
+    store.set('templates',[])
+}
+else{
+    templates = store.get('templates')
 }
 
 /* 
@@ -368,8 +380,6 @@ Mousetrap.bind(['command+d', 'ctrl+d'], function () {
         })
     })
 
-
-
 }, 'keyup')
 
 /* 
@@ -385,10 +395,25 @@ Mousetrap.bind(['command+s', 'ctrl+s'], function () {
     var jsonContent = JSON.stringify(jsonObj)
 
     handsontable_flows[index].deselectCell()
+    
     vex.dialog.prompt({
         message: 'Save As',
         placeholder: 'e.g. 1AC vs SJ Round 5',
         width: 100,
+        buttons: [
+            $.extend({}, vex.dialog.buttons.YES, { text: 'Save as' }),
+            $.extend({}, vex.dialog.buttons.NO, {
+                text: 'Template', click: function ($vexContent, event) {
+                    
+                    var template_name = $('.vex-dialog-prompt-input').val()
+                    templates.push([template_name,data])
+                    store.set('templates', templates)
+                    this.close()
+                }
+            }),
+            $.extend({}, vex.dialog.buttons.NO, { text: 'CANCEL' })
+
+        ],
         callback: function (value) {
             fileName = value
             fileNamed = true
@@ -1350,7 +1375,7 @@ function deleteTab() {
             $(id).remove()
         }
     }
-
+    
     //-- Removes the nav-pill
     var id = '#' + tabs[deleteTab_index].id
     $(id).remove()
