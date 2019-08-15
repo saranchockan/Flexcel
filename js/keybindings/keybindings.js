@@ -406,9 +406,16 @@ Mousetrap.bind(['command+s', 'ctrl+s'], function () {
                 text: 'Template', click: function ($vexContent, event) {
                     
                     var template_name = $('.vex-dialog-prompt-input').val()
-                    templates.push([template_name,data])
-                    store.set('templates', templates)
-                    this.close()
+
+                    if(template_name == ''){
+                        alert("Please name the template before saving it.")
+                    }
+                    else{
+                        templates.push([template_name,data])
+                        store.set('templates', templates)
+                        this.close()
+                    }
+
                 }
             }),
             $.extend({}, vex.dialog.buttons.NO, { text: 'CANCEL' })
