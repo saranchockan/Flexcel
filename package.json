@@ -32,7 +32,7 @@
     "electron-default-menu": "^1.0.1",
     "electron-store": "^2.0.0",
     "eslint": "^4.19.1",
-    "handsontable": "^4.0.0",
+    "handsontable": "^10.0.0",
     "jquery": "^3.3.1",
     "mousetrap": "^1.6.2",
     "popper.js": "^1.14.4",
